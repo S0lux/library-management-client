@@ -27,52 +27,110 @@ public class AuthenticationService: IAuthService
 
     public async Task<AuthUser> LoginAsync(string username, string password, bool remember)
     {
-        var httpClient = _factory.CreateClient("main");
-        
+        // Prepare string content
         var loginData = new
         {
             username = username,
             password = password,
         };
+        
         var json = JsonConvert.SerializeObject(loginData);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
         try
         {
-            var response = await httpClient.PostAsync("/api/login/", content);
+            var httpClient = _factory.CreateClient("main");
+            var response = await httpClient.PostAsync("/api/login", content);
+            response.EnsureSuccessStatusCode();
+
             var body = await response.Content.ReadAsStringAsync();
 
-            CurrentUser = response.StatusCode switch
-            {
-                HttpStatusCode.OK => JsonSerializer.Deserialize<AuthUser>(body)!,
-                HttpStatusCode.BadRequest => throw new Exception("Bad request"),
-                HttpStatusCode.Unauthorized => throw new Exception("Invalid credentials"),
-                _ => throw new Exception(response.StatusCode.ToString())
-            };
-
-            CurrentUser.remember = remember;
+            CurrentUser = JsonSerializer.Deserialize<AuthUser>(body);
+            CurrentUser!.remember = remember;
 
             // Save the received token locally
             const string filePath = "userToken.txt";
             await File.WriteAllTextAsync(filePath, CurrentUser.token);
-            
+
             return CurrentUser;
         }
-        catch (HttpRequestException)
+        catch (HttpRequestException e)
         {
-            throw new Exception("Unable to connect to database");
-
+            switch (e.StatusCode)
+            {
+                case HttpStatusCode.Unauthorized:
+                    throw new Exception("Incorrect username/password");
+                default:
+                    throw new Exception("Unable to connect to server");
+            }
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            throw new Exception("Unhandled error: " + e.Message);
         }
     }
 
 
     public async Task<bool> VerifyTokenAsync()
     {
-        if (!File.Exists("userToken.txt")) return false;
+        // Request to /api/session/verify
+        var response = await GetAsync("/api/session/verify/");
+        
+        if (response.StatusCode == HttpStatusCode.Unauthorized)
+        {
+            return false;
+        }
+        
+        return true;
+    }
+
+    public async Task<HttpResponseMessage> PostAsync(string uri, HttpContent content)
+    {
+        // Check for token saved locally
+        if (!File.Exists("userToken.txt")) return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+        
+        var httpClient = _factory.CreateClient("main");
+        
+        // Set the authorization header
+        var localToken = await File.ReadAllTextAsync("userToken.txt");
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", localToken);
+
+        try
+        {
+            var response = await httpClient.PostAsync(uri, content);
+
+            // To handle redirects
+            // Due to the authorization header being lost on redirection
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                var finalUri = response.RequestMessage!.RequestUri;
+                var res = await httpClient.PostAsync(finalUri, content);
+
+                if (res.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    // Delete userToken.txt
+                    File.Delete("userToken.txt");
+                }
+
+                return res;
+            }
+
+            return response;
+        }
+        catch (HttpRequestException e)
+        {
+            return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+        }
+        catch (Exception)
+        {
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
+    }
+
+    public async Task<HttpResponseMessage> GetAsync(string uri)
+    {
+        // Check for token saved locally
+        if (!File.Exists("userToken.txt")) return new HttpResponseMessage(HttpStatusCode.Unauthorized);
         
         var httpClient = _factory.CreateClient("main");
         
@@ -80,37 +138,35 @@ public class AuthenticationService: IAuthService
         var localToken = await File.ReadAllTextAsync("userToken.txt");
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", localToken);
         
-        // Request to /api/session/verify
-        var response = await httpClient.GetAsync("/api/session/verify/");
-
-        // Request will be redirected
-        // Leading to the loss of Authorization header
-        // This will resend the request to the redirected Uri
-        if (response.StatusCode == HttpStatusCode.Unauthorized)
+        try
         {
-            var finalUri = response.RequestMessage!.RequestUri;
-            var res = await httpClient.GetAsync(finalUri);
+            var response = await httpClient.GetAsync(uri);
 
-            if (res.StatusCode == HttpStatusCode.Unauthorized)
+            // To handle redirects
+            // Due to the authorization header being lost on redirection
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                // Delete userToken.txt
-                File.Delete("userToken.txt");
-                SwitchToLoginScreen();
-                return false;
-            }
-            
-            var body = await res.Content.ReadAsStringAsync();
-            
-            CurrentUser = JsonSerializer.Deserialize<AuthUser>(body);
-            return true;
-        }
-        
-        return false;
-    }
+                var finalUri = response.RequestMessage!.RequestUri;
+                var res = await httpClient.GetAsync(finalUri);
 
-    private void SwitchToLoginScreen()
-    {
-        var currentViewModel = App.AppHost!.Services.GetRequiredService<MainWindowViewModel>();
-        currentViewModel.ContentViewModel = App.AppHost!.Services.GetRequiredService<LoginViewModel>();
+                if (res.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    // Delete userToken.txt
+                    File.Delete("userToken.txt");
+                }
+
+                return res;
+            }
+
+            return response;
+        }
+        catch (HttpRequestException e)
+        {
+            return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+        }
+        catch (Exception)
+        {
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
     }
 }

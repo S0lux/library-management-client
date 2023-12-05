@@ -41,12 +41,12 @@ public partial class App : Application
             })
             .Build();
         
-        await Authenticate();
+        await AuthenticateAsync();
 
         base.OnFrameworkInitializationCompleted();
     }
 
-    private async Task Authenticate()
+    private async Task AuthenticateAsync()
     {
         var authService = AppHost!.Services.GetRequiredService<AuthenticationService>();
         var currentViewModel = AppHost!.Services.GetRequiredService<MainWindowViewModel>();
