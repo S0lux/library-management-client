@@ -70,7 +70,6 @@ public class AuthenticationService: IAuthService
         }
     }
 
-
     public async Task<bool> VerifyTokenAsync()
     {
         // Request to /api/session/verify
