@@ -3,8 +3,80 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
+             xmlns:ic="using:FluentIcons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:DashboardViewModel"
              x:Class="Avalonia_DependencyInjection.Views.DashboardView">
-    Welcome to Avalonia!
+    <SplitView IsPaneOpen="True" DisplayMode="Inline" OpenPaneLength="250" PaneBackground="RoyalBlue">
+        <SplitView.Pane>
+
+
+            <StackPanel Grid.Row="1" Margin="0 0 0 10">
+                <Grid>
+                    <Border BorderThickness="0 0 0 2.5" BorderBrush="White" Opacity=".5"/>
+
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Spacing="10" 
+                                Margin="20 10 0 20" 
+                    >
+                        <Image MaxHeight="35" 
+                               Source="../Assets/school-logo-white.png"
+                               VerticalAlignment="Center"
+                        />
+                        <TextBlock Text="LIBRARY" 
+                                   VerticalAlignment="Center"
+                                   Foreground="White"
+                                   FontWeight="DemiBold"
+                                   FontSize="20"/>
+                    </StackPanel>
+                </Grid>
+                
+                
+                
+
+                <Grid Margin="0 10 0 0">
+                    <TreeView x:Name="TreeViews">
+                        <TreeViewItem Header="Member" Foreground="White"
+                                      Background="Transparent"
+                                      HorizontalAlignment="Stretch"
+                                      FontWeight="DemiBold">
+
+                            <Button Content="Member registration"
+                                    Foreground="White"
+                                    Background="Transparent"
+                                    HorizontalAlignment="Stretch"
+                                    FontWeight="DemiBold"
+                                    Command="{Binding toRegistryViewCommand}">
+                            </Button>
+
+
+                            <Button Content="Member list"
+                                    Foreground="White"
+                                    Background="Transparent"
+                                    HorizontalAlignment="Stretch"
+                                    FontWeight="DemiBold"
+                                    Command="{Binding toMemberListViewCommand}">
+                            </Button>
+                        </TreeViewItem>
+                    </TreeView>
+                </Grid>
+
+
+                <Grid>
+                    <Button Foreground="White"
+                            Background="Transparent"
+                            HorizontalAlignment="Stretch"
+                            Padding="10 10 10 10"
+                            FontWeight="DemiBold"
+                            Command="{Binding CloseWindowCommand}">
+                        Close
+                    </Button>
+                </Grid>
+            </StackPanel>
+
+        </SplitView.Pane>
+
+        <SplitView.Content>
+            <ContentControl Content="{Binding CurrentViewModel}"></ContentControl>
+        </SplitView.Content>
+    </SplitView>
 </UserControl>

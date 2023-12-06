@@ -21,7 +21,11 @@
     </Design.PreviewWith>
 
     <Styles>
-        <Style Selector="TextBox.Username">
+      
+      <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="White"></Setter>
+      </Style>
+      <Style Selector="TextBox.Username">
             <Setter Property="BorderThickness" Value="0 0 0 1" />
             <Setter Property="CornerRadius" Value="0" />
             <Setter Property="Template">

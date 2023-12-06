@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
         xmlns:ic="using:FluentIcons.Avalonia"
-        mc:Ignorable="d" d:DesignWidth="960" d:DesignHeight="600"
+        mc:Ignorable="d" d:DesignWidth="960" d:DesignHeight="600" 
         x:DataType="vm:LoginViewModel"
         x:Class="Avalonia_DependencyInjection.Views.LoginView">
     
@@ -62,7 +62,8 @@
                 <TextBlock Grid.Row="1" FontWeight="Black"
                            Foreground="Gray"
                            FontSize="10"
-                           Margin="0 5 0 0">
+                           Margin="0 5 0 0"
+                           >
                     Please login with the account provided by your administrator
                 </TextBlock>
                 

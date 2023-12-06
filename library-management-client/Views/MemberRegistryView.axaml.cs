@@ -4,11 +4,10 @@ using Avalonia.Markup.Xaml;
 
 namespace Avalonia_DependencyInjection.Views;
 
-public partial class DashboardView : UserControl
+public partial class MemberRegistryView : UserControl
 {
-    public DashboardView()
+    public MemberRegistryView()
     {
         InitializeComponent();
-        
     }
 }
