@@ -13,7 +13,7 @@
         <Expander x:Name="ExpanderMenu" 
                   IsExpanded="False" 
                   HorizontalAlignment="Stretch"
-                  Background="#173795"
+                  Background="#1d43b7"
                   
         >
             <Expander.Header>
