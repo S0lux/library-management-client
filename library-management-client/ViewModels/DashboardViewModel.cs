@@ -12,15 +12,16 @@ namespace Avalonia_DependencyInjection.ViewModels;
 
 public partial class DashboardViewModel : ViewModelBase
 {
-    [ObservableProperty] private ViewModelBase _currentViewModel=new();
+    [ObservableProperty] private ViewModelBase _currentViewModel = new();
+    [ObservableProperty] private SidebarViewModel _sidebarViewModel;
+    [ObservableProperty] private ViewModelBase _activeViewModel;
+    [ObservableProperty] private TitlebarViewModel _titleBarViewModel;
 
-    public DashboardViewModel()
+    public DashboardViewModel(SidebarViewModel sidebarViewModel)
     {
-        
-        
+        SidebarViewModel = sidebarViewModel;
+        TitleBarViewModel = new TitlebarViewModel();
     }
-
-    
 }
 
 

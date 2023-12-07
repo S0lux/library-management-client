@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Avalonia_DependencyInjection.Views.TitlebarView"
+             x:DataType="vm:TitlebarViewModel">
+    
+    <UserControl.Styles>
+        <Style Selector="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        
+        <Style Selector="Button.Close:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Red" />
+        </Style>
+        
+        <Style Selector="Button.WindowAction:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="LightSlateGray" />
+        </Style>
+    </UserControl.Styles>
+    
+    <Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button VerticalAlignment="Top"
+                    Classes="WindowAction" 
+                    HorizontalAlignment="Right" 
+                    Command="{Binding MinimizeApplicationCommand}"
+                    PointerEntered="Minimize_OnPointerEntered"
+                    PointerExited="Minimize_OnPointerExited">
+                <Svg Path="{Binding IconPathMinimize}" Width="18" Height="18"/>
+            </Button>
+            
+            <Button VerticalAlignment="Top"
+                    Classes="WindowAction" 
+                    HorizontalAlignment="Right" 
+                    Command="{Binding MaximizeApplcationCommand}"
+                    PointerEntered="Maximize_OnPointerEntered"
+                    PointerExited="Maximize_OnPointerExited">
+                <Svg Path="{Binding IconPathMaximize}" Width="18" Height="18"/>
+            </Button>
+        
+            <Button VerticalAlignment="Top" 
+                    Classes="Close" 
+                    HorizontalAlignment="Right" 
+                    Command="{Binding CloseApplicationCommand}"
+                    PointerEntered="Close_OnPointerEntered"
+                    PointerExited="Close_OnPointerExited">
+                <Svg Path="{Binding IconPathExit}" Width="18" Height="18"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

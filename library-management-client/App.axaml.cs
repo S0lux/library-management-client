@@ -33,6 +33,9 @@ public partial class App : Application
                 services.AddSingleton<LoginViewModel>();
                 services.AddSingleton<DashboardViewModel>();
                 services.AddSingleton<AuthenticationService>();
+                services.AddSingleton<SidebarViewModel>();
+                services.AddSingleton<MemberRegistryViewModel>();
+                services.AddSingleton<MemberListViewModel>();
 
                 services.AddHttpClient("main", options =>
                 {

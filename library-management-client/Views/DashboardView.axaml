@@ -6,48 +6,19 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:DashboardViewModel"
              x:Class="Avalonia_DependencyInjection.Views.DashboardView">
-    
-    <SplitView IsPaneOpen="True" DisplayMode="Inline" OpenPaneLength="200" PaneBackground="RoyalBlue">
-        <SplitView.Pane>
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
-                <StackPanel Grid.Row="1" Margin="0 0 0 10">
-                    <Grid>
-                        <Border BorderThickness="0 0 0 2" BorderBrush="White"/>
-
-                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Spacing="10" 
-                                    Margin="20 15 0 15">
-                            <Image MaxHeight="35" 
-                                   Source="../Assets/school-logo-white.png"
-                                   VerticalAlignment="Center" />
-                            <TextBlock Text="LIBRARY" 
-                                       VerticalAlignment="Center"
-                                       Foreground="White"
-                                       FontWeight="DemiBold"
-                                       FontSize="20" />
-                        </StackPanel>
-                    </Grid>
-                    
-                    
-                    <StackPanel x:Name="Menu"/>
-
-                    <Grid>
-                        <Button Foreground="White"
-                                Background="Transparent"
-                                HorizontalAlignment="Stretch"
-                                Padding="10 10 10 10"
-                                FontWeight="DemiBold"
-                                Command="{Binding CloseWindowCommand}">
-                            Close
-                        </Button>
-                    </Grid>
-                </StackPanel>
-            </ScrollViewer>
-            
-
-        </SplitView.Pane>
-
-        <SplitView.Content>
-            <ContentControl Content="{Binding CurrentViewModel}"></ContentControl>
-        </SplitView.Content>
-    </SplitView>
+    <Panel Name="RootPanel">
+        <DockPanel>
+            <ContentControl Name="SidebarContentControl" Content="{Binding SidebarViewModel}" DockPanel.Dock="Left" Width="240">
+                <ContentControl.Transitions>
+                    <Transitions>
+                        <DoubleTransition Property="Width" Duration="0:0:0.2" Easing="CubicEaseOut"></DoubleTransition>
+                    </Transitions>
+                </ContentControl.Transitions>
+            </ContentControl>
+            <Border Name="TitleBarContainer" DockPanel.Dock="Top">
+                <ContentControl Content="{Binding TitleBarViewModel}"/>
+            </Border>
+            <ContentControl Content="{Binding ActiveViewModel}" />
+        </DockPanel>
+    </Panel>
 </UserControl>

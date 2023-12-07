@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Avalonia_DependencyInjection.Views.SidebarView"
+             x:DataType="vm:SidebarViewModel">
+    
+    <Grid RowDefinitions="60,Auto,Auto,*,Auto,Auto" Background="RoyalBlue">
+        <Grid Grid.Row="0" IsHitTestVisible="False" ColumnDefinitions="Auto,*">
+            <Image Grid.Column="0" Margin="12" Source="/Assets/school-logo-white.png" RenderOptions.BitmapInterpolationMode="HighQuality" />
+            <TextBlock Grid.Column="1" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="DemiBold">
+                Library
+            </TextBlock>
+        </Grid>
+
+        <!-- Built-in screens -->
+        <TreeView Grid.Row="1"
+                  Margin="10 2"
+                  ItemsSource="{CompiledBinding SidebarScreen.Screens}"
+                  SelectedItem="{CompiledBinding SelectedScreen}"
+                  ItemContainerTheme="{StaticResource MenuTreeViewItem}"
+                  Foreground="White">
+            <TreeView.Styles>
+                <Style Selector="TreeViewItem">
+                    <Setter Property="IsExpanded" Value="{CompiledBinding IsExpanded, Mode=TwoWay, DataType=vm:SidebarScreenViewModel}" />
+                </Style>
+            </TreeView.Styles>
+            <TreeView.ItemTemplate>
+                <TreeDataTemplate ItemsSource="{CompiledBinding Screens}">
+                    <ContentControl Content="{CompiledBinding}" />
+                </TreeDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+    </Grid>
+    
+</UserControl>

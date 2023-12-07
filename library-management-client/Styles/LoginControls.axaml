@@ -23,8 +23,9 @@
     <Styles>
       
       <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Foreground" Value="Black"></Setter>
       </Style>
+      
       <Style Selector="TextBox.Username">
             <Setter Property="BorderThickness" Value="0 0 0 1" />
             <Setter Property="CornerRadius" Value="0" />
