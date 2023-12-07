@@ -78,18 +78,20 @@
                     
                     <!-- Password input -->
                     <TextBox Margin="0 20 0 0"
-                             Classes="Password"
+                             Classes="revealPasswordButton"
                              Watermark="Password"
-                             PasswordChar="*"
+                             PasswordChar="•"
                              Text="{Binding Password}"
                              IsEnabled="{Binding !IsBusy}">
                     </TextBox>
                     
                     <!-- Remember checkbox -->
-                    <CheckBox Margin="0 20 0 0"
+                    <CheckBox Margin="0 15 0 0"
                               Classes="RememberBox"
                               IsChecked="{Binding IsRemember}"
-                              IsEnabled="{Binding !IsBusy}">
+                              IsEnabled="{Binding !IsBusy}"
+                              VerticalContentAlignment="Center"
+                              >
                         Remember me for 3 days
                     </CheckBox>
                     

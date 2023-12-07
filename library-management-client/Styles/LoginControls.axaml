@@ -8,12 +8,14 @@
                      Width="150"
                      Margin="0 20 0 0"
                      Watermark="Username" />
-            <TextBox Classes="Password" 
+            <TextBox Classes="revealPasswordButton" 
                      Width="150"
                      Margin="0 20 0 0"
                      Watermark="Password" />
             <CheckBox Classes="RememberBox"
-                      Margin="0 20 0 0">
+                      IsChecked="True"
+                      Margin="0 20 0 0"
+                      VerticalContentAlignment="Center">
               Remember me for 3 days
             </CheckBox>
           </StackPanel>
@@ -114,7 +116,7 @@
     </Styles>
     
     <Styles>
-        <Style Selector="TextBox.Password">
+        <Style Selector="TextBox.revealPasswordButton">
             <Setter Property="BorderThickness" Value="0 0 0 1" />
             <Setter Property="CornerRadius" Value="0" />
             <Setter Property="Template">
@@ -195,7 +197,7 @@
               </ControlTemplate>
             </Setter>
         </Style>
-        <Style Selector="TextBox.Password:focus /template/ Border#PART_BorderElement">
+        <Style Selector="TextBox.revealPasswordButton:focus /template/ Border#PART_BorderElement">
             <Setter Property="BorderThickness" Value="0 0 0 1" />
             <Setter Property="BorderBrush" Value="RoyalBlue" />
         </Style>
@@ -213,7 +215,7 @@
                       BorderThickness="{TemplateBinding BorderThickness}"
                       CornerRadius="{TemplateBinding CornerRadius}" />
 
-              <Grid VerticalAlignment="Top" Height="32">
+              <Grid VerticalAlignment="Top" Height="32" >
                 <Border x:Name="NormalRectangle"
                         BorderBrush="{DynamicResource CheckBoxCheckBackgroundStrokeUnchecked}"
                         Background="{DynamicResource CheckBoxCheckBackgroundFillUnchecked}"
@@ -236,10 +238,10 @@
                 </Viewbox>
               </Grid>
               <ContentPresenter x:Name="ContentPresenter"
-                                FontSize="11"
+                                FontSize="12"
                               ContentTemplate="{TemplateBinding ContentTemplate}"
                               Content="{TemplateBinding Content}"
-                              Margin="{TemplateBinding Padding}"
+                              Margin="5 0 0 0"
                               RecognizesAccessKey="True"
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
