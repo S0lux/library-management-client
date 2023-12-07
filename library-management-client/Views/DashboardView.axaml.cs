@@ -43,7 +43,7 @@ public partial class DashboardView : UserControl
 
         var item0 = new DropDownMenuViewModel("Dashboard", new UserControl());
 
-        Menu.Children.Add(new DropDownMenuView(item0));
+        Menu.Children.Add(new DropDownMenuView(item0) );
         Menu.Children.Add(new DropDownMenuView(item6));
         Menu.Children.Add(new DropDownMenuView(item1));
         Menu.Children.Add(new DropDownMenuView(item2));

@@ -26,11 +26,9 @@
                                        FontSize="20" />
                         </StackPanel>
                     </Grid>
-                
-                    <ScrollViewer>
-                        <StackPanel x:Name="Menu">
-                        </StackPanel>
-                    </ScrollViewer>
+                    
+                    
+                    <StackPanel x:Name="Menu"/>
 
                     <Grid>
                         <Button Foreground="White"

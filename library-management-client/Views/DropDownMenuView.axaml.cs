@@ -10,7 +10,6 @@ public partial class DropDownMenuView : UserControl
     public DropDownMenuView(DropDownMenuViewModel dropDownMenuViewModel)
     {
         InitializeComponent();
-        
         this.DataContext = dropDownMenuViewModel;
     }
 }

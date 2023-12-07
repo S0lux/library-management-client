@@ -7,15 +7,31 @@
              x:Class="Avalonia_DependencyInjection.Views.DropDownMenuView"
              x:DataType="vm:DropDownMenuViewModel">
     <Grid>
-        <ListBoxItem x:Name="ListViewItemMenu" Content="{Binding Path=Header}" Padding="37 14" FontSize="15" Foreground="White"/>
-        <Expander x:Name="ExpanderMenu" Header="{Binding Header}" IsExpanded="False" Width="210" HorizontalAlignment="Right" Background="{x:Null}" Foreground="White">
-            <ListBox x:Name="ListViewMenu" ItemsSource="{Binding Path=SubItems}" Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <!-- <ListBoxItem x:Name="ListViewItemMenu" Content="{Binding Path=Header}" Padding="37 14" FontSize="15" Foreground="White"/> -->
+
+        <Expander x:Name="ExpanderMenu" 
+                  Header="{Binding Header}" 
+                  IsExpanded="False" 
+                  HorizontalAlignment="Stretch"
+                  Foreground="White"
+                  Background="Transparent"
+        >
+            
+            <ListBox x:Name="ListViewMenu" 
+                     ItemsSource="{Binding Path=SubItems}" 
+                     Foreground="White"
+                     Background="Transparent"
+                     Margin="-15">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Path=Name}" Padding="20 5"/>
-                    </DataTemplate>
+                        <TextBlock HorizontalAlignment="Stretch" 
+                                   Text="{Binding Path=Name}" 
+                                   FontWeight="DemiBold" 
+                                   Padding="10"/>
+                    </DataTemplate> 
                 </ListBox.ItemTemplate>
             </ListBox>
         </Expander>
+
     </Grid>
 </UserControl>
