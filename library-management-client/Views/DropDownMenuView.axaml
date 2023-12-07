@@ -6,28 +6,40 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Avalonia_DependencyInjection.Views.DropDownMenuView"
              x:DataType="vm:DropDownMenuViewModel">
+    
     <Grid>
         <!-- <ListBoxItem x:Name="ListViewItemMenu" Content="{Binding Path=Header}" Padding="37 14" FontSize="15" Foreground="White"/> -->
 
         <Expander x:Name="ExpanderMenu" 
-                  Header="{Binding Header}" 
                   IsExpanded="False" 
                   HorizontalAlignment="Stretch"
-                  Foreground="White"
-                  Background="Transparent"
+                  Background="#173795"
+                  
         >
+            <Expander.Header>
+                <TextBlock 
+                    Margin="-17 -25 -60 -25" 
+                    Text="{Binding Header}"
+                    Background="RoyalBlue"
+                    Foreground="White"
+                    FontWeight="DemiBold"
+                    Padding="10 15 15 15"
+                    />
+            </Expander.Header>
             
             <ListBox x:Name="ListViewMenu" 
                      ItemsSource="{Binding Path=SubItems}" 
                      Foreground="White"
+                     FontWeight="DemiBold" 
                      Background="Transparent"
                      Margin="-15">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock HorizontalAlignment="Stretch" 
                                    Text="{Binding Path=Name}" 
+                                   Padding="10"
                                    FontWeight="DemiBold" 
-                                   Padding="10"/>
+                                   />
                     </DataTemplate> 
                 </ListBox.ItemTemplate>
             </ListBox>
