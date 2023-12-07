@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Avalonia_DependencyInjection.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Avalonia_DependencyInjection.Views.DropDownMenuView"
+             x:DataType="vm:DropDownMenuViewModel">
+    <Grid>
+        <ListBoxItem x:Name="ListViewItemMenu" Content="{Binding Path=Header}" Padding="37 14" FontSize="15" Foreground="White"/>
+        <Expander x:Name="ExpanderMenu" Header="{Binding Header}" IsExpanded="False" Width="210" HorizontalAlignment="Right" Background="{x:Null}" Foreground="White">
+            <ListBox x:Name="ListViewMenu" ItemsSource="{Binding Path=SubItems}" Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name}" Padding="20 5"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Expander>
+    </Grid>
+</UserControl>

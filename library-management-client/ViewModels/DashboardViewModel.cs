@@ -1,7 +1,11 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Avalonia_DependencyInjection.Models;
 using Avalonia_DependencyInjection.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Avalonia_DependencyInjection.ViewModels;
+using Avalonia_DependencyInjection.Views;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Avalonia_DependencyInjection.ViewModels;
@@ -13,17 +17,10 @@ public partial class DashboardViewModel : ViewModelBase
     public DashboardViewModel()
     {
         
+        
     }
 
-    [RelayCommand]
-    void toRegistryView()
-    {
-        CurrentViewModel = new MemberRegistryViewModel();
-    }
-
-    [RelayCommand]
-    void toMemberListView()
-    {
-        CurrentViewModel = new MemberListViewModel();
-    }
+    
 }
+
+
