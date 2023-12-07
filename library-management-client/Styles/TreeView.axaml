@@ -3,47 +3,89 @@
                     xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
                     x:CompileBindings="True">
     <Design.PreviewWith>
-        <Border Padding="30" MinWidth="350">
+        <Border Padding="30" MinWidth="350" Background="RoyalBlue">
             <TreeView>
                 <TreeViewItem>
                     <TreeViewItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="12" Margin="10 0" VerticalAlignment="Center" Text="Home" />
+                        <StackPanel Orientation="Horizontal" Height="34" Background="Transparent">
+                            <Svg Path="/Assets/SVGs/house.svg"
+                                 Width="18" Height="18" />
+                            <TextBlock Margin="10 0" 
+                                       VerticalAlignment="Center" 
+                                       FontSize="13" 
+                                       Text="Home" 
+                                       Foreground="White"
+                                       FontWeight="SemiBold" />
                         </StackPanel>
                     </TreeViewItem.Header>
                 </TreeViewItem>
                 <TreeViewItem IsExpanded="True">
                     <TreeViewItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="12" Margin="10 0" VerticalAlignment="Center" Text="Workshop" />
+                        <StackPanel Orientation="Horizontal" Height="34" Background="Transparent">
+                            <Svg Path="/Assets/SVGs/user.svg"
+                                 Width="18" Height="18" />
+                            <TextBlock Margin="10 0" 
+                                       VerticalAlignment="Center" 
+                                       FontSize="13" 
+                                       Text="Member" 
+                                       Foreground="White"
+                                       FontWeight="SemiBold" />
                         </StackPanel>
                     </TreeViewItem.Header>
                     <TreeViewItem>
                         <TreeViewItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock FontSize="12" Margin="10 0" VerticalAlignment="Center" Text="Profiles" />
+                            <StackPanel Orientation="Horizontal" Height="34" Background="Transparent">
+                                <Svg Path="/Assets/SVGs/users.svg"
+                                     Width="18" Height="18" />
+                                <TextBlock Margin="10 0" 
+                                           VerticalAlignment="Center" 
+                                           FontSize="13" 
+                                           Text="List" 
+                                           Foreground="White"
+                                           FontWeight="SemiBold" />
                             </StackPanel>
                         </TreeViewItem.Header>
                     </TreeViewItem>
                     <TreeViewItem>
                         <TreeViewItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock FontSize="12" Margin="10 0" VerticalAlignment="Center" Text="Layouts" />
+                            <StackPanel Orientation="Horizontal" Height="34" Background="Transparent">
+                                <Svg Path="/Assets/SVGs/user-plus.svg"
+                                     Width="18" Height="18" />
+                                <TextBlock Margin="10 0" 
+                                           VerticalAlignment="Center" 
+                                           FontSize="13" 
+                                           Text="Add" 
+                                           Foreground="White"
+                                           FontWeight="SemiBold" />
+                            </StackPanel>
+                        </TreeViewItem.Header>
+                    </TreeViewItem>
+                    <TreeViewItem>
+                        <TreeViewItem.Header>
+                            <StackPanel Orientation="Horizontal" Height="34" Background="Transparent">
+                                <Svg Path="/Assets/SVGs/user-minus.svg"
+                                     Width="18" Height="18" />
+                                <TextBlock Margin="10 0" 
+                                           VerticalAlignment="Center" 
+                                           FontSize="13" 
+                                           Text="Remove" 
+                                           Foreground="White"
+                                           FontWeight="SemiBold" />
                             </StackPanel>
                         </TreeViewItem.Header>
                     </TreeViewItem>
                 </TreeViewItem>
                 <TreeViewItem>
                     <TreeViewItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="12" Margin="10 0" VerticalAlignment="Center" Text="Surface Editor" />
-                        </StackPanel>
-                    </TreeViewItem.Header>
-                </TreeViewItem>
-                <TreeViewItem>
-                    <TreeViewItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="12" Margin="10 0" VerticalAlignment="Center" Text="Settings" />
+                        <StackPanel Orientation="Horizontal" Height="34" Background="Transparent">
+                            <Svg Path="/Assets/SVGs/books.svg"
+                                 Width="18" Height="18" />
+                            <TextBlock Margin="10 0" 
+                                       VerticalAlignment="Center" 
+                                       FontSize="13" 
+                                       Text="Books" 
+                                       Foreground="White"
+                                       FontWeight="SemiBold" />
                         </StackPanel>
                     </TreeViewItem.Header>
                 </TreeViewItem>

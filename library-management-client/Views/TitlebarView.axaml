@@ -30,7 +30,7 @@
                     Command="{Binding MinimizeApplicationCommand}"
                     PointerEntered="Minimize_OnPointerEntered"
                     PointerExited="Minimize_OnPointerExited">
-                <Svg Path="{Binding IconPathMinimize}" Width="18" Height="18"/>
+                <Svg Path="{Binding IconPathMinimize}" Width="15" Height="15"/>
             </Button>
             
             <Button VerticalAlignment="Top"
@@ -39,7 +39,7 @@
                     Command="{Binding MaximizeApplcationCommand}"
                     PointerEntered="Maximize_OnPointerEntered"
                     PointerExited="Maximize_OnPointerExited">
-                <Svg Path="{Binding IconPathMaximize}" Width="18" Height="18"/>
+                <Svg Path="{Binding IconPathMaximize}" Width="15" Height="15"/>
             </Button>
         
             <Button VerticalAlignment="Top" 
@@ -48,7 +48,7 @@
                     Command="{Binding CloseApplicationCommand}"
                     PointerEntered="Close_OnPointerEntered"
                     PointerExited="Close_OnPointerExited">
-                <Svg Path="{Binding IconPathExit}" Width="18" Height="18"/>
+                <Svg Path="{Binding IconPathExit}" Width="15" Height="15"/>
             </Button>
         </StackPanel>
     </Grid>
