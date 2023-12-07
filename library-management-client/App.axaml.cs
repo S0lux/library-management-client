@@ -58,6 +58,8 @@ public partial class App : Application
         {
             var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
             currentViewModel.ContentViewModel = AppHost!.Services.GetRequiredService<DashboardViewModel>();
+            mainWindow.CanResize = true;
+            mainWindow.MinWidth = 400;
             mainWindow.Show();
         }
         else
