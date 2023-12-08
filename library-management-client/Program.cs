@@ -19,5 +19,6 @@ sealed class Program
             .UsePlatformDetect()
             .WithInterFont()
             .LogToTrace()
-            .UseReactiveUI();
+            .UseReactiveUI()
+            .With(new SkiaOptions() { UseOpacitySaveLayer = true});
 }
