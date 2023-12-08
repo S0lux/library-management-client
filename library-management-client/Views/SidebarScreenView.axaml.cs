@@ -28,4 +28,9 @@ public partial class SidebarScreenView : UserControl
             }
         }
     }
+
+    private void InputElement_OnDoubleTapped(object? sender, TappedEventArgs e)
+    {
+        e.Handled = true ;
+    }
 }

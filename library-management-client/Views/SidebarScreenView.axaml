@@ -6,7 +6,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Avalonia_DependencyInjection.Views.SidebarScreenView"
              x:DataType="vm:SidebarScreenViewModel">
-    <StackPanel Orientation="Horizontal" Height="34" Background="Transparent" PointerPressed="InputElement_OnPointerPressed">
+    <StackPanel Orientation="Horizontal" Height="34" Background="Transparent" PointerPressed="InputElement_OnPointerPressed" DoubleTapped="InputElement_OnDoubleTapped">
         <Svg Path="{Binding IconPath}"
              Width="18" Height="18" />
         <TextBlock Margin="10 0" 
