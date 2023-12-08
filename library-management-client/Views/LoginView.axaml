@@ -105,7 +105,9 @@
                                 FontWeight="SemiBold" 
                                 Padding="25 8"
                                 Command="{Binding LoginCommand}"
-                                IsEnabled="{Binding !IsBusy}">
+                                IsEnabled="{Binding !IsBusy}"
+								Classes="LoginButton"
+								Name="loginButton">
                             Login
                         </Button>
                     </Grid>

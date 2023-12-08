@@ -14,8 +14,12 @@ public partial class LoginViewModel: ViewModelBase
 {
     private readonly AuthenticationService _authService;
     
-    [ObservableProperty] private string? _username = String.Empty;
-    [ObservableProperty] private string? _password = String.Empty;
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
+    private string? _username = String.Empty;
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
+    private string? _password = String.Empty;
     [ObservableProperty] private bool _isRemember = false;
     [ObservableProperty] private bool _hasError = false;
     [ObservableProperty] private string? _errorMessage;
@@ -25,8 +29,8 @@ public partial class LoginViewModel: ViewModelBase
     {
         _authService = authService;
     }
-    
-    [RelayCommand]
+
+    [RelayCommand(CanExecute=nameof(CheckUAndPNotNull))]
     async Task Login()
     {
         if (Username!.Length == 0 || Password!.Length == 0) return ;
@@ -55,5 +59,11 @@ public partial class LoginViewModel: ViewModelBase
         }
 
         IsBusy = false;
+    }
+
+
+    private bool CheckUAndPNotNull()
+    {
+        return !string.IsNullOrEmpty(Username)&&!string.IsNullOrEmpty(Password);
     }
 }

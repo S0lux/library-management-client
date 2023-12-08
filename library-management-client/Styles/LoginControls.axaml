@@ -18,12 +18,18 @@
                       VerticalContentAlignment="Center">
               Remember me for 3 days
             </CheckBox>
+			  <Button Background="RoyalBlue"
+                                Foreground="White"
+                                FontWeight="SemiBold"
+                                Padding="25 8"
+                                >
+				  Login
+			  </Button>
           </StackPanel>
         </Border>
     </Design.PreviewWith>
 
     <Styles>
-      
       <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Foreground" Value="Black"></Setter>
       </Style>
