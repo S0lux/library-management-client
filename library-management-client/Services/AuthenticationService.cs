@@ -11,6 +11,7 @@ using Avalonia_DependencyInjection.ViewModels;
 using Avalonia_DependencyInjection.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using Tmds.DBus.Protocol;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Avalonia_DependencyInjection.Services;

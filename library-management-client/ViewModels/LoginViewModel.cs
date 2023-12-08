@@ -29,7 +29,7 @@ public partial class LoginViewModel: ViewModelBase
     [RelayCommand]
     async Task Login()
     {
-        if (Username!.Length == 0 || Password!.Length == 0) return;
+        if (Username!.Length == 0 || Password!.Length == 0) return ;
 
         IsBusy = true;
         
