@@ -14,6 +14,6 @@
         WindowStartupLocation="CenterScreen"
         CanResize="False"
         Content="{Binding ContentViewModel}"
-        Background="White">
+        Background="#f3f3f3">
 
 </Window>

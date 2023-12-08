@@ -15,7 +15,7 @@
         </Styles>-->
     </UserControl.Styles>
     
-    <Grid Margin="30  0 30 30" RowDefinitions="auto *">
+    <Grid Margin="30 0 30 30" RowDefinitions="auto *">
         <Label Grid.Row="0" 
                FontSize="30" 
                FontWeight="DemiBold"

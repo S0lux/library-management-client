@@ -33,6 +33,8 @@ public partial class App : Application
                 services.AddSingleton<LoginViewModel>();
                 services.AddSingleton<DashboardView>();
                 services.AddSingleton<DashboardViewModel>();
+                services.AddSingleton<HomeView>();
+                services.AddSingleton<HomeViewModel>();
                 services.AddSingleton<AuthenticationService>();
                 services.AddSingleton<SidebarView>();
                 services.AddSingleton<SidebarViewModel>();
