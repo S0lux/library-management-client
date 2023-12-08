@@ -23,7 +23,7 @@
     </UserControl.Styles>
     
     <Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
             <Button VerticalAlignment="Top"
                     Classes="WindowAction" 
                     HorizontalAlignment="Right" 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Avalonia_DependencyInjection.Models
 {
-    internal class MEMBER
+    public class MEMBER
     {
         [Key]
         public int MemberId { get; set; }

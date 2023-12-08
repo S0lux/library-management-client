@@ -14,7 +14,7 @@ public partial class SidebarViewModel: ViewModelBase
         SidebarScreen = new SidebarScreenViewModel("root", null, null, new ObservableCollection<SidebarScreenViewModel>()
         {
             new("Home", null, "/Assets/SVGs/house.svg"),
-            new("Member", null, "/Assets/SVGs/user.svg", new ObservableCollection<SidebarScreenViewModel>
+            new("Member", null, "/Assets/SVGs/user-white.svg", new ObservableCollection<SidebarScreenViewModel>
             {
                 new("List", typeof(MemberListViewModel), "/Assets/SVGs/users.svg"),
                 new("Add", typeof(MemberRegistryViewModel), "/Assets/SVGs/user-plus.svg"),

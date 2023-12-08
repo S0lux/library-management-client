@@ -28,7 +28,7 @@
         <Setter Property="Foreground" Value="Black"></Setter>
       </Style>
       
-      <Style Selector="TextBox.Username">
+      <Style Selector="TextBox.Icon">
             <Setter Property="BorderThickness" Value="0 0 0 1" />
             <Setter Property="CornerRadius" Value="0" />
             <Setter Property="Template">
@@ -55,13 +55,14 @@
                                    Grid.Column="1"
                                    Grid.ColumnSpan="1"
                                    Margin="0 5 0 0">
-                            <ic:SymbolIcon Symbol="ContactCard" Margin="0 0 10 0" />
+                          <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Svg Path="{TemplateBinding Tag}" Height="15" Width="15" Margin="0 0 10 6" Opacity="1"/>
                             <TextBlock Name="PART_FloatingWatermark"
                                        Foreground="{DynamicResource SystemAccentColor}"
                                        FontSize="{TemplateBinding FontSize}"
                                        IsVisible="False"
-                                       Text="{TemplateBinding Watermark}"
-                                       DockPanel.Dock="Top" />
+                                       Text="{TemplateBinding Watermark}" />
+                          </StackPanel>
                           <ScrollViewer Name="PART_ScrollViewer"
                                         HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                                         VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
@@ -109,95 +110,7 @@
               </ControlTemplate>
             </Setter>
         </Style>
-        <Style Selector="TextBox.Username:focus /template/ Border#PART_BorderElement">
-            <Setter Property="BorderThickness" Value="0 0 0 1" />
-            <Setter Property="BorderBrush" Value="RoyalBlue" />
-        </Style>
-    </Styles>
-    
-    <Styles>
-        <Style Selector="TextBox.revealPasswordButton">
-            <Setter Property="BorderThickness" Value="0 0 0 1" />
-            <Setter Property="CornerRadius" Value="0" />
-            <Setter Property="Template">
-              <ControlTemplate>
-                <DataValidationErrors>
-                  <Panel>
-                    <Border
-                      Name="PART_BorderElement"
-                      Background="{TemplateBinding Background}"
-                      BorderBrush="{TemplateBinding BorderBrush}"
-                      BorderThickness="{TemplateBinding BorderThickness}"
-                      CornerRadius="{TemplateBinding CornerRadius}"
-                      MinWidth="{TemplateBinding MinWidth}"
-                      MinHeight="{TemplateBinding MinHeight}">
-                    </Border>
-
-                    <Border
-                      Margin="{TemplateBinding BorderThickness}">
-                      <Grid ColumnDefinitions="Auto,*,Auto" >
-                        <ContentPresenter Grid.Column="0"
-                                          Grid.ColumnSpan="1"
-                                          Content="{TemplateBinding InnerLeftContent}"/>
-                        <DockPanel x:Name="PART_InnerDockPanel"
-                                   Grid.Column="1"
-                                   Grid.ColumnSpan="1"
-                                   Margin="0 5 0 0">
-                            <ic:SymbolIcon Symbol="Password" Margin="0 0 10 0" />
-                            <TextBlock Name="PART_FloatingWatermark"
-                                       Foreground="{DynamicResource SystemAccentColor}"
-                                       FontSize="{TemplateBinding FontSize}"
-                                       IsVisible="False"
-                                       Text="{TemplateBinding Watermark}"
-                                       DockPanel.Dock="Top" />
-                          <ScrollViewer Name="PART_ScrollViewer"
-                                        HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
-                                        VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
-                                        IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
-                                        AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
-                                        BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}">
-                            <Panel>
-                              <TextBlock Name="PART_Watermark"
-                                      Opacity="0.5"
-                                      Text="{TemplateBinding Watermark}"
-                                      TextAlignment="{TemplateBinding TextAlignment}"
-                                      TextWrapping="{TemplateBinding TextWrapping}"
-                                      IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}"
-                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                              <TextPresenter Name="PART_TextPresenter"
-                                            Text="{TemplateBinding Text, Mode=TwoWay}"
-                                            CaretIndex="{TemplateBinding CaretIndex}"
-                                            SelectionStart="{TemplateBinding SelectionStart}"
-                                            SelectionEnd="{TemplateBinding SelectionEnd}"
-                                            TextAlignment="{TemplateBinding TextAlignment}"
-                                            TextWrapping="{TemplateBinding TextWrapping}"
-                                            LineHeight="{TemplateBinding LineHeight}"
-                                            LetterSpacing="{TemplateBinding LetterSpacing}"
-                                            PasswordChar="{TemplateBinding PasswordChar}"
-                                            RevealPassword="{TemplateBinding RevealPassword}"
-                                            SelectionBrush="{TemplateBinding SelectionBrush}"
-                                            SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
-                                            CaretBrush="{TemplateBinding CaretBrush}"
-                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            </Panel>
-                            <ScrollViewer.Styles>
-                              <Style Selector="ScrollContentPresenter#PART_ContentPresenter">
-                                <Setter Property="Cursor" Value="IBeam" />
-                              </Style>
-                            </ScrollViewer.Styles>
-                          </ScrollViewer>
-                        </DockPanel>
-                        <ContentPresenter Grid.Column="2" Grid.ColumnSpan="1" Content="{TemplateBinding InnerRightContent}"/>
-                      </Grid>
-                    </Border>
-                  </Panel>
-                </DataValidationErrors>
-              </ControlTemplate>
-            </Setter>
-        </Style>
-        <Style Selector="TextBox.revealPasswordButton:focus /template/ Border#PART_BorderElement">
+        <Style Selector="TextBox.Icon:focus /template/ Border#PART_BorderElement">
             <Setter Property="BorderThickness" Value="0 0 0 1" />
             <Setter Property="BorderBrush" Value="RoyalBlue" />
         </Style>

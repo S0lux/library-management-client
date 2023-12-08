@@ -31,9 +31,13 @@ public partial class App : Application
                 services.AddSingleton<MainWindow>();
                 services.AddSingleton<MainWindowViewModel>();
                 services.AddSingleton<LoginViewModel>();
+                services.AddSingleton<DashboardView>();
                 services.AddSingleton<DashboardViewModel>();
                 services.AddSingleton<AuthenticationService>();
+                services.AddSingleton<SidebarView>();
                 services.AddSingleton<SidebarViewModel>();
+                services.AddSingleton<SidebarScreenView>();
+                services.AddSingleton<SidebarScreenViewModel>();
                 services.AddSingleton<MemberRegistryViewModel>();
                 services.AddSingleton<MemberListViewModel>();
 

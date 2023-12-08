@@ -7,5 +7,33 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Avalonia_DependencyInjection.Views.MemberRegistryView"
              x:DataType="vm:MemberRegistryViewModel">
-    <TextBlock FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center">Member</TextBlock>
+    <UserControl.Styles>
+        <!--<Styles>
+            <Style Selector="DatePicker">
+                <Setter Property="date"></Setter>
+            </Style>
+        </Styles>-->
+    </UserControl.Styles>
+    
+    <Grid Margin="30  0 30 30" RowDefinitions="auto *">
+        <Label Grid.Row="0" 
+               FontSize="30" 
+               FontWeight="DemiBold"
+               Margin="0 0 0 20"
+               Background="Yellow">
+            Member registration
+        </Label>
+        <StackPanel Grid.Row="1" Background="Red">
+            <Label FontSize="20" FontWeight="DemiBold">
+                Full name
+            </Label>
+            <TextBox></TextBox>
+            
+            <Label FontSize="20" FontWeight="DemiBold">
+                Birthdate
+            </Label>
+            <DatePicker DayFormat="ddd dd"></DatePicker>
+        </StackPanel>
+        
+    </Grid>
 </UserControl>

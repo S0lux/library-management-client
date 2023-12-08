@@ -15,7 +15,7 @@
                     </Transitions>
                 </ContentControl.Transitions>
             </ContentControl>
-            <Border Name="TitleBarContainer" DockPanel.Dock="Top">
+            <Border Name="TitleBarContainer" DockPanel.Dock="Top" Background="Transparent" PointerPressed="TitleBarContainer_OnPointerPressed">
                 <ContentControl Content="{Binding TitleBarViewModel}"/>
             </Border>
             <ContentControl Content="{Binding ActiveViewModel}" />

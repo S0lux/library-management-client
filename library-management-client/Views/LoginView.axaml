@@ -70,17 +70,19 @@
                 <StackPanel Grid.Row="2">
                     <!-- Username input -->
                     <TextBox Margin="0 20 0 0"
-                             Classes="Username"
+                             Classes="Icon"
                              Watermark="Username"
+                             Tag="/Assets/SVGs/user.svg"
                              Text="{Binding Username}"
                              IsEnabled="{Binding !IsBusy}">
                     </TextBox>
                     
                     <!-- Password input -->
                     <TextBox Margin="0 20 0 0"
-                             Classes="revealPasswordButton"
+                             Classes="Icon revealPasswordButton"
                              Watermark="Password"
                              PasswordChar="•"
+                             Tag="/Assets/SVGs/user.svg"
                              Text="{Binding Password}"
                              IsEnabled="{Binding !IsBusy}">
                     </TextBox>
