@@ -2,10 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+             xmlns:ir="clr-namespace:Avalonia.Xaml.Interactions.Responsive;assembly=Avalonia.Xaml.Interactions"
              mc:Ignorable="d" d:DesignWidth="1800" d:DesignHeight="900"
              x:Class="Avalonia_DependencyInjection.Views.HomeView">
     
-    <Grid Margin="30 0 0 0" RowDefinitions="Auto *">
+    <Grid Name="MainGrid" Margin="30 0 0 0" RowDefinitions="Auto *">
         
         <Label Grid.Row="0" 
                FontSize="30" 
@@ -15,12 +17,33 @@
         </Label>
         
         <Grid Grid.Row="1" ColumnDefinitions="* Auto">
-            <Border Grid.Column="0" 
+            <Border Grid.Column="0"
+                    Name="UserInfo"
                     Background="White" 
                     Margin="0 0 30 0" 
                     Height="150" 
-                    VerticalAlignment="Top" 
-                    CornerRadius="5">
+                    MinWidth="750"
+                    VerticalAlignment="Top"
+                    CornerRadius="5"
+                    ClipToBounds="True"
+                    Classes="Clip">
+                
+                <Border.Styles>
+                    <Style Selector="Border.Clip">
+                        <Setter Property="HorizontalAlignment" Value="Left" />
+                    </Style>
+                </Border.Styles>
+                
+                <Interaction.Behaviors>
+                    <AdaptiveBehavior SourceControl="MainGrid"
+                                      TargetControl="UserInfo">
+                        <AdaptiveClassSetter MinWidth="0"
+                                             MinWidthOperator="GreaterThanOrEqual"
+                                             MaxWidth="750"
+                                             MaxWidthOperator="LessThan"
+                                             ClassName="Clip" />
+                    </AdaptiveBehavior>
+                </Interaction.Behaviors>
                 
                 <Grid RowDefinitions="Auto Auto">
                     <Grid Grid.Row="0" ColumnDefinitions="Auto *" Margin="0 0 0 20">
@@ -107,11 +130,28 @@
                         </Border>
                     </Grid>-->
                 </Grid>
-                
             </Border>
             
-            <Border Grid.Column="1" Background="White" CornerRadius="5">
-                <Calendar VerticalAlignment="Top" BorderThickness="0"></Calendar>
+            <Border Grid.Column="1" Name="CalendarBorder" Background="White" CornerRadius="5">
+                
+                <Border.Styles>
+                    <Style Selector="Border.Hidden">
+                        <Setter Property="IsVisible" Value="False" />
+                    </Style>
+                </Border.Styles>
+                
+                <Interaction.Behaviors>
+                    <AdaptiveBehavior SourceControl="MainGrid"
+                                      TargetControl="CalendarBorder">
+                        <AdaptiveClassSetter MinWidth="0"
+                                             MinWidthOperator="GreaterThanOrEqual"
+                                             MaxWidth="1200"
+                                             MaxWidthOperator="LessThan"
+                                             ClassName="Hidden" />
+                    </AdaptiveBehavior>
+                </Interaction.Behaviors>
+                
+                <Calendar VerticalAlignment="Top" BorderThickness="0" />
             </Border>
         </Grid>
         
