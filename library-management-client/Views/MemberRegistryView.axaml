@@ -7,33 +7,105 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Avalonia_DependencyInjection.Views.MemberRegistryView"
              x:DataType="vm:MemberRegistryViewModel">
+
     <UserControl.Styles>
-        <!--<Styles>
-            <Style Selector="DatePicker">
-                <Setter Property="date"></Setter>
-            </Style>
-        </Styles>-->
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="RoyalBlue" />
+        </Style>
+
+
     </UserControl.Styles>
-    
-    <Grid Margin="30 0 30 30" RowDefinitions="auto *">
-        <Label Grid.Row="0" 
-               FontSize="30" 
-               FontWeight="DemiBold"
-               Margin="0 0 0 20"
-               Background="Yellow">
-            Member registration
-        </Label>
-        <StackPanel Grid.Row="1" Background="Red">
-            <Label FontSize="20" FontWeight="DemiBold">
-                Full name
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <Grid Margin="30 0 30 30" RowDefinitions="auto *">
+            <Label Grid.Row="0"
+                   FontSize="30"
+                   FontWeight="DemiBold"
+                   Margin="0 0 0 20">
+                Member registration
             </Label>
-            <TextBox></TextBox>
-            
-            <Label FontSize="20" FontWeight="DemiBold">
-                Birthdate
-            </Label>
-            <DatePicker DayFormat="ddd dd"></DatePicker>
-        </StackPanel>
-        
-    </Grid>
+
+            <Grid Grid.Row="1" RowDefinitions="auto auto auto auto auto">
+                <!-- first name/last name -->
+                <Grid Grid.Row="0" ColumnDefinitions=".5* .5* *">
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Margin="0 0 25 0">
+                        <Label FontSize="20" FontWeight="DemiBold">
+                            First name
+                        </Label>
+                        <TextBox></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Margin="15 0 0 0">
+                        <Label FontSize="20" FontWeight="DemiBold">
+                            Last name
+                        </Label>
+                        <TextBox></TextBox>
+                    </StackPanel>
+                </Grid>
+
+                <!-- phone number -->
+                <Grid Grid.Row="1" Margin="0 20 0 0" ColumnDefinitions=".5* .5* *">
+                    <StackPanel HorizontalAlignment="Stretch" Margin="0 0 25 0">
+                        <Label FontSize="20" FontWeight="DemiBold">
+                            Phone number
+                        </Label>
+                        <TextBox></TextBox>
+                    </StackPanel>
+                </Grid>
+
+                <!-- bdate/gender/id -->
+                <Grid Grid.Row="2" ColumnDefinitions="* * * *" Margin="0 20 0 0">
+                    <StackPanel Grid.Column="0" Margin="0 0 20 0">
+                        <Label FontSize="20" FontWeight="DemiBold">
+                            Citizen ID
+                        </Label>
+                        <TextBox></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="0 0 20 0">
+                        <Label FontSize="20" FontWeight="DemiBold" >
+                            Birthdate
+                        </Label>
+                        <CalendarDatePicker Watermark="DD/MM/YYYY"
+                                            SelectedDateFormat="Custom"
+                                            CustomDateFormatString="dd/MM/yyyy"
+                                            HorizontalAlignment="Stretch">
+                        </CalendarDatePicker>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2"  Margin="0 0 60 0">
+                        <Label FontSize="20" FontWeight="DemiBold" >
+                            Gender
+                        </Label>
+                        <ComboBox HorizontalAlignment="Stretch">
+                            <ComboBoxItem>Male</ComboBoxItem>
+                            <ComboBoxItem>Female</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+                <!-- address -->
+                <Grid Grid.Row="3" Margin="0 20 0 0" ColumnDefinitions=".5* .5* *">
+                    <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch">
+                        <Label FontSize="20" FontWeight="DemiBold">
+                            Full address
+                        </Label>
+                        <TextBox></TextBox>
+                    </StackPanel>
+                </Grid>
+
+                <!-- submit button -->
+                <Grid Grid.Row="4" Margin="0 30 0 0">
+                    <Button
+                        Background="RoyalBlue"
+                        FontWeight="SemiBold"
+                        Foreground="White"
+                        Padding="20,8"
+                        FontSize="20">
+                        Submit
+                    </Button>
+                </Grid>
+
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+
 </UserControl>
