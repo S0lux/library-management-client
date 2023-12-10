@@ -17,10 +17,10 @@ public partial class DashboardViewModel : ViewModelBase
     [ObservableProperty] private ViewModelBase _activeViewModel;
     [ObservableProperty] private TitlebarViewModel _titleBarViewModel;
 
-    public DashboardViewModel(SidebarViewModel sidebarViewModel)
+    public DashboardViewModel(SidebarViewModel sidebarViewModel, TitlebarViewModel titlebarViewModel)
     {
         SidebarViewModel = sidebarViewModel;
-        TitleBarViewModel = new TitlebarViewModel();
+        TitleBarViewModel = titlebarViewModel;
     }
 }
 

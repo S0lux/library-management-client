@@ -1,119 +1,137 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ic="using:FluentIcons.Avalonia">
-  <Design.PreviewWith>
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:ic="using:FluentIcons.Avalonia"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
         <Border Padding="20">
-          <StackPanel>
-            <TextBox Classes="Username"
-                     Width="150"
-                     Margin="0 20 0 0"
-                     Watermark="Username" />
-            <TextBox Classes="revealPasswordButton" 
-                     Width="150"
-                     Margin="0 20 0 0"
-                     Watermark="Password" />
-            <CheckBox Classes="RememberBox"
-                      IsChecked="True"
-                      Margin="0 20 0 0"
-                      VerticalContentAlignment="Center">
-              Remember me for 3 days
-            </CheckBox>
-			  <Button Background="RoyalBlue"
-                                Foreground="White"
-                                FontWeight="SemiBold"
-                                Padding="25 8"
-                                >
-				  Login
-			  </Button>
-          </StackPanel>
+            <StackPanel>
+                <TextBox
+                    Classes="Username"
+                    Margin="0,20,0,0"
+                    Watermark="Username"
+                    Width="150" />
+                <TextBox
+                    Classes="revealPasswordButton"
+                    Margin="0,20,0,0"
+                    Watermark="Password"
+                    Width="150" />
+                <CheckBox
+                    Classes="RememberBox"
+                    IsChecked="True"
+                    Margin="0,20,0,0"
+                    VerticalContentAlignment="Center">
+                    Remember me for 3 days
+                </CheckBox>
+                <Button
+                    Background="RoyalBlue"
+                    FontWeight="SemiBold"
+                    Foreground="White"
+                    Padding="25,8">
+                    Login
+                </Button>
+            </StackPanel>
         </Border>
     </Design.PreviewWith>
 
     <Styles>
-      <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Foreground" Value="Black"></Setter>
-      </Style>
-      
-      <Style Selector="TextBox.Icon">
+        <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+        <Style Selector="TextBox.Icon">
             <Setter Property="BorderThickness" Value="0 0 0 1" />
             <Setter Property="CornerRadius" Value="0" />
             <Setter Property="Template">
-              <ControlTemplate>
-                <DataValidationErrors>
-                  <Panel>
-                    <Border
-                      Name="PART_BorderElement"
-                      Background="{TemplateBinding Background}"
-                      BorderBrush="{TemplateBinding BorderBrush}"
-                      BorderThickness="{TemplateBinding BorderThickness}"
-                      CornerRadius="{TemplateBinding CornerRadius}"
-                      MinWidth="{TemplateBinding MinWidth}"
-                      MinHeight="{TemplateBinding MinHeight}">
-                    </Border>
+                <ControlTemplate>
+                    <DataValidationErrors>
+                        <Panel>
+                            <Border
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                MinHeight="{TemplateBinding MinHeight}"
+                                MinWidth="{TemplateBinding MinWidth}"
+                                Name="PART_BorderElement" />
 
-                    <Border
-                      Margin="{TemplateBinding BorderThickness}">
-                      <Grid ColumnDefinitions="Auto,*,Auto" >
-                        <ContentPresenter Grid.Column="0"
-                                          Grid.ColumnSpan="1"
-                                          Content="{TemplateBinding InnerLeftContent}"/>
-                        <DockPanel x:Name="PART_InnerDockPanel"
-                                   Grid.Column="1"
-                                   Grid.ColumnSpan="1"
-                                   Margin="0 5 0 0">
-                          <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Svg Path="{TemplateBinding Tag}" Height="15" Width="15" Margin="0 0 10 6" Opacity="0.3"/>
-                            <TextBlock Name="PART_FloatingWatermark"
-                                       Foreground="{DynamicResource SystemAccentColor}"
-                                       FontSize="{TemplateBinding FontSize}"
-                                       IsVisible="False"
-                                       Text="{TemplateBinding Watermark}" />
-                          </StackPanel>
-                          <ScrollViewer Name="PART_ScrollViewer"
-                                        HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
-                                        VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
-                                        IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
-                                        AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
-                                        BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}">
-                            <Panel>
-                              <TextBlock Name="PART_Watermark"
-                                      Opacity="0.5"
-                                      Text="{TemplateBinding Watermark}"
-                                      TextAlignment="{TemplateBinding TextAlignment}"
-                                      TextWrapping="{TemplateBinding TextWrapping}"
-                                      IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}"
-                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                              <TextPresenter Name="PART_TextPresenter"
-                                            Text="{TemplateBinding Text, Mode=TwoWay}"
-                                            CaretIndex="{TemplateBinding CaretIndex}"
-                                            SelectionStart="{TemplateBinding SelectionStart}"
-                                            SelectionEnd="{TemplateBinding SelectionEnd}"
-                                            TextAlignment="{TemplateBinding TextAlignment}"
-                                            TextWrapping="{TemplateBinding TextWrapping}"
-                                            LineHeight="{TemplateBinding LineHeight}"
-                                            LetterSpacing="{TemplateBinding LetterSpacing}"
-                                            PasswordChar="{TemplateBinding PasswordChar}"
-                                            RevealPassword="{TemplateBinding RevealPassword}"
-                                            SelectionBrush="{TemplateBinding SelectionBrush}"
-                                            SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
-                                            CaretBrush="{TemplateBinding CaretBrush}"
-                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            </Panel>
-                            <ScrollViewer.Styles>
-                              <Style Selector="ScrollContentPresenter#PART_ContentPresenter">
-                                <Setter Property="Cursor" Value="IBeam" />
-                              </Style>
-                            </ScrollViewer.Styles>
-                          </ScrollViewer>
-                        </DockPanel>
-                        <ContentPresenter Grid.Column="2" Grid.ColumnSpan="1" Content="{TemplateBinding InnerRightContent}"/>
-                      </Grid>
-                    </Border>
-                  </Panel>
-                </DataValidationErrors>
-              </ControlTemplate>
+                            <Border Margin="{TemplateBinding BorderThickness}">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <ContentPresenter
+                                        Content="{TemplateBinding InnerLeftContent}"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="1" />
+                                    <DockPanel
+                                        Grid.Column="1"
+                                        Grid.ColumnSpan="1"
+                                        Margin="0,5,0,0"
+                                        x:Name="PART_InnerDockPanel">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Svg
+                                                Height="15"
+                                                Margin="0,0,10,6"
+                                                Opacity="0.3"
+                                                Path="{TemplateBinding Tag}"
+                                                Width="15" />
+                                            <TextBlock
+                                                FontSize="{TemplateBinding FontSize}"
+                                                Foreground="{DynamicResource SystemAccentColor}"
+                                                IsVisible="False"
+                                                Name="PART_FloatingWatermark"
+                                                Text="{TemplateBinding Watermark}" />
+                                        </StackPanel>
+                                        <ScrollViewer
+                                            AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+                                            BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+                                            HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                            IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+                                            Name="PART_ScrollViewer"
+                                            VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+                                            <Panel>
+                                                <TextBlock
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    IsVisible="{TemplateBinding Text,
+                                                                                Converter={x:Static StringConverters.IsNullOrEmpty}}"
+                                                    Name="PART_Watermark"
+                                                    Opacity="0.5"
+                                                    Text="{TemplateBinding Watermark}"
+                                                    TextAlignment="{TemplateBinding TextAlignment}"
+                                                    TextWrapping="{TemplateBinding TextWrapping}"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                                <TextPresenter
+                                                    CaretBrush="{TemplateBinding CaretBrush}"
+                                                    CaretIndex="{TemplateBinding CaretIndex}"
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    LetterSpacing="{TemplateBinding LetterSpacing}"
+                                                    LineHeight="{TemplateBinding LineHeight}"
+                                                    Name="PART_TextPresenter"
+                                                    PasswordChar="{TemplateBinding PasswordChar}"
+                                                    RevealPassword="{TemplateBinding RevealPassword}"
+                                                    SelectionBrush="{TemplateBinding SelectionBrush}"
+                                                    SelectionEnd="{TemplateBinding SelectionEnd}"
+                                                    SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                                    SelectionStart="{TemplateBinding SelectionStart}"
+                                                    Text="{TemplateBinding Text,
+                                                                           Mode=TwoWay}"
+                                                    TextAlignment="{TemplateBinding TextAlignment}"
+                                                    TextWrapping="{TemplateBinding TextWrapping}"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                            </Panel>
+                                            <ScrollViewer.Styles>
+                                                <Style Selector="ScrollContentPresenter#PART_ContentPresenter">
+                                                    <Setter Property="Cursor" Value="IBeam" />
+                                                </Style>
+                                            </ScrollViewer.Styles>
+                                        </ScrollViewer>
+                                    </DockPanel>
+                                    <ContentPresenter
+                                        Content="{TemplateBinding InnerRightContent}"
+                                        Grid.Column="2"
+                                        Grid.ColumnSpan="1" />
+                                </Grid>
+                            </Border>
+                        </Panel>
+                    </DataValidationErrors>
+                </ControlTemplate>
             </Setter>
         </Style>
         <Style Selector="TextBox.Icon:focus /template/ Border#PART_BorderElement">
@@ -121,66 +139,70 @@
             <Setter Property="BorderBrush" Value="RoyalBlue" />
         </Style>
     </Styles>
-  
+
     <Styles>
-      <Style Selector="CheckBox.RememberBox">
-        <Setter Property="Template">
-          <ControlTemplate>
-            <Grid x:Name="RootGrid" ColumnDefinitions="15,*">
-              <Border x:Name="PART_Border"
-                      Grid.ColumnSpan="2"
-                      Background="{TemplateBinding Background}"
-                      BorderBrush="{TemplateBinding BorderBrush}"
-                      BorderThickness="{TemplateBinding BorderThickness}"
-                      CornerRadius="{TemplateBinding CornerRadius}" />
+        <Style Selector="CheckBox.RememberBox">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid ColumnDefinitions="15,*" x:Name="RootGrid">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Grid.ColumnSpan="2"
+                            x:Name="PART_Border" />
 
-              <Grid VerticalAlignment="Top" Height="32" >
-                <Border x:Name="NormalRectangle"
-                        BorderBrush="{DynamicResource CheckBoxCheckBackgroundStrokeUnchecked}"
-                        Background="{DynamicResource CheckBoxCheckBackgroundFillUnchecked}"
-                        BorderThickness="{DynamicResource CheckBoxBorderThemeThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}"
-                        UseLayoutRounding="False"
-                        Height="15"
-                        Width="15" />
+                        <Grid Height="32" VerticalAlignment="Top">
+                            <Border
+                                Background="{DynamicResource CheckBoxCheckBackgroundFillUnchecked}"
+                                BorderBrush="{DynamicResource CheckBoxCheckBackgroundStrokeUnchecked}"
+                                BorderThickness="{DynamicResource CheckBoxBorderThemeThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Height="15"
+                                UseLayoutRounding="False"
+                                Width="15"
+                                x:Name="NormalRectangle" />
 
-                <Viewbox UseLayoutRounding="False">
-                  <Panel>
-                    <Panel Height="16" Width="16" />
-                    <Path x:Name="CheckGlyph"
-                          Opacity="0"
-                          Fill="{DynamicResource CheckBoxCheckGlyphForegroundUnchecked}"
-                          Stretch="Uniform"
-                          VerticalAlignment="Center"
-                          FlowDirection="LeftToRight" />
-                  </Panel>
-                </Viewbox>
-              </Grid>
-              <ContentPresenter x:Name="ContentPresenter"
-                                FontSize="12"
-                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                              Content="{TemplateBinding Content}"
-                              Margin="5 0 0 0"
-                              RecognizesAccessKey="True"
-                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                              TextWrapping="Wrap"
-                              Grid.Column="1" />
-            </Grid>
-          </ControlTemplate>
-        </Setter>
-      </Style>
-      
-      <Style Selector="CheckBox.RememberBox:checked /template/ Border#NormalRectangle">
-        <Setter Property="BorderBrush" Value="RoyalBlue" />
-        <Setter Property="Background" Value="RoyalBlue" />
-      </Style>
-      
-      <Style Selector="CheckBox.RememberBox /template/ Path#CheckGlyph">
-        <Setter Property="Fill" Value="{DynamicResource CheckBoxCheckGlyphForegroundChecked}" />
-        <Setter Property="Data" Value="M1507 31L438 1101L-119 543L-29 453L438 919L1417 -59L1507 31Z" />
-        <Setter Property="Width" Value="9" />
-        <Setter Property="Opacity" Value="1" />
-      </Style>
+                            <Viewbox UseLayoutRounding="False">
+                                <Panel>
+                                    <Panel Height="16" Width="16" />
+                                    <Path
+                                        Fill="{DynamicResource CheckBoxCheckGlyphForegroundUnchecked}"
+                                        FlowDirection="LeftToRight"
+                                        Opacity="0"
+                                        Stretch="Uniform"
+                                        VerticalAlignment="Center"
+                                        x:Name="CheckGlyph" />
+                                </Panel>
+                            </Viewbox>
+                        </Grid>
+                        <ContentPresenter
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            FontSize="12"
+                            Grid.Column="1"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Margin="5,0,0,0"
+                            RecognizesAccessKey="True"
+                            TextWrapping="Wrap"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            x:Name="ContentPresenter" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="CheckBox.RememberBox:checked /template/ Border#NormalRectangle">
+            <Setter Property="BorderBrush" Value="RoyalBlue" />
+            <Setter Property="Background" Value="RoyalBlue" />
+        </Style>
+
+        <Style Selector="CheckBox.RememberBox /template/ Path#CheckGlyph">
+            <Setter Property="Fill" Value="{DynamicResource CheckBoxCheckGlyphForegroundChecked}" />
+            <Setter Property="Data" Value="M1507 31L438 1101L-119 543L-29 453L438 919L1417 -59L1507 31Z" />
+            <Setter Property="Width" Value="9" />
+            <Setter Property="Opacity" Value="1" />
+        </Style>
     </Styles>
 </Styles>

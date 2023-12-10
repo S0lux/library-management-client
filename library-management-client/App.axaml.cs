@@ -42,6 +42,7 @@ public partial class App : Application
                 services.AddSingleton<SidebarScreenViewModel>();
                 services.AddSingleton<MemberRegistryViewModel>();
                 services.AddSingleton<MemberListViewModel>();
+                services.AddSingleton<TitlebarViewModel>();
 
                 services.AddHttpClient("main", options =>
                 {

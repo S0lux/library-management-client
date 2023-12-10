@@ -9,10 +9,16 @@ namespace Avalonia_DependencyInjection.ViewModels;
 
 public partial class TitlebarViewModel: ViewModelBase
 {
+    private readonly MainWindow _mainWindow;
     [ObservableProperty] private string _iconPathExit = "/Assets/SVGs/xmark.svg";
     [ObservableProperty] private string _iconPathMaximize = "/Assets/SVGs/window-maximize.svg";
     [ObservableProperty] private string _iconPathMinimize = "/Assets/SVGs/window-minimize.svg";
 
+    public TitlebarViewModel(MainWindow mainWindow)
+    {
+        _mainWindow = mainWindow;
+    }
+    
     [RelayCommand]
     void CloseApplication()
     {
@@ -22,12 +28,12 @@ public partial class TitlebarViewModel: ViewModelBase
     [RelayCommand]
     void MaximizeApplcation()
     {
-        App.AppHost!.Services.GetRequiredService<MainWindow>().WindowState = WindowState.Maximized;
+        _mainWindow.WindowState = WindowState.Maximized;
     }
     
     [RelayCommand]
     void MinimizeApplication()
     {
-        App.AppHost!.Services.GetRequiredService<MainWindow>().WindowState = WindowState.Minimized;
+        _mainWindow.WindowState = WindowState.Minimized;
     }
 }
