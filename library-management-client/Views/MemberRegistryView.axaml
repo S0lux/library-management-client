@@ -1,6 +1,6 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignHeight="850"
+    d:DesignWidth="400"
     mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.MemberRegistryView"
     x:DataType="vm:MemberRegistryViewModel"
@@ -14,15 +14,16 @@
         <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
             <Setter Property="BorderBrush" Value="RoyalBlue" />
         </Style>
-
+        <Style Selector="ContentControl">
+            <Setter Property="ContentTemplate" />
+        </Style>
 
     </UserControl.Styles>
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
         <Grid
-            ColumnDefinitions="* auto"
             Margin="30,0,30,30"
-            RowDefinitions="auto *"
-            x:Name="MainGrid">
+            Name="MainGrid"
+            RowDefinitions="auto *">
             <Label
                 FontSize="30"
                 FontWeight="DemiBold"
@@ -31,7 +32,121 @@
                 Member registration
             </Label>
 
-            <Grid Grid.Row="1" RowDefinitions="auto auto auto auto auto">
+
+
+            <StackPanel
+                Grid.Row="1"
+                Spacing="20"
+                x:Name="NarrowView">
+                <DockPanel>
+                    <Label
+                        DockPanel.Dock="Top"
+                        FontSize="20"
+                        FontWeight="DemiBold">
+                        First name
+                    </Label>
+                    <TextBox />
+                </DockPanel>
+
+                <DockPanel>
+                    <Label
+                        DockPanel.Dock="Top"
+                        FontSize="20"
+                        FontWeight="DemiBold">
+                        Last name
+                    </Label>
+                    <TextBox />
+                </DockPanel>
+
+                <DockPanel>
+                    <Label
+                        DockPanel.Dock="Top"
+                        FontSize="20"
+                        FontWeight="DemiBold">
+                        Phone number
+                    </Label>
+                    <TextBox />
+                </DockPanel>
+
+                <DockPanel>
+                    <Label
+                        DockPanel.Dock="Top"
+                        FontSize="20"
+                        FontWeight="DemiBold">
+                        Citizen ID
+                    </Label>
+                    <TextBox />
+                </DockPanel>
+
+                <DockPanel>
+                    <Label
+                        DockPanel.Dock="Top"
+                        FontSize="20"
+                        FontWeight="DemiBold">
+                        Birthdate
+                    </Label>
+                    <CalendarDatePicker
+                        CustomDateFormatString="dd/MM/yyyy"
+                        HorizontalAlignment="Stretch"
+                        SelectedDateFormat="Custom"
+                        Watermark="DD/MM/YYYY" />
+                </DockPanel>
+
+                <DockPanel>
+                    <Label
+                        DockPanel.Dock="Top"
+                        FontSize="20"
+                        FontWeight="DemiBold">
+                        Gender
+                    </Label>
+                    <ComboBox HorizontalAlignment="Stretch">
+                        <ComboBoxItem>Male</ComboBoxItem>
+                        <ComboBoxItem>Female</ComboBoxItem>
+                    </ComboBox>
+                </DockPanel>
+
+                <DockPanel>
+                    <Label
+                        DockPanel.Dock="Top"
+                        FontSize="20"
+                        FontWeight="DemiBold">
+                        Full address
+                    </Label>
+                    <TextBox />
+                </DockPanel>
+
+                <StackPanel.Styles>
+                    <Style Selector="StackPanel.Hidden">
+                        <Setter Property="IsVisible" Value="False" />
+                    </Style>
+                    <Style Selector="StackPanel.Visible">
+                        <Setter Property="IsVisible" Value="True" />
+                    </Style>
+                </StackPanel.Styles>
+
+                <Interaction.Behaviors>
+                    <AdaptiveBehavior SourceControl="MainGrid" TargetControl="NarrowView">
+                        <AdaptiveClassSetter
+                            ClassName="Hidden"
+                            MaxWidth="500"
+                            MaxWidthOperator="GreaterThan"
+                            MinWidth="0"
+                            MinWidthOperator="GreaterThanOrEqual" />
+
+                        <AdaptiveClassSetter
+                            ClassName="Visible"
+                            MaxWidth="500"
+                            MaxWidthOperator="LessThan"
+                            MinWidth="0"
+                            MinWidthOperator="GreaterThanOrEqual" />
+                    </AdaptiveBehavior>
+                </Interaction.Behaviors>
+            </StackPanel>
+
+            <Grid
+                Grid.Row="1"
+                RowDefinitions="auto auto auto auto auto"
+                x:Name="WideGrid">
                 <!--  first name/last name  -->
                 <Grid ColumnDefinitions=".5* .5* *" Grid.Row="0">
                     <StackPanel
@@ -129,7 +244,24 @@
                     </Button>
                 </Grid>
 
+                <Grid.Styles>
+                    <Style Selector="Grid.Hidden">
+                        <Setter Property="IsVisible" Value="False" />
+                    </Style>
+                </Grid.Styles>
+                <Interaction.Behaviors>
+                    <AdaptiveBehavior SourceControl="MainGrid" TargetControl="WideGrid">
+                        <AdaptiveClassSetter
+                            ClassName="Hidden"
+                            MaxWidth="500"
+                            MaxWidthOperator="LessThan"
+                            MinWidth="0"
+                            MinWidthOperator="GreaterThanOrEqual" />
+                    </AdaptiveBehavior>
+                </Interaction.Behaviors>
             </Grid>
+
+
         </Grid>
     </ScrollViewer>
 
