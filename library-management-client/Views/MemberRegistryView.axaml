@@ -1,6 +1,6 @@
 <UserControl
     d:DesignHeight="850"
-    d:DesignWidth="400"
+    d:DesignWidth="800"
     mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.MemberRegistryView"
     x:DataType="vm:MemberRegistryViewModel"
@@ -11,6 +11,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <UserControl.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
+        <Style Selector="Label">
+            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
         <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
             <Setter Property="BorderBrush" Value="RoyalBlue" />
         </Style>
@@ -26,63 +33,47 @@
             RowDefinitions="auto *">
             <Label
                 FontSize="30"
-                FontWeight="DemiBold"
                 Grid.Row="0"
                 Margin="0,0,0,20">
                 Member registration
             </Label>
 
 
-
+            <!--  Narrow View  -->
             <StackPanel
                 Grid.Row="1"
                 Spacing="20"
                 x:Name="NarrowView">
-                <DockPanel>
-                    <Label
-                        DockPanel.Dock="Top"
-                        FontSize="20"
-                        FontWeight="DemiBold">
+                <DockPanel HorizontalAlignment="Left" Width="200">
+                    <Label DockPanel.Dock="Top">
                         First name
                     </Label>
-                    <TextBox />
+                    <TextBox Width="200" />
                 </DockPanel>
 
-                <DockPanel>
-                    <Label
-                        DockPanel.Dock="Top"
-                        FontSize="20"
-                        FontWeight="DemiBold">
+                <DockPanel HorizontalAlignment="Left" Width="200">
+                    <Label DockPanel.Dock="Top">
                         Last name
                     </Label>
                     <TextBox />
                 </DockPanel>
 
-                <DockPanel>
-                    <Label
-                        DockPanel.Dock="Top"
-                        FontSize="20"
-                        FontWeight="DemiBold">
+                <DockPanel HorizontalAlignment="Left" Width="250">
+                    <Label DockPanel.Dock="Top">
                         Phone number
                     </Label>
                     <TextBox />
                 </DockPanel>
 
-                <DockPanel>
-                    <Label
-                        DockPanel.Dock="Top"
-                        FontSize="20"
-                        FontWeight="DemiBold">
+                <DockPanel HorizontalAlignment="Left" Width="250">
+                    <Label DockPanel.Dock="Top">
                         Citizen ID
                     </Label>
                     <TextBox />
                 </DockPanel>
 
-                <DockPanel>
-                    <Label
-                        DockPanel.Dock="Top"
-                        FontSize="20"
-                        FontWeight="DemiBold">
+                <DockPanel HorizontalAlignment="Left" Width="140">
+                    <Label DockPanel.Dock="Top">
                         Birthdate
                     </Label>
                     <CalendarDatePicker
@@ -92,11 +83,8 @@
                         Watermark="DD/MM/YYYY" />
                 </DockPanel>
 
-                <DockPanel>
-                    <Label
-                        DockPanel.Dock="Top"
-                        FontSize="20"
-                        FontWeight="DemiBold">
+                <DockPanel HorizontalAlignment="Left" Width="140">
+                    <Label DockPanel.Dock="Top">
                         Gender
                     </Label>
                     <ComboBox HorizontalAlignment="Stretch">
@@ -105,14 +93,22 @@
                     </ComboBox>
                 </DockPanel>
 
-                <DockPanel>
-                    <Label
-                        DockPanel.Dock="Top"
-                        FontSize="20"
-                        FontWeight="DemiBold">
+                <DockPanel HorizontalAlignment="Left" Width="400">
+                    <Label DockPanel.Dock="Top">
                         Full address
                     </Label>
                     <TextBox />
+                </DockPanel>
+
+                <DockPanel>
+                    <Button
+                        Background="RoyalBlue"
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        Foreground="White"
+                        Padding="20,8">
+                        Submit
+                    </Button>
                 </DockPanel>
 
                 <StackPanel.Styles>
@@ -143,6 +139,7 @@
                 </Interaction.Behaviors>
             </StackPanel>
 
+            <!--  Wide view  -->
             <Grid
                 Grid.Row="1"
                 RowDefinitions="auto auto auto auto auto"
@@ -153,7 +150,7 @@
                         Grid.Column="0"
                         HorizontalAlignment="Stretch"
                         Margin="0,0,25,0">
-                        <Label FontSize="20" FontWeight="DemiBold">
+                        <Label>
                             First name
                         </Label>
                         <TextBox />
@@ -162,7 +159,7 @@
                         Grid.Column="1"
                         HorizontalAlignment="Stretch"
                         Margin="15,0,0,0">
-                        <Label FontSize="20" FontWeight="DemiBold">
+                        <Label>
                             Last name
                         </Label>
                         <TextBox />
@@ -175,7 +172,7 @@
                     Grid.Row="1"
                     Margin="0,20,0,0">
                     <StackPanel HorizontalAlignment="Stretch" Margin="0,0,25,0">
-                        <Label FontSize="20" FontWeight="DemiBold">
+                        <Label>
                             Phone number
                         </Label>
                         <TextBox />
@@ -188,14 +185,14 @@
                     Grid.Row="2"
                     Margin="0,20,0,0">
                     <StackPanel Grid.Column="0" Margin="0,0,20,0">
-                        <Label FontSize="20" FontWeight="DemiBold">
+                        <Label>
                             Citizen ID
                         </Label>
                         <TextBox />
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="0,0,20,0">
-                        <Label FontSize="20" FontWeight="DemiBold">
+                        <Label>
                             Birthdate
                         </Label>
                         <CalendarDatePicker
@@ -206,7 +203,7 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="2" Margin="0,0,60,0">
-                        <Label FontSize="20" FontWeight="DemiBold">
+                        <Label>
                             Gender
                         </Label>
                         <ComboBox HorizontalAlignment="Stretch">
@@ -218,14 +215,14 @@
 
                 <!--  address  -->
                 <Grid
-                    ColumnDefinitions=".5* .5* *"
+                    ColumnDefinitions="* * *"
                     Grid.Row="3"
                     Margin="0,20,0,0">
                     <StackPanel
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         HorizontalAlignment="Stretch">
-                        <Label FontSize="20" FontWeight="DemiBold">
+                        <Label>
                             Full address
                         </Label>
                         <TextBox />
