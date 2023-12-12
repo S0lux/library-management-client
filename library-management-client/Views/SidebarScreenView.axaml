@@ -1,19 +1,30 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Avalonia_DependencyInjection.Views.SidebarScreenView"
-             x:DataType="vm:SidebarScreenViewModel">
-    <StackPanel Orientation="Horizontal" Height="34" Background="Transparent" PointerPressed="InputElement_OnPointerPressed" DoubleTapped="InputElement_OnDoubleTapped">
-        <Svg Path="{Binding IconPath}"
-             Width="18" Height="18" />
-        <TextBlock Margin="10 0" 
-                   VerticalAlignment="Center" 
-                   FontSize="13" 
-                   Text="{Binding DisplayName}" 
-                   Foreground="White"
-                   FontWeight="SemiBold" />
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Avalonia_DependencyInjection.Views.SidebarScreenView"
+    x:DataType="vm:SidebarScreenViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel
+        Background="Transparent"
+        DoubleTapped="InputElement_OnDoubleTapped"
+        Height="34"
+        Orientation="Horizontal"
+        PointerPressed="InputElement_OnPointerPressed">
+        <Svg
+            Height="18"
+            Path="{Binding IconPath}"
+            Width="18" />
+        <TextBlock
+            FontSize="13"
+            FontWeight="SemiBold"
+            Foreground="White"
+            Margin="10,0"
+            Text="{Binding DisplayName}"
+            VerticalAlignment="Center" />
     </StackPanel>
 </UserControl>

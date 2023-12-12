@@ -1,16 +1,17 @@
-<Application xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="Avalonia_DependencyInjection.App"
-             xmlns:local="using:Avalonia_DependencyInjection"
-             RequestedThemeVariant="Light">
+<Application
+    RequestedThemeVariant="Light"
+    x:Class="Avalonia_DependencyInjection.App"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:local="using:Avalonia_DependencyInjection"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Application.DataTemplates>
-        <local:ViewLocator/>
+        <local:ViewLocator />
     </Application.DataTemplates>
-  
+
     <Application.Styles>
         <FluentTheme />
-        <StyleInclude Source="Styles/Global.axaml"/>
+        <StyleInclude Source="Styles/Global.axaml" />
         <StyleInclude Source="/Styles/LoginControls.axaml" />
     </Application.Styles>
 </Application>

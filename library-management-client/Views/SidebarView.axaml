@@ -1,27 +1,43 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Avalonia_DependencyInjection.Views.SidebarView"
-             x:DataType="vm:SidebarViewModel">
-    
-    <Grid RowDefinitions="60,Auto,Auto,*,Auto,Auto" Background="RoyalBlue">
-        <Grid Grid.Row="0" IsHitTestVisible="False" ColumnDefinitions="Auto,*">
-            <Image Grid.Column="0" Margin="12" Source="/Assets/school-logo-white.png" RenderOptions.BitmapInterpolationMode="HighQuality" />
-            <TextBlock Grid.Column="1" FontSize="24" VerticalAlignment="Center" Foreground="White" FontWeight="DemiBold">
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Avalonia_DependencyInjection.Views.SidebarView"
+    x:DataType="vm:SidebarViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Background="RoyalBlue" RowDefinitions="60,Auto,Auto,*,Auto,Auto">
+        <Grid
+            ColumnDefinitions="Auto,*"
+            Grid.Row="0"
+            IsHitTestVisible="False">
+            <Image
+                Grid.Column="0"
+                Margin="12"
+                RenderOptions.BitmapInterpolationMode="HighQuality"
+                Source="/Assets/school-logo-white.png" />
+            <TextBlock
+                FontSize="24"
+                FontWeight="DemiBold"
+                Foreground="White"
+                Grid.Column="1"
+                VerticalAlignment="Center">
                 Library
             </TextBlock>
         </Grid>
 
-        <!-- Built-in screens -->
-        <TreeView Grid.Row="1"
-                  Margin="10 2"
-                  ItemsSource="{CompiledBinding SidebarScreen.Screens}"
-                  SelectedItem="{CompiledBinding SelectedScreen}"
-                  ItemContainerTheme="{StaticResource MenuTreeViewItem}"
-                  Foreground="White">
+        <!--  Built-in screens  -->
+        <TreeView
+            Foreground="White"
+            Grid.Row="1"
+            ItemContainerTheme="{StaticResource MenuTreeViewItem}"
+            ItemsSource="{CompiledBinding SidebarScreen.Screens}"
+            Margin="10,2"
+            SelectedItem="{CompiledBinding SelectedScreen}">
             <TreeView.Styles>
                 <Style Selector="TreeViewItem">
                     <Setter Property="IsExpanded" Value="{CompiledBinding IsExpanded, Mode=TwoWay, DataType=vm:SidebarScreenViewModel}" />
@@ -34,5 +50,5 @@
             </TreeView.ItemTemplate>
         </TreeView>
     </Grid>
-    
+
 </UserControl>

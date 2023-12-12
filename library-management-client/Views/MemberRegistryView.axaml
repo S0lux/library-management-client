@@ -1,12 +1,14 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Avalonia_DependencyInjection.Views.MemberRegistryView"
-             x:DataType="vm:MemberRegistryViewModel">
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Avalonia_DependencyInjection.Views.MemberRegistryView"
+    x:DataType="vm:MemberRegistryViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <UserControl.Styles>
         <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
@@ -16,63 +18,80 @@
 
     </UserControl.Styles>
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
-        <Grid Margin="30 0 30 30" RowDefinitions="auto *">
-            <Label Grid.Row="0"
-                   FontSize="30"
-                   FontWeight="DemiBold"
-                   Margin="0 0 0 20">
+        <Grid
+            ColumnDefinitions="* auto"
+            Margin="30,0,30,30"
+            RowDefinitions="auto *"
+            x:Name="MainGrid">
+            <Label
+                FontSize="30"
+                FontWeight="DemiBold"
+                Grid.Row="0"
+                Margin="0,0,0,20">
                 Member registration
             </Label>
 
             <Grid Grid.Row="1" RowDefinitions="auto auto auto auto auto">
-                <!-- first name/last name -->
-                <Grid Grid.Row="0" ColumnDefinitions=".5* .5* *">
-                    <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Margin="0 0 25 0">
+                <!--  first name/last name  -->
+                <Grid ColumnDefinitions=".5* .5* *" Grid.Row="0">
+                    <StackPanel
+                        Grid.Column="0"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,0,25,0">
                         <Label FontSize="20" FontWeight="DemiBold">
                             First name
                         </Label>
-                        <TextBox></TextBox>
+                        <TextBox />
                     </StackPanel>
-                    <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Margin="15 0 0 0">
+                    <StackPanel
+                        Grid.Column="1"
+                        HorizontalAlignment="Stretch"
+                        Margin="15,0,0,0">
                         <Label FontSize="20" FontWeight="DemiBold">
                             Last name
                         </Label>
-                        <TextBox></TextBox>
+                        <TextBox />
                     </StackPanel>
                 </Grid>
 
-                <!-- phone number -->
-                <Grid Grid.Row="1" Margin="0 20 0 0" ColumnDefinitions=".5* .5* *">
-                    <StackPanel HorizontalAlignment="Stretch" Margin="0 0 25 0">
+                <!--  phone number  -->
+                <Grid
+                    ColumnDefinitions=".5* .5* *"
+                    Grid.Row="1"
+                    Margin="0,20,0,0">
+                    <StackPanel HorizontalAlignment="Stretch" Margin="0,0,25,0">
                         <Label FontSize="20" FontWeight="DemiBold">
                             Phone number
                         </Label>
-                        <TextBox></TextBox>
+                        <TextBox />
                     </StackPanel>
                 </Grid>
 
-                <!-- bdate/gender/id -->
-                <Grid Grid.Row="2" ColumnDefinitions="* * * *" Margin="0 20 0 0">
-                    <StackPanel Grid.Column="0" Margin="0 0 20 0">
+                <!--  bdate/gender/id  -->
+                <Grid
+                    ColumnDefinitions="* * * *"
+                    Grid.Row="2"
+                    Margin="0,20,0,0">
+                    <StackPanel Grid.Column="0" Margin="0,0,20,0">
                         <Label FontSize="20" FontWeight="DemiBold">
                             Citizen ID
                         </Label>
-                        <TextBox></TextBox>
+                        <TextBox />
                     </StackPanel>
 
-                    <StackPanel Grid.Column="1" Margin="0 0 20 0">
-                        <Label FontSize="20" FontWeight="DemiBold" >
+                    <StackPanel Grid.Column="1" Margin="0,0,20,0">
+                        <Label FontSize="20" FontWeight="DemiBold">
                             Birthdate
                         </Label>
-                        <CalendarDatePicker Watermark="DD/MM/YYYY"
-                                            SelectedDateFormat="Custom"
-                                            CustomDateFormatString="dd/MM/yyyy"
-                                            HorizontalAlignment="Stretch">
-                        </CalendarDatePicker>
+                        <CalendarDatePicker
+                            CustomDateFormatString="dd/MM/yyyy"
+                            HorizontalAlignment="Stretch"
+                            SelectedDateFormat="Custom"
+                            Watermark="DD/MM/YYYY" />
                     </StackPanel>
 
-                    <StackPanel Grid.Column="2"  Margin="0 0 60 0">
-                        <Label FontSize="20" FontWeight="DemiBold" >
+                    <StackPanel Grid.Column="2" Margin="0,0,60,0">
+                        <Label FontSize="20" FontWeight="DemiBold">
                             Gender
                         </Label>
                         <ComboBox HorizontalAlignment="Stretch">
@@ -82,24 +101,30 @@
                     </StackPanel>
                 </Grid>
 
-                <!-- address -->
-                <Grid Grid.Row="3" Margin="0 20 0 0" ColumnDefinitions=".5* .5* *">
-                    <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch">
+                <!--  address  -->
+                <Grid
+                    ColumnDefinitions=".5* .5* *"
+                    Grid.Row="3"
+                    Margin="0,20,0,0">
+                    <StackPanel
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Stretch">
                         <Label FontSize="20" FontWeight="DemiBold">
                             Full address
                         </Label>
-                        <TextBox></TextBox>
+                        <TextBox />
                     </StackPanel>
                 </Grid>
 
-                <!-- submit button -->
-                <Grid Grid.Row="4" Margin="0 30 0 0">
+                <!--  submit button  -->
+                <Grid Grid.Row="4" Margin="0,30,0,0">
                     <Button
                         Background="RoyalBlue"
+                        FontSize="20"
                         FontWeight="SemiBold"
                         Foreground="White"
-                        Padding="20,8"
-                        FontSize="20">
+                        Padding="20,8">
                         Submit
                     </Button>
                 </Grid>
@@ -107,5 +132,6 @@
             </Grid>
         </Grid>
     </ScrollViewer>
+
 
 </UserControl>

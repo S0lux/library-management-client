@@ -1,22 +1,36 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:DataType="vm:DashboardViewModel"
-             x:Class="Avalonia_DependencyInjection.Views.DashboardView">
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Avalonia_DependencyInjection.Views.DashboardView"
+    x:DataType="vm:DashboardViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Panel Name="RootPanel">
         <DockPanel>
-            <ContentControl Name="SidebarContentControl" Content="{Binding SidebarViewModel}" DockPanel.Dock="Left" Width="240">
+            <ContentControl
+                Content="{Binding SidebarViewModel}"
+                DockPanel.Dock="Left"
+                Name="SidebarContentControl"
+                Width="240">
                 <ContentControl.Transitions>
                     <Transitions>
-                        <DoubleTransition Property="Width" Duration="0:0:0.2" Easing="CubicEaseOut"></DoubleTransition>
+                        <DoubleTransition
+                            Duration="0:0:0.2"
+                            Easing="CubicEaseOut"
+                            Property="Width" />
                     </Transitions>
                 </ContentControl.Transitions>
             </ContentControl>
-            <Border Name="TitleBarContainer" DockPanel.Dock="Top" Background="Transparent" PointerPressed="TitleBarContainer_OnPointerPressed">
-                <ContentControl Content="{Binding TitleBarViewModel}"/>
+            <Border
+                Background="Transparent"
+                DockPanel.Dock="Top"
+                Name="TitleBarContainer"
+                PointerPressed="TitleBarContainer_OnPointerPressed">
+                <ContentControl Content="{Binding TitleBarViewModel}" />
             </Border>
             <ContentControl Content="{Binding ActiveViewModel}" />
         </DockPanel>
