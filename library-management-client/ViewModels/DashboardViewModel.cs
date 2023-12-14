@@ -6,7 +6,7 @@ public partial class DashboardViewModel : ViewModelBase
 {
     [ObservableProperty] private ViewModelBase _currentViewModel = new();
     [ObservableProperty] private SidebarViewModel _sidebarViewModel;
-    [ObservableProperty] private ViewModelBase _activeViewModel;
+    [ObservableProperty] private ObservableObject _activeViewModel;
     [ObservableProperty] private TitlebarViewModel _titleBarViewModel;
 
     public DashboardViewModel(SidebarViewModel sidebarViewModel, TitlebarViewModel titlebarViewModel, HomeViewModel homeViewModel)

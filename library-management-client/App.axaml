@@ -8,6 +8,7 @@
     
     <Application.Resources>
         <converters:GenderConverter x:Key="GenderConverter"/>
+        <converters:DateTimeToAgeStringConverter x:Key="DateTimeToAgeStringConverter"/>
     </Application.Resources>
 
     <Application.DataTemplates>

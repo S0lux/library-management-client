@@ -76,7 +76,10 @@ public class AuthenticationService: IAuthService
         // Request to /api/session/verify
         var response = await GetAsync("/api/session/verify/");
         
-        if (response.StatusCode == HttpStatusCode.Unauthorized)
+        var body = await response.Content.ReadAsStringAsync();
+        CurrentUser = JsonSerializer.Deserialize<AuthUser>(body);
+        
+        if (response.StatusCode != HttpStatusCode.OK)
         {
             return false;
         }

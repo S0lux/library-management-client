@@ -3,10 +3,12 @@
     d:DesignWidth="1800"
     mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.HomeView"
+    x:DataType="viewModels:HomeViewModel"
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:viewModels="clr-namespace:Avalonia_DependencyInjection.ViewModels">
 
     <Grid
         Margin="30,0,0,0"
@@ -17,9 +19,8 @@
             FontSize="30"
             FontWeight="DemiBold"
             Grid.Row="0"
-            Margin="0,0,0,20">
-            Home
-        </Label>
+            Margin="0,0,0,20"
+            Content="Home" />
 
         <Grid ColumnDefinitions="* Auto" Grid.Row="1">
             <Border
@@ -74,12 +75,12 @@
                                     Source="/Assets/Character.png" />
                                 <StackPanel Grid.Column="1">
                                     <Label
-                                        Content="Trần Phước Lộc"
+                                        Content="{Binding CurrentUser.Name}"
                                         FontSize="20"
                                         FontWeight="SemiBold"
                                         Foreground="White" />
                                     <Label
-                                        Content="20 years old"
+                                        Content="{Binding CurrentUser.DateOfBirth, Converter={StaticResource DateTimeToAgeStringConverter}}"
                                         FontSize="12"
                                         Foreground="White" />
                                 </StackPanel>
@@ -90,27 +91,27 @@
                             <Grid ColumnDefinitions="* * *" RowDefinitions="* *">
                                 <Panel Grid.Column="0" Grid.Row="0">
                                     <Label FontWeight="Medium" Foreground="LightSlateGray">Phone Number</Label>
-                                    <Label Margin="0,20,0,0">(+84) 0972339932</Label>
+                                    <Label Margin="0,20,0,0" Content="{Binding CurrentUser.PhoneNumber}" />
                                 </Panel>
                                 <Panel Grid.Column="1" Grid.Row="0">
                                     <Label FontWeight="Medium" Foreground="LightSlateGray">Email</Label>
-                                    <Label Margin="0,20,0,0">22520797@gm.uit.edu.vn</Label>
+                                    <Label Margin="0,20,0,0" Content="{Binding CurrentUser.Email}" />
                                 </Panel>
                                 <Panel Grid.Column="2" Grid.Row="0">
                                     <Label FontWeight="Medium" Foreground="LightSlateGray">CCCD</Label>
-                                    <Label Margin="0,20,0,0">08920400****</Label>
+                                    <Label Margin="0,20,0,0" Content="{Binding CurrentUser.CitizenID}" />
                                 </Panel>
 
                                 <Panel Grid.Column="0" Grid.Row="1">
                                     <Label FontWeight="Medium" Foreground="LightSlateGray">Birthday</Label>
-                                    <Label Margin="0,20,0,0">27/11/2004</Label>
+                                    <Label Margin="0,20,0,0" Content="{Binding CurrentUser.DateOfBirth}" />
                                 </Panel>
                                 <Panel
                                     Grid.Column="1"
                                     Grid.ColumnSpan="2"
                                     Grid.Row="1">
                                     <Label FontWeight="Medium" Foreground="LightSlateGray">Address</Label>
-                                    <Label Margin="0,20,0,0">KTX khu b, Đông Hòa, Bình Dương</Label>
+                                    <Label Margin="0,20,0,0" Content="{Binding CurrentUser.Address}" />
                                 </Panel>
                             </Grid>
                         </Border>
