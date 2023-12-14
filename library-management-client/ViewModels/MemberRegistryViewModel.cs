@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,37 +8,17 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Avalonia_DependencyInjection.ViewModels;
 
-public partial class MemberRegistryViewModel: ViewModelBase
+public partial class MemberRegistryViewModel : ViewModelBase
 {
-    public MEMBER member { get; set; }
+    [ObservableProperty] private MEMBER _inputedMember = new MEMBER() { DateOfBirth = DateTime.Today, Gender = 0};
+    [ObservableProperty]
+    private ObservableCollection<string> _genders = new ObservableCollection<string>()
+    { "Male", "Female" };
 
-    [ObservableProperty] private string _firstName;
-    [ObservableProperty] private string _lastName;
-    [ObservableProperty] private string _phoneNumber;
-    [ObservableProperty] private string _citizenID;
-    [ObservableProperty] private DateTime _birthDate=DateTime.Today;
-    [ObservableProperty] private string _gender="";
-    [ObservableProperty] private string _fullAddress;
-
-    public ObservableCollection<string> Genders
-    {
-        get
-        {
-            var gender = new ObservableCollection<string>() { "Male", "Female" };
-            Gender = gender.FirstOrDefault();
-            return gender;
-        }
-    }
-
-    public MemberRegistryViewModel()
-    {
-        
-    }
-
+    
     [RelayCommand]
     void Submit()
     {
-        member = new MEMBER(CitizenID,FirstName+" "+LastName ,FullAddress,PhoneNumber,Gender,BirthDate);
-        Console.WriteLine(FirstName+LastName+PhoneNumber+CitizenID+BirthDate.ToString("dd/MM/yyyy")+Gender+FullAddress);
+        Console.WriteLine(InputedMember.Gender);
     }
 }

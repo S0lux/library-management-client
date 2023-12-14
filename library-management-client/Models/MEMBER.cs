@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Avalonia_DependencyInjection.Models
 {
-    public class MEMBER
+    public class MEMBER: ObservableObject
     {
         [Key]
         public int MemberId { get; set; }
@@ -32,25 +29,5 @@ namespace Avalonia_DependencyInjection.Models
 
         [MaxLength(4)]
         public int EmployeeId { get; set; }
-        public EMPLOYEE Employee { get; set; }
-
-        public MEMBER(
-            string citizenId,
-            string name, 
-            string address, 
-            string phoneNum,
-            string gender,
-            DateTime dateOfBirth,
-            int memberId=0)
-        {
-            MemberId = memberId;
-            CitizenID = citizenId;
-            Name = name;
-            Address = address;
-            PhoneNum = phoneNum;
-            if (gender == "Male") Gender = 1;
-            else Gender = 0;
-            DateOfBirth = dateOfBirth;
-        }
     }
 }

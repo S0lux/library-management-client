@@ -48,17 +48,9 @@
                 <!--  first name_narrow view  -->
                 <DockPanel HorizontalAlignment="Left" Width="200">
                     <Label DockPanel.Dock="Top">
-                        First name
+                        Fullname
                     </Label>
-                    <TextBox Text="{Binding FirstName}" Width="200" />
-                </DockPanel>
-
-                <!--  last name_narrow view  -->
-                <DockPanel HorizontalAlignment="Left" Width="200">
-                    <Label DockPanel.Dock="Top">
-                        Last name
-                    </Label>
-                    <TextBox Text="{Binding LastName}" />
+                    <TextBox Text="{Binding InputedMember.Name}" Width="200" />
                 </DockPanel>
 
                 <!--  phone number_narrow view  -->
@@ -66,7 +58,7 @@
                     <Label DockPanel.Dock="Top">
                         Phone number
                     </Label>
-                    <TextBox Text="{Binding PhoneNumber}" />
+                    <TextBox Text="{Binding InputedMember.PhoneNum}" />
                 </DockPanel>
 
                 <!--  ID_narrow view  -->
@@ -74,7 +66,7 @@
                     <Label DockPanel.Dock="Top">
                         Citizen ID
                     </Label>
-                    <TextBox Text="{Binding CitizenID}" />
+                    <TextBox Text="{Binding InputedMember.CitizenID}" />
                 </DockPanel>
 
                 <!--  Bdate_narrow view  -->
@@ -85,7 +77,7 @@
                     <CalendarDatePicker
                         CustomDateFormatString="dd/MM/yyyy"
                         HorizontalAlignment="Stretch"
-                        SelectedDate="{Binding BirthDate}"
+                        SelectedDate="{Binding InputedMember.DateOfBirth}"
                         SelectedDateFormat="Custom"
                         Watermark="DD/MM/YYYY" />
                 </DockPanel>
@@ -98,7 +90,7 @@
                     <ComboBox
                         HorizontalAlignment="Stretch"
                         ItemsSource="{Binding Genders}"
-                        SelectedItem="{Binding Gender}" />
+                        SelectedItem="{Binding InputedMember.Gender, Converter={StaticResource GenderConverter}}" />
                 </DockPanel>
 
                 <!--  address_narrow view  -->
@@ -106,7 +98,7 @@
                     <Label DockPanel.Dock="Top">
                         Full address
                     </Label>
-                    <TextBox Text="{Binding FullAddress}" />
+                    <TextBox Text="{Binding InputedMember.Address}" />
                 </DockPanel>
 
                 <!--  submit button_narrow view  -->
@@ -162,18 +154,9 @@
                         HorizontalAlignment="Stretch"
                         Margin="0,0,25,0">
                         <Label>
-                            First name
+                            Fullname
                         </Label>
-                        <TextBox Text="{Binding FirstName}" />
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Column="1"
-                        HorizontalAlignment="Stretch"
-                        Margin="15,0,0,0">
-                        <Label>
-                            Last name
-                        </Label>
-                        <TextBox Text="{Binding LastName}" />
+                        <TextBox Text="{Binding InputedMember.Name}" />
                     </StackPanel>
                 </Grid>
 
@@ -186,7 +169,7 @@
                         <Label>
                             Phone number
                         </Label>
-                        <TextBox Text="{Binding PhoneNumber}" />
+                        <TextBox Text="{Binding InputedMember.PhoneNum}" />
                     </StackPanel>
                 </Grid>
 
@@ -199,7 +182,7 @@
                         <Label>
                             Citizen ID
                         </Label>
-                        <TextBox Text="{Binding CitizenID}" />
+                        <TextBox Text="{Binding InputedMember.CitizenID}" />
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="0,0,20,0">
@@ -209,7 +192,7 @@
                         <CalendarDatePicker
                             CustomDateFormatString="dd/MM/yyyy"
                             HorizontalAlignment="Stretch"
-                            SelectedDate="{Binding BirthDate}"
+                            SelectedDate="{Binding InputedMember.DateOfBirth}"
                             SelectedDateFormat="Custom"
                             Watermark="DD/MM/YYYY" />
                     </StackPanel>
@@ -223,7 +206,7 @@
                                 <ComboBox
                                     HorizontalAlignment="Stretch"
                                     ItemsSource="{Binding Genders}"
-                                    SelectedItem="{Binding Gender}" />
+                                    SelectedItem="{Binding InputedMember.Gender, Converter={StaticResource GenderConverter}}" />
                                 <TextBlock />
                             </Grid>
                         </Border>
@@ -243,7 +226,7 @@
                         <Label>
                             Full address
                         </Label>
-                        <TextBox Text="{Binding FullAddress}" />
+                        <TextBox Text="{Binding InputedMember.Address}" />
                     </StackPanel>
                 </Grid>
 
@@ -276,8 +259,6 @@
                     </AdaptiveBehavior>
                 </Interaction.Behaviors>
             </Grid>
-
-
         </Grid>
     </ScrollViewer>
 
