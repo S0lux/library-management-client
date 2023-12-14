@@ -6,6 +6,7 @@ namespace Avalonia_DependencyInjection.Views;
 
 public partial class MemberRegistryView : UserControl
 {
+
     public MemberRegistryView()
     {
         InitializeComponent();

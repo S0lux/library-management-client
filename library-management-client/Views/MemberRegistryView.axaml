@@ -44,34 +44,40 @@
                 Grid.Row="1"
                 Spacing="20"
                 x:Name="NarrowView">
+
+                <!--  first name_narrow view  -->
                 <DockPanel HorizontalAlignment="Left" Width="200">
                     <Label DockPanel.Dock="Top">
                         First name
                     </Label>
-                    <TextBox Width="200" />
+                    <TextBox Text="{Binding FirstName}" Width="200" />
                 </DockPanel>
 
+                <!--  last name_narrow view  -->
                 <DockPanel HorizontalAlignment="Left" Width="200">
                     <Label DockPanel.Dock="Top">
                         Last name
                     </Label>
-                    <TextBox />
+                    <TextBox Text="{Binding LastName}" />
                 </DockPanel>
 
+                <!--  phone number_narrow view  -->
                 <DockPanel HorizontalAlignment="Left" Width="250">
                     <Label DockPanel.Dock="Top">
                         Phone number
                     </Label>
-                    <TextBox />
+                    <TextBox Text="{Binding PhoneNumber}" />
                 </DockPanel>
 
+                <!--  ID_narrow view  -->
                 <DockPanel HorizontalAlignment="Left" Width="250">
                     <Label DockPanel.Dock="Top">
                         Citizen ID
                     </Label>
-                    <TextBox />
+                    <TextBox Text="{Binding CitizenID}" />
                 </DockPanel>
 
+                <!--  Bdate_narrow view  -->
                 <DockPanel HorizontalAlignment="Left" Width="140">
                     <Label DockPanel.Dock="Top">
                         Birthdate
@@ -79,30 +85,35 @@
                     <CalendarDatePicker
                         CustomDateFormatString="dd/MM/yyyy"
                         HorizontalAlignment="Stretch"
+                        SelectedDate="{Binding BirthDate}"
                         SelectedDateFormat="Custom"
                         Watermark="DD/MM/YYYY" />
                 </DockPanel>
 
+                <!--  gender_narroe view  -->
                 <DockPanel HorizontalAlignment="Left" Width="140">
                     <Label DockPanel.Dock="Top">
                         Gender
                     </Label>
-                    <ComboBox HorizontalAlignment="Stretch">
-                        <ComboBoxItem>Male</ComboBoxItem>
-                        <ComboBoxItem>Female</ComboBoxItem>
-                    </ComboBox>
+                    <ComboBox
+                        HorizontalAlignment="Stretch"
+                        ItemsSource="{Binding Genders}"
+                        SelectedItem="{Binding Gender}" />
                 </DockPanel>
 
+                <!--  address_narrow view  -->
                 <DockPanel HorizontalAlignment="Left" Width="400">
                     <Label DockPanel.Dock="Top">
                         Full address
                     </Label>
-                    <TextBox />
+                    <TextBox Text="{Binding FullAddress}" />
                 </DockPanel>
 
+                <!--  submit button_narrow view  -->
                 <DockPanel>
                     <Button
                         Background="RoyalBlue"
+                        Command="{Binding SubmitCommand}"
                         FontSize="20"
                         FontWeight="SemiBold"
                         Foreground="White"
@@ -144,7 +155,7 @@
                 Grid.Row="1"
                 RowDefinitions="auto auto auto auto auto"
                 x:Name="WideGrid">
-                <!--  first name/last name  -->
+                <!--  first name/last name_wide view  -->
                 <Grid ColumnDefinitions=".5* .5* *" Grid.Row="0">
                     <StackPanel
                         Grid.Column="0"
@@ -153,7 +164,7 @@
                         <Label>
                             First name
                         </Label>
-                        <TextBox />
+                        <TextBox Text="{Binding FirstName}" />
                     </StackPanel>
                     <StackPanel
                         Grid.Column="1"
@@ -162,11 +173,11 @@
                         <Label>
                             Last name
                         </Label>
-                        <TextBox />
+                        <TextBox Text="{Binding LastName}" />
                     </StackPanel>
                 </Grid>
 
-                <!--  phone number  -->
+                <!--  phone number_wide view  -->
                 <Grid
                     ColumnDefinitions=".5* .5* *"
                     Grid.Row="1"
@@ -175,11 +186,11 @@
                         <Label>
                             Phone number
                         </Label>
-                        <TextBox />
+                        <TextBox Text="{Binding PhoneNumber}" />
                     </StackPanel>
                 </Grid>
 
-                <!--  bdate/gender/id  -->
+                <!--  bdate/gender/id_wide view  -->
                 <Grid
                     ColumnDefinitions="* * * *"
                     Grid.Row="2"
@@ -188,7 +199,7 @@
                         <Label>
                             Citizen ID
                         </Label>
-                        <TextBox />
+                        <TextBox Text="{Binding CitizenID}" />
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="0,0,20,0">
@@ -198,6 +209,7 @@
                         <CalendarDatePicker
                             CustomDateFormatString="dd/MM/yyyy"
                             HorizontalAlignment="Stretch"
+                            SelectedDate="{Binding BirthDate}"
                             SelectedDateFormat="Custom"
                             Watermark="DD/MM/YYYY" />
                     </StackPanel>
@@ -206,14 +218,20 @@
                         <Label>
                             Gender
                         </Label>
-                        <ComboBox HorizontalAlignment="Stretch">
-                            <ComboBoxItem>Male</ComboBoxItem>
-                            <ComboBoxItem>Female</ComboBoxItem>
-                        </ComboBox>
+                        <Border>
+                            <Grid>
+                                <ComboBox
+                                    HorizontalAlignment="Stretch"
+                                    ItemsSource="{Binding Genders}"
+                                    SelectedItem="{Binding Gender}" />
+                                <TextBlock />
+                            </Grid>
+                        </Border>
+
                     </StackPanel>
                 </Grid>
 
-                <!--  address  -->
+                <!--  address_wide view  -->
                 <Grid
                     ColumnDefinitions="* * *"
                     Grid.Row="3"
@@ -225,14 +243,15 @@
                         <Label>
                             Full address
                         </Label>
-                        <TextBox />
+                        <TextBox Text="{Binding FullAddress}" />
                     </StackPanel>
                 </Grid>
 
-                <!--  submit button  -->
+                <!--  submit button_wide view  -->
                 <Grid Grid.Row="4" Margin="0,30,0,0">
                     <Button
                         Background="RoyalBlue"
+                        Command="{Binding SubmitCommand}"
                         FontSize="20"
                         FontWeight="SemiBold"
                         Foreground="White"

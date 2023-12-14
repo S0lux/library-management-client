@@ -74,7 +74,9 @@ public class AuthenticationService: IAuthService
     public async Task<bool> VerifyTokenAsync()
     {
         // Request to /api/session/verify
-        var response = await GetAsync("/api/session/verify/");
+        //var response = await GetAsync("/api/session/verify/");
+        var response = await GetAsync("localhost:3001");
+
         
         if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
