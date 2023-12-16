@@ -1,6 +1,6 @@
 <UserControl
-    d:DesignHeight="850"
-    d:DesignWidth="800"
+    d:DesignHeight="600"
+    d:DesignWidth="500"
     mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.MemberRegistryView"
     x:DataType="vm:MemberRegistryViewModel"
@@ -31,128 +31,128 @@
             Margin="30,0,30,30"
             Name="MainGrid"
             RowDefinitions="auto *">
-            <Label
-                FontSize="30"
-                Grid.Row="0"
-                Margin="0,0,0,20">
+            <Label FontSize="30" Grid.Row="0">
                 Member registration
             </Label>
 
 
             <!--  Narrow View  -->
-            <StackPanel
-                Grid.Row="1"
-                Spacing="20"
-                x:Name="NarrowView">
+            <Grid Grid.Row="1" x:Name="NarrowView">
+                <StackPanel Spacing="20">
 
-                <!--  first name_narrow view  -->
-                <DockPanel HorizontalAlignment="Left" Width="200">
-                    <Label DockPanel.Dock="Top">
-                        Fullname
-                    </Label>
-                    <TextBox Text="{Binding InputedMember.Name}" Width="200" />
-                </DockPanel>
+                    <!--  first name_narrow view  -->
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top">
+                            Fullname
+                        </Label>
+                        <TextBox Text="{Binding InputedMember.Name}" />
+                    </DockPanel>
 
-                <!--  phone number_narrow view  -->
-                <DockPanel HorizontalAlignment="Left" Width="250">
-                    <Label DockPanel.Dock="Top">
-                        Phone number
-                    </Label>
-                    <TextBox Text="{Binding InputedMember.PhoneNum}" />
-                </DockPanel>
+                    <!--  phone number_narrow view  -->
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top">
+                            Phone number
+                        </Label>
+                        <TextBox Text="{Binding InputedMember.PhoneNum}" />
+                    </DockPanel>
 
-                <!--  ID_narrow view  -->
-                <DockPanel HorizontalAlignment="Left" Width="250">
-                    <Label DockPanel.Dock="Top">
-                        Citizen ID
-                    </Label>
-                    <TextBox Text="{Binding InputedMember.CitizenID}" />
-                </DockPanel>
+                    <!--  ID_narrow view  -->
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top">
+                            Citizen ID
+                        </Label>
+                        <TextBox Text="{Binding InputedMember.CitizenID}" />
+                    </DockPanel>
 
-                <!--  Bdate_narrow view  -->
-                <DockPanel HorizontalAlignment="Left" Width="140">
-                    <Label DockPanel.Dock="Top">
-                        Birthdate
-                    </Label>
-                    <CalendarDatePicker
-                        CustomDateFormatString="dd/MM/yyyy"
-                        HorizontalAlignment="Stretch"
-                        SelectedDate="{Binding InputedMember.DateOfBirth}"
-                        SelectedDateFormat="Custom"
-                        Watermark="DD/MM/YYYY" />
-                </DockPanel>
+                    <Grid ColumnDefinitions="* *">
+                        <!--  Bdate_narrow view  -->
+                        <DockPanel Grid.Column="1" Margin="5,0,0,0">
+                            <Label DockPanel.Dock="Top">
+                                Birthdate
+                            </Label>
+                            <CalendarDatePicker
+                                CustomDateFormatString="dd/MM/yyyy"
+                                HorizontalAlignment="Stretch"
+                                SelectedDate="{Binding InputedMember.DateOfBirth}"
+                                SelectedDateFormat="Custom" />
+                        </DockPanel>
 
-                <!--  gender_narroe view  -->
-                <DockPanel HorizontalAlignment="Left" Width="140">
-                    <Label DockPanel.Dock="Top">
-                        Gender
-                    </Label>
-                    <ComboBox
-                        HorizontalAlignment="Stretch"
-                        ItemsSource="{Binding Genders}"
-                        SelectedItem="{Binding InputedMember.Gender, Converter={StaticResource GenderConverter}}" />
-                </DockPanel>
+                        <!--  gender_narrow view  -->
+                        <DockPanel Grid.Column="0" Margin="0,0,5,0">
+                            <Label DockPanel.Dock="Top">
+                                Gender
+                            </Label>
+                            <ComboBox
+                                HorizontalAlignment="Stretch"
+                                ItemsSource="{Binding Genders}"
+                                SelectedItem="{Binding InputedMember.Gender, Converter={StaticResource GenderConverter}}" />
+                        </DockPanel>
+                    </Grid>
 
-                <!--  address_narrow view  -->
-                <DockPanel HorizontalAlignment="Left" Width="400">
-                    <Label DockPanel.Dock="Top">
-                        Full address
-                    </Label>
-                    <TextBox Text="{Binding InputedMember.Address}" />
-                </DockPanel>
 
-                <!--  submit button_narrow view  -->
-                <DockPanel>
-                    <Button
-                        Background="RoyalBlue"
-                        Command="{Binding SubmitCommand}"
-                        FontSize="20"
-                        FontWeight="SemiBold"
-                        Foreground="White"
-                        Padding="20,8">
-                        Submit
-                    </Button>
-                </DockPanel>
+                    <!--  address_narrow view  -->
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top">
+                            Full address
+                        </Label>
+                        <TextBox Text="{Binding InputedMember.Address}" />
+                    </DockPanel>
 
-                <StackPanel.Styles>
-                    <Style Selector="StackPanel.Hidden">
+                    <!--  submit button_narrow view  -->
+                    <DockPanel>
+                        <Button
+                            Background="RoyalBlue"
+                            Command="{Binding SubmitCommand}"
+                            FontSize="20"
+                            FontWeight="SemiBold"
+                            Foreground="White"
+                            Padding="15,5">
+                            Submit
+                        </Button>
+                    </DockPanel>
+                </StackPanel>
+                <Grid.Styles>
+                    <Style Selector="Grid.Hidden">
                         <Setter Property="IsVisible" Value="False" />
                     </Style>
-                    <Style Selector="StackPanel.Visible">
+                    <Style Selector="Grid.Visible">
                         <Setter Property="IsVisible" Value="True" />
                     </Style>
-                </StackPanel.Styles>
+                </Grid.Styles>
 
                 <Interaction.Behaviors>
                     <AdaptiveBehavior SourceControl="MainGrid" TargetControl="NarrowView">
                         <AdaptiveClassSetter
                             ClassName="Hidden"
-                            MaxWidth="500"
+                            MaxWidth="600"
                             MaxWidthOperator="GreaterThan"
                             MinWidth="0"
                             MinWidthOperator="GreaterThanOrEqual" />
 
                         <AdaptiveClassSetter
                             ClassName="Visible"
-                            MaxWidth="500"
+                            MaxWidth="600"
                             MaxWidthOperator="LessThan"
                             MinWidth="0"
                             MinWidthOperator="GreaterThanOrEqual" />
                     </AdaptiveBehavior>
                 </Interaction.Behaviors>
-            </StackPanel>
+            </Grid>
+
 
             <!--  Wide view  -->
             <Grid
+                ColumnDefinitions="* * *"
                 Grid.Row="1"
-                RowDefinitions="auto auto auto auto auto"
+                RowDefinitions="* * * * *"
+                VerticalAlignment="Top"
                 x:Name="WideGrid">
-                <!--  first name/last name_wide view  -->
-                <Grid ColumnDefinitions=".5* .5* *" Grid.Row="0">
-                    <StackPanel
-                        Grid.Column="0"
-                        HorizontalAlignment="Stretch"
-                        Margin="0,0,25,0">
+                <!--  full name_wide view  -->
+                <Grid
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Margin="0,30,10,0">
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Stretch">
                         <Label>
                             Fullname
                         </Label>
@@ -162,10 +162,10 @@
 
                 <!--  phone number_wide view  -->
                 <Grid
-                    ColumnDefinitions=".5* .5* *"
+                    Grid.Column="0"
                     Grid.Row="1"
-                    Margin="0,20,0,0">
-                    <StackPanel HorizontalAlignment="Stretch" Margin="0,0,25,0">
+                    Margin="0,30,10,0">
+                    <StackPanel HorizontalAlignment="Stretch">
                         <Label>
                             Phone number
                         </Label>
@@ -173,31 +173,14 @@
                     </StackPanel>
                 </Grid>
 
-                <!--  bdate/gender/id_wide view  -->
+
                 <Grid
-                    ColumnDefinitions="* * * *"
-                    Grid.Row="2"
-                    Margin="0,20,0,0">
-                    <StackPanel Grid.Column="0" Margin="0,0,20,0">
-                        <Label>
-                            Citizen ID
-                        </Label>
-                        <TextBox Text="{Binding InputedMember.CitizenID}" />
-                    </StackPanel>
+                    ColumnDefinitions="* *"
+                    Grid.Column="1"
+                    Grid.Row="2">
 
-                    <StackPanel Grid.Column="1" Margin="0,0,20,0">
-                        <Label>
-                            Birthdate
-                        </Label>
-                        <CalendarDatePicker
-                            CustomDateFormatString="dd/MM/yyyy"
-                            HorizontalAlignment="Stretch"
-                            SelectedDate="{Binding InputedMember.DateOfBirth}"
-                            SelectedDateFormat="Custom"
-                            Watermark="DD/MM/YYYY" />
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="2" Margin="0,0,60,0">
+                    <!--  gender_wide view  -->
+                    <StackPanel Grid.Column="0" Margin="0,30,5,0">
                         <Label>
                             Gender
                         </Label>
@@ -210,19 +193,41 @@
                                 <TextBlock />
                             </Grid>
                         </Border>
+                    </StackPanel>
 
+                    <!--  Bdate_wide view  -->
+                    <StackPanel Grid.Column="1" Margin="5,30,0,0">
+                        <Label>
+                            Birthdate
+                        </Label>
+                        <CalendarDatePicker
+                            CustomDateFormatString="dd/MM/yyyy"
+                            HorizontalAlignment="Stretch"
+                            SelectedDate="{Binding InputedMember.DateOfBirth}"
+                            SelectedDateFormat="Custom" />
                     </StackPanel>
                 </Grid>
 
+
+                <!--  id_wide view  -->
+                <StackPanel
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Margin="0,30,10,0">
+                    <Label>
+                        Citizen ID
+                    </Label>
+                    <TextBox Text="{Binding InputedMember.CitizenID}" />
+                </StackPanel>
+
+
                 <!--  address_wide view  -->
                 <Grid
-                    ColumnDefinitions="* * *"
+                    ColumnSpan="2"
+                    Grid.Column="0"
                     Grid.Row="3"
-                    Margin="0,20,0,0">
-                    <StackPanel
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        HorizontalAlignment="Stretch">
+                    Margin="0,30,0,0">
+                    <StackPanel HorizontalAlignment="Stretch">
                         <Label>
                             Full address
                         </Label>
@@ -231,14 +236,17 @@
                 </Grid>
 
                 <!--  submit button_wide view  -->
-                <Grid Grid.Row="4" Margin="0,30,0,0">
+                <Grid
+                    Grid.Column="0"
+                    Grid.Row="4"
+                    Margin="0,30,0,0">
                     <Button
                         Background="RoyalBlue"
                         Command="{Binding SubmitCommand}"
                         FontSize="20"
                         FontWeight="SemiBold"
                         Foreground="White"
-                        Padding="20,8">
+                        Padding="15,5">
                         Submit
                     </Button>
                 </Grid>
@@ -252,7 +260,7 @@
                     <AdaptiveBehavior SourceControl="MainGrid" TargetControl="WideGrid">
                         <AdaptiveClassSetter
                             ClassName="Hidden"
-                            MaxWidth="500"
+                            MaxWidth="600"
                             MaxWidthOperator="LessThan"
                             MinWidth="0"
                             MinWidthOperator="GreaterThanOrEqual" />
