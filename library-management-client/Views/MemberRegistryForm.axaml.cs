@@ -5,11 +5,12 @@ using Avalonia.Markup.Xaml;
 
 namespace Avalonia_DependencyInjection.Views;
 
-public partial class MemberRegistryView : UserControl
+public partial class MemberRegistryForm : Window
 {
-
-    public MemberRegistryView()
+    public MemberRegistryForm()
     {
         InitializeComponent();
+        DataContext = new MemberRegistryFormViewModel(this);
+
     }
 }

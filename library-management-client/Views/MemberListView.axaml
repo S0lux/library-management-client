@@ -1,31 +1,31 @@
 <UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.MemberListView"
+    x:DataType="vm:MemberListViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="https://github.com/avaloniaui"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="vm:MemberListViewModel"
-    mc:Ignorable="d">
-    <Grid Name="MainGrid" Margin="30,0,30,30">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="30,0,30,30" Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel
+            DockPanel.Dock="Top"
             Grid.Row="0"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            DockPanel.Dock="Top"
-            Orientation="Horizontal">
+            Orientation="Horizontal"
+            VerticalAlignment="Top">
             <Svg
-                Width="30"
                 Height="30"
-                Path="/Assets/SVGs/users_black.svg" />
+                Path="/Assets/SVGs/users_black.svg"
+                Width="30" />
             <Label Classes="MemberListLabel">
                 Member List
             </Label>
@@ -38,28 +38,28 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <StackPanel
-                Grid.Column="0"
-                VerticalAlignment="Center"
                 DockPanel.Dock="Left"
-                Orientation="Horizontal">
+                Grid.Column="0"
+                Orientation="Horizontal"
+                VerticalAlignment="Center">
                 <TextBox
-                    Width="120"
                     Height="3"
-                    Watermark="Filter Key" />
+                    Watermark="Filter Key"
+                    Width="120" />
                 <ui:ComboBox Margin="10,0,0,0" PlaceholderText="Filter By" />
             </StackPanel>
             <Button
-                Grid.Column="2"
-                Padding="8,3,4,3"
                 Background="#31bc70"
                 Classes="MemberListAddButton"
                 Command="{Binding AddCommand}"
-                DockPanel.Dock="Right">
-                <StackPanel HorizontalAlignment="" Orientation="Horizontal">
+                DockPanel.Dock="Right"
+                Grid.Column="2"
+                Padding="8,3,4,3">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <Svg
-                        Width="14"
                         Height="14"
-                        Path="/Assets/SVGs/user-plus.svg" />
+                        Path="/Assets/SVGs/user-plus.svg"
+                        Width="14" />
                     <Label
                         Content="ADD"
                         FontWeight="DemiBold"
@@ -69,46 +69,46 @@
         </Grid>
 
         <DataGrid
-            Grid.Row="2"
-            Margin="0,10,0,0"
             AutoGenerateColumns="False"
             BorderBrush="Gray"
             BorderThickness="0"
+            Grid.Row="2"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
-            ItemsSource="{Binding memberList}">
+            ItemsSource="{Binding memberList}"
+            Margin="0,10,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn
-                    Width="auto"
                     Binding="{Binding MemberID}"
-                    Header="ID" />
+                    Header="ID"
+                    Width="auto" />
                 <DataGridTextColumn
-                    Width="*"
                     Binding="{Binding Name}"
-                    Header="CUSTOMER" />
+                    Header="CUSTOMER"
+                    Width="*" />
                 <DataGridTextColumn
-                    Width="auto"
                     Binding="{Binding PhoneNumber}"
-                    Header="PHONE" />
+                    Header="PHONE"
+                    Width="auto" />
                 <DataGridTextColumn
-                    Width="auto"
                     Binding="{Binding Gender, Converter={StaticResource GenderConverter}}"
-                    Header="GENDER" />
+                    Header="GENDER"
+                    Width="auto" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Margin="0,0,8,0" HorizontalContentAlignment="Center">
+                                <Button HorizontalContentAlignment="Center" Margin="0,0,8,0">
                                     <Svg
-                                        Width="13"
                                         Height="13"
-                                        Path="/Assets/SVGs/pen-to-square.svg" />
+                                        Path="/Assets/SVGs/pen-to-square.svg"
+                                        Width="13" />
                                 </Button>
-                                <Button Margin="0,0,13,0" HorizontalContentAlignment="Center">
+                                <Button HorizontalContentAlignment="Center" Margin="0,0,13,0">
                                     <Svg
-                                        Width="13"
                                         Height="13"
-                                        Path="/Assets/SVGs/trash-can.svg" />
+                                        Path="/Assets/SVGs/trash-can.svg"
+                                        Width="13" />
                                 </Button>
                             </StackPanel>
                         </DataTemplate>

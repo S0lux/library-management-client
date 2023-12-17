@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
+using Avalonia_DependencyInjection.Views;
 
 namespace Avalonia_DependencyInjection.ViewModels;
 
@@ -19,6 +20,8 @@ public partial class MemberListViewModel:ViewModelBase
     [RelayCommand]
     public void Add()
     {
+        var a = new MemberRegistryForm();
+        a.Show();
         memberList.Add(new MEMBER
         {
             MemberID = 1,

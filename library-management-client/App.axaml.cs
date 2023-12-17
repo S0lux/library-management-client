@@ -44,6 +44,8 @@ public partial class App : Application
                 services.AddSingleton<MemberListViewModel>();
                 services.AddSingleton<TitlebarViewModel>();
 
+
+
                 services.AddHttpClient("main", options =>
                 {
                     options.BaseAddress = new Uri("https://library-management-api-five.vercel.app/");
