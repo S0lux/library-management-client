@@ -1,0 +1,24 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+			<DataGrid Classes="MemberListDataGrid">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Khang">
+						
+					</DataGridTextColumn>
+					<DataGridTextColumn Header="Truong"/>
+					<DataGridTextColumn Header="Nguyen"/>
+					<DataGridTextColumn Header="Trung"/>
+				</DataGrid.Columns>
+			</DataGrid>
+        </Border>
+    </Design.PreviewWith>
+
+	
+	<Styles>
+		<Style Selector="DataGrid.MemberListDataGrid">
+			<Setter Property="Background" Value="RoyalBlue"/>
+		</Style>
+	</Styles>
+</Styles>

@@ -1,0 +1,15 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+			<Label> Text Sample</Label>
+        </Border>
+    </Design.PreviewWith>
+
+	<Styles>
+		<Style Selector="Label.MemberListLabel">
+			<Setter Property="FontSize" Value="30"/>
+			<Setter Property="FontWeight" Value="DemiBold"/>
+		</Style> 
+	</Styles>
+</Styles>

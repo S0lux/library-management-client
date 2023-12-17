@@ -5,14 +5,52 @@
     x:Class="Avalonia_DependencyInjection.Views.MemberListView"
     x:DataType="vm:MemberListViewModel"
     xmlns="https://github.com/avaloniaui"
+	xmlns:ui="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <TextBlock
-        FontSize="30"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center">
-        Member list
-    </TextBlock>
+	<Grid Margin="30,0,30,30"
+		  Name="MainGrid">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left"  DockPanel.Dock="Top" Orientation="Horizontal" >
+			<Svg Height="30" 
+				 Path="/Assets/SVGs/users_black.svg" 
+				 Width="30" 
+				 />
+			<Label Classes="MemberListLabel">
+				Member List
+			</Label>
+		</StackPanel>
+		
+		<Grid Margin="0 5 0 5" Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="auto"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="auto"/>
+			</Grid.ColumnDefinitions>
+			<StackPanel Grid.Column="0" DockPanel.Dock="Left" Orientation="Horizontal">
+				<TextBox Height="3" Watermark="Filter Key" Width="120"/>
+				<ui:ComboBox Margin="10 0 0 0" PlaceholderText="Filter By" />
+			</StackPanel>
+			<Button Command="{Binding AddCommand}" Grid.Column="2" DockPanel.Dock="Right" Content="ADD" />
+		</Grid>
+		
+		<DataGrid Grid.Row="2" Margin="0 10 0 0" ItemsSource="{Binding memberList}"
+		          AutoGenerateColumns="False" IsReadOnly="True"
+				  BorderBrush="Gray"
+				  GridLinesVisibility="Horizontal"
+				  BorderThickness="0">
+			<DataGrid.Columns>
+				<DataGridTextColumn Width="auto" Header="ID" Binding="{Binding MemberId}"/>
+				<DataGridTextColumn Width="*" Header="CUSTOMER" Binding="{Binding Name}"/>
+				<DataGridTextColumn Width="auto" Header="PHONE" Binding="{Binding PhoneNum}"/>
+				<DataGridTextColumn Width="auto" Header="GENDER" Binding="{Binding Gender, Converter={StaticResource GenderConverter}}"/>
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
 </UserControl>
