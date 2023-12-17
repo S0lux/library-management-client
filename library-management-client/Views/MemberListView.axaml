@@ -1,31 +1,31 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.MemberListView"
-    x:DataType="vm:MemberListViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="https://github.com/avaloniaui"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid Margin="30,0,30,30" Name="MainGrid">
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:MemberListViewModel"
+    mc:Ignorable="d">
+    <Grid Name="MainGrid" Margin="30,0,30,30">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel
-            DockPanel.Dock="Top"
             Grid.Row="0"
             HorizontalAlignment="Left"
-            Orientation="Horizontal"
-            VerticalAlignment="Top">
+            VerticalAlignment="Top"
+            DockPanel.Dock="Top"
+            Orientation="Horizontal">
             <Svg
+                Width="30"
                 Height="30"
-                Path="/Assets/SVGs/users_black.svg"
-                Width="30" />
+                Path="/Assets/SVGs/users_black.svg" />
             <Label Classes="MemberListLabel">
                 Member List
             </Label>
@@ -38,52 +38,57 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <StackPanel
-                DockPanel.Dock="Left"
                 Grid.Column="0"
+                DockPanel.Dock="Left"
                 Orientation="Horizontal">
                 <TextBox
+                    Width="120"
                     Height="3"
-                    Watermark="Filter Key"
-                    Width="120" />
+                    Watermark="Filter Key" />
                 <ui:ComboBox Margin="10,0,0,0" PlaceholderText="Filter By" />
             </StackPanel>
             <Button
+                Grid.Column="2"
                 Command="{Binding AddCommand}"
                 Content="ADD"
-                DockPanel.Dock="Right"
-                Grid.Column="2" />
+                DockPanel.Dock="Right" />
         </Grid>
 
         <DataGrid
+            Grid.Row="2"
+            Margin="0,10,0,0"
             AutoGenerateColumns="False"
             BorderBrush="Gray"
             BorderThickness="0"
-            Grid.Row="2"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
-            ItemsSource="{Binding memberList}"
-            Margin="0,10,0,0">
+            ItemsSource="{Binding memberList}">
             <DataGrid.Columns>
                 <DataGridTextColumn
+                    Width="auto"
                     Binding="{Binding MemberID}"
-                    Header="ID"
-                    Width="auto" />
+                    Header="ID" />
                 <DataGridTextColumn
+                    Width="*"
                     Binding="{Binding Name}"
-                    Header="CUSTOMER"
-                    Width="*" />
+                    Header="CUSTOMER" />
                 <DataGridTextColumn
+                    Width="auto"
                     Binding="{Binding PhoneNumber}"
-                    Header="PHONE"
-                    Width="auto" />
+                    Header="PHONE" />
                 <DataGridTextColumn
+                    Width="auto"
                     Binding="{Binding Gender, Converter={StaticResource GenderConverter}}"
-                    Header="GENDER"
-                    Width="auto" />
+                    Header="GENDER" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button>something</Button>
+                            <Button HorizontalContentAlignment="Center">
+                                <Svg
+                                    Width="13"
+                                    Height="13"
+                                    Path="/Assets/SVGs/trash-can.svg" />
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
