@@ -1,0 +1,53 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+        <Style Selector="CalendarDayButton">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Panel>
+                        <!-- WinUI draws these items for performance, thus no template, so this is reverse engineered -->
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="5"
+                                 Name="Background"
+                                 Margin="5" />
+
+                        <ContentControl Name="Content"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Content="{TemplateBinding Content}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        Margin="{TemplateBinding Padding}"/>
+
+                        <!-- Drawn Border should render on top of background to preserve the 1px
+                        margin between items-->
+                        <Border Name="Border"
+                                BorderThickness="1"
+                                Margin="1"
+                                CornerRadius="40"
+                                IsVisible="False"/>
+
+                        <!--
+                    Keyboard is handled differently for Avalonia Calendar control so there will be a difference there
+                    -->
+                    </Panel>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        
+        <Style Selector="CalendarDayButton:today">
+            <Style Selector="^ /template/ Border#Background">
+                <Setter Property="Background" Value="RoyalBlue" />
+            </Style>
+        </Style>
+        
+        <Style Selector="CalendarDayButton:selected /template/ Border#Border">
+            <Setter Property="BorderBrush" Value="RoyalBlue"/>
+            <Setter Property="IsVisible" Value="True"/>
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+</Styles>

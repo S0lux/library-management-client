@@ -11,7 +11,7 @@ public class DateTimeToAgeStringConverter: IValueConverter
     {
         if (value is DateTime date)
         {
-            return $"{DateTime.Now.Year - date.Year} years old";
+            return $" {DateTime.Now.Year - date.Year} years old";
         }
         
         return new BindingNotification(new InvalidCastException(), 
