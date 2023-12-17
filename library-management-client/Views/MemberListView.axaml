@@ -55,7 +55,7 @@
                 Classes="MemberListAddButton"
                 Command="{Binding AddCommand}"
                 DockPanel.Dock="Right">
-                <StackPanel HorizontalAlignment="" Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <Svg
                         Width="14"
                         Height="14"
