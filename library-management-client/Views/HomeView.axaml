@@ -7,8 +7,8 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:viewModels="clr-namespace:Avalonia_DependencyInjection.ViewModels">
+    xmlns:viewModels="clr-namespace:Avalonia_DependencyInjection.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Grid
         Margin="30,0,0,0"
@@ -16,11 +16,12 @@
         RowDefinitions="Auto *">
 
         <Label
+            Content="Home"
+            FontFamily="{StaticResource InterFontThin}"
             FontSize="30"
             FontWeight="DemiBold"
             Grid.Row="0"
-            Margin="0,0,0,20"
-            Content="Home" />
+            Margin="0,0,0,20" />
 
         <Grid ColumnDefinitions="* Auto" Grid.Row="1">
             <Border
@@ -91,27 +92,27 @@
                             <Grid ColumnDefinitions="* * *" RowDefinitions="* *">
                                 <Panel Grid.Column="0" Grid.Row="0">
                                     <Label FontWeight="Medium" Foreground="LightSlateGray">Phone Number</Label>
-                                    <Label Margin="0,20,0,0" Content="{Binding CurrentUser.PhoneNumber}" />
+                                    <Label Content="{Binding CurrentUser.PhoneNumber}" Margin="0,20,0,0" />
                                 </Panel>
                                 <Panel Grid.Column="1" Grid.Row="0">
                                     <Label FontWeight="Medium" Foreground="LightSlateGray">Email</Label>
-                                    <Label Margin="0,20,0,0" Content="{Binding CurrentUser.Email}" />
+                                    <Label Content="{Binding CurrentUser.Email}" Margin="0,20,0,0" />
                                 </Panel>
                                 <Panel Grid.Column="2" Grid.Row="0">
                                     <Label FontWeight="Medium" Foreground="LightSlateGray">CCCD</Label>
-                                    <Label Margin="0,20,0,0" Content="{Binding CurrentUser.CitizenID}" />
+                                    <Label Content="{Binding CurrentUser.CitizenID}" Margin="0,20,0,0" />
                                 </Panel>
 
                                 <Panel Grid.Column="0" Grid.Row="1">
                                     <Label FontWeight="Medium" Foreground="LightSlateGray">Birthday</Label>
-                                    <Label Margin="0,20,0,0" Content="{Binding CurrentUser.DateOfBirth}" />
+                                    <Label Content="{Binding CurrentUser.DateOfBirth}" Margin="0,20,0,0" />
                                 </Panel>
                                 <Panel
                                     Grid.Column="1"
                                     Grid.ColumnSpan="2"
                                     Grid.Row="1">
                                     <Label FontWeight="Medium" Foreground="LightSlateGray">Address</Label>
-                                    <Label Margin="0,20,0,0" Content="{Binding CurrentUser.Address}" />
+                                    <Label Content="{Binding CurrentUser.Address}" Margin="0,20,0,0" />
                                 </Panel>
                             </Grid>
                         </Border>

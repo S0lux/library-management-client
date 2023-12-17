@@ -2,13 +2,13 @@
     RequestedThemeVariant="Light"
     x:Class="Avalonia_DependencyInjection.App"
     xmlns="https://github.com/avaloniaui"
+    xmlns:converters="clr-namespace:Avalonia_DependencyInjection.Converters"
     xmlns:local="using:Avalonia_DependencyInjection"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="clr-namespace:Avalonia_DependencyInjection.Converters">
-    
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <Application.Resources>
-        <converters:GenderConverter x:Key="GenderConverter"/>
-        <converters:DateTimeToAgeStringConverter x:Key="DateTimeToAgeStringConverter"/>
+        <converters:GenderConverter x:Key="GenderConverter" />
+        <converters:DateTimeToAgeStringConverter x:Key="DateTimeToAgeStringConverter" />
     </Application.Resources>
 
     <Application.DataTemplates>
@@ -19,6 +19,7 @@
         <FluentTheme />
         <StyleInclude Source="Styles/Global.axaml" />
         <StyleInclude Source="/Styles/LoginControls.axaml" />
-		<StyleInclude Source="/Styles/Label.axaml" />
+        <StyleInclude Source="/Styles/Label.axaml" />
+        <StyleInclude Source="Styles/Fonts.axaml" />
     </Application.Styles>
 </Application>
