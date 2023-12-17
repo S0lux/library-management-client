@@ -1,10 +1,10 @@
 <Application
-    RequestedThemeVariant="Light"
     x:Class="Avalonia_DependencyInjection.App"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:Avalonia_DependencyInjection.Converters"
     xmlns:local="using:Avalonia_DependencyInjection"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    RequestedThemeVariant="Light">
 
     <Application.Resources>
         <converters:GenderConverter x:Key="GenderConverter" />
@@ -20,6 +20,5 @@
         <StyleInclude Source="Styles/Global.axaml" />
         <StyleInclude Source="/Styles/LoginControls.axaml" />
         <StyleInclude Source="/Styles/Label.axaml" />
-        <StyleInclude Source="Styles/Fonts.axaml" />
     </Application.Styles>
 </Application>

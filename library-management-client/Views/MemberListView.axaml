@@ -39,6 +39,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel
                 Grid.Column="0"
+                VerticalAlignment="Center"
                 DockPanel.Dock="Left"
                 Orientation="Horizontal">
                 <TextBox
@@ -49,9 +50,22 @@
             </StackPanel>
             <Button
                 Grid.Column="2"
+                Padding="8,3,4,3"
+                Background="#31bc70"
+                Classes="MemberListAddButton"
                 Command="{Binding AddCommand}"
-                Content="ADD"
-                DockPanel.Dock="Right" />
+                DockPanel.Dock="Right">
+                <StackPanel HorizontalAlignment="" Orientation="Horizontal">
+                    <Svg
+                        Width="14"
+                        Height="14"
+                        Path="/Assets/SVGs/user-plus.svg" />
+                    <Label
+                        Content="ADD"
+                        FontWeight="DemiBold"
+                        Foreground="White" />
+                </StackPanel>
+            </Button>
         </Grid>
 
         <DataGrid

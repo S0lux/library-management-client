@@ -1,0 +1,27 @@
+﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <Button Content="Hello Word" />
+        </Border>
+    </Design.PreviewWith>
+    <Styles>
+        <Style Selector="Button.MemberListAddButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#299d5d" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrushPointerOver}" />
+            <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundPointerOver}" />
+			<Setter Property="BorderThickness" Value="{DynamicResource ButtonBorderThemeThickness}" />
+			<Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+			<Setter Property="Padding" Value="{DynamicResource ButtonPadding}" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="RenderTransform" Value="none" />
+			<Setter Property="Transitions">
+				<Transitions>
+					<TransformOperationsTransition Property="RenderTransform" Duration="0:0:.075" />
+				</Transitions>
+			</Setter>        
+		</Style>		
+    </Styles>
+	
+	
+</Styles>
