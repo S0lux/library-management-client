@@ -47,5 +47,14 @@
 
     <ItemGroup>
       <UpToDateCheckInput Remove="Controls\SidebarMenuItem.axaml" />
+      <UpToDateCheckInput Remove="Assets\Fonts\Inter-Black.ttf" />
+      <UpToDateCheckInput Remove="Assets\Fonts\Inter-Bold.ttf" />
+      <UpToDateCheckInput Remove="Assets\Fonts\Inter-ExtraBold.ttf" />
+      <UpToDateCheckInput Remove="Assets\Fonts\Inter-ExtraLight.ttf" />
+      <UpToDateCheckInput Remove="Assets\Fonts\Inter-Light.ttf" />
+      <UpToDateCheckInput Remove="Assets\Fonts\Inter-Medium.ttf" />
+      <UpToDateCheckInput Remove="Assets\Fonts\Inter-Regular.ttf" />
+      <UpToDateCheckInput Remove="Assets\Fonts\Inter-SemiBold.ttf" />
+      <UpToDateCheckInput Remove="Assets\Fonts\Inter-Thin.ttf" />
     </ItemGroup>
 </Project>

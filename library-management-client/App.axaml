@@ -17,7 +17,7 @@
 
     <Application.Styles>
         <FluentTheme />
-        <StyleInclude Source="Styles/Global.axaml" />
+        <StyleInclude Source="/Styles/Global.axaml" />
         <StyleInclude Source="/Styles/LoginControls.axaml" />
         <StyleInclude Source="/Styles/Label.axaml" />
     </Application.Styles>
