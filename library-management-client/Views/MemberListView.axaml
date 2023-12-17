@@ -83,12 +83,20 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button HorizontalContentAlignment="Center">
-                                <Svg
-                                    Width="13"
-                                    Height="13"
-                                    Path="/Assets/SVGs/trash-can.svg" />
-                            </Button>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Margin="0,0,8,0" HorizontalContentAlignment="Center">
+                                    <Svg
+                                        Width="13"
+                                        Height="13"
+                                        Path="/Assets/SVGs/pen-to-square.svg" />
+                                </Button>
+                                <Button Margin="0,0,13,0" HorizontalContentAlignment="Center">
+                                    <Svg
+                                        Width="13"
+                                        Height="13"
+                                        Path="/Assets/SVGs/trash-can.svg" />
+                                </Button>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
