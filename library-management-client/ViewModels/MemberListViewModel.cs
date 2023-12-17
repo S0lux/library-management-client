@@ -21,15 +21,15 @@ public partial class MemberListViewModel:ViewModelBase
     {
         memberList.Add(new MEMBER
         {
-            MemberId = 1,
+            MemberID = 1,
             CitizenID = "1",
             Credit = 1,
             Name = "Trng Nguyn Trung Khang",
             Address = "A",
-            PhoneNum = "1",
+            PhoneNumber = "1",
             DateOfBirth = DateTime.Now,
             Gender = 0,
-            EmployeeId = 1
+            EmployeeID = 1
         });
     }
 }

@@ -53,7 +53,7 @@
                         <Label DockPanel.Dock="Top">
                             Phone number
                         </Label>
-                        <TextBox Text="{Binding InputedMember.PhoneNum}" />
+                        <TextBox Text="{Binding InputedMember.PhoneNumber}" />
                     </DockPanel>
 
                     <!--  ID_narrow view  -->
@@ -169,7 +169,7 @@
                         <Label>
                             Phone number
                         </Label>
-                        <TextBox Text="{Binding InputedMember.PhoneNum}" />
+                        <TextBox Text="{Binding InputedMember.PhoneNumber}" />
                     </StackPanel>
                 </Grid>
 

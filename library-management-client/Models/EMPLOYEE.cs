@@ -7,7 +7,7 @@ namespace Avalonia_DependencyInjection.Models;
 public class EMPLOYEE
 {
     [Key]
-    public int EmployeeId { get; set; }
+    public int EmployeeID { get; set; }
 
     [MaxLength(50)]
     public string Name { get; set; }
@@ -16,11 +16,14 @@ public class EMPLOYEE
     public string Address { get; set; }
 
     [MaxLength(11)]
-    public string PhoneNum { get; set; }
+    public string PhoneNumber { get; set; }
+    
+    public string CitizenID { get; set; }
+
+    public string Email { get; set; }
 
     public int Gender { get; set; }
 
     public DateTime DateOfBirth { get; set; }
 
-    public ICollection<MEMBER> Members { get; set; } = new List<MEMBER>();
 }

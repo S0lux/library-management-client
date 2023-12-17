@@ -13,16 +13,13 @@ namespace Avalonia_DependencyInjection.Models
         public int BorrowInvoiceID { get; set; }
 
         [MaxLength(4)]
-        public string BookID { get; set; }
-        public BOOK Book { get; set; }
+        public string MemberID { get; set; }
 
         [MaxLength(4)]
-        public string EmpID { get; set; }
-        public EMPLOYEE Employee { get; set; }
+        public string EmployeeID { get; set; }
 
         public DateTime BorrowingDate { get; set; }
 
-        public ICollection<BORROW_DETAIL> BorrowDetails { get; set; } = new List<BORROW_DETAIL>();
 
     }
 }

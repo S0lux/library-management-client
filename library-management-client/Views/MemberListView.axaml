@@ -65,7 +65,7 @@
             Margin="0,10,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn
-                    Binding="{Binding MemberId}"
+                    Binding="{Binding MemberID}"
                     Header="ID"
                     Width="auto" />
                 <DataGridTextColumn
@@ -73,7 +73,7 @@
                     Header="CUSTOMER"
                     Width="*" />
                 <DataGridTextColumn
-                    Binding="{Binding PhoneNum}"
+                    Binding="{Binding PhoneNumber}"
                     Header="PHONE"
                     Width="auto" />
                 <DataGridTextColumn

@@ -11,7 +11,6 @@ namespace Avalonia_DependencyInjection.Models
     {
         [MaxLength(4)]
         public int BookID { get; set; }
-        public BOOK Book { get; set; }
 
         [MaxLength(10)]
         public string Status { get; set; }

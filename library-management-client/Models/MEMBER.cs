@@ -7,7 +7,7 @@ namespace Avalonia_DependencyInjection.Models
     public class MEMBER: ObservableObject
     {
         [Key]
-        public int MemberId { get; set; }
+        public int MemberID { get; set; }
 
         [MaxLength(12)]
         public string CitizenID { get; set; }
@@ -19,7 +19,7 @@ namespace Avalonia_DependencyInjection.Models
         public string Address { get; set; }
 
         [MaxLength(11)]
-        public string PhoneNum { get; set; }
+        public string PhoneNumber { get; set; }
 
         public int Credit { get; set; }
 
@@ -28,6 +28,6 @@ namespace Avalonia_DependencyInjection.Models
         public DateTime DateOfBirth { get; set; }
 
         [MaxLength(4)]
-        public int EmployeeId { get; set; }
+        public int EmployeeID { get; set; }
     }
 }

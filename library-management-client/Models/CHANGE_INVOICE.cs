@@ -13,12 +13,10 @@ namespace Avalonia_DependencyInjection.Models
         public int ChangeInvoiceID { get; set; }
 
         [MaxLength(4)]
-        public string EmpID { get; set; }
-        public EMPLOYEE Employee { get; set; }
+        public string EmployeeID { get; set; }
 
         public DateTime ChangeDate { get; set; }
 
-        public ICollection<CHANGE_DETAIL> ChangeDetails { get; set; } = new List<CHANGE_DETAIL>();
 
     }
 }

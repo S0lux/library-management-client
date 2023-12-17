@@ -25,6 +25,5 @@ namespace Avalonia_DependencyInjection.Models
 
         public DateTime ReleaseDate { get; set; }
 
-        public ICollection<BOOK_DETAIL> BookDetails = new List<BOOK_DETAIL>();
     }
 }

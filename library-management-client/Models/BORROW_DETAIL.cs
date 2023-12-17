@@ -10,11 +10,9 @@ namespace Avalonia_DependencyInjection.Models
     internal class BORROW_DETAIL
     {
         public int BorrowInvoiceID { get; set; }
-        public BORROW_INVOICE BorrowInvoice { get; set; }
 
         [MaxLength(4)]
         public int BookID { get; set; }
-        public BOOK Book { get; set; }
 
         public int Quantity { get; set; }
 

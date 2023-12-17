@@ -11,11 +11,9 @@ namespace Avalonia_DependencyInjection.Models
     {
         [MaxLength(6)]
         public int ChangeInvoiceID { get; set; }
-        public CHANGE_INVOICE ChangeInvoice { get; set; }
 
         [MaxLength(4)]
         public int BookID { get; set; }
-        public BOOK Book { get; set; }
 
         [MaxLength(50)]
         public string Partner { get; set; }
