@@ -21,12 +21,6 @@
             FontWeight="DemiBold"
             Grid.Row="0"
             Margin="0,0,0,20" />
-        <Label
-            Content="Home"
-            FontSize="30"
-            FontWeight="DemiBold"
-            Grid.Row="0"
-            Margin="0,25,0,20" />
 
         <Grid ColumnDefinitions="* Auto" Grid.Row="1">
             <Border
@@ -182,7 +176,7 @@
                     </AdaptiveBehavior>
                 </Interaction.Behaviors>
 
-                <Calendar BorderThickness="0" VerticalAlignment="Top" />
+                <Calendar BorderThickness="0" VerticalAlignment="Top" Margin="10 0 10 0" Name="MyCalendar" />
             </Border>
         </Grid>
     </Grid>

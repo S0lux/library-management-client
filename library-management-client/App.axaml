@@ -20,5 +20,6 @@
         <StyleInclude Source="/Styles/Global.axaml" />
         <StyleInclude Source="/Styles/LoginControls.axaml" />
         <StyleInclude Source="/Styles/Label.axaml" />
+        <StyleInclude Source="/Styles/Calendar.axaml" />
     </Application.Styles>
 </Application>
