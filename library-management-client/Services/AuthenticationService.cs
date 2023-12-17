@@ -130,6 +130,49 @@ public class AuthenticationService: IAuthService
             return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
     }
+    
+    public async Task<HttpResponseMessage> PutAsync(string uri, HttpContent content)
+    {
+        // Check for token saved locally
+        if (!File.Exists("userToken.txt")) return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+        
+        var httpClient = _factory.CreateClient("main");
+        
+        // Set the authorization header
+        var localToken = await File.ReadAllTextAsync("userToken.txt");
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", localToken);
+
+        try
+        {
+            var response = await httpClient.PutAsync(uri, content);
+
+            // To handle redirects
+            // Due to the authorization header being lost on redirection
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                var finalUri = response.RequestMessage!.RequestUri;
+                var res = await httpClient.PutAsync(finalUri, content);
+
+                if (res.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    // Delete userToken.txt
+                    File.Delete("userToken.txt");
+                }
+
+                return res;
+            }
+
+            return response;
+        }
+        catch (HttpRequestException e)
+        {
+            return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+        }
+        catch (Exception)
+        {
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
+    }
 
     public async Task<HttpResponseMessage> GetAsync(string uri)
     {
@@ -152,6 +195,49 @@ public class AuthenticationService: IAuthService
             {
                 var finalUri = response.RequestMessage!.RequestUri;
                 var res = await httpClient.GetAsync(finalUri);
+
+                if (res.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    // Delete userToken.txt
+                    File.Delete("userToken.txt");
+                }
+
+                return res;
+            }
+
+            return response;
+        }
+        catch (HttpRequestException e)
+        {
+            return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+        }
+        catch (Exception)
+        {
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
+    }
+    
+    public async Task<HttpResponseMessage> DeleteAsync(string uri)
+    {
+        // Check for token saved locally
+        if (!File.Exists("userToken.txt")) return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+        
+        var httpClient = _factory.CreateClient("main");
+        
+        // Set the authorization header
+        var localToken = await File.ReadAllTextAsync("userToken.txt");
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", localToken);
+        
+        try
+        {
+            var response = await httpClient.DeleteAsync(uri);
+
+            // To handle redirects
+            // Due to the authorization header being lost on redirection
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                var finalUri = response.RequestMessage!.RequestUri;
+                var res = await httpClient.DeleteAsync(finalUri);
 
                 if (res.StatusCode == HttpStatusCode.Unauthorized)
                 {
