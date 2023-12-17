@@ -17,11 +17,16 @@
 
         <Label
             Content="Home"
-            FontFamily="{StaticResource InterFontThin}"
             FontSize="30"
             FontWeight="DemiBold"
             Grid.Row="0"
             Margin="0,0,0,20" />
+        <Label
+            Content="Home"
+            FontSize="30"
+            FontWeight="DemiBold"
+            Grid.Row="0"
+            Margin="0,25,0,20" />
 
         <Grid ColumnDefinitions="* Auto" Grid.Row="1">
             <Border
