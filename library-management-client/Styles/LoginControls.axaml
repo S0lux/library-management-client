@@ -1,6 +1,7 @@
 <Styles
     xmlns="https://github.com/avaloniaui"
     xmlns:ic="using:FluentIcons.Avalonia"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20">
@@ -34,8 +35,11 @@
     </Design.PreviewWith>
 
     <Styles>
+        <Style Selector="Button:pointerover /template/ ui|FABorder#Root">
+            <Setter Property="Background" Value="#414ee1" />
+        </Style>
         <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Foreground" Value="White" />
         </Style>
 
         <Style Selector="TextBox.Icon">

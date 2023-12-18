@@ -5,11 +5,21 @@
     x:Class="Avalonia_DependencyInjection.Views.MemberListView"
     x:DataType="vm:MemberListViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:UI="using:FluentAvalonia.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="https://github.com/avaloniaui"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Styles>
+        <Style Selector="Button:pointerover /template/ UI|FABorder#Root">
+            <Setter Property="Background" Value="#217f4c" />
+        </Style>
+        <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+    </UserControl.Styles>
     <Grid Margin="30,0,30,30" Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -50,7 +60,6 @@
             </StackPanel>
             <Button
                 Background="#31bc70"
-                Classes="MemberListAddButton"
                 Command="{Binding AddCommand}"
                 DockPanel.Dock="Right"
                 Grid.Column="2"
