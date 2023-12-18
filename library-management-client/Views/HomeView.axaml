@@ -8,7 +8,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:Avalonia_DependencyInjection.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Avalonia_DependencyInjection.Controls">
 
     <Grid
         Margin="30,0,0,0"
@@ -116,41 +117,6 @@
                             </Grid>
                         </Border>
                     </Grid>
-
-                    <!--<Grid Grid.Row="1" Height="150">
-                        <Border Background="White" CornerRadius="5">
-                            <Grid ColumnDefinitions="* * * *">
-                                <Border Grid.Column="0" Background="ForestGreen"
-                                        Margin="15"
-                                        CornerRadius="5"
-                                        Padding="20">
-                                    <DockPanel>
-                                        <Svg Path="/Assets/SVGs/books.svg"
-                                             VerticalAlignment="Top"
-                                             HorizontalAlignment="Right"
-                                             Height="40"
-                                             DockPanel.Dock="Right" />
-                                        <StackPanel VerticalAlignment="Bottom">
-                                            <Panel>
-                                            <Label FontSize="30"
-                                                   FontWeight="Bold"
-                                                   Foreground="White"
-                                                   Margin="0 0 0 20">
-                                                0
-                                            </Label>
-
-                                            <Label FontSize="25"
-                                                   FontWeight="Bold"
-                                                   Foreground="White">
-                                                Books
-                                            </Label>
-                                            </Panel>
-                                        </StackPanel>
-                                    </DockPanel>
-                                </Border>
-                            </Grid>
-                        </Border>
-                    </Grid>-->
                 </Grid>
             </Border>
 
@@ -159,6 +125,7 @@
                 CornerRadius="5"
                 Grid.Column="1"
                 Name="CalendarBorder">
+                
                 <Border.Styles>
                     <Style Selector="Border.Hidden">
                         <Setter Property="IsVisible" Value="False" />
@@ -175,8 +142,9 @@
                             MinWidthOperator="GreaterThanOrEqual" />
                     </AdaptiveBehavior>
                 </Interaction.Behaviors>
-
-                <Calendar BorderThickness="0" VerticalAlignment="Top" Margin="10 0 10 0" Name="MyCalendar" />
+                <StackPanel>
+                    <Calendar BorderThickness="0" VerticalAlignment="Top" Margin="10 0 10 0" Name="MyCalendar" />
+                </StackPanel>
             </Border>
         </Grid>
     </Grid>

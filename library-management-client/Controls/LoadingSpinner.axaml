@@ -1,0 +1,47 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Avalonia_DependencyInjection.Controls">
+    <Design.PreviewWith>
+        <controls:LoadingSpinner IsLoading="True" Thickness="3" Diameter="100" />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|LoadingSpinner">
+        <Setter Property="Template">
+            <ControlTemplate TargetType="{x:Type controls:LoadingSpinner}">
+                
+                <Ellipse Stroke="{TemplateBinding Color}"
+                         IsVisible="{TemplateBinding IsLoading}"
+                         Width="{TemplateBinding Diameter}"
+                         Height="{TemplateBinding Diameter}"
+                         StrokeThickness="{TemplateBinding Thickness}">
+                    
+                   <Ellipse.Styles>
+                       <Style Selector="Ellipse">
+                           <Setter Property="StrokeDashArray">
+                               <MultiBinding Converter="{StaticResource ThicknessAndDiameterToDashArrayConverter}">
+                                   <Binding Path="Thickness" RelativeSource="{RelativeSource TemplatedParent}" />
+                                   <Binding Path="Diameter" RelativeSource="{RelativeSource TemplatedParent}" />
+                               </MultiBinding>
+                           </Setter>
+                       </Style>
+                   </Ellipse.Styles>
+                    
+                </Ellipse>
+                
+            </ControlTemplate>
+        </Setter>
+        
+        <Style.Animations>
+            <Animation IterationCount="INFINITE" Duration="0:0:1">
+                <KeyFrame Cue="0%">
+                    <Setter Property="RotateTransform.Angle" Value="0" />
+                </KeyFrame>
+                
+                <KeyFrame Cue="100%">
+                    <Setter Property="RotateTransform.Angle" Value="360" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+        
+    </Style>
+</Styles>

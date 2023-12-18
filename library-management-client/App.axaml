@@ -9,6 +9,7 @@
     <Application.Resources>
         <converters:GenderConverter x:Key="GenderConverter" />
         <converters:DateTimeToAgeStringConverter x:Key="DateTimeToAgeStringConverter" />
+        <converters:ThicknessAndDiameterToDashArrayConverter x:Key="ThicknessAndDiameterToDashArrayConverter" />
     </Application.Resources>
 
     <Application.DataTemplates>
@@ -21,5 +22,6 @@
         <StyleInclude Source="/Styles/LoginControls.axaml" />
         <StyleInclude Source="/Styles/Label.axaml" />
         <StyleInclude Source="/Styles/Calendar.axaml" />
+        <StyleInclude Source="/Controls/LoadingSpinner.axaml" />
     </Application.Styles>
 </Application>

@@ -42,6 +42,9 @@
       <Compile Update="Views\MemberListView.axaml.cs">
         <DependentUpon>MemberListView.axaml</DependentUpon>
       </Compile>
+      <Compile Update="Views\MemberRegistryForm.axaml.cs">
+        <DependentUpon>MemberRegistryForm.axaml</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 
