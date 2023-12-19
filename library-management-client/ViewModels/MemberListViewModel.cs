@@ -5,10 +5,11 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
 using Avalonia_DependencyInjection.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Avalonia_DependencyInjection.ViewModels;
 
-public partial class MemberListViewModel:ViewModelBase
+public partial class MemberListViewModel: ViewModelBase
 {
     public ObservableCollection<MEMBER> memberList { get; set; }
 
@@ -20,8 +21,9 @@ public partial class MemberListViewModel:ViewModelBase
     [RelayCommand]
     public void Add()
     {
-        var a = new MemberRegistryForm();
+        var a = App.AppHost!.Services.GetRequiredService<MemberRegistryForm>();
         a.Show();
+        
         memberList.Add(new MEMBER
         {
             MemberID = 1,

@@ -43,12 +43,13 @@ public partial class App : Application
                 services.AddSingleton<MemberRegistryViewModel>();
                 services.AddSingleton<MemberListViewModel>();
                 services.AddSingleton<TitlebarViewModel>();
-
-
+                services.AddSingleton<MemberRegistryFormViewModel>();
+                services.AddSingleton<MemberRegistryForm>();
+                
 
                 services.AddHttpClient("main", options =>
                 {
-                    options.BaseAddress = new Uri("https://library-management-api-five.vercel.app/");
+                    options.BaseAddress = new Uri("https://library-management-api-five.vercel.app");
                 });
             })
             .Build();

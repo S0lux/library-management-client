@@ -7,10 +7,10 @@ namespace Avalonia_DependencyInjection.Views;
 
 public partial class MemberRegistryForm : Window
 {
-    public MemberRegistryForm()
+    public MemberRegistryForm(MemberRegistryFormViewModel memberRegistryFormViewModel)
     {
         InitializeComponent();
-        DataContext = new MemberRegistryFormViewModel(this);
+        DataContext = memberRegistryFormViewModel;
 
     }
 }
