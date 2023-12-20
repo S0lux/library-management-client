@@ -1,15 +1,15 @@
 <UserControl
-    d:DesignHeight="600"
-    d:DesignWidth="960"
-    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.LoginView"
-    x:DataType="vm:LoginViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ic="using:FluentIcons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="600"
+    d:DesignWidth="960"
+    x:DataType="vm:LoginViewModel"
+    mc:Ignorable="d">
 
     <Grid
         Background="#4667df"
@@ -18,25 +18,25 @@
 
         <!--  Title bar  -->
         <Grid
-            Background="Transparent"
+            Grid.Row="0"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Grid.Row="0"
-            PointerPressed="InputElement_OnPointerPressed"
             VerticalAlignment="Top"
+            Background="Transparent"
+            PointerPressed="InputElement_OnPointerPressed"
             ZIndex="1">
 
             <!--  Close application button  -->
             <Button
-                Command="{Binding CloseWindowCommand}"
+                Margin="0,5,5,0"
                 HorizontalAlignment="Right"
-                Margin="0,5,5,0">
+                Command="{Binding CloseWindowCommand}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Image
+                            Width="20"
                             Margin="5"
-                            Source="/Assets/Icons/exit_button.png"
-                            Width="20" />
+                            Source="/Assets/Icons/exit_button.png" />
                     </ControlTemplate>
                 </Button.Template>
             </Button>
@@ -44,37 +44,37 @@
 
         <!--  Left panel image  -->
         <Image
-            Grid.Column="0"
             Grid.Row="0"
+            Grid.Column="0"
             MaxWidth="500"
             RenderOptions.BitmapInterpolationMode="HighQuality"
             Source="/Assets/LoginScreen/Thumbnail.png" />
 
         <!--  Right panel grid  -->
         <Grid
-            Background="White"
-            Grid.Column="1"
             Grid.Row="0"
+            Grid.Column="1"
+            Background="White"
             RowDefinitions="Auto *">
             <!--  School logo and text  -->
             <Grid
-                ColumnDefinitions="auto *"
                 Grid.Row="0"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Center">
+                VerticalAlignment="Center"
+                ColumnDefinitions="auto *">
                 <Image
                     Grid.Column="0"
-                    Margin="50,45,10,0"
                     MaxWidth="60"
+                    Margin="50,45,10,0"
                     RenderOptions.BitmapInterpolationMode="HighQuality"
                     Source="/Assets/school-logo.png" />
                 <TextBlock
-                    FontSize="20"
-                    FontWeight="Black"
-                    Foreground="RoyalBlue"
                     Grid.Column="1"
                     Margin="0,45,0,0"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Black"
+                    Foreground="RoyalBlue">
                     UIT
                 </TextBlock>
             </Grid>
@@ -86,38 +86,38 @@
                 RowDefinitions="Auto Auto *">
                 <!--  Title  -->
                 <TextBlock
+                    Grid.Row="0"
                     FontSize="25"
                     FontWeight="Black"
-                    Foreground="RoyalBlue"
-                    Grid.Row="0">
+                    Foreground="RoyalBlue">
                     Login
                 </TextBlock>
 
                 <!--  Description  -->
                 <TextBlock
+                    Grid.Row="1"
+                    Margin="0,5,0,0"
                     FontSize="10"
                     FontWeight="Black"
-                    Foreground="Gray"
-                    Grid.Row="1"
-                    Margin="0,5,0,0">
+                    Foreground="Gray">
                     Please login with the account provided by your administrator
                 </TextBlock>
 
                 <StackPanel Grid.Row="2">
                     <!--  Username input  -->
                     <TextBox
+                        Margin="0,20,0,0"
                         Classes="Icon"
                         IsEnabled="{Binding !IsBusy}"
-                        Margin="0,20,0,0"
                         Tag="/Assets/SVGs/user.svg"
                         Text="{Binding Username}"
                         Watermark="Username" />
 
                     <!--  Password input  -->
                     <TextBox
+                        Margin="0,20,0,0"
                         Classes="Icon revealPasswordButton"
                         IsEnabled="{Binding !IsBusy}"
-                        Margin="0,20,0,0"
                         PasswordChar="•"
                         Tag="/Assets/SVGs/lock.svg"
                         Text="{Binding Password}"
@@ -125,49 +125,50 @@
 
                     <!--  Remember checkbox  -->
                     <CheckBox
+                        Margin="0,15,0,0"
+                        VerticalContentAlignment="Center"
                         Classes="RememberBox"
                         IsChecked="{Binding IsRemember}"
-                        IsEnabled="{Binding !IsBusy}"
-                        Margin="0,15,0,0"
-                        VerticalContentAlignment="Center">
+                        IsEnabled="{Binding !IsBusy}">
                         Remember me for 3 days
                     </CheckBox>
 
                     <!--  Login button  -->
-                    <Grid HorizontalAlignment="Center" Margin="0,40,0,0">
+                    <Grid Margin="0,40,0,0" HorizontalAlignment="Center">
                         <Button
+                            Name="loginButton"
+                            Padding="25,8"
                             Background="RoyalBlue"
                             Classes="LoginButton"
                             Command="{Binding LoginCommand}"
                             FontWeight="SemiBold"
                             Foreground="White"
-                            IsEnabled="{Binding !IsBusy}"
-                            Name="loginButton"
-                            Padding="25,8">
+                            HotKey="Enter"
+                            IsEnabled="{Binding !IsBusy}">
                             Login
                         </Button>
                     </Grid>
 
                     <!--  Alert box  -->
                     <Border
+                        Margin="0,20,0,0"
+                        Padding="10"
+                        VerticalAlignment="Center"
                         Background="#f10505"
                         BorderBrush="#be0503"
                         BorderThickness="3"
                         CornerRadius="5"
-                        IsVisible="{Binding HasError}"
-                        Margin="0,20,0,0"
-                        Padding="10"
-                        VerticalAlignment="Center">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        IsVisible="{Binding HasError}">
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                             <ic:SymbolIcon
+                                Margin="0,0,5,0"
                                 FontSize="25"
                                 Foreground="White"
-                                Margin="0,0,5,0"
                                 Symbol="Warning" />
                             <Label
+                                VerticalAlignment="Center"
                                 Content="{Binding ErrorMessage}"
-                                Foreground="White"
-                                VerticalAlignment="Center" />
+                                Foreground="White" />
                         </StackPanel>
                     </Border>
                 </StackPanel>

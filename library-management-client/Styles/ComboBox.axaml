@@ -1,0 +1,25 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia">
+
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!--  Add Controls for Previewer Here  -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="ComboBox.MemberListComboBox ComboBoxItem:selected">
+        <Style Selector="^ /template/ Rectangle#Pill">
+            <Setter Property="Opacity" Value="1" />
+			<Setter Property="Fill" Value="RoyalBlue"/>
+        </Style>
+        <Style Selector="^ /template/ Border#LayoutRoot">
+            <Setter Property="Background" Value="{DynamicResource ComboBoxItemBackgroundSelected}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ComboBoxItemBorderBrushSelected}" />
+        </Style>
+        <Style Selector="^ /template/ ContentPresenter#ContentPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource ComboBoxItemForegroundSelected}" />
+        </Style>
+    </Style>
+</Styles>

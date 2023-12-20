@@ -1,0 +1,25 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <TextBox Text="Khang" />
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="TextBox.MemberListFilterTextBox:focus">
+        <Setter Property="Foreground" Value="{DynamicResource TextControlForegroundFocused}" />
+
+        <Style Selector="^ /template/ TextBlock#PART_Watermark">
+            <Setter Property="Foreground" Value="{DynamicResource TextControlPlaceholderForegroundFocused}" />
+        </Style>
+
+        <Style Selector="^ /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="{DynamicResource TextControlBackgroundFocused}" />
+            <Setter Property="BorderBrush" Value="RoyalBlue" />
+            <Setter Property="BorderThickness" Value="0 0 0 2" />
+        </Style>
+    </Style>
+
+</Styles>

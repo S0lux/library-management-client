@@ -10,6 +10,8 @@
     </Design.PreviewWith>
 
     <Styles>
+        <!--  Add Button  -->
+
         <Style Selector="Button.MemberListAddButton:pointerover /template/ ui|FABorder#Root">
             <Setter Property="Background" Value="#217f4c" />
         </Style>
@@ -17,6 +19,8 @@
         <Style Selector="Button.MemberListAddButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
             <Setter Property="Foreground" Value="White" />
         </Style>
+
+        <!--  Delete Button  -->
 
         <Style Selector="Button.MemberListDeleteButton:pointerover /template/ ui|FABorder#Root">
             <Setter Property="Background" Value="Red" />
@@ -52,6 +56,41 @@
             </Setter>
         </Style>
 
+        <!--  Info Button  -->
+
+        <Style Selector="Button.MemberListInfoButton:pointerover /template/ ui|FABorder#Root">
+            <Setter Property="Background" Value="#778899" />
+        </Style>
+
+        <Style Selector="Button.MemberListInfoButton /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <Template>
+                        <Grid>
+                            <Svg
+                                Width="13"
+                                Height="13"
+                                Path="/Assets/SVGs/pen-to-square.svg" />
+                        </Grid>
+                    </Template>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.MemberListInfoButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <Template>
+                        <Grid>
+                            <Svg
+                                Width="13"
+                                Height="13"
+                                Path="/Assets/SVGs/pen-to-square-regular.svg" />
+                        </Grid>
+                    </Template>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
     </Styles>
 </Styles>

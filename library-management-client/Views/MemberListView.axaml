@@ -10,6 +10,7 @@
     d:DesignWidth="800"
     x:DataType="vm:MemberListViewModel"
     mc:Ignorable="d">
+
     <Grid Name="MainGrid" Margin="30,0,30,30">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -44,18 +45,33 @@
                 Orientation="Horizontal">
                 <TextBox
                     Width="120"
-                    Height="3"
+                    Height="40"
+                    VerticalContentAlignment="Center"
+                    Classes="MemberListFilterTextBox"
                     Watermark="Filter Key" />
-                <ui:ComboBox Margin="10,0,0,0" PlaceholderText="Filter By" />
+                <ComboBox
+                    Height="40"
+                    Margin="10,0,0,0"
+                    VerticalContentAlignment="Center"
+                    Classes="MemberListComboBox"
+                    PlaceholderText="Filter By">
+                    <TextBlock Text="Khang" />
+                    <TextBlock Text="Truong" />
+                    <TextBlock Text="Nguyen" />
+                    <TextBlock Text="trung" />
+                </ComboBox>
             </StackPanel>
             <Button
                 Grid.Column="2"
-                Padding="8,3,4,3"
+                Height="40"
                 Background="#31bc70"
                 Classes="MemberListAddButton"
                 Command="{Binding AddCommand}"
                 DockPanel.Dock="Right">
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
                     <Svg
                         Width="14"
                         Height="14"
@@ -72,8 +88,8 @@
             Grid.Row="2"
             Margin="0,10,0,0"
             AutoGenerateColumns="False"
-            BorderBrush="Gray"
             BorderThickness="0"
+            CanUserReorderColumns="False"
             Classes="MemberListDataGrid"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
@@ -99,12 +115,10 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Margin="0,0,8,0" HorizontalContentAlignment="Center">
-                                    <Svg
-                                        Width="13"
-                                        Height="13"
-                                        Path="/Assets/SVGs/pen-to-square.svg" />
-                                </Button>
+                                <Button
+                                    Margin="0,0,8,0"
+                                    HorizontalContentAlignment="Center"
+                                    Classes="MemberListInfoButton" />
                                 <Button
                                     Margin="0,0,13,0"
                                     HorizontalContentAlignment="Center"

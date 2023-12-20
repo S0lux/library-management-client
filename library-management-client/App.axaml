@@ -24,5 +24,9 @@
         <StyleInclude Source="/Styles/Calendar.axaml" />
         <StyleInclude Source="/Controls/LoadingSpinner.axaml" />
         <StyleInclude Source="/Styles/Button.axaml" />
+        <StyleInclude Source="/Styles/DataGrid.axaml" />
+        <StyleInclude Source="/Styles/TextBox.axaml" />
+        <StyleInclude Source="/Styles/ComboBox.axaml" />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
     </Application.Styles>
 </Application>
