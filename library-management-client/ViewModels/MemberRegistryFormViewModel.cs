@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -34,7 +35,7 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
         InputedMember.PropertyChanged += (sender, args) => { SubmitCommand.NotifyCanExecuteChanged(); };
     }
 
-    bool checksubmit()
+    bool checkSubmit()
     {
         return !string.IsNullOrEmpty(InputedMember.Name)&&
                !string.IsNullOrEmpty(InputedMember.PhoneNumber)&&
@@ -44,7 +45,7 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
                UInt32.TryParse((ReadOnlySpan<char>)InputedMember.CitizenID,out temp);
     }
 
-    [RelayCommand(CanExecute = nameof(checksubmit))]
+    [RelayCommand(CanExecute = nameof(checkSubmit))]
     async Task Submit()
     {
         var createdMember = new

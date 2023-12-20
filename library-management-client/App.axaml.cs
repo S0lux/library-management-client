@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Avalonia_DependencyInjection.Interfaces;
 using Avalonia_DependencyInjection.Services;
 using Avalonia_DependencyInjection.ViewModels;
 using Avalonia_DependencyInjection.Views;
+using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,6 +27,14 @@ public partial class App : Application
 
     public override async void OnFrameworkInitializationCompleted()
     {
+        var dataValidationPluginsToRemove =
+            BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
+        
+        foreach (var plugin in dataValidationPluginsToRemove)
+        {
+            BindingPlugins.DataValidators.Remove(plugin);
+        }
+        
         AppHost = Host.CreateDefaultBuilder()
             .ConfigureServices((hostContext, services) =>
             {
@@ -55,7 +65,7 @@ public partial class App : Application
             .Build();
         
         await AuthenticateAsync();
-
+        
         base.OnFrameworkInitializationCompleted();
     }
 

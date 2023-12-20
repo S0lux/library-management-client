@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Avalonia_DependencyInjection.Models
@@ -11,9 +9,9 @@ namespace Avalonia_DependencyInjection.Models
         [Key] 
         public int MemberID { get; set; }
 
-        [ObservableProperty] [NotifyDataErrorInfo] [Required] [Phone] [MaxLength(10)]  private string _citizenID;
+        [ObservableProperty] [NotifyDataErrorInfo] [Required] [Phone] [MaxLength(10)] private string _citizenID;
 
-        [ObservableProperty] [NotifyDataErrorInfo] [Required]  private string _name;
+        [ObservableProperty] [NotifyDataErrorInfo] [Required] private string _name;
 
         [ObservableProperty] [NotifyDataErrorInfo] [Required] private string _address;
 
