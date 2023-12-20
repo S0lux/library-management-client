@@ -1,33 +1,31 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Avalonia_DependencyInjection.Models
 {
-    public class MEMBER: ObservableObject
+    public partial class MEMBER: ObservableValidator
     {
-        [Key]
+        [Key] 
         public int MemberID { get; set; }
 
-        [MaxLength(12)]
-        public string CitizenID { get; set; }
+        [ObservableProperty] [NotifyDataErrorInfo] [Required] [Phone] [MaxLength(10)]  private string _citizenID;
 
-        [MaxLength(50)]
-        public string Name { get; set; }
+        [ObservableProperty] [NotifyDataErrorInfo] [Required]  private string _name;
 
-        [MaxLength(100)]
-        public string Address { get; set; }
+        [ObservableProperty] [NotifyDataErrorInfo] [Required] private string _address;
 
-        [MaxLength(11)]
-        public string PhoneNumber { get; set; }
+        [ObservableProperty] [NotifyDataErrorInfo] [Required] [Phone] private string _phoneNumber;
 
-        public int Credit { get; set; }
+        [ObservableProperty] private int _credit;
 
-        public int Gender { get; set; }
+        [ObservableProperty] private int _gender;
 
-        public DateTime DateOfBirth { get; set; }
+        [ObservableProperty] private DateTime _dateOfBirth;
 
-        [MaxLength(4)]
-        public int EmployeeID { get; set; }
+        [ObservableProperty] private int _employeeID;
+        
     }
 }

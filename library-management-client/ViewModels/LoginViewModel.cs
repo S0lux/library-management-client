@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia_DependencyInjection.Models;
 using Avalonia_DependencyInjection.Services;
@@ -59,6 +60,8 @@ public partial class LoginViewModel: ViewModelBase
         }
 
         IsBusy = false;
+        await Task.Run(() => Thread.Sleep(2000));
+        HasError = false;
     }
 
 
