@@ -40,335 +40,405 @@
         <Style Selector="Button.CollapseAlert:pointerover /template/ ui|FABorder#Root">
             <Setter Property="Background" Value="Transparent" />
         </Style>
+
+        <Style Selector="Button.Close:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Red" />
+        </Style>
     </Window.Styles>
-    <ScrollViewer VerticalScrollBarVisibility="Hidden">
-        <Grid
-            Margin="30,0,30,0"
-            Name="MainGrid"
-            RowDefinitions="auto *">
-            <StackPanel Grid.Row="0" Spacing="10">
-                <Svg
-                    Height="30"
-                    Path="/Assets/SVGs/users_plus.svg"
-                    Width="30" />
-                <Label FontSize="30" Grid.Row="0">
-                    Member registration
-                </Label>
-            </StackPanel>
 
-
-
-            <!--  Narrow View  -->
+    <Grid RowDefinitions="auto *">
+        <Border
+            DockPanel.Dock="Top"
+            Grid.Row="0"
+            PointerPressed="TitleBarContainer_OnPointerPressed">
+            <Grid HorizontalAlignment="Right">
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Classes="Close"
+                    Command="{Binding CancelCommand}"
+                    PointerEntered="Close_OnPointerEntered"
+                    PointerExited="Close_OnPointerExited">
+                    <Svg
+                        Height="15"
+                        Path="{Binding IconPathExit}"
+                        Width="15" />
+                </Button>
+            </Grid>
+        </Border>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
             <Grid
-                Grid.Row="1"
-                Margin="0,15,0,0"
-                x:Name="NarrowView">
-                <StackPanel Spacing="20">
-
-                    <!--  first name_narrow view  -->
-                    <DockPanel>
-                        <Label DockPanel.Dock="Top">
-                            Fullname
-                        </Label>
-                        <TextBox Text="{Binding InputedMember.Name, Mode=TwoWay}" />
-                    </DockPanel>
-
-                    <Grid ColumnDefinitions="* *">
-                        <!--  phone number_narrow view  -->
-                        <DockPanel Grid.Column="0" Margin="0,0,5,0">
-                            <Label DockPanel.Dock="Top">
-                                Phone number
-                            </Label>
-                            <TextBox VerticalAlignment="Top">
-                                <TextBox.Text>
-                                    <Binding Path="InputedMember.PhoneNumber" />
-                                </TextBox.Text>
-                            </TextBox>
-                        </DockPanel>
-
-                        <!--  ID_narrow view  -->
-                        <DockPanel Grid.Column="1" Margin="5,0,0,0">
-                            <Label DockPanel.Dock="Top">
-                                Citizen ID
-                            </Label>
-                            <TextBox Text="{Binding InputedMember.CitizenID}" VerticalAlignment="Top" />
-                        </DockPanel>
-                    </Grid>
+                Margin="30,0,30,0"
+                Name="MainGrid"
+                RowDefinitions="auto *">
+                <StackPanel
+                    Grid.Row="0"
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <Svg
+                        Height="30"
+                        Path="/Assets/SVGs/user-plus-black.svg"
+                        Width="30" />
+                    <Label FontSize="30">
+                        Member registration
+                    </Label>
+                </StackPanel>
 
 
+                <!--  Narrow View  -->
+                <Grid
+                    Grid.Row="1"
+                    Margin="0,15,0,0"
+                    x:Name="NarrowView">
+                    <StackPanel Spacing="20">
 
-                    <Grid ColumnDefinitions="* *">
-                        <!--  Bdate_narrow view  -->
-                        <DockPanel Grid.Column="1" Margin="5,0,0,0">
-                            <Label DockPanel.Dock="Top">
-                                Birthdate
-                            </Label>
-                            <CalendarDatePicker
-                                CustomDateFormatString="dd/MM/yyyy"
-                                HorizontalAlignment="Stretch"
-                                SelectedDate="{Binding InputedMember.DateOfBirth}"
-                                SelectedDateFormat="Custom" />
-                        </DockPanel>
-
-                        <!--  gender_narrow view  -->
-                        <DockPanel Grid.Column="0" Margin="0,0,5,0">
-                            <Label DockPanel.Dock="Top">
-                                Gender
-                            </Label>
-                            <ComboBox
-                                HorizontalAlignment="Stretch"
-                                ItemsSource="{Binding Genders}"
-                                SelectedItem="{Binding InputedMember.Gender, Converter={StaticResource GenderConverter}}" />
-                        </DockPanel>
-                    </Grid>
-
-
-                    <!--  address_narrow view  -->
-                    <DockPanel>
-                        <Label DockPanel.Dock="Top">
-                            Full address
-                        </Label>
-                        <TextBox Text="{Binding InputedMember.Address}" />
-                    </DockPanel>
-
-                    <!--  submit/cancel button_narrow view  -->
-                    <StackPanel Orientation="Horizontal" Spacing="20">
+                        <!--  first name_narrow view  -->
                         <DockPanel>
-                            <Button
-                                Background="RoyalBlue"
-                                Classes="sub_can"
-                                Command="{Binding SubmitCommand}"
-                                FontSize="20"
-                                FontWeight="SemiBold"
-                                Foreground="White"
-                                Padding="15,5">
-                                Submit
-                            </Button>
+                            <Label DockPanel.Dock="Top">
+                                Fullname
+                            </Label>
+                            <TextBox Text="{Binding InputedMember.Name, Mode=TwoWay}" />
                         </DockPanel>
 
-                        <DockPanel>
-                            <Button
-                                Background="RoyalBlue"
-                                Classes="sub_can"
-                                Command="{Binding CancelCommand}"
-                                FontSize="20"
-                                FontWeight="SemiBold"
-                                Foreground="White"
-                                Padding="15,5">
-                                Cancel
-                            </Button>
-                        </DockPanel>
-                    </StackPanel>
+                        <Grid ColumnDefinitions="* *">
+                            <!--  phone number_narrow view  -->
+                            <DockPanel Grid.Column="0" Margin="0,0,5,0">
+                                <Label DockPanel.Dock="Top">
+                                    Phone number
+                                </Label>
+                                <TextBox VerticalAlignment="Top">
+                                    <TextBox.Text>
+                                        <Binding Path="InputedMember.PhoneNumber" />
+                                    </TextBox.Text>
+                                </TextBox>
+                            </DockPanel>
 
-                    <!--  Alert box  -->
-                    <Border
-                        Background="#f10505"
-                        BorderBrush="#be0503"
-                        BorderThickness="3"
-                        CornerRadius="5"
-                        IsVisible="{Binding HasError}"
-                        VerticalAlignment="Center">
-                        <Grid ColumnDefinitions="* auto">
-                            <Grid
-                                ColumnDefinitions="auto *"
-                                Grid.Column="0"
-                                RowDefinitions="auto *"
-                                VerticalAlignment="Center">
-                                <ic:SymbolIcon
-                                    FontSize="25"
-                                    Foreground="White"
-                                    Grid.Column="0"
-                                    Grid.Row="0"
-                                    Margin="5,5,5,0"
-                                    Symbol="ErrorCircle" />
-                                <Label
-                                    Content="Error"
-                                    Foreground="White"
-                                    Grid.Column="1"
-                                    Grid.Row="0" />
-                                <Label
-                                    Content="{Binding ErrorMessage}"
-                                    FontSize="15"
-                                    FontWeight="SemiBold"
-                                    Foreground="White"
-                                    Grid.Column="1"
-                                    Grid.Row="1" />
-                            </Grid>
-                            <Button
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                BorderThickness="0"
-                                Classes="CollapseAlert"
-                                Command="{Binding AlertBoxOffCommand}"
-                                Grid.Column="1"
-                                VerticalAlignment="Top">
-                                <Svg
-                                    Height="15"
-                                    Path="/Assets/SVGs/xmark-white.svg"
-                                    Width="10" />
-                            </Button>
+                            <!--  ID_narrow view  -->
+                            <DockPanel Grid.Column="1" Margin="5,0,0,0">
+                                <Label DockPanel.Dock="Top">
+                                    Citizen ID
+                                </Label>
+                                <TextBox Text="{Binding InputedMember.CitizenID}" VerticalAlignment="Top" />
+                            </DockPanel>
                         </Grid>
 
-                    </Border>
+
+                        <Grid ColumnDefinitions="* *">
+                            <!--  Bdate_narrow view  -->
+                            <DockPanel Grid.Column="1" Margin="5,0,0,0">
+                                <Label DockPanel.Dock="Top">
+                                    Birthdate
+                                </Label>
+                                <CalendarDatePicker
+                                    CustomDateFormatString="dd/MM/yyyy"
+                                    HorizontalAlignment="Stretch"
+                                    SelectedDate="{Binding InputedMember.DateOfBirth}"
+                                    SelectedDateFormat="Custom" />
+                            </DockPanel>
+
+                            <!--  gender_narrow view  -->
+                            <DockPanel Grid.Column="0" Margin="0,0,5,0">
+                                <Label DockPanel.Dock="Top">
+                                    Gender
+                                </Label>
+                                <ComboBox
+                                    HorizontalAlignment="Stretch"
+                                    ItemsSource="{Binding Genders}"
+                                    SelectedItem="{Binding InputedMember.Gender, Converter={StaticResource GenderConverter}}" />
+                            </DockPanel>
+                        </Grid>
 
 
-                </StackPanel>
-                <Grid.Styles>
-                    <Style Selector="Grid.Hidden">
-                        <Setter Property="IsVisible" Value="False" />
-                    </Style>
-                    <Style Selector="Grid.Visible">
-                        <Setter Property="IsVisible" Value="True" />
-                    </Style>
-                </Grid.Styles>
+                        <!--  address_narrow view  -->
+                        <DockPanel>
+                            <Label DockPanel.Dock="Top">
+                                Full address
+                            </Label>
+                            <TextBox Text="{Binding InputedMember.Address}" />
+                        </DockPanel>
 
-                <!-- <Interaction.Behaviors> -->
-                <!--     <AdaptiveBehavior SourceControl="MainGrid" TargetControl="NarrowView"> -->
+                        <!--  submit/cancel button_narrow view  -->
+                        <StackPanel Orientation="Horizontal" Spacing="20">
+                            <DockPanel>
+                                <Button
+                                    Background="RoyalBlue"
+                                    Classes="sub_can"
+                                    Command="{Binding SubmitCommand}"
+                                    FontSize="20"
+                                    FontWeight="SemiBold"
+                                    Foreground="White"
+                                    Padding="15,5">
+                                    Submit
+                                </Button>
+                            </DockPanel>
+
+                            <DockPanel>
+                                <Button
+                                    Background="RoyalBlue"
+                                    Classes="sub_can"
+                                    Command="{Binding CancelCommand}"
+                                    FontSize="20"
+                                    FontWeight="SemiBold"
+                                    Foreground="White"
+                                    Padding="15,5">
+                                    Cancel
+                                </Button>
+                            </DockPanel>
+                        </StackPanel>
+
+                        <!--  Alert box  -->
+                        <Border
+                            Background="#f10505"
+                            BorderBrush="#be0503"
+                            BorderThickness="2"
+                            CornerRadius="5"
+                            IsVisible="{Binding HasError}"
+                            VerticalAlignment="Center">
+                            <Grid ColumnDefinitions="* auto">
+                                <Grid
+                                    ColumnDefinitions="auto *"
+                                    Grid.Column="0"
+                                    RowDefinitions="auto *"
+                                    VerticalAlignment="Center">
+                                    <ic:SymbolIcon
+                                        FontSize="25"
+                                        Foreground="White"
+                                        Grid.Column="0"
+                                        Grid.Row="0"
+                                        Margin="5,5,5,0"
+                                        Symbol="ErrorCircle" />
+                                    <Label
+                                        Content="Error"
+                                        Foreground="White"
+                                        Grid.Column="1"
+                                        Grid.Row="0" />
+                                    <Label
+                                        Content="{Binding ErrorMessage}"
+                                        FontSize="15"
+                                        FontWeight="SemiBold"
+                                        Foreground="White"
+                                        Grid.Column="1"
+                                        Grid.Row="1" />
+                                </Grid>
+                                <Button
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Classes="CollapseAlert"
+                                    Command="{Binding AlertBoxOffCommand}"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Top">
+                                    <Svg
+                                        Height="15"
+                                        Path="/Assets/SVGs/xmark-white.svg"
+                                        Width="10" />
+                                </Button>
+                            </Grid>
+
+                        </Border>
+                        <Border
+                            Background="RoyalBlue"
+                            BorderBrush="#214cce"
+                            BorderThickness="2"
+                            CornerRadius="5"
+                            IsVisible="{Binding NotifySuccess}"
+                            VerticalAlignment="Center">
+                            <Grid ColumnDefinitions="* auto">
+                                <Grid
+                                    ColumnDefinitions="auto *"
+                                    Grid.Column="0"
+                                    RowDefinitions="auto *"
+                                    VerticalAlignment="Center">
+                                    <ic:SymbolIcon
+                                        FontSize="25"
+                                        Foreground="White"
+                                        Grid.Column="0"
+                                        Grid.Row="0"
+                                        Margin="5,5,5,0"
+                                        Symbol="Checkmark" />
+                                    <Label
+                                        Content="Success!"
+                                        Foreground="White"
+                                        Grid.Column="1"
+                                        Grid.Row="0" />
+                                </Grid>
+                                <Button
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Classes="CollapseAlert"
+                                    Command="{Binding AlertBoxOffCommand}"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Top">
+                                    <Svg
+                                        Height="15"
+                                        Path="/Assets/SVGs/xmark-white.svg"
+                                        Width="10" />
+                                </Button>
+                            </Grid>
+
+                        </Border>
+
+
+                    </StackPanel>
+                    <Grid.Styles>
+                        <Style Selector="Grid.Hidden">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Style>
+                        <Style Selector="Grid.Visible">
+                            <Setter Property="IsVisible" Value="True" />
+                        </Style>
+                    </Grid.Styles>
+
+                    <!-- <Interaction.Behaviors> -->
+                    <!--     <AdaptiveBehavior SourceControl="MainGrid" TargetControl="NarrowView"> -->
+                    <!--  <AdaptiveClassSetter  -->
+                    <!--  ClassName="Hidden"  -->
+                    <!--  MaxWidth="600"  -->
+                    <!--  MaxWidthOperator="GreaterThan"  -->
+                    <!--  MinWidth="0"  -->
+                    <!--  MinWidthOperator="GreaterThanOrEqual" />  -->
+                    <!--    -->
+                    <!--  <AdaptiveClassSetter  -->
+                    <!--  ClassName="Visible"  -->
+                    <!--  MaxWidth="600"  -->
+                    <!--  MaxWidthOperator="LessThan"  -->
+                    <!--  MinWidth="0"  -->
+                    <!--  MinWidthOperator="GreaterThanOrEqual" />  -->
+                    <!--     </AdaptiveBehavior> -->
+                    <!-- </Interaction.Behaviors> -->
+                </Grid>
+
+
+                <!--  Wide view  -->
+                <!--  <Grid  -->
+                <!--  ColumnDefinitions="* * *"  -->
+                <!--  Grid.Row="1"  -->
+                <!--  RowDefinitions="* * * * *"  -->
+                <!--  VerticalAlignment="Top"  -->
+                <!--  x:Name="WideGrid">  -->
+                <!--  ~1~  full name_wide view  @1@  -->
+                <!--  <Grid  -->
+                <!--  Grid.Column="0"  -->
+                <!--  Grid.Row="0"  -->
+                <!--  Margin="0,30,10,0">  -->
+                <!--         <StackPanel Grid.Column="0" HorizontalAlignment="Stretch"> -->
+                <!--             <Label> -->
+                <!--  Fullname  -->
+                <!--             </Label> -->
+                <!--             <TextBox Text="{Binding InputedMember.Name}" /> -->
+                <!--         </StackPanel> -->
+                <!--     </Grid> -->
+                <!--    -->
+                <!--  ~1~  phone number_wide view  @1@  -->
+                <!--  <Grid  -->
+                <!--  Grid.Column="0"  -->
+                <!--  Grid.Row="1"  -->
+                <!--  Margin="0,30,10,0">  -->
+                <!--         <StackPanel HorizontalAlignment="Stretch"> -->
+                <!--             <Label> -->
+                <!--  Phone number  -->
+                <!--             </Label> -->
+                <!--             <TextBox Text="{Binding InputedMember.PhoneNumber}" /> -->
+                <!--         </StackPanel> -->
+                <!--     </Grid> -->
+                <!--    -->
+                <!--    -->
+                <!--  <Grid  -->
+                <!--  ColumnDefinitions="* *"  -->
+                <!--  Grid.Column="1"  -->
+                <!--  Grid.Row="2">  -->
+                <!--    -->
+                <!--  ~1~  gender_wide view  @1@  -->
+                <!--         <StackPanel Grid.Column="0" Margin="0,30,5,0"> -->
+                <!--             <Label> -->
+                <!--  Gender  -->
+                <!--             </Label> -->
+                <!--             <Border> -->
+                <!--                 <Grid> -->
+                <!--  <ComboBox  -->
+                <!--  HorizontalAlignment="Stretch"  -->
+                <!--  ItemsSource="{Binding Genders}"  -->
+                <!--  SelectedItem="{Binding InputedMember.Gender, Converter={StaticResource GenderConverter}}" />  -->
+                <!--                     <TextBlock /> -->
+                <!--                 </Grid> -->
+                <!--             </Border> -->
+                <!--         </StackPanel> -->
+                <!--    -->
+                <!--  ~1~  Bdate_wide view  @1@  -->
+                <!--         <StackPanel Grid.Column="1" Margin="5,30,0,0"> -->
+                <!--             <Label> -->
+                <!--  Birthdate  -->
+                <!--             </Label> -->
+                <!--  <CalendarDatePicker  -->
+                <!--  CustomDateFormatString="dd/MM/yyyy"  -->
+                <!--  HorizontalAlignment="Stretch"  -->
+                <!--  SelectedDate="{Binding InputedMember.DateOfBirth}"  -->
+                <!--  SelectedDateFormat="Custom" />  -->
+                <!--         </StackPanel> -->
+                <!--     </Grid> -->
+                <!--    -->
+                <!--    -->
+                <!--  ~1~  id_wide view  @1@  -->
+                <!--  <StackPanel  -->
+                <!--  Grid.Column="0"  -->
+                <!--  Grid.Row="2"  -->
+                <!--  Margin="0,30,10,0">  -->
+                <!--         <Label> -->
+                <!--  Citizen ID  -->
+                <!--         </Label> -->
+                <!--         <TextBox Text="{Binding InputedMember.CitizenID}" /> -->
+                <!--     </StackPanel> -->
+                <!--    -->
+                <!--    -->
+                <!--  ~1~  address_wide view  @1@  -->
+                <!--  <Grid  -->
+                <!--  ColumnSpan="2"  -->
+                <!--  Grid.Column="0"  -->
+                <!--  Grid.Row="3"  -->
+                <!--  Margin="0,30,0,0">  -->
+                <!--         <StackPanel HorizontalAlignment="Stretch"> -->
+                <!--             <Label> -->
+                <!--  Full address  -->
+                <!--             </Label> -->
+                <!--             <TextBox Text="{Binding InputedMember.Address}" /> -->
+                <!--         </StackPanel> -->
+                <!--     </Grid> -->
+                <!--    -->
+                <!--  ~1~  submit button_wide view  @1@  -->
+                <!--  <Grid  -->
+                <!--  Grid.Column="0"  -->
+                <!--  Grid.Row="4"  -->
+                <!--  Margin="0,30,0,0">  -->
+                <!--  <Button  -->
+                <!--  Background="RoyalBlue"  -->
+                <!--  Command="{Binding SubmitCommand}"  -->
+                <!--  FontSize="20"  -->
+                <!--  FontWeight="SemiBold"  -->
+                <!--  Foreground="White"  -->
+                <!--  Padding="15,5">  -->
+                <!--  Submit  -->
+                <!--         </Button> -->
+                <!--     </Grid> -->
+                <!--    -->
+                <!--     <Grid.Styles> -->
+                <!--         <Style Selector="Grid.Hidden"> -->
+                <!--             <Setter Property="IsVisible" Value="False" /> -->
+                <!--         </Style> -->
+                <!--     </Grid.Styles> -->
+                <!--     <Interaction.Behaviors> -->
+                <!--         <AdaptiveBehavior SourceControl="MainGrid" TargetControl="WideGrid"> -->
                 <!--  <AdaptiveClassSetter  -->
                 <!--  ClassName="Hidden"  -->
-                <!--  MaxWidth="600"  -->
-                <!--  MaxWidthOperator="GreaterThan"  -->
-                <!--  MinWidth="0"  -->
-                <!--  MinWidthOperator="GreaterThanOrEqual" />  -->
-                <!--    -->
-                <!--  <AdaptiveClassSetter  -->
-                <!--  ClassName="Visible"  -->
                 <!--  MaxWidth="600"  -->
                 <!--  MaxWidthOperator="LessThan"  -->
                 <!--  MinWidth="0"  -->
                 <!--  MinWidthOperator="GreaterThanOrEqual" />  -->
-                <!--     </AdaptiveBehavior> -->
-                <!-- </Interaction.Behaviors> -->
+                <!--         </AdaptiveBehavior> -->
+                <!--     </Interaction.Behaviors> -->
+                <!-- </Grid> -->
             </Grid>
+        </ScrollViewer>
+    </Grid>
 
-
-            <!--  Wide view  -->
-            <!--  <Grid  -->
-            <!--  ColumnDefinitions="* * *"  -->
-            <!--  Grid.Row="1"  -->
-            <!--  RowDefinitions="* * * * *"  -->
-            <!--  VerticalAlignment="Top"  -->
-            <!--  x:Name="WideGrid">  -->
-            <!--  ~1~  full name_wide view  @1@  -->
-            <!--  <Grid  -->
-            <!--  Grid.Column="0"  -->
-            <!--  Grid.Row="0"  -->
-            <!--  Margin="0,30,10,0">  -->
-            <!--         <StackPanel Grid.Column="0" HorizontalAlignment="Stretch"> -->
-            <!--             <Label> -->
-            <!--  Fullname  -->
-            <!--             </Label> -->
-            <!--             <TextBox Text="{Binding InputedMember.Name}" /> -->
-            <!--         </StackPanel> -->
-            <!--     </Grid> -->
-            <!--    -->
-            <!--  ~1~  phone number_wide view  @1@  -->
-            <!--  <Grid  -->
-            <!--  Grid.Column="0"  -->
-            <!--  Grid.Row="1"  -->
-            <!--  Margin="0,30,10,0">  -->
-            <!--         <StackPanel HorizontalAlignment="Stretch"> -->
-            <!--             <Label> -->
-            <!--  Phone number  -->
-            <!--             </Label> -->
-            <!--             <TextBox Text="{Binding InputedMember.PhoneNumber}" /> -->
-            <!--         </StackPanel> -->
-            <!--     </Grid> -->
-            <!--    -->
-            <!--    -->
-            <!--  <Grid  -->
-            <!--  ColumnDefinitions="* *"  -->
-            <!--  Grid.Column="1"  -->
-            <!--  Grid.Row="2">  -->
-            <!--    -->
-            <!--  ~1~  gender_wide view  @1@  -->
-            <!--         <StackPanel Grid.Column="0" Margin="0,30,5,0"> -->
-            <!--             <Label> -->
-            <!--  Gender  -->
-            <!--             </Label> -->
-            <!--             <Border> -->
-            <!--                 <Grid> -->
-            <!--  <ComboBox  -->
-            <!--  HorizontalAlignment="Stretch"  -->
-            <!--  ItemsSource="{Binding Genders}"  -->
-            <!--  SelectedItem="{Binding InputedMember.Gender, Converter={StaticResource GenderConverter}}" />  -->
-            <!--                     <TextBlock /> -->
-            <!--                 </Grid> -->
-            <!--             </Border> -->
-            <!--         </StackPanel> -->
-            <!--    -->
-            <!--  ~1~  Bdate_wide view  @1@  -->
-            <!--         <StackPanel Grid.Column="1" Margin="5,30,0,0"> -->
-            <!--             <Label> -->
-            <!--  Birthdate  -->
-            <!--             </Label> -->
-            <!--  <CalendarDatePicker  -->
-            <!--  CustomDateFormatString="dd/MM/yyyy"  -->
-            <!--  HorizontalAlignment="Stretch"  -->
-            <!--  SelectedDate="{Binding InputedMember.DateOfBirth}"  -->
-            <!--  SelectedDateFormat="Custom" />  -->
-            <!--         </StackPanel> -->
-            <!--     </Grid> -->
-            <!--    -->
-            <!--    -->
-            <!--  ~1~  id_wide view  @1@  -->
-            <!--  <StackPanel  -->
-            <!--  Grid.Column="0"  -->
-            <!--  Grid.Row="2"  -->
-            <!--  Margin="0,30,10,0">  -->
-            <!--         <Label> -->
-            <!--  Citizen ID  -->
-            <!--         </Label> -->
-            <!--         <TextBox Text="{Binding InputedMember.CitizenID}" /> -->
-            <!--     </StackPanel> -->
-            <!--    -->
-            <!--    -->
-            <!--  ~1~  address_wide view  @1@  -->
-            <!--  <Grid  -->
-            <!--  ColumnSpan="2"  -->
-            <!--  Grid.Column="0"  -->
-            <!--  Grid.Row="3"  -->
-            <!--  Margin="0,30,0,0">  -->
-            <!--         <StackPanel HorizontalAlignment="Stretch"> -->
-            <!--             <Label> -->
-            <!--  Full address  -->
-            <!--             </Label> -->
-            <!--             <TextBox Text="{Binding InputedMember.Address}" /> -->
-            <!--         </StackPanel> -->
-            <!--     </Grid> -->
-            <!--    -->
-            <!--  ~1~  submit button_wide view  @1@  -->
-            <!--  <Grid  -->
-            <!--  Grid.Column="0"  -->
-            <!--  Grid.Row="4"  -->
-            <!--  Margin="0,30,0,0">  -->
-            <!--  <Button  -->
-            <!--  Background="RoyalBlue"  -->
-            <!--  Command="{Binding SubmitCommand}"  -->
-            <!--  FontSize="20"  -->
-            <!--  FontWeight="SemiBold"  -->
-            <!--  Foreground="White"  -->
-            <!--  Padding="15,5">  -->
-            <!--  Submit  -->
-            <!--         </Button> -->
-            <!--     </Grid> -->
-            <!--    -->
-            <!--     <Grid.Styles> -->
-            <!--         <Style Selector="Grid.Hidden"> -->
-            <!--             <Setter Property="IsVisible" Value="False" /> -->
-            <!--         </Style> -->
-            <!--     </Grid.Styles> -->
-            <!--     <Interaction.Behaviors> -->
-            <!--         <AdaptiveBehavior SourceControl="MainGrid" TargetControl="WideGrid"> -->
-            <!--  <AdaptiveClassSetter  -->
-            <!--  ClassName="Hidden"  -->
-            <!--  MaxWidth="600"  -->
-            <!--  MaxWidthOperator="LessThan"  -->
-            <!--  MinWidth="0"  -->
-            <!--  MinWidthOperator="GreaterThanOrEqual" />  -->
-            <!--         </AdaptiveBehavior> -->
-            <!--     </Interaction.Behaviors> -->
-            <!-- </Grid> -->
-        </Grid>
-    </ScrollViewer>
 </Window>

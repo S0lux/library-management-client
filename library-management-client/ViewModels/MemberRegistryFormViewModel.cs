@@ -1,12 +1,13 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia_DependencyInjection.Models;
 using Avalonia_DependencyInjection.Services;
+using Avalonia_DependencyInjection.ViewModels;
 using Avalonia_DependencyInjection.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -24,9 +25,12 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
 
     [ObservableProperty] private ObservableCollection<string> _genders = new ObservableCollection<string>()
         { "Male", "Female" };
+    
+    [ObservableProperty] private string _iconPathExit = "/Assets/SVGs/xmark-royalblue.svg";
 
-    [ObservableProperty] private bool _hasError = false;
+    [ObservableProperty] private bool _hasError=false;
     [ObservableProperty] private string? _errorMessage="something";
+    [ObservableProperty] private bool _notifySuccess=false;
 
     public MemberRegistryFormViewModel(AuthenticationService authService)
     {
@@ -48,6 +52,7 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     [RelayCommand(CanExecute = nameof(checkSubmit))]
     async Task Submit()
     {
+        ErrorMessage = string.Empty;
         var createdMember = new
         {
             Credit = 0,
@@ -69,8 +74,32 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
         var content = new StringContent(json, Encoding.UTF8, "application/json");
         
         var response = await _authService.PostAsync("/api/members", content);
-        if(response.StatusCode==HttpStatusCode.Unauthorized) HasError=true;
-        if (response.StatusCode == HttpStatusCode.ServiceUnavailable) HasError = true;
+        if (response.StatusCode==HttpStatusCode.Unauthorized)
+        {
+            HasError=true;
+            ErrorMessage = "Unauthorized action";
+            return;
+        }
+
+        if (response.StatusCode==HttpStatusCode.BadRequest)
+        {
+            HasError = true;
+            ErrorMessage = "Bad connection";
+            return;
+        }
+        else
+        {
+            NotifySuccess = true;
+            await Task.Run(() =>
+            {
+                Thread.Sleep(500);
+                AlertBoxOff();
+                Thread.Sleep(50);
+
+            });
+            var win = App.AppHost.Services.GetRequiredService<MemberRegistryForm>();
+            win.Hide();
+        }
     }
 
 
@@ -85,5 +114,6 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     void AlertBoxOff()
     {
         HasError = false;
+        NotifySuccess = false;
     }
 }

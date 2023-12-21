@@ -11,7 +11,7 @@ namespace Avalonia_DependencyInjection.Models
 
         [ObservableProperty] [NotifyDataErrorInfo] [Required] [Phone] [MaxLength(10)] private string _citizenID;
 
-        [ObservableProperty] [NotifyDataErrorInfo] [Required] private string _name;
+        [ObservableProperty] [NotifyDataErrorInfo] [Required]  private string _name;
 
         [ObservableProperty] [NotifyDataErrorInfo] [Required] private string _address;
 
