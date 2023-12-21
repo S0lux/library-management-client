@@ -31,6 +31,7 @@
         <PackageReference Include="FluentAvaloniaUI" Version="2.0.4" />
         <PackageReference Include="FluentIcons.Avalonia" Version="1.1.223" />
         <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1" />
+        <PackageReference Include="MessageBox.Avalonia" Version="3.1.5.1" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />

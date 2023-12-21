@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -12,6 +13,8 @@ using Avalonia_DependencyInjection.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using MsBox.Avalonia.Enums;
+using MsBox.Avalonia;
 using Newtonsoft.Json;
 
 namespace Avalonia_DependencyInjection.ViewModels;
@@ -52,54 +55,73 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     [RelayCommand(CanExecute = nameof(checkSubmit))]
     async Task Submit()
     {
-        ErrorMessage = string.Empty;
-        var createdMember = new
-        {
-            Credit = 0,
-            Name = InputedMember.Name,
-            PhoneNumber = InputedMember.PhoneNumber,
-            CitizenID = InputedMember.CitizenID,
-            Gender = InputedMember.Gender,
-            DateOfBirth = InputedMember.DateOfBirth.ToString("o"),
-            Address = InputedMember.Address,
-            EmployeeID = _authService.CurrentUser!.EmployeeID
-        };
-        
-        var loginData = new
-        {
-            data = createdMember
-        };
-        
-        var json = JsonConvert.SerializeObject(loginData);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-        
-        var response = await _authService.PostAsync("/api/members", content);
-        if (response.StatusCode==HttpStatusCode.Unauthorized)
-        {
-            HasError=true;
-            ErrorMessage = "Unauthorized action";
-            return;
-        }
+        var addMemberWindow = App.AppHost!.Services.GetRequiredService<MemberListViewModel>();
 
-        if (response.StatusCode==HttpStatusCode.BadRequest)
+        if (!addMemberWindow.memberList.Any(e => e.MemberID == InputedMember.MemberID))
         {
-            HasError = true;
-            ErrorMessage = "Bad connection";
-            return;
+            var createdMember = new
+            {
+                Credit = 0,
+                Name = InputedMember.Name,
+                PhoneNumber = InputedMember.PhoneNumber,
+                CitizenID = InputedMember.CitizenID,
+                Gender = InputedMember.Gender,
+                DateOfBirth = InputedMember.DateOfBirth.ToString("o"),
+                Address = InputedMember.Address,
+                EmployeeID = _authService.CurrentUser!.EmployeeID
+            };
+
+            var loginData = new
+            {
+                data = createdMember
+            };
+
+            var json = JsonConvert.SerializeObject(loginData);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _authService.PostAsync("/api/members", content);
+            if (response.StatusCode == HttpStatusCode.Unauthorized) HasError = true;
+            if (response.StatusCode == HttpStatusCode.ServiceUnavailable) HasError = true;
+
+            addMemberWindow.GetData();
         }
         else
         {
-            NotifySuccess = true;
-            await Task.Run(() =>
+            try
             {
-                Thread.Sleep(500);
-                AlertBoxOff();
-                Thread.Sleep(50);
+                var createdMember = new
+                {
+                    MemberID = InputedMember.MemberID,
+                    Credit = InputedMember.Credit,
+                    Name = InputedMember.Name,
+                    PhoneNumber = InputedMember.PhoneNumber,
+                    CitizenID = InputedMember.CitizenID,
+                    Gender = InputedMember.Gender,
+                    DateOfBirth = InputedMember.DateOfBirth.ToString("o"),
+                    Address = InputedMember.Address,
+                    EmployeeID = _authService.CurrentUser!.EmployeeID
+                };
 
-            });
-            var win = App.AppHost.Services.GetRequiredService<MemberRegistryForm>();
-            win.Hide();
+                var loginData = new
+                {
+                    data = createdMember
+                };
+
+                var json = JsonConvert.SerializeObject(loginData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await _authService.PutAsync("/api/members", content);
+                
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException e)
+            {
+                throw new HttpRequestException(e.ToString());
+            }
         }
+
+        var win = App.AppHost.Services.GetRequiredService<MemberRegistryForm>();
+        win.Hide();
     }
 
 

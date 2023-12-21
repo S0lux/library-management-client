@@ -15,7 +15,6 @@ public partial class MemberRegistryViewModel : ViewModelBase
     private ObservableCollection<string> _genders = new ObservableCollection<string>()
     { "Male", "Female" };
 
-    
     [RelayCommand]
     void Submit()
     {
