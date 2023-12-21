@@ -18,7 +18,6 @@ public partial class SidebarViewModel: ViewModelBase
             new("Member", typeof(MemberListViewModel), "/Assets/SVGs/users.svg"),
 
             new("Book", null, "/Assets/SVGs/books.svg"),
-            new("Log out", typeof(LoginViewModel), "/Assets/SVGs/right-from-bracket.svg"),
         });
     }
 }

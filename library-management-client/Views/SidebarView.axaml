@@ -1,46 +1,53 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.SidebarView"
-    x:DataType="vm:SidebarViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:SidebarViewModel"
+    mc:Ignorable="d"
+    >
 
     <Grid
         Background="RoyalBlue"
         Loaded="Control_OnLoaded"
-        RowDefinitions="60,Auto,Auto,*,Auto,Auto">
+        RowDefinitions="60,Auto,Auto,*,Auto,Auto"
+        >
         <Grid
-            ColumnDefinitions="Auto,*, Auto"
             Grid.Row="0"
-            IsHitTestVisible="False">
+            ColumnDefinitions="Auto,*"
+            IsHitTestVisible="False"
+            >
             <Image
                 Grid.Column="0"
                 Margin="12"
                 RenderOptions.BitmapInterpolationMode="HighQuality"
-                Source="/Assets/school-logo-white.png" />
+                Source="/Assets/school-logo-white.png"
+                />
             <TextBlock
+                Grid.Column="1"
+                VerticalAlignment="Center"
                 FontSize="24"
                 FontWeight="DemiBold"
                 Foreground="White"
-                Grid.Column="1"
-                VerticalAlignment="Center">
+                >
                 Library
             </TextBlock>
         </Grid>
 
         <!--  Built-in screens  -->
         <TreeView
-            Foreground="White"
             Grid.Row="1"
+            Margin="10,2"
+            Foreground="White"
             ItemContainerTheme="{StaticResource MenuTreeViewItem}"
             ItemsSource="{CompiledBinding SidebarScreen.Screens}"
-            Margin="10,2"
-            SelectedItem="{CompiledBinding SelectedScreen}">
+            SelectedItem="{CompiledBinding SelectedScreen}"
+            >
             <TreeView.Styles>
                 <Style Selector="TreeViewItem">
                     <Setter Property="IsExpanded" Value="{CompiledBinding IsExpanded, Mode=TwoWay, DataType=vm:SidebarScreenViewModel}" />
@@ -52,5 +59,40 @@
                 </TreeDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
+
+        <Grid Grid.Row="4" Margin="10,0,10,10">
+            <Button
+                Padding="43,5,5,8"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Left"
+                Background="RoyalBlue"
+                BorderThickness="0"
+                Classes="LogOut"
+                Click="Button_OnClick"
+                FontSize="13"
+                FontWeight="DemiBold"
+                Foreground="White"
+                >
+                Log out
+                <Button.Styles>
+                    <Style Selector="Button.LogOut:pointerover /template/ ui|FABorder#Root">
+                        <Setter Property="Background" Value="Red" />
+                    </Style>
+                    <Style Selector="Button.LogOut:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                </Button.Styles>
+            </Button>
+            <Svg
+                Grid.ColumnSpan="2"
+                Width="18"
+                Height="18"
+                Margin="14,0,0,0"
+                HorizontalAlignment="Left"
+                Path="/Assets/SVGs/right-from-bracket.svg"
+                ZIndex="0"
+                />
+        </Grid>
+
     </Grid>
 </UserControl>

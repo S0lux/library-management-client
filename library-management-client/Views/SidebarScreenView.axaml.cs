@@ -1,3 +1,4 @@
+using System.IO;
 using Avalonia;
 using Avalonia_DependencyInjection.ViewModels;
 using Avalonia.Controls;
@@ -24,12 +25,6 @@ public partial class SidebarScreenView : UserControl
             if (viewModel.ViewModel is not null)
             {
                 var type = viewModel.ViewModel!;
-                if (type == typeof(LoginViewModel))
-                {
-                    var win=App.AppHost.Services.GetRequiredService<MainWindowViewModel>();
-                    win.ContentViewModel = App.AppHost.Services.GetRequiredService<LoginViewModel>();
-                    return;
-                }
                 App.AppHost.Services.GetRequiredService<DashboardViewModel>().ActiveViewModel = App.AppHost?.Services.GetRequiredService(type) as ViewModelBase;
             }
         }
