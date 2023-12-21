@@ -32,7 +32,7 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     [ObservableProperty] private string _iconPathExit = "/Assets/SVGs/xmark-royalblue.svg";
 
     [ObservableProperty] private bool _hasError=false;
-    [ObservableProperty] private string? _errorMessage="something";
+    [ObservableProperty] private string? _errorMessage = "something";
     [ObservableProperty] private bool _notifySuccess=false;
 
     public MemberRegistryFormViewModel(AuthenticationService authService)
@@ -57,28 +57,28 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     {
         var addMemberWindow = App.AppHost!.Services.GetRequiredService<MemberListViewModel>();
 
+        var createdMember = new
+        {
+            Credit = 0,
+            Name = InputedMember.Name,
+            PhoneNumber = InputedMember.PhoneNumber,
+            CitizenID = InputedMember.CitizenID,
+            Gender = InputedMember.Gender,
+            DateOfBirth = InputedMember.DateOfBirth.ToString("o"),
+            Address = InputedMember.Address,
+            EmployeeID = _authService.CurrentUser!.EmployeeID
+        };
+
+        var loginData = new
+        {
+            data = createdMember
+        };
+
+        var json = JsonConvert.SerializeObject(loginData);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        
         if (!addMemberWindow.MemberList.Any(e => e.MemberID == InputedMember.MemberID))
         {
-            var createdMember = new
-            {
-                Credit = 0,
-                Name = InputedMember.Name,
-                PhoneNumber = InputedMember.PhoneNumber,
-                CitizenID = InputedMember.CitizenID,
-                Gender = InputedMember.Gender,
-                DateOfBirth = InputedMember.DateOfBirth.ToString("o"),
-                Address = InputedMember.Address,
-                EmployeeID = _authService.CurrentUser!.EmployeeID
-            };
-
-            var loginData = new
-            {
-                data = createdMember
-            };
-
-            var json = JsonConvert.SerializeObject(loginData);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
             var response = await _authService.PostAsync("/api/members", content);
             if (response.StatusCode == HttpStatusCode.Unauthorized) HasError = true;
             if (response.StatusCode == HttpStatusCode.ServiceUnavailable) HasError = true;
@@ -89,27 +89,6 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
         {
             try
             {
-                var createdMember = new
-                {
-                    MemberID = InputedMember.MemberID,
-                    Credit = InputedMember.Credit,
-                    Name = InputedMember.Name,
-                    PhoneNumber = InputedMember.PhoneNumber,
-                    CitizenID = InputedMember.CitizenID,
-                    Gender = InputedMember.Gender,
-                    DateOfBirth = InputedMember.DateOfBirth.ToString("o"),
-                    Address = InputedMember.Address,
-                    EmployeeID = _authService.CurrentUser!.EmployeeID
-                };
-
-                var loginData = new
-                {
-                    data = createdMember
-                };
-
-                var json = JsonConvert.SerializeObject(loginData);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
                 var response = await _authService.PutAsync("/api/members", content);
 
                 addMemberWindow.GetData();
