@@ -57,10 +57,13 @@
                         Path="/Assets/SVGs/magnifying-glass.svg"
                         />
                     <TextBox
+                        x:Name="SearchBox"
                         Width="120"
                         Height="40"
                         VerticalContentAlignment="Center"
                         Classes="MemberListFilterTextBox"
+                        GotFocus="SearchBox_OnGotFocus"
+                        LostFocus="SearchBox_OnLostFocus"
                         Text="{Binding FilterKey}"
                         ZIndex="1"
                         >
