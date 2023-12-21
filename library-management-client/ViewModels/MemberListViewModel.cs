@@ -26,24 +26,15 @@ namespace Avalonia_DependencyInjection.ViewModels;
 public partial class MemberListViewModel : ViewModelBase
 {
     private readonly AuthenticationService _authService;
+    
+    public MEMBER selectedMember {get; set;}
 
-    public MEMBER selectedMember {get; set;} 
-
-    public ObservableCollection<MEMBER> memberList { get; set; }
-
-    public ApiResponseMember apiResponseMember { get; set; }
-
-    [ObservableProperty]
-    private bool _isBusy = false;
+    [ObservableProperty] private ObservableCollection<MEMBER> _memberList = new ObservableCollection<MEMBER>();
+    [ObservableProperty] private bool _isBusy = false;
 
     public MemberListViewModel(AuthenticationService authService)
     {
-        memberList = new ObservableCollection<MEMBER>();
-
         _authService = authService;
-
-
-
         GetData();
     }
 
@@ -51,7 +42,7 @@ public partial class MemberListViewModel : ViewModelBase
     {
         IsBusy = true;
 
-        memberList.Clear();
+        MemberList.Clear();
 
         await Task.Delay(1000);
 
@@ -61,13 +52,9 @@ public partial class MemberListViewModel : ViewModelBase
             response.EnsureSuccessStatusCode();
 
             var body = await response.Content.ReadAsStringAsync();
-
-            ApiResponseMember apiResponseMember = JsonConvert.DeserializeObject<ApiResponseMember>(body);
-
-            foreach (MEMBER mem in apiResponseMember.data)
-            {
-                memberList.Add(mem);     
-            }
+            var apiResponseMember = JsonConvert.DeserializeObject<ApiResponseMember>(body);
+            
+            MemberList = apiResponseMember!.data;
         }
         catch (HttpRequestException e)
         {

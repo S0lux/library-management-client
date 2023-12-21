@@ -57,7 +57,7 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     {
         var addMemberWindow = App.AppHost!.Services.GetRequiredService<MemberListViewModel>();
 
-        if (!addMemberWindow.memberList.Any(e => e.MemberID == InputedMember.MemberID))
+        if (!addMemberWindow.MemberList.Any(e => e.MemberID == InputedMember.MemberID))
         {
             var createdMember = new
             {
