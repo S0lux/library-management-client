@@ -1,7 +1,7 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
         <Border Padding="20">
@@ -32,9 +32,9 @@
                     <Template>
                         <Grid>
                             <Svg
-                                Width="13"
                                 Height="13"
-                                Path="/Assets/SVGs/trash-can-solid.svg" />
+                                Path="/Assets/SVGs/trash-can-solid.svg"
+                                Width="13" />
                         </Grid>
                     </Template>
                 </Setter.Value>
@@ -47,9 +47,9 @@
                     <Template>
                         <Grid>
                             <Svg
-                                Width="13"
                                 Height="13"
-                                Path="/Assets/SVGs/trash-can-regular.svg" />
+                                Path="/Assets/SVGs/trash-can-regular.svg"
+                                Width="13" />
                         </Grid>
                     </Template>
                 </Setter.Value>
@@ -59,7 +59,7 @@
         <!--  Info Button  -->
 
         <Style Selector="Button.MemberListInfoButton:pointerover /template/ ui|FABorder#Root">
-            <Setter Property="Background" Value="#778899" />
+            <Setter Property="Background" Value="Orange" />
         </Style>
 
         <Style Selector="Button.MemberListInfoButton /template/ ContentPresenter#PART_ContentPresenter">
@@ -68,9 +68,9 @@
                     <Template>
                         <Grid>
                             <Svg
-                                Width="13"
                                 Height="13"
-                                Path="/Assets/SVGs/pen-to-square.svg" />
+                                Path="/Assets/SVGs/pen-to-square.svg"
+                                Width="13" />
                         </Grid>
                     </Template>
                 </Setter.Value>
@@ -83,9 +83,9 @@
                     <Template>
                         <Grid>
                             <Svg
-                                Width="13"
                                 Height="13"
-                                Path="/Assets/SVGs/pen-to-square-regular.svg" />
+                                Path="/Assets/SVGs/pen-to-square-regular.svg"
+                                Width="13" />
                         </Grid>
                     </Template>
                 </Setter.Value>
