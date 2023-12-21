@@ -119,6 +119,7 @@ public class AuthenticationService: IAuthService
                 return res;
             }
 
+            response.EnsureSuccessStatusCode();
             return response;
         }
         catch (HttpRequestException e)
@@ -162,6 +163,7 @@ public class AuthenticationService: IAuthService
                 return res;
             }
 
+            response.EnsureSuccessStatusCode();
             return response;
         }
         catch (HttpRequestException e)
@@ -205,6 +207,7 @@ public class AuthenticationService: IAuthService
                 return res;
             }
 
+            response.EnsureSuccessStatusCode();
             return response;
         }
         catch (HttpRequestException e)
@@ -248,6 +251,7 @@ public class AuthenticationService: IAuthService
                 return res;
             }
 
+            response.EnsureSuccessStatusCode();
             return response;
         }
         catch (HttpRequestException e)

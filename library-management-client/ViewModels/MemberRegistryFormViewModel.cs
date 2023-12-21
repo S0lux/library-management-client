@@ -78,7 +78,7 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
         var json = JsonConvert.SerializeObject(payload);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
         
-        if (!addMemberWindow.MemberList.Any(e => e.MemberID == InputedMember.MemberID))
+        if (addMemberWindow.MemberList.All(e => e.MemberID != InputedMember.MemberID))
         {
             var response = await _authService.PostAsync("/api/members", content);
             if (response.StatusCode == HttpStatusCode.Unauthorized)
@@ -105,7 +105,7 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
         {
             var response = await _authService.PutAsync("/api/members", content);
             addMemberWindow.GetData();
-            response.EnsureSuccessStatusCode();
+            
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 HasError = true;
