@@ -18,8 +18,7 @@ public partial class MemberRegistryForm : Window
 
     private void TitleBarContainer_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        var _mainWindow = App.AppHost!.Services.GetRequiredService<MemberRegistryForm>();
-        _mainWindow.BeginMoveDrag(e);
+        this.BeginMoveDrag(e);
     }
     
     private void Close_OnPointerEntered(object? sender, PointerEventArgs e)
