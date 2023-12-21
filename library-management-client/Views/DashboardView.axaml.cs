@@ -27,7 +27,7 @@ public partial class DashboardView : UserControl
         if (e.Property == ContentProperty)
         {
             var contentControl = (ContentControl) sender!;
-            var framerate = TimeSpan.FromSeconds(1 / 60.0);
+            var framerate = TimeSpan.FromSeconds(1 / 90.0);
             var animationSeconds = TimeSpan.FromSeconds(0.25);
             var totalTicks = animationSeconds.TotalSeconds / framerate.TotalSeconds;
             var currentTick = 0;

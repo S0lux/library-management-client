@@ -15,7 +15,7 @@ namespace Avalonia_DependencyInjection.ViewModels;
 public partial class LoginViewModel: ViewModelBase
 {
     private readonly AuthenticationService _authService;
-    
+
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
     private string? _username = String.Empty;
@@ -26,6 +26,9 @@ public partial class LoginViewModel: ViewModelBase
     [ObservableProperty] private bool _hasError = false;
     [ObservableProperty] private string? _errorMessage;
     [ObservableProperty] private bool _isBusy = false;
+    
+    public delegate void EventHandler();
+    public event EventHandler Authenticated;
 
     public LoginViewModel(AuthenticationService authService)
     {
@@ -45,6 +48,8 @@ public partial class LoginViewModel: ViewModelBase
         {
             // API call to authenticate user
             var user = await Task.Run(() => _authService.LoginAsync(Username, Password, IsRemember));
+            Authenticated.Invoke();
+            await Task.Delay(1000);
             
             // Clear existing error (if there are any)
             HasError = false;
@@ -63,8 +68,6 @@ public partial class LoginViewModel: ViewModelBase
         }
 
         IsBusy = false;
-        await Task.Run(() => Thread.Sleep(2000));
-        HasError = false;
     }
 
 

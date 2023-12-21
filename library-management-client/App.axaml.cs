@@ -40,6 +40,7 @@ public partial class App : Application
             {
                 services.AddSingleton<MainWindow>();
                 services.AddSingleton<MainWindowViewModel>();
+                services.AddSingleton<LoginView>();
                 services.AddSingleton<LoginViewModel>();
                 services.AddSingleton<DashboardView>();
                 services.AddSingleton<DashboardViewModel>();
