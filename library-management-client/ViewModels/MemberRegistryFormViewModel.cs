@@ -57,29 +57,28 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     {
         ErrorMessage = string.Empty;
         var addMemberWindow = App.AppHost!.Services.GetRequiredService<MemberListViewModel>();
-
-        var createdMember = new
-        {
-            Credit = 0,
-            Name = InputedMember.Name,
-            PhoneNumber = InputedMember.PhoneNumber,
-            CitizenID = InputedMember.CitizenID,
-            Gender = InputedMember.Gender,
-            DateOfBirth = InputedMember.DateOfBirth.ToString("o"),
-            Address = InputedMember.Address,
-            EmployeeID = _authService.CurrentUser!.EmployeeID
-        };
-
-        var payload = new
-        {
-            data = createdMember
-        };
-
-        var json = JsonConvert.SerializeObject(payload);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
         
         if (addMemberWindow.MemberList.All(e => e.MemberID != InputedMember.MemberID))
         {
+            var createdMember = new
+            {
+                Credit = 0,
+                Name = InputedMember.Name,
+                PhoneNumber = InputedMember.PhoneNumber,
+                CitizenID = InputedMember.CitizenID,
+                Gender = InputedMember.Gender,
+                DateOfBirth = InputedMember.DateOfBirth.ToString("o"),
+                Address = InputedMember.Address,
+                EmployeeID = _authService.CurrentUser!.EmployeeID
+            };
+            
+            var payload = new
+            {
+                data = createdMember
+            };
+            var json = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            
             var response = await _authService.PostAsync("/api/members", content);
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
@@ -103,6 +102,26 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
         }
         else
         {
+            var createdMember = new
+            {
+                MemberID = InputedMember.MemberID,
+                Credit = 0,
+                Name = InputedMember.Name,
+                PhoneNumber = InputedMember.PhoneNumber,
+                CitizenID = InputedMember.CitizenID,
+                Gender = InputedMember.Gender,
+                DateOfBirth = InputedMember.DateOfBirth.ToString("o"),
+                Address = InputedMember.Address,
+                EmployeeID = _authService.CurrentUser!.EmployeeID
+            };
+            
+            var payload = new
+            {
+                data = createdMember
+            };
+            var json = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            
             var response = await _authService.PutAsync("/api/members", content);
             addMemberWindow.GetData();
             
