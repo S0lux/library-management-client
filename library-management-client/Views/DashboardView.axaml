@@ -15,16 +15,7 @@
                 Content="{Binding SidebarViewModel}"
                 DockPanel.Dock="Left"
                 Name="SidebarContentControl"
-                Width="240">
-                <ContentControl.Transitions>
-                    <Transitions>
-                        <DoubleTransition
-                            Duration="0:0:0.2"
-                            Easing="CubicEaseOut"
-                            Property="Width" />
-                    </Transitions>
-                </ContentControl.Transitions>
-            </ContentControl>
+                Width="240" />
             <Border
                 Background="Transparent"
                 DockPanel.Dock="Top"
@@ -32,7 +23,16 @@
                 PointerPressed="TitleBarContainer_OnPointerPressed">
                 <ContentControl Content="{Binding TitleBarViewModel}" />
             </Border>
-            <ContentControl Content="{Binding ActiveViewModel}" />
+            <TransitioningContentControl Content="{Binding ActiveViewModel}">
+                <TransitioningContentControl.Transitions>
+                    <Transitions>
+                        <DoubleTransition
+                            Duration="0:0:0.2"
+                            Easing="CubicEaseOut"
+                            Property="Width" />
+                    </Transitions>
+                </TransitioningContentControl.Transitions>
+            </TransitioningContentControl>
         </DockPanel>
     </Panel>
 </UserControl>
