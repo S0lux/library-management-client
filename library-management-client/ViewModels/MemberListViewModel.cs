@@ -18,6 +18,8 @@ using System.Text.Json.Serialization;
 using System.Linq;
 using DynamicData;
 using Avalonia;
+using CommunityToolkit.Mvvm.ComponentModel;
+using System.Threading.Tasks;
 
 namespace Avalonia_DependencyInjection.ViewModels;
 
@@ -31,6 +33,9 @@ public partial class MemberListViewModel : ViewModelBase
 
     public ApiResponseMember apiResponseMember { get; set; }
 
+    [ObservableProperty]
+    private bool _isBusy = false;
+
     public MemberListViewModel(AuthenticationService authService)
     {
         memberList = new ObservableCollection<MEMBER>();
@@ -42,6 +47,10 @@ public partial class MemberListViewModel : ViewModelBase
 
     public async void GetData()
     {
+        IsBusy = true;
+
+        await Task.Delay(1000);
+
         try
         {
             var response = await _authService.GetAsync(@"/api/members");
@@ -66,8 +75,8 @@ public partial class MemberListViewModel : ViewModelBase
                 ButtonEnum.YesNo);
 
             var result = await box.ShowAsync();
-            return ;
         }
+        IsBusy = false;
     }
 
     [RelayCommand]

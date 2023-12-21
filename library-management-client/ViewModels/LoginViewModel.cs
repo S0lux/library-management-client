@@ -7,6 +7,7 @@ using Avalonia_DependencyInjection.Services;
 using Avalonia_DependencyInjection.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using ExCSS;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Avalonia_DependencyInjection.ViewModels;
@@ -37,7 +38,9 @@ public partial class LoginViewModel: ViewModelBase
         if (Username!.Length == 0 || Password!.Length == 0) return ;
 
         IsBusy = true;
-        
+
+        await Task.Run(() => Thread.Sleep(3000));
+
         try
         {
             // API call to authenticate user

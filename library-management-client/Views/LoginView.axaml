@@ -2,6 +2,7 @@
     x:Class="Avalonia_DependencyInjection.Views.LoginView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Avalonia_DependencyInjection.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ic="using:FluentIcons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -52,12 +53,12 @@
 
         <!--  Right panel grid  -->
         <Grid
-            Grid.Row="0"
             Grid.Column="1"
             Background="White"
             RowDefinitions="Auto *">
             <!--  School logo and text  -->
-            <Grid
+			<Grid
+				IsVisible="{Binding !IsBusy}"
                 Grid.Row="0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
@@ -79,10 +80,22 @@
                 </TextBlock>
             </Grid>
 
+            <!--  Loading Spinner  -->
+            <controls:LoadingSpinner
+                Grid.Row="1"
+                MaxWidth="80"
+                MaxHeight="80"
+                Margin="50,30,50,40"
+                Diameter="70"
+                IsLoading="True"
+                IsVisible="{Binding IsBusy}"
+                Thickness="3" />
+
             <!--  Login  -->
             <Grid
                 Grid.Row="1"
                 Margin="50,75,50,0"
+                IsVisible="{Binding !IsBusy}"
                 RowDefinitions="Auto Auto *">
                 <!--  Title  -->
                 <TextBlock
