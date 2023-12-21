@@ -28,12 +28,12 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
 
     [ObservableProperty] private ObservableCollection<string> _genders = new ObservableCollection<string>()
         { "Male", "Female" };
-    
+
     [ObservableProperty] private string _iconPathExit = "/Assets/SVGs/xmark-royalblue.svg";
 
-    [ObservableProperty] private bool _hasError=false;
-    [ObservableProperty] private string? _errorMessage="something";
-    [ObservableProperty] private bool _notifySuccess=false;
+    [ObservableProperty] private bool _hasError = false;
+    [ObservableProperty] private string? _errorMessage;
+    [ObservableProperty] private bool _notifySuccess = false;
 
     public MemberRegistryFormViewModel(AuthenticationService authService)
     {
@@ -44,17 +44,18 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
 
     bool checkSubmit()
     {
-        return !string.IsNullOrEmpty(InputedMember.Name)&&
-               !string.IsNullOrEmpty(InputedMember.PhoneNumber)&&
-               !string.IsNullOrEmpty(InputedMember.CitizenID)&&
-               !string.IsNullOrEmpty(InputedMember.Address)&&
-               UInt32.TryParse((ReadOnlySpan<char>)InputedMember.PhoneNumber, out UInt32 temp)&&
-               UInt32.TryParse((ReadOnlySpan<char>)InputedMember.CitizenID,out temp);
+        return !string.IsNullOrEmpty(InputedMember.Name) &&
+               !string.IsNullOrEmpty(InputedMember.PhoneNumber) &&
+               !string.IsNullOrEmpty(InputedMember.CitizenID) &&
+               !string.IsNullOrEmpty(InputedMember.Address) &&
+               UInt32.TryParse((ReadOnlySpan<char>)InputedMember.PhoneNumber, out UInt32 temp) &&
+               UInt32.TryParse((ReadOnlySpan<char>)InputedMember.CitizenID, out temp);
     }
 
     [RelayCommand(CanExecute = nameof(checkSubmit))]
     async Task Submit()
     {
+        ErrorMessage = string.Empty;
         var addMemberWindow = App.AppHost!.Services.GetRequiredService<MemberListViewModel>();
 
         if (!addMemberWindow.memberList.Any(e => e.MemberID == InputedMember.MemberID))
@@ -80,47 +81,75 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await _authService.PostAsync("/api/members", content);
-            if (response.StatusCode == HttpStatusCode.Unauthorized) HasError = true;
-            if (response.StatusCode == HttpStatusCode.ServiceUnavailable) HasError = true;
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                HasError = true;
+                ErrorMessage = "Unauthorized action";
+                return;
+            }
+
+            if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
+            {
+                HasError = true;
+                ErrorMessage = "Bad Connection";
+                return;
+            }
+            else
+            {
+                NotifySuccess = true;
+            }
 
             addMemberWindow.GetData();
         }
         else
         {
-            try
+            var createdMember = new
             {
-                var createdMember = new
-                {
-                    MemberID = InputedMember.MemberID,
-                    Credit = InputedMember.Credit,
-                    Name = InputedMember.Name,
-                    PhoneNumber = InputedMember.PhoneNumber,
-                    CitizenID = InputedMember.CitizenID,
-                    Gender = InputedMember.Gender,
-                    DateOfBirth = InputedMember.DateOfBirth.ToString("o"),
-                    Address = InputedMember.Address,
-                    EmployeeID = _authService.CurrentUser!.EmployeeID
-                };
+                MemberID = InputedMember.MemberID,
+                Credit = InputedMember.Credit,
+                Name = InputedMember.Name,
+                PhoneNumber = InputedMember.PhoneNumber,
+                CitizenID = InputedMember.CitizenID,
+                Gender = InputedMember.Gender,
+                DateOfBirth = InputedMember.DateOfBirth.ToString("o"),
+                Address = InputedMember.Address,
+                EmployeeID = _authService.CurrentUser!.EmployeeID
+            };
 
-                var loginData = new
-                {
-                    data = createdMember
-                };
+            var loginData = new
+            {
+                data = createdMember
+            };
 
-                var json = JsonConvert.SerializeObject(loginData);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var json = JsonConvert.SerializeObject(loginData);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await _authService.PutAsync("/api/members", content);
+            var response = await _authService.PutAsync("/api/members", content);
 
-                addMemberWindow.GetData();
-                response.EnsureSuccessStatusCode();
+            addMemberWindow.GetData();
+            response.EnsureSuccessStatusCode();
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                HasError = true;
+                ErrorMessage = "Unauthorized action";
+                return;
             }
-            catch (HttpRequestException e)
+
+            if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
             {
-                throw new HttpRequestException(e.ToString());
+                HasError = true;
+                ErrorMessage = "Bad Connection";
+                return;
+            }
+            else
+            {
+                NotifySuccess = true;
             }
         }
 
+        await Task.Run(() => Thread.Sleep(500));
+        AlertBoxOff();
+        await Task.Run(() => Thread.Sleep(50));
         var win = App.AppHost.Services.GetRequiredService<MemberRegistryForm>();
         win.Hide();
     }
