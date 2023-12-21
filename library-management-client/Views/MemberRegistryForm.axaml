@@ -51,7 +51,7 @@
                     Height="30"
                     Path="/Assets/SVGs/users_plus.svg"
                     Width="30" />
-                <Label FontSize="30" Grid.Row="0">
+                <Label FontSize="30" Grid.Row="0" Classes="MemberListLabel">
                     Member registration
                 </Label>
             </StackPanel>

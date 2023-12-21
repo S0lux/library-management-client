@@ -106,7 +106,8 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 var response = await _authService.PutAsync("/api/members", content);
-                
+
+                addMemberWindow.GetData();
                 response.EnsureSuccessStatusCode();
             }
             catch (HttpRequestException e)

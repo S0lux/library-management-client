@@ -42,12 +42,16 @@ public partial class MemberListViewModel : ViewModelBase
 
         _authService = authService;
 
+
+
         GetData();
     }
 
     public async void GetData()
     {
         IsBusy = true;
+
+        memberList.Clear();
 
         await Task.Delay(1000);
 
@@ -62,10 +66,7 @@ public partial class MemberListViewModel : ViewModelBase
 
             foreach (MEMBER mem in apiResponseMember.data)
             {
-                if (!memberList.Any(e => e.MemberID == mem.MemberID))
-                {
-                    memberList.Add(mem);
-                }
+                memberList.Add(mem);     
             }
         }
         catch (HttpRequestException e)
@@ -82,6 +83,12 @@ public partial class MemberListViewModel : ViewModelBase
     [RelayCommand]
     public void Add()
     {
+        var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<MemberRegistryFormViewModel>();
+
+        infoBoxViewModel.InputedMember = new MEMBER() { DateOfBirth = DateTime.Today, Gender = 0 };
+
+        infoBoxViewModel.InputedMember.PropertyChanged += (sender, args) => { infoBoxViewModel.SubmitCommand.NotifyCanExecuteChanged(); };
+
         var memberRegistryForm = App.AppHost!.Services.GetRequiredService<MemberRegistryForm>();
         memberRegistryForm.Show();
     }
@@ -103,13 +110,19 @@ public partial class MemberListViewModel : ViewModelBase
     {
         var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<MemberRegistryFormViewModel>();
 
-        infoBoxViewModel.InputedMember = selectedMember;
+        infoBoxViewModel.InputedMember.CitizenID = selectedMember.CitizenID;
+        infoBoxViewModel.InputedMember.Address = selectedMember.Address;
+        infoBoxViewModel.InputedMember.Name = selectedMember.Name;
+        infoBoxViewModel.InputedMember.PhoneNumber = selectedMember.PhoneNumber;
+        infoBoxViewModel.InputedMember.Gender = selectedMember.Gender;
+        infoBoxViewModel.InputedMember.Credit = selectedMember.Credit;
+        infoBoxViewModel.InputedMember.MemberID = selectedMember.MemberID;
+        infoBoxViewModel.InputedMember.EmployeeID = selectedMember.EmployeeID;
 
         var infoBox = App.AppHost!.Services.GetRequiredService<MemberRegistryForm>();
 
         infoBox.Show();
     }
-
 }
 
 public class ApiResponseMember

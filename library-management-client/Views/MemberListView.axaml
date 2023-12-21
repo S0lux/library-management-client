@@ -111,18 +111,22 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="auto"
+					MinWidth="20"
                     Binding="{Binding MemberID}"
                     Header="ID" />
                 <DataGridTextColumn
                     Width="*"
+					MinWidth="50"
                     Binding="{Binding Name}"
                     Header="CUSTOMER" />
                 <DataGridTextColumn
                     Width="auto"
+					MinWidth="30"
                     Binding="{Binding PhoneNumber}"
                     Header="PHONE" />
                 <DataGridTextColumn
                     Width="auto"
+					MinWidth="30"
                     Binding="{Binding Gender, Converter={StaticResource GenderConverter}}"
                     Header="GENDER" />
                 <DataGridTemplateColumn>
