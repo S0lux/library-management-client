@@ -93,7 +93,9 @@
             Classes="MemberListDataGrid"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
-            ItemsSource="{Binding memberList}">
+            ItemsSource="{Binding memberList}"
+            SelectedItem="{Binding selectedMember, Mode=TwoWay}"
+            >
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="auto"
@@ -113,16 +115,19 @@
                     Header="GENDER" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
+                        <DataTemplate DataType="vm:MemberListViewModel">
                             <StackPanel Orientation="Horizontal">
                                 <Button
                                     Margin="0,0,8,0"
                                     HorizontalContentAlignment="Center"
-                                    Classes="MemberListInfoButton" />
+                                    Classes="MemberListInfoButton"
+                                    Command="{Binding $parent[DataGrid].((vm:MemberListViewModel)DataContext).InfoCommand}" />
                                 <Button
                                     Margin="0,0,13,0"
                                     HorizontalContentAlignment="Center"
-                                    Classes="MemberListDeleteButton" />
+                                    Classes="MemberListDeleteButton"
+                                    Command="{Binding $parent[DataGrid].((vm:MemberListViewModel)DataContext).DeleteCommand}"
+                                    IsEnabled="True" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

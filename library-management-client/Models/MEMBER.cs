@@ -19,11 +19,10 @@ namespace Avalonia_DependencyInjection.Models
 
         [ObservableProperty] private int _credit;
 
-        [ObservableProperty] private int _gender;
-
         [ObservableProperty] private DateTime _dateOfBirth;
 
+        [ObservableProperty] private int _gender;
+
         [ObservableProperty] private int _employeeID;
-        
     }
 }

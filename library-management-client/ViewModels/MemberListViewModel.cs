@@ -1,40 +1,109 @@
-using Avalonia_DependencyInjection.Converters;
 using Avalonia_DependencyInjection.Models;
-using CommunityToolkit.Mvvm.ComponentModel;
+using Avalonia_DependencyInjection.Services;
+using Avalonia_DependencyInjection.Views;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
-using Avalonia_DependencyInjection.Views;
-using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Linq;
+using DynamicData;
+using Avalonia;
 
 namespace Avalonia_DependencyInjection.ViewModels;
 
-public partial class MemberListViewModel: ViewModelBase
+public partial class MemberListViewModel : ViewModelBase
 {
+    private readonly AuthenticationService _authService;
+
+    public MEMBER selectedMember {get; set;} 
+
     public ObservableCollection<MEMBER> memberList { get; set; }
 
-    public MemberListViewModel() 
+    public ApiResponseMember apiResponseMember { get; set; }
+
+    public MemberListViewModel(AuthenticationService authService)
     {
         memberList = new ObservableCollection<MEMBER>();
+
+        _authService = authService;
+
+        GetData();
+    }
+
+    public async void GetData()
+    {
+        try
+        {
+            var response = await _authService.GetAsync(@"/api/members");
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            ApiResponseMember apiResponseMember = JsonConvert.DeserializeObject<ApiResponseMember>(body);
+
+            foreach (MEMBER mem in apiResponseMember.data)
+            {
+                if (!memberList.Any(e => e.MemberID == mem.MemberID))
+                {
+                    memberList.Add(mem);
+                }
+            }
+        }
+        catch (HttpRequestException e)
+        {
+            var box = MessageBoxManager
+            .GetMessageBoxStandard("Error", "Add Member Failed!",
+                ButtonEnum.YesNo);
+
+            var result = await box.ShowAsync();
+            return ;
+        }
     }
 
     [RelayCommand]
     public void Add()
     {
-        var a = App.AppHost!.Services.GetRequiredService<MemberRegistryForm>();
-        a.Show();
-        
-        memberList.Add(new MEMBER
-        {
-            MemberID = 1,
-            CitizenID = "1",
-            Credit = 1,
-            Name = "Trng Nguyn Trung Khang",
-            Address = "A",
-            PhoneNumber = "1",
-            DateOfBirth = DateTime.Now,
-            Gender = 0,
-            EmployeeID = 1
-        });
+        var memberRegistryForm = App.AppHost!.Services.GetRequiredService<MemberRegistryForm>();
+        memberRegistryForm.Show();
     }
+
+    [RelayCommand]
+    public async void Delete()
+    {
+        var box = MessageBoxManager
+            .GetMessageBoxStandard("Confirm", "Are you sure you want to delete this member?",
+                ButtonEnum.YesNo);
+
+        var result = await box.ShowAsync();
+
+        
+    }
+
+    [RelayCommand]
+    public async void Info()
+    {
+        var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<MemberRegistryFormViewModel>();
+
+        infoBoxViewModel.InputedMember = selectedMember;
+
+        var infoBox = App.AppHost!.Services.GetRequiredService<MemberRegistryForm>();
+
+        infoBox.Show();
+    }
+
+}
+
+public class ApiResponseMember
+{
+    public ObservableCollection<MEMBER> data { get; set; }
 }
