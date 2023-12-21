@@ -4,9 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia_DependencyInjection.Models;
 using Avalonia_DependencyInjection.Services;
+using Avalonia_DependencyInjection.ViewModels;
 using Avalonia_DependencyInjection.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -26,9 +28,12 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
 
     [ObservableProperty] private ObservableCollection<string> _genders = new ObservableCollection<string>()
         { "Male", "Female" };
+    
+    [ObservableProperty] private string _iconPathExit = "/Assets/SVGs/xmark-royalblue.svg";
 
-    [ObservableProperty] private bool _hasError = false;
+    [ObservableProperty] private bool _hasError=false;
     [ObservableProperty] private string? _errorMessage="something";
+    [ObservableProperty] private bool _notifySuccess=false;
 
     public MemberRegistryFormViewModel(AuthenticationService authService)
     {
@@ -132,5 +137,6 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     void AlertBoxOff()
     {
         HasError = false;
+        NotifySuccess = false;
     }
 }
