@@ -30,12 +30,80 @@ public partial class MemberListViewModel : ViewModelBase
     public MEMBER selectedMember {get; set;}
 
     [ObservableProperty] private ObservableCollection<MEMBER> _memberList = new ObservableCollection<MEMBER>();
+    [ObservableProperty] private ObservableCollection<MEMBER> _memberFindList = new ObservableCollection<MEMBER>();
+    [ObservableProperty] private ObservableCollection<MEMBER> _showingList;
+
     [ObservableProperty] private bool _isBusy = false;
+    
+    [ObservableProperty] private string? _filterKey;
+    [ObservableProperty] private string _filterBy;
+    [ObservableProperty] private ObservableCollection<string> _filterByOptions = new ObservableCollection<string>()
+        { "Name", "Member ID","Citizen ID" };
+    
 
     public MemberListViewModel(AuthenticationService authService)
     {
         _authService = authService;
         GetData();
+        FilterBy = FilterByOptions.FirstOrDefault();
+    }
+
+    partial void OnFilterKeyChanged(string? oldValue, string newValue)
+    {
+        MemberFindList.Clear();
+        IsBusy = true;
+        switch (FilterBy)
+        {
+            case "Name":
+            {
+                foreach (MEMBER mem in MemberList)
+                {
+                    if (string.IsNullOrEmpty(mem.Name.ToString()))
+                    {
+                        ShowingList = MemberList;
+                    }
+                    if (mem.Name.Contains(newValue.ToString()))
+                    {
+                        MemberFindList.Add(mem);
+                    }
+                }
+                break;
+            }
+            case "Member ID":
+            {
+                foreach (MEMBER mem in MemberList)
+                {
+                    if (string.IsNullOrEmpty(newValue))
+                    {
+                        ShowingList = MemberList;
+                    }
+                    if (mem.MemberID.ToString().Contains(newValue.ToString()))
+                    {
+                        MemberFindList.Add(mem);
+                    }
+                }
+                break;
+            }
+
+            case "Citizen ID":
+            {
+                foreach (MEMBER mem in MemberList)
+                {
+                    if (string.IsNullOrEmpty(newValue))
+                    {
+                        ShowingList = MemberList;
+                    }
+                    if (mem.CitizenID.Contains(newValue.ToString()))
+                    {
+                        MemberFindList.Add(mem);
+                    }
+                }
+                break;
+            }
+        }
+        
+        IsBusy = false;
+        ShowingList = MemberFindList;
     }
 
     public async void GetData()
@@ -55,6 +123,7 @@ public partial class MemberListViewModel : ViewModelBase
             var apiResponseMember = JsonConvert.DeserializeObject<ApiResponseMember>(body);
             
             MemberList = apiResponseMember!.data;
+            ShowingList = MemberList;
         }
         catch (HttpRequestException e)
         {

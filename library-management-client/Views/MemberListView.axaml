@@ -1,33 +1,36 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.MemberListView"
-    x:DataType="vm:MemberListViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Avalonia_DependencyInjection.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="https://github.com/avaloniaui"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:MemberListViewModel"
+    mc:Ignorable="d"
+    >
 
-    <Grid Margin="30,0,30,30" Name="MainGrid">
+    <Grid Name="MainGrid" Margin="30,0,30,30">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel
-            DockPanel.Dock="Top"
             Grid.Row="0"
             HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            DockPanel.Dock="Top"
             Orientation="Horizontal"
-            VerticalAlignment="Top">
+            >
             <Svg
+                Width="30"
                 Height="30"
                 Path="/Assets/SVGs/users_black.svg"
-                Width="30" />
+                />
             <Label Classes="MemberListLabel">
                 Member List
             </Label>
@@ -40,110 +43,135 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <StackPanel
-                DockPanel.Dock="Left"
                 Grid.Column="0"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Left"
                 Orientation="Horizontal"
-                VerticalAlignment="Center">
-                <TextBox
-                    Classes="MemberListFilterTextBox"
-                    Height="40"
-                    VerticalContentAlignment="Center"
-                    Watermark="Filter Key"
-                    Width="120" />
+                >
+                <Grid>
+                    <Svg
+                        Width="15"
+                        Height="15"
+                        Margin="10"
+                        HorizontalAlignment="Left"
+                        Path="/Assets/SVGs/magnifying-glass.svg"
+                        />
+                    <TextBox
+                        Width="120"
+                        Height="40"
+                        VerticalContentAlignment="Center"
+                        Classes="MemberListFilterTextBox"
+                        Text="{Binding FilterKey}"
+                        ZIndex="1"
+                        >
+                    </TextBox>
+
+                </Grid>
                 <ComboBox
-                    Classes="MemberListComboBox"
                     Height="40"
                     Margin="10,0,0,0"
+                    VerticalContentAlignment="Center"
+                    Classes="MemberListComboBox"
+                    ItemsSource="{Binding FilterByOptions}"
                     PlaceholderText="Filter By"
-                    VerticalContentAlignment="Center">
-                    <TextBlock Text="Khang" />
-                    <TextBlock Text="Truong" />
-                    <TextBlock Text="Nguyen" />
-                    <TextBlock Text="trung" />
+                    SelectedItem="{Binding FilterBy}"
+                    >
                 </ComboBox>
             </StackPanel>
             <Button
+                Grid.Column="2"
+                Height="40"
                 Background="#31bc70"
                 Classes="MemberListAddButton"
                 Command="{Binding AddCommand}"
                 DockPanel.Dock="Right"
-                Grid.Column="2"
-                Height="40">
+                >
                 <StackPanel
                     HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
                     Orientation="Horizontal"
-                    VerticalAlignment="Center">
+                    >
                     <Svg
+                        Width="14"
                         Height="14"
                         Path="/Assets/SVGs/user-plus.svg"
-                        Width="14" />
+                        />
                     <Label
                         Content="ADD"
                         FontWeight="DemiBold"
-                        Foreground="White" />
+                        Foreground="White"
+                        />
                 </StackPanel>
             </Button>
         </Grid>
 
         <!--  Loading Spinner  -->
         <controls:LoadingSpinner
-            Diameter="70"
             Grid.Row="2"
+            MaxWidth="80"
+            MaxHeight="80"
+            Margin="50,30,50,40"
+            Diameter="70"
             IsLoading="True"
             IsVisible="{Binding IsBusy}"
-            Margin="50,30,50,40"
-            MaxHeight="80"
-            MaxWidth="80"
-            Thickness="3" />
+            Thickness="3"
+            />
 
         <DataGrid
+            Grid.Row="2"
+            Margin="0,10,0,0"
             AutoGenerateColumns="False"
             BorderThickness="0"
             CanUserReorderColumns="False"
             Classes="MemberListDataGrid"
-            Grid.Row="2"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
             IsVisible="{Binding !IsBusy}"
-            ItemsSource="{Binding MemberList}"
-            Margin="0,10,0,0"
-            SelectedItem="{Binding selectedMember, Mode=TwoWay}">
+            ItemsSource="{Binding ShowingList}"
+            SelectedItem="{Binding selectedMember, Mode=TwoWay}"
+            >
             <DataGrid.Columns>
                 <DataGridTextColumn
+                    Width="auto"
+                    MinWidth="20"
                     Binding="{Binding MemberID}"
                     Header="ID"
-                    MinWidth="20"
-                    Width="auto" />
+                    />
                 <DataGridTextColumn
+                    Width="*"
+                    MinWidth="50"
                     Binding="{Binding Name}"
                     Header="CUSTOMER"
-                    MinWidth="50"
-                    Width="*" />
+                    />
                 <DataGridTextColumn
+                    Width="auto"
+                    MinWidth="30"
                     Binding="{Binding PhoneNumber}"
                     Header="PHONE"
-                    MinWidth="30"
-                    Width="auto" />
+                    />
                 <DataGridTextColumn
+                    Width="auto"
+                    MinWidth="30"
                     Binding="{Binding Gender, Converter={StaticResource GenderConverter}}"
                     Header="GENDER"
-                    MinWidth="30"
-                    Width="auto" />
+                    />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="vm:MemberListViewModel">
                             <StackPanel Orientation="Horizontal">
                                 <Button
+                                    Margin="0,0,8,0"
+                                    HorizontalContentAlignment="Center"
                                     Classes="MemberListInfoButton"
                                     Command="{Binding $parent[DataGrid].((vm:MemberListViewModel)DataContext).InfoCommand}"
-                                    HorizontalContentAlignment="Center"
-                                    Margin="0,0,8,0" />
+                                    />
                                 <Button
+                                    Margin="0,0,13,0"
+                                    HorizontalContentAlignment="Center"
                                     Classes="MemberListDeleteButton"
                                     Command="{Binding $parent[DataGrid].((vm:MemberListViewModel)DataContext).DeleteCommand}"
-                                    HorizontalContentAlignment="Center"
                                     IsEnabled="True"
-                                    Margin="0,0,13,0" />
+                                    />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
