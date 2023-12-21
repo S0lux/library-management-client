@@ -23,16 +23,7 @@
                 PointerPressed="TitleBarContainer_OnPointerPressed">
                 <ContentControl Content="{Binding TitleBarViewModel}" />
             </Border>
-            <TransitioningContentControl Content="{Binding ActiveViewModel}">
-                <TransitioningContentControl.Transitions>
-                    <Transitions>
-                        <DoubleTransition
-                            Duration="0:0:0.2"
-                            Easing="CubicEaseOut"
-                            Property="Width" />
-                    </Transitions>
-                </TransitioningContentControl.Transitions>
-            </TransitioningContentControl>
+            <ContentControl Content="{Binding ActiveViewModel}" PropertyChanged="AvaloniaObject_OnPropertyChanged" />
         </DockPanel>
     </Panel>
 </UserControl>
