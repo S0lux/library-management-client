@@ -30,7 +30,6 @@ public partial class DashboardView : UserControl
             var framerate = TimeSpan.FromSeconds(1 / 60.0);
             var animationSeconds = TimeSpan.FromSeconds(0.25);
             var totalTicks = animationSeconds.TotalSeconds / framerate.TotalSeconds;
-            var easing = new QuadraticEaseIn();
             var currentTick = 0;
             var timer = new DispatcherTimer();
             
@@ -46,7 +45,7 @@ public partial class DashboardView : UserControl
                 }
 
                 var animationProgress = (double)currentTick / totalTicks;
-                contentControl.Margin = new Thickness(0, 25.0 - (25.0 * easing.Ease(animationProgress)), 0, 0);
+                contentControl.Margin = new Thickness(0, 25.0 - (25.0 * animationProgress), 0, 0);
                 contentControl.Opacity = animationProgress;
             };
 
