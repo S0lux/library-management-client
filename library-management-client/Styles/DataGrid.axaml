@@ -1,7 +1,7 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ui="using:Avalonia.Controls.Primitives">
+    xmlns:ui="using:Avalonia.Controls.Primitives"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
         <Border Padding="20">
@@ -17,17 +17,17 @@
     </Design.PreviewWith>
 
     <Style Selector="DataGrid.MemberListDataGrid DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
-        <Setter Property="Fill" Value="RoyalBlue" />
+        <Setter Property="Fill" Value="#e2eafc" />
         <Setter Property="Opacity" Value="{DynamicResource DataGridRowSelectedHoveredUnfocusedBackgroundOpacity}" />
     </Style>
 
     <Style Selector="DataGrid.MemberListDataGrid DataGridRow:selected">
         <Style Selector="^ /template/ Rectangle#BackgroundRectangle">
-            <Setter Property="Fill" Value="RoyalBlue" />
+            <Setter Property="Fill" Value="#ccdbfd" />
             <Setter Property="Opacity" Value="{DynamicResource DataGridRowSelectedUnfocusedBackgroundOpacity}" />
         </Style>
         <Style Selector="^:pointerover /template/ Rectangle#BackgroundRectangle">
-            <Setter Property="Fill" Value="RoyalBlue" />
+            <Setter Property="Fill" Value="#ccdbfd" />
             <Setter Property="Opacity" Value="{DynamicResource DataGridRowSelectedHoveredUnfocusedBackgroundOpacity}" />
         </Style>
     </Style>
