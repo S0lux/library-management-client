@@ -24,5 +24,7 @@ namespace Avalonia_DependencyInjection.Models
         [ObservableProperty] private int _gender;
 
         [ObservableProperty] private int _employeeID;
+        
+        [ObservableProperty] private bool _deleted;
     }
 }

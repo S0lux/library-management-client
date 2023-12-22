@@ -10,8 +10,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:DataType="vm:MemberListViewModel"
-    mc:Ignorable="d"
-    >
+    mc:Ignorable="d">
 
     <Grid Name="MainGrid" Margin="30,0,30,30">
         <Grid.RowDefinitions>
@@ -24,13 +23,11 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             DockPanel.Dock="Top"
-            Orientation="Horizontal"
-            >
+            Orientation="Horizontal">
             <Svg
                 Width="30"
                 Height="30"
-                Path="/Assets/SVGs/users_black.svg"
-                />
+                Path="/Assets/SVGs/users_black.svg" />
             <Label Classes="MemberListLabel">
                 Member List
             </Label>
@@ -46,16 +43,14 @@
                 Grid.Column="0"
                 VerticalAlignment="Center"
                 DockPanel.Dock="Left"
-                Orientation="Horizontal"
-                >
+                Orientation="Horizontal">
                 <Grid>
                     <Svg
                         Width="15"
                         Height="15"
                         Margin="10"
                         HorizontalAlignment="Left"
-                        Path="/Assets/SVGs/magnifying-glass.svg"
-                        />
+                        Path="/Assets/SVGs/magnifying-glass.svg" />
                     <TextBox
                         x:Name="SearchBox"
                         Width="120"
@@ -65,9 +60,7 @@
                         GotFocus="SearchBox_OnGotFocus"
                         LostFocus="SearchBox_OnLostFocus"
                         Text="{Binding FilterKey}"
-                        ZIndex="1"
-                        >
-                    </TextBox>
+                        ZIndex="1" />
 
                 </Grid>
                 <ComboBox
@@ -77,9 +70,7 @@
                     Classes="MemberListComboBox"
                     ItemsSource="{Binding FilterByOptions}"
                     PlaceholderText="Filter By"
-                    SelectedItem="{Binding FilterBy}"
-                    >
-                </ComboBox>
+                    SelectedItem="{Binding FilterBy}" />
             </StackPanel>
             <Button
                 Grid.Column="2"
@@ -87,23 +78,19 @@
                 Background="#31bc70"
                 Classes="MemberListAddButton"
                 Command="{Binding AddCommand}"
-                DockPanel.Dock="Right"
-                >
+                DockPanel.Dock="Right">
                 <StackPanel
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Orientation="Horizontal"
-                    >
+                    Orientation="Horizontal">
                     <Svg
                         Width="14"
                         Height="14"
-                        Path="/Assets/SVGs/user-plus.svg"
-                        />
+                        Path="/Assets/SVGs/user-plus.svg" />
                     <Label
                         Content="ADD"
                         FontWeight="DemiBold"
-                        Foreground="White"
-                        />
+                        Foreground="White" />
                 </StackPanel>
             </Button>
         </Grid>
@@ -117,8 +104,7 @@
             Diameter="70"
             IsLoading="True"
             IsVisible="{Binding IsBusy}"
-            Thickness="3"
-            />
+            Thickness="3" />
 
         <DataGrid
             Grid.Row="2"
@@ -131,33 +117,28 @@
             IsReadOnly="True"
             IsVisible="{Binding !IsBusy}"
             ItemsSource="{Binding ShowingList}"
-            SelectedItem="{Binding selectedMember, Mode=TwoWay}"
-            >
+            SelectedItem="{Binding selectedMember, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="auto"
                     MinWidth="20"
                     Binding="{Binding MemberID}"
-                    Header="ID"
-                    />
+                    Header="ID" />
                 <DataGridTextColumn
                     Width="*"
                     MinWidth="50"
                     Binding="{Binding Name}"
-                    Header="CUSTOMER"
-                    />
+                    Header="CUSTOMER" />
                 <DataGridTextColumn
                     Width="auto"
                     MinWidth="30"
                     Binding="{Binding PhoneNumber}"
-                    Header="PHONE"
-                    />
+                    Header="PHONE" />
                 <DataGridTextColumn
                     Width="auto"
                     MinWidth="30"
                     Binding="{Binding Gender, Converter={StaticResource GenderConverter}}"
-                    Header="GENDER"
-                    />
+                    Header="GENDER" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="vm:MemberListViewModel">
@@ -166,15 +147,13 @@
                                     Margin="0,0,8,0"
                                     HorizontalContentAlignment="Center"
                                     Classes="MemberListInfoButton"
-                                    Command="{Binding $parent[DataGrid].((vm:MemberListViewModel)DataContext).InfoCommand}"
-                                    />
+                                    Command="{Binding $parent[DataGrid].((vm:MemberListViewModel)DataContext).InfoCommand}" />
                                 <Button
                                     Margin="0,0,13,0"
                                     HorizontalContentAlignment="Center"
                                     Classes="MemberListDeleteButton"
                                     Command="{Binding $parent[DataGrid].((vm:MemberListViewModel)DataContext).DeleteCommand}"
-                                    IsEnabled="True"
-                                    />
+                                    IsEnabled="True" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
