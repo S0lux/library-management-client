@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Avalonia_DependencyInjection.Models
 {
@@ -9,21 +11,20 @@ namespace Avalonia_DependencyInjection.Models
         [Key]
         public int BookID { get; set; }
 
-        [MaxLength(13)]
-        public string ISBN { get; set; }
+        [JsonPropertyName("isbn_10")]
+        public string ISBN10 { get; set; }
+        
+        [JsonPropertyName("isbn_13")]
+        public string ISBN13 { get; set; }
 
-        [MaxLength(50)]
+        [JsonPropertyName("title")]
         public string Title { get; set; }
 
-        [MaxLength(50)]
+        [JsonPropertyName("author")]
         public string Author { get; set; }
 
-        [MaxLength(30)]
-        public string Genre { get; set; }
-
-        public double Price { get; set; }
-
-        public DateTime ReleaseDate { get; set; }
+        [JsonPropertyName("publish_date")]
+        public DateTime PublishDate { get; set; }
 
     }
 }
