@@ -140,6 +140,7 @@ public partial class MemberListViewModel : ViewModelBase
     public void Add()
     {
         var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<MemberRegistryFormViewModel>();
+        infoBoxViewModel.AlertBoxOff();
 
         infoBoxViewModel.InputedMember = new MEMBER() { DateOfBirth = DateTime.Today, Gender = 0,Deleted = false };
 

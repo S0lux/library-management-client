@@ -162,7 +162,7 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    void AlertBoxOff()
+    public void AlertBoxOff()
     {
         HasError = false;
         NotifySuccess = false;
