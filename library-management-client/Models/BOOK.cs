@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Avalonia_DependencyInjection.Models
 {
-    internal class BOOK
+    public class BOOK
     {
         [JsonPropertyName("isbn_10")]
         public string ISBN10 { get; set; }

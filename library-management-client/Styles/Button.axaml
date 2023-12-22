@@ -1,7 +1,8 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    >
 
     <Design.PreviewWith>
         <Border Padding="20">
@@ -32,9 +33,10 @@
                     <Template>
                         <Grid>
                             <Svg
+                                Width="13"
                                 Height="13"
                                 Path="/Assets/SVGs/trash-can-solid.svg"
-                                Width="13" />
+                                />
                         </Grid>
                     </Template>
                 </Setter.Value>
@@ -47,9 +49,10 @@
                     <Template>
                         <Grid>
                             <Svg
+                                Width="13"
                                 Height="13"
                                 Path="/Assets/SVGs/trash-can-regular.svg"
-                                Width="13" />
+                                />
                         </Grid>
                     </Template>
                 </Setter.Value>
@@ -68,9 +71,10 @@
                     <Template>
                         <Grid>
                             <Svg
+                                Width="13"
                                 Height="13"
                                 Path="/Assets/SVGs/pen-to-square.svg"
-                                Width="13" />
+                                />
                         </Grid>
                     </Template>
                 </Setter.Value>
@@ -83,14 +87,54 @@
                     <Template>
                         <Grid>
                             <Svg
+                                Width="13"
                                 Height="13"
                                 Path="/Assets/SVGs/pen-to-square-regular.svg"
-                                Width="13" />
+                                />
                         </Grid>
                     </Template>
                 </Setter.Value>
             </Setter>
         </Style>
 
+
+
+
+        <!--  Book Assign Button  -->
+        <Style Selector="Button.BookAssign:pointerover /template/ ui|FABorder#Root">
+            <Setter Property="Background" Value="RoyalBlue" />
+        </Style>
+
+        <Style Selector="Button.BookAssign /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <Template>
+                        <Grid>
+                            <Svg
+                                Width="15"
+                                Height="15"
+                                Path="/Assets/SVGs/book-circle-arrow-right.svg"
+                                />
+                        </Grid>
+                    </Template>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.BookAssign:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Content">
+                <Setter.Value>
+                    <Template>
+                        <Grid>
+                            <Svg
+                                Width="15"
+                                Height="15"
+                                Path="/Assets/SVGs/book-circle-arrow-right-white.svg"
+                                />
+                        </Grid>
+                    </Template>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Styles>
 </Styles>

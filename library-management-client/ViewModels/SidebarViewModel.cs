@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.IO;
+using Avalonia_DependencyInjection.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Avalonia_DependencyInjection.ViewModels;
@@ -17,7 +18,7 @@ public partial class SidebarViewModel: ViewModelBase
 
             new("Member", typeof(MemberListViewModel), "/Assets/SVGs/users.svg"),
 
-            new("Book", null, "/Assets/SVGs/books.svg"),
+            new("Book", typeof(BookViewModel), "/Assets/SVGs/books.svg"),
         });
     }
 }

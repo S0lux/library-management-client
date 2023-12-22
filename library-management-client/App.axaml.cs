@@ -56,7 +56,10 @@ public partial class App : Application
                 services.AddSingleton<TitlebarViewModel>();
                 services.AddSingleton<MemberRegistryFormViewModel>();
                 services.AddSingleton<MemberRegistryForm>();
-                
+                services.AddSingleton<BookView>();
+                services.AddSingleton<BookViewModel>();
+                services.AddSingleton<AddBookWindow>();
+                services.AddSingleton<AddBookWindowViewModel>();
 
                 services.AddHttpClient("main", options =>
                 {

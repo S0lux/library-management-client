@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Avalonia_DependencyInjection.Models
 {
-    internal class BOOK_DETAIL
+    public class BOOK_DETAIL
     {
         public string ISBN13 { get; set; }
 
