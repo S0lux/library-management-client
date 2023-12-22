@@ -184,6 +184,7 @@ public partial class MemberListViewModel : ViewModelBase
     public async void Info()
     {
         var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<MemberRegistryFormViewModel>();
+        infoBoxViewModel.AlertBoxOff();
 
         infoBoxViewModel.InputedMember.CitizenID = selectedMember.CitizenID;
         infoBoxViewModel.InputedMember.Address = selectedMember.Address;

@@ -1,20 +1,26 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.AddByISBNView"
-    x:DataType="vm:AddByISBNViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:AddByISBNViewModel"
+    mc:Ignorable="d">
     <Grid Margin="0,20,0,0" RowDefinitions="Auto *">
         <StackPanel
             Grid.Row="0"
             Height="25"
-            Orientation="Horizontal"
-            Spacing="5"
-            VerticalAlignment="Center" />
+            VerticalAlignment="Center"
+            Spacing="5">
+            <TextBlock Text="something" />
+            <TextBlock Text="{Binding Test}" />
+            <TextBlock Text="{Binding Book.Title}" />
+
+
+
+        </StackPanel>
     </Grid>
 </UserControl>
