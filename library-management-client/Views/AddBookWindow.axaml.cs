@@ -9,10 +9,10 @@ namespace Avalonia_DependencyInjection.Views;
 
 public partial class AddBookWindow : Window
 {
-    public AddBookWindow(AddBookWindowViewModel addBookWindowViewModel)
+    public AddBookWindow()
     {
         InitializeComponent();
-        DataContext = addBookWindowViewModel;
+        DataContext = App.AppHost!.Services.GetRequiredService<AddBookWindowViewModel>();
     }
     private void TitleBarContainer_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {

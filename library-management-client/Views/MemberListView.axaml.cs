@@ -12,15 +12,4 @@ public partial class MemberListView : UserControl
     {
         InitializeComponent();
     }
-
-
-    private void SearchBox_OnGotFocus(object? sender, GotFocusEventArgs e)
-    {
-        SearchBox.Padding = new Thickness(10, 0, 0, 0);
-    }
-
-    private void SearchBox_OnLostFocus(object? sender, RoutedEventArgs e)
-    {
-        SearchBox.Padding = new Thickness(30, 0, 0, 0);
-    }
 }

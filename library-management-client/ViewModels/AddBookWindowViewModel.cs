@@ -12,28 +12,24 @@ public partial class AddBookWindowViewModel : ViewModelBase
     [ObservableProperty] private string _iconPathExit="/Assets/SVGs/xmark-royalblue.svg";
 
     [ObservableProperty] private ObservableCollection<string> _addByOptions = new ObservableCollection<string>()
-        { "ISBN", "Titile", "Manual adding" };
+        { "ISBN", "Title", "Manual" };
 
-    [ObservableProperty] private string _addBy;
+    [ObservableProperty] private string _addBy = "ISBN";
 
     [ObservableProperty] private ViewModelBase _currentAddView;
-    public AddBookWindowViewModel()
-    {
-
-    }
 
     partial void OnAddByChanged(string? oldValue, string newValue)
     {
         switch (newValue)
         {
             case "ISBN":
-                CurrentAddView = App.AppHost.Services.GetRequiredService<AddByISBNViewModel>();
+                CurrentAddView = App.AppHost!.Services.GetRequiredService<AddByISBNViewModel>();
                 break;
-            case "Titile":
-                CurrentAddView = App.AppHost.Services.GetRequiredService<AddByTitleViewModel>();
+            case "Title":
+                CurrentAddView = App.AppHost!.Services.GetRequiredService<AddByTitleViewModel>();
                 break;
-            case "Manual adding":
-                CurrentAddView = App.AppHost.Services.GetRequiredService<ManualAddingViewModel>();
+            case "Manual":
+                CurrentAddView = App.AppHost!.Services.GetRequiredService<ManualAddingViewModel>();
                 break;
                 
         }
@@ -48,7 +44,7 @@ public partial class AddBookWindowViewModel : ViewModelBase
     [RelayCommand]
     void Close()
     {
-        var temp = App.AppHost.Services.GetRequiredService<AddBookWindow>();
+        var temp = App.AppHost!.Services.GetRequiredService<AddBookWindow>();
         temp.Hide();
     }
 
