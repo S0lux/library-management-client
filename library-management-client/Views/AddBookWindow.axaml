@@ -64,20 +64,30 @@
             ColumnDefinitions="auto *"
             Grid.Row="2"
             Margin="0,15,0,0">
-            <Label
-                FontSize="20"
-                FontWeight="DemiBold"
+            <StackPanel
                 Grid.Column="0"
-                VerticalAlignment="Center">
-                Add by
-            </Label>
-            <ComboBox
-                Grid.Column="1"
-                ItemsSource="{Binding AddByOptions}"
-                Margin="10,0,0,0"
-                SelectedItem="{Binding AddBy}"
-                VerticalAlignment="Center"
-                Width="150" />
+                Orientation="Horizontal"
+                Spacing="5">
+                <ComboBox
+                    Grid.Column="1"
+                    ItemsSource="{Binding AddByOptions}"
+                    SelectedItem="{Binding AddBy}"
+                    VerticalAlignment="Center"
+                    Width="75" />
+
+                <TextBox
+                    Classes="PrimaryNoIcon"
+                    Watermark="ISBN number"
+                    Width="150" />
+
+                <Button Height="33" Width="33">
+                    <Svg
+                        Height="15"
+                        Path="/Assets/SVGs/magnifying-glass.svg"
+                        Width="15" />
+                </Button>
+            </StackPanel>
+
         </Grid>
 
         <ContentControl Content="{Binding CurrentAddView}" Grid.Row="3" />

@@ -15,19 +15,6 @@
             Height="25"
             Orientation="Horizontal"
             Spacing="5"
-            VerticalAlignment="Center">
-
-            <TextBox
-                Classes="PrimaryNoIcon"
-                Watermark="ISBN number"
-                Width="150" />
-
-            <Button Height="33" Width="33">
-                <Svg
-                    Height="15"
-                    Path="/Assets/SVGs/magnifying-glass.svg"
-                    Width="15" />
-            </Button>
-        </StackPanel>
+            VerticalAlignment="Center" />
     </Grid>
 </UserControl>

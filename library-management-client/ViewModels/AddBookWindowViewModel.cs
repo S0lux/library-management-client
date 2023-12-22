@@ -14,10 +14,15 @@ public partial class AddBookWindowViewModel : ViewModelBase
     [ObservableProperty] private ObservableCollection<string> _addByOptions = new ObservableCollection<string>()
         { "ISBN", "Title", "Manual" };
 
-    [ObservableProperty] private string _addBy = "ISBN";
+    [ObservableProperty] private string _addBy;
 
     [ObservableProperty] private ViewModelBase _currentAddView;
 
+    public AddBookWindowViewModel()
+    {
+        AddBy = "ISBN";
+    }
+    
     partial void OnAddByChanged(string? oldValue, string newValue)
     {
         switch (newValue)
