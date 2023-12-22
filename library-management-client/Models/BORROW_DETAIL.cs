@@ -11,8 +11,7 @@ namespace Avalonia_DependencyInjection.Models
     {
         public int BorrowInvoiceID { get; set; }
 
-        [MaxLength(4)]
-        public int BookID { get; set; }
+        public string ISBN13 { get; set; }
 
         public int Quantity { get; set; }
 

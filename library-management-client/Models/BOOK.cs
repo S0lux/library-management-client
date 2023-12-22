@@ -8,9 +8,6 @@ namespace Avalonia_DependencyInjection.Models
 {
     internal class BOOK
     {
-        [Key]
-        public int BookID { get; set; }
-
         [JsonPropertyName("isbn_10")]
         public string ISBN10 { get; set; }
         

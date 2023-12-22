@@ -9,8 +9,7 @@ namespace Avalonia_DependencyInjection.Models
 {
     internal class BOOK_DETAIL
     {
-        [MaxLength(4)]
-        public int BookID { get; set; }
+        public string ISBN13 { get; set; }
 
         [MaxLength(10)]
         public string Status { get; set; }
