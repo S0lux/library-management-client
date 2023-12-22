@@ -22,6 +22,23 @@ public partial class AddBookWindowViewModel : ViewModelBase
 
     }
 
+    partial void OnAddByChanged(string? oldValue, string newValue)
+    {
+        switch (newValue)
+        {
+            case "ISBN":
+                CurrentAddView = App.AppHost.Services.GetRequiredService<AddByISBNViewModel>();
+                break;
+            case "Titile":
+                CurrentAddView = App.AppHost.Services.GetRequiredService<AddByTitleViewModel>();
+                break;
+            case "Manual adding":
+                CurrentAddView = App.AppHost.Services.GetRequiredService<ManualAddingViewModel>();
+                break;
+                
+        }
+    }
+
     [RelayCommand]
     void Test()
     {

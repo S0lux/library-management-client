@@ -60,6 +60,13 @@ public partial class App : Application
                 services.AddSingleton<BookViewModel>();
                 services.AddSingleton<AddBookWindow>();
                 services.AddSingleton<AddBookWindowViewModel>();
+                services.AddSingleton<AddByISBNView>();
+                services.AddSingleton<AddByTitleView>();
+                services.AddSingleton<ManualAddingView>();
+                services.AddSingleton<AddByISBNViewModel>();
+                services.AddSingleton<AddByTitleViewModel>();
+                services.AddSingleton<ManualAddingViewModel>();
+                
 
                 services.AddHttpClient("main", options =>
                 {
