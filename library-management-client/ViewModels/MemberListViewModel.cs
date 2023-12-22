@@ -122,7 +122,7 @@ public partial class MemberListViewModel : ViewModelBase
             var body = await response.Content.ReadAsStringAsync();
             var apiResponseMember = JsonConvert.DeserializeObject<ApiResponseMember>(body);
             
-            MemberList = apiResponseMember!.data;
+            MemberList = new ObservableCollection<MEMBER>(apiResponseMember!.data.Where(e => e.Deleted == false));
             ShowingList = MemberList;
         }
         catch (HttpRequestException e)
@@ -140,8 +140,9 @@ public partial class MemberListViewModel : ViewModelBase
     public void Add()
     {
         var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<MemberRegistryFormViewModel>();
+        infoBoxViewModel.AlertBoxOff();
 
-        infoBoxViewModel.InputedMember = new MEMBER() { DateOfBirth = DateTime.Today, Gender = 0 };
+        infoBoxViewModel.InputedMember = new MEMBER() { DateOfBirth = DateTime.Today, Gender = 0,Deleted = false };
 
         infoBoxViewModel.InputedMember.PropertyChanged += (sender, args) => { infoBoxViewModel.SubmitCommand.NotifyCanExecuteChanged(); };
 
@@ -158,7 +159,25 @@ public partial class MemberListViewModel : ViewModelBase
 
         var result = await box.ShowAsync();
 
-        
+        if(result == ButtonResult.Yes)
+        {
+            var updateMember = new
+            {
+                MemberID = selectedMember.MemberID,
+                Deleted = true
+            };
+
+            var payload = new
+            {
+                data = updateMember
+            };
+
+            var json = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _authService.PutAsync("/api/members", content);
+            GetData();
+        }  
     }
 
     [RelayCommand]

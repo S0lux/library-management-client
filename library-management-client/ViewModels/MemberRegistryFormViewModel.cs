@@ -69,7 +69,8 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
                 Gender = InputedMember.Gender,
                 DateOfBirth = InputedMember.DateOfBirth.ToString("o"),
                 Address = InputedMember.Address,
-                EmployeeID = _authService.CurrentUser!.EmployeeID
+                EmployeeID = _authService.CurrentUser!.EmployeeID,
+                Deleted = false
             };
             
             var payload = new
@@ -112,7 +113,8 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
                 Gender = InputedMember.Gender,
                 DateOfBirth = InputedMember.DateOfBirth.ToString("o"),
                 Address = InputedMember.Address,
-                EmployeeID = _authService.CurrentUser!.EmployeeID
+                EmployeeID = _authService.CurrentUser!.EmployeeID,
+                Deleted = InputedMember.Deleted
             };
             
             var payload = new
@@ -160,7 +162,7 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    void AlertBoxOff()
+    public void AlertBoxOff()
     {
         HasError = false;
         NotifySuccess = false;
