@@ -20,6 +20,7 @@ using DynamicData;
 using Avalonia;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Threading.Tasks;
+using Avalonia_DependencyInjection.Controls;
 
 namespace Avalonia_DependencyInjection.ViewModels;
 
@@ -139,10 +140,11 @@ public partial class MemberListViewModel : ViewModelBase
     [RelayCommand]
     public void Add()
     {
+
         var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<MemberRegistryFormViewModel>();
         infoBoxViewModel.AlertBoxOff();
 
-        infoBoxViewModel.InputedMember = new MEMBER() { DateOfBirth = DateTime.Today, Gender = 0,Deleted = false };
+        infoBoxViewModel.InputedMember = new MEMBER() { DateOfBirth = DateTime.Today, Gender = 0, Deleted = false };
 
         infoBoxViewModel.InputedMember.PropertyChanged += (sender, args) => { infoBoxViewModel.SubmitCommand.NotifyCanExecuteChanged(); };
 
@@ -153,13 +155,13 @@ public partial class MemberListViewModel : ViewModelBase
     [RelayCommand]
     public async void Delete()
     {
-        var box = MessageBoxManager
-            .GetMessageBoxStandard("Confirm", "Are you sure you want to delete this member?",
-                ButtonEnum.YesNo);
+        MyMessageBox myMessageBox = new MyMessageBox("Are you sure you want to delete this member?", "Confirm",
+            MyMessageBox.MessageBoxButton.YesNo,
+            MyMessageBox.MessageBoxImage.Question);
 
-        var result = await box.ShowAsync();
+        await myMessageBox.ShowDialog(App.AppHost!.Services.GetRequiredService<MainWindow>());
 
-        if(result == ButtonResult.Yes)
+        if(MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
         {
             var updateMember = new
             {

@@ -53,7 +53,8 @@
                     VerticalContentAlignment="Center"
                     Width="120"
                     ZIndex="1"
-                    x:Name="SearchBox" />
+                    x:Name="SearchBox"
+					Watermark="Search Here"/>
 
                 <ComboBox
                     Classes="MemberListComboBox"
