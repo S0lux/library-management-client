@@ -1,6 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Avalonia_DependencyInjection.Controls;
 using Avalonia_DependencyInjection.Models;
 using Avalonia_DependencyInjection.Services;
 using Avalonia_DependencyInjection.Views;
@@ -25,8 +27,10 @@ public partial class AddBookWindowViewModel : ViewModelBase
     [ObservableProperty] private string _addBy;
     [ObservableProperty] private bool _isEnable=true;
     [ObservableProperty] private string _addByWaterMark;
-    [ObservableProperty] private string _findKey;
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(FindCommand))] private string _findKey;
     [ObservableProperty] private BOOK _foundedBook;
+    [ObservableProperty] private bool _isBusy=false;
+    [ObservableProperty] private bool _isLoaded=false;
 
     [ObservableProperty] private ViewModelBase _currentAddView;
 
@@ -66,21 +70,33 @@ public partial class AddBookWindowViewModel : ViewModelBase
         }
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CheckFind))]
     public async Task Find()
     {
+        IsLoaded = false;
+        IsBusy = true;
         if (AddBy == "ISBN")
         {
-            var response = await _authService.GetAsync($@"/api/books/isbn/{FindKey}");
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                var response = await _authService.GetAsync($@"/api/books/isbn/{FindKey}");
+                response.EnsureSuccessStatusCode();
 
-            var body = await response.Content.ReadAsStringAsync();
-            var apiRespondedBook = JsonConvert.DeserializeObject<ApiRespondedBook>(body);
-            FoundedBook = apiRespondedBook.Data;
-            _addByIsbnViewModel.Book = FoundedBook;
+                var body = await response.Content.ReadAsStringAsync();
+                var apiRespondedBook = JsonConvert.DeserializeObject<ApiRespondedBook>(body);
+                FoundedBook = apiRespondedBook.Data;
+                _addByIsbnViewModel.Book = FoundedBook;
+                IsLoaded = true;
+            }
+            catch(HttpRequestException e)
+            {
+                MyMessageBox error = new MyMessageBox("Unable to find the book", "Error",
+                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
+                await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+            }
         }
-        
-        Console.WriteLine(FoundedBook.Title);
+
+        IsBusy = false;
     }
 
     [RelayCommand]
@@ -88,6 +104,11 @@ public partial class AddBookWindowViewModel : ViewModelBase
     {
         var temp = App.AppHost!.Services.GetRequiredService<AddBookWindow>();
         temp.Hide();
+    }
+
+    private bool CheckFind()
+    {
+        return !string.IsNullOrEmpty(FindKey);
     }
 
 }

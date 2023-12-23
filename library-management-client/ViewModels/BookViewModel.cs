@@ -14,9 +14,9 @@ public partial class BookViewModel:ViewModelBase
     [ObservableProperty] private ObservableCollection<BOOK> _bookList=new();
     public BookViewModel()
     {
-        BookList.Add(new BOOK(){ISBN10 = "1234", Title = "THE FELLOWSHIP OF THE RING", Author = "J.R.R Tolkien"});
-        BookList.Add(new BOOK(){ISBN10 = "4321", Title = "THE TWO TOWERS", Author = "J.R.R Tolkien"});
-        BookList.Add(new BOOK(){ISBN10 = "3467", Title = "THE RETURN OF THE KING", Author = "J.R.R Tolkien"});
+        BookList.Add(new BOOK(){ISBN13 = "1234", Title = "THE FELLOWSHIP OF THE RING", Author = "J.R.R Tolkien"});
+        BookList.Add(new BOOK(){ISBN13 = "4321", Title = "THE TWO TOWERS", Author = "J.R.R Tolkien"});
+        BookList.Add(new BOOK(){ISBN13 = "3467", Title = "THE RETURN OF THE KING", Author = "J.R.R Tolkien"});
     }
 
     [RelayCommand]

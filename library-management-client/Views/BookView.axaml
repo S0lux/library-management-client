@@ -8,21 +8,18 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:DataType="vm:BookViewModel"
-    mc:Ignorable="d"
-    >
+    mc:Ignorable="d">
     <Grid Margin="30,0,30,30" RowDefinitions="auto auto *">
         <StackPanel
             Grid.Row="0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             DockPanel.Dock="Top"
-            Orientation="Horizontal"
-            >
+            Orientation="Horizontal">
             <Svg
                 Width="30"
                 Height="30"
-                Path="/Assets/SVGs/books_black.svg"
-                />
+                Path="/Assets/SVGs/books_black.svg" />
             <Label Classes="MemberListLabel">
                 Book
             </Label>
@@ -34,23 +31,19 @@
             Background="#31bc70"
             Classes="MemberListAddButton"
             Command="{Binding AddBookCommand}"
-            DockPanel.Dock="Right"
-            >
+            DockPanel.Dock="Right">
             <StackPanel
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Orientation="Horizontal"
-                >
+                Orientation="Horizontal">
                 <Svg
                     Width="14"
                     Height="14"
-                    Path="/Assets/SVGs/user-plus.svg"
-                    />
+                    Path="/Assets/SVGs/user-plus.svg" />
                 <Label
                     Content="ADD BOOK"
                     FontWeight="DemiBold"
-                    Foreground="White"
-                    />
+                    Foreground="White" />
             </StackPanel>
         </Button>
 
@@ -65,27 +58,23 @@
             IsReadOnly="True"
             IsVisible="{Binding !IsBusy}"
             ItemsSource="{Binding BookList}"
-            SelectedItem=""
-            >
+            SelectedItem="">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="auto"
                     MinWidth="20"
-                    Binding="{Binding ISBN10}"
-                    Header="ISBN"
-                    />
+                    Binding="{Binding ISBN13}"
+                    Header="ISBN" />
                 <DataGridTextColumn
                     Width="*"
                     MinWidth="50"
                     Binding="{Binding Title}"
-                    Header="TITLE"
-                    />
+                    Header="TITLE" />
                 <DataGridTextColumn
                     Width="auto"
                     MinWidth="30"
                     Binding="{Binding Author}"
-                    Header="AUTHOR"
-                    />
+                    Header="AUTHOR" />
 
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -95,8 +84,7 @@
                                     Margin="0,0,8,0"
                                     HorizontalContentAlignment="Center"
                                     Classes="BookAssign"
-                                    Command="{Binding $parent[DataGrid].((vm:BookViewModel)DataContext).AssignCommand}"
-                                    />
+                                    Command="{Binding $parent[DataGrid].((vm:BookViewModel)DataContext).AssignCommand}" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

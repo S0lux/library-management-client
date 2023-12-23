@@ -2,6 +2,7 @@
     x:Class="Avalonia_DependencyInjection.Views.AddBookWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Avalonia_DependencyInjection.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
@@ -9,6 +10,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:DataType="vm:AddBookWindowViewModel"
+    CanResize="False"
     ExtendClientAreaChromeHints="NoChrome"
     ExtendClientAreaTitleBarHeightHint="0"
     ExtendClientAreaToDecorationsHint="True"
@@ -96,7 +98,18 @@
 
         </Grid>
 
-        <ContentControl Grid.Row="3" Content="{Binding CurrentAddView}" />
-
+        <ContentControl
+            Grid.Row="3"
+            Content="{Binding CurrentAddView}"
+            IsVisible="{Binding IsLoaded}" />
+        <controls:LoadingSpinner
+            Grid.Row="3"
+            MaxWidth="80"
+            MaxHeight="80"
+            Margin="50,30,50,40"
+            Diameter="70"
+            IsLoading="True"
+            IsVisible="{Binding IsBusy}"
+            Thickness="3" />
     </Grid>
 </Window>

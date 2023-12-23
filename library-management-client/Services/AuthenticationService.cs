@@ -124,7 +124,9 @@ public class AuthenticationService: IAuthService
         }
         catch (HttpRequestException e)
         {
-            return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+            if(e.StatusCode==HttpStatusCode.Conflict) return new HttpResponseMessage(HttpStatusCode.Conflict);
+            else return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+            
         }
         catch (Exception)
         {
