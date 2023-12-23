@@ -11,6 +11,5 @@ public partial class AddByISBNView : UserControl
     public AddByISBNView()
     {
         InitializeComponent();
-        
     }
 }

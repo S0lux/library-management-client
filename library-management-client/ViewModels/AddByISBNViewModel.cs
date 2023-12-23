@@ -21,6 +21,8 @@ public partial class AddByISBNViewModel : ViewModelBase
 
     [ObservableProperty] private BOOK _book;
     [ObservableProperty] private string _releaseDate;
+    [ObservableProperty] private string _imageUrl;
+    [ObservableProperty] private bool _isCoverLoading;
 
     public AddByISBNViewModel(AuthenticationService authenticationService)
     {
@@ -32,6 +34,7 @@ public partial class AddByISBNViewModel : ViewModelBase
         if (Book != null)
         {
             ReleaseDate = Book.PublishDate.ToString("dd/MM/yyyy");
+            ImageUrl = $"https://covers.openlibrary.org/b/isbn/{Book.ISBN13}-L.jpg";
         }
     }
 
