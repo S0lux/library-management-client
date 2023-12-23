@@ -58,14 +58,15 @@ public partial class AddByISBNViewModel : ViewModelBase
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
         var response = await _authenticationService.PostAsync("/api/books", content);
-        
-        
-        if (response.StatusCode == HttpStatusCode.BadRequest)
+
+        Console.WriteLine(response.StatusCode);
+        if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
         {
             loadspiner.IsBusy = false;
             MyMessageBox error = new MyMessageBox("Bad connection", "Error",
                 MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
             await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+            return;
         }
 
         if (response.StatusCode == HttpStatusCode.Conflict)
@@ -74,6 +75,7 @@ public partial class AddByISBNViewModel : ViewModelBase
             MyMessageBox error = new MyMessageBox("The book is already exists", "Error",
                 MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
             await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+            return;
         }
         else
         {
