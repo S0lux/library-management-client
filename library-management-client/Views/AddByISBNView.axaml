@@ -15,21 +15,12 @@
         <Border Grid.Row="0" Margin="50,50,50,75">
             <Grid ColumnDefinitions="0.5* *">
                 <Grid Grid.Column="0">
-                    <Image
-                        Name="BookCover"
-                        asyncImageLoader:ImageLoader.IsLoading="{Binding IsCoverLoading, Mode=OneWayToSource}"
-                        asyncImageLoader:ImageLoader.Source="{Binding ImageUrl}" />
+                    <asyncImageLoader:AdvancedImage Name="CoverLoader" Source="{Binding ImageUrl}" />
                     <Grid>
                         <Grid
                             Background="Black"
-                            IsVisible="{Binding IsCoverLoading}"
+                            IsVisible="{Binding ElementName=CoverLoader, Path=IsLoading}"
                             Opacity="0.1" />
-                        <controls:LoadingSpinner
-                            Diameter="50"
-                            HorizontalAlignment="Center"
-                            IsLoading="{Binding IsCoverLoading}"
-                            Thickness="3"
-                            VerticalAlignment="Center" />
                     </Grid>
                 </Grid>
 

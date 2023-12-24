@@ -33,7 +33,7 @@ public partial class AddByISBNViewModel : ViewModelBase
     {
         if (Book != null)
         {
-            ReleaseDate = Book.PublishDate.ToString("dd/MM/yyyy");
+            ReleaseDate = Book.PublishDate.ToString("dd/MM/yyyy"); 
             ImageUrl = $"https://covers.openlibrary.org/b/isbn/{Book.ISBN13}-L.jpg";
         }
     }

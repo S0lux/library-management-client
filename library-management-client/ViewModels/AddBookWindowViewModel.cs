@@ -25,7 +25,7 @@ public partial class AddBookWindowViewModel : ViewModelBase
         { "ISBN", "Title", "Manual" };
 
     [ObservableProperty] private string _addBy;
-    [ObservableProperty] private bool _isEnable=true;
+    [ObservableProperty] private bool _isEnable = true;
     [ObservableProperty] private string _addByWaterMark;
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(FindCommand))] private string _findKey;
     [ObservableProperty] private BOOK _foundedBook;
@@ -58,7 +58,7 @@ public partial class AddBookWindowViewModel : ViewModelBase
                 break;
             case "Title":
                 CurrentAddView = _addByTitleViewModel;
-                AddByWaterMark = "Book Title";
+                AddByWaterMark = "Book title";
                 IsEnable = true;
                 break;
             case "Manual":
@@ -73,6 +73,7 @@ public partial class AddBookWindowViewModel : ViewModelBase
     [RelayCommand(CanExecute = nameof(CheckFind))]
     public async Task Find()
     {
+        Console.WriteLine("Executed");
         IsLoaded = false;
         IsBusy = true;
         if (AddBy == "ISBN")
