@@ -48,8 +48,8 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
                !string.IsNullOrEmpty(InputedMember.PhoneNumber) &&
                !string.IsNullOrEmpty(InputedMember.CitizenID) &&
                !string.IsNullOrEmpty(InputedMember.Address) &&
-               UInt32.TryParse((ReadOnlySpan<char>)InputedMember.PhoneNumber, out UInt32 temp) &&
-               UInt32.TryParse((ReadOnlySpan<char>)InputedMember.CitizenID, out temp);
+               UInt64.TryParse((ReadOnlySpan<char>)InputedMember.PhoneNumber, out var temp) &&
+               UInt64.TryParse((ReadOnlySpan<char>)InputedMember.CitizenID, out temp);
     }
 
     [RelayCommand(CanExecute = nameof(checkSubmit))]

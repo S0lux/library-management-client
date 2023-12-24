@@ -9,7 +9,7 @@ namespace Avalonia_DependencyInjection.Models
         [Key] 
         public int MemberID { get; set; }
 
-        [ObservableProperty] [NotifyDataErrorInfo] [Required] [Phone] [MaxLength(10)] private string _citizenID;
+        [ObservableProperty] [NotifyDataErrorInfo] [Required] [Phone] private string _citizenID;
 
         [ObservableProperty] [NotifyDataErrorInfo] [Required]  private string _name;
 

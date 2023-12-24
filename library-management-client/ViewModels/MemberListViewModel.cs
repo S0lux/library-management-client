@@ -163,21 +163,7 @@ public partial class MemberListViewModel : ViewModelBase
 
         if(MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
         {
-            var updateMember = new
-            {
-                MemberID = selectedMember.MemberID,
-                Deleted = true
-            };
-
-            var payload = new
-            {
-                data = updateMember
-            };
-
-            var json = JsonConvert.SerializeObject(payload);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await _authService.PutAsync("/api/members", content);
+            var response = await _authService.DeleteAsync($"/api/members/{selectedMember.MemberID}");
             GetData();
         }  
     }
