@@ -1,14 +1,38 @@
 <UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.AddByTitleView"
+    x:DataType="vm:AddByTitleViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="vm:AddByTitleViewModel"
-    mc:Ignorable="d"
-    >
-    Title
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DataGrid
+        Classes="MemberListDataGrid"
+        GridLinesVisibility="Horizontal"
+        IsReadOnly="True"
+        ItemsSource="{Binding Books}"
+        SelectedItem="{Binding SelectedBook, Mode=OneWayToSource}">
+        <DataGrid.Columns>
+            <DataGridTextColumn Binding="{Binding PublishDate}" Header="Publish Date" />
+            <DataGridTextColumn Binding="{Binding Title}" Header="Title" />
+            <DataGridTextColumn Binding="{Binding Author}" Header="Author" />
+            <DataGridTextColumn Binding="{Binding ISBN13}" Header="ISBN" />
+            <DataGridTemplateColumn>
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="vm:BookViewModel">
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                                Classes="BookAssign"
+                                Command="{Binding}"
+                                HorizontalContentAlignment="Center"
+                                Margin="0,0,8,0" />
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+    </DataGrid>
 </UserControl>

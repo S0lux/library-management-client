@@ -97,6 +97,12 @@ public partial class AddBookWindowViewModel : ViewModelBase
             }
         }
 
+        if (AddBy == "Title")
+        {
+            await _addByTitleViewModel.RetrieveBooksByTitle(FindKey);
+            IsLoaded = true;
+        }
+
         IsBusy = false;
     }
 
