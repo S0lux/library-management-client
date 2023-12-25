@@ -5,34 +5,69 @@
     x:Class="Avalonia_DependencyInjection.Views.AddByTitleView"
     x:DataType="vm:AddByTitleViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <DataGrid
-        Classes="MemberListDataGrid"
-        GridLinesVisibility="Horizontal"
-        IsReadOnly="True"
-        ItemsSource="{Binding Books}"
-        SelectedItem="{Binding SelectedBook, Mode=OneWayToSource}">
-        <DataGrid.Columns>
-            <DataGridTextColumn Binding="{Binding PublishDate}" Header="Publish Date" />
-            <DataGridTextColumn Binding="{Binding Title}" Header="Title" />
-            <DataGridTextColumn Binding="{Binding Author}" Header="Author" />
-            <DataGridTextColumn Binding="{Binding ISBN13}" Header="ISBN" />
-            <DataGridTemplateColumn>
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate DataType="vm:BookViewModel">
-                        <StackPanel Orientation="Horizontal">
-                            <Button
-                                Classes="BookAssign"
-                                Command="{Binding}"
-                                HorizontalContentAlignment="Center"
-                                Margin="0,0,8,0" />
-                        </StackPanel>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-        </DataGrid.Columns>
-    </DataGrid>
+    <Grid ColumnDefinitions="2* *" Margin="0,10,0,0">
+
+        <!--  DataGrid to display book list  -->
+        <DataGrid
+            Classes="MemberListDataGrid"
+            Grid.Column="0"
+            GridLinesVisibility="Horizontal"
+            IsReadOnly="True"
+            ItemsSource="{Binding Books}"
+            Margin="0,0,10,0"
+            SelectedItem="{Binding SelectedBook, Mode=OneWayToSource}">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Binding="{Binding PublishDate, StringFormat='dd/MM/yyyy'}"
+                    Header="Publish Date"
+                    Width="Auto" />
+                <DataGridTextColumn
+                    Binding="{Binding Title}"
+                    Header="Title"
+                    Width="*" />
+                <DataGridTextColumn
+                    Binding="{Binding Author}"
+                    Header="Author"
+                    MaxWidth="100"
+                    Width="Auto" />
+                <DataGridTextColumn
+                    Binding="{Binding ISBN13}"
+                    Header="ISBN"
+                    Width="Auto" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button
+                                    Classes="MemberListInfoButton"
+                                    Command="{Binding $parent[DataGrid].((vm:AddByTitleViewModel)DataContext).RegisterBookCommand}"
+                                    CommandParameter="{Binding}"
+                                    HorizontalContentAlignment="Center"
+                                    Margin="0,0,8,0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!--  Book cover preview  -->
+        <Grid Background="White" Grid.Column="1">
+            <asyncImageLoader:AdvancedImage
+                Name="CoverLoader"
+                Source="{Binding ImageUrl}"
+                Stretch="UniformToFill" />
+            <Grid>
+                <Grid
+                    Background="Black"
+                    IsVisible="{Binding ElementName=CoverLoader, Path=IsLoading}"
+                    Opacity="0.1" />
+            </Grid>
+        </Grid>
+    </Grid>
 </UserControl>

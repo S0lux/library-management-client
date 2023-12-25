@@ -113,7 +113,7 @@ public partial class AddByISBNViewModel : ViewModelBase
         ButtonContent = "Confirm";
     }
 
-    public async Task RetrieveBookByISBN(string isbn)
+    public async Task<int> RetrieveBookByISBN(string isbn)
     {
         var addbookwin = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
         try
@@ -124,12 +124,14 @@ public partial class AddByISBNViewModel : ViewModelBase
             var body = await response.Content.ReadAsStringAsync();
             var apiRespondedBook = JsonConvert.DeserializeObject<ApiRespondedBook>(body);
             Book = apiRespondedBook.Data;
+            return 0;
         }
         catch(HttpRequestException e)
         {
             MyMessageBox error = new MyMessageBox("Unable to find the book", "Error",
                 MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
             await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+            return 1;
         }
     }
 
