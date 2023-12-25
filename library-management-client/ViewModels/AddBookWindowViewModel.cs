@@ -28,7 +28,6 @@ public partial class AddBookWindowViewModel : ViewModelBase
     [ObservableProperty] private bool _isEnable = true;
     [ObservableProperty] private string _addByWaterMark;
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(FindCommand))] private string _findKey;
-    [ObservableProperty] private BOOK _foundedBook;
     [ObservableProperty] private bool _isBusy=false;
     [ObservableProperty] private bool _isLoaded=false;
 
@@ -78,23 +77,8 @@ public partial class AddBookWindowViewModel : ViewModelBase
         IsBusy = true;
         if (AddBy == "ISBN")
         {
-            try
-            {
-                var response = await _authService.GetAsync($@"/api/books/isbn/{FindKey}");
-                response.EnsureSuccessStatusCode();
-
-                var body = await response.Content.ReadAsStringAsync();
-                var apiRespondedBook = JsonConvert.DeserializeObject<ApiRespondedBook>(body);
-                FoundedBook = apiRespondedBook.Data;
-                _addByIsbnViewModel.Book = FoundedBook;
-                IsLoaded = true;
-            }
-            catch(HttpRequestException e)
-            {
-                MyMessageBox error = new MyMessageBox("Unable to find the book", "Error",
-                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
-                await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
-            }
+            await _addByIsbnViewModel.RetrieveBookByISBN(FindKey);
+            IsLoaded = true;
         }
 
         if (AddBy == "Title")
@@ -120,7 +104,3 @@ public partial class AddBookWindowViewModel : ViewModelBase
 
 }
 
-public class ApiRespondedBook
-{
-    public BOOK Data { get; set; }
-}

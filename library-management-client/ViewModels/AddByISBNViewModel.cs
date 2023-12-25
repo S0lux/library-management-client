@@ -86,4 +86,29 @@ public partial class AddByISBNViewModel : ViewModelBase
         }
 
     }
+
+    public async Task RetrieveBookByISBN(string isbn)
+    {
+        var addbookwin = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
+        try
+        {
+            var response = await _authenticationService.GetAsync($@"/api/books/isbn/{isbn}");
+            response.EnsureSuccessStatusCode();
+
+            var body = await response.Content.ReadAsStringAsync();
+            var apiRespondedBook = JsonConvert.DeserializeObject<ApiRespondedBook>(body);
+            Book = apiRespondedBook.Data;
+        }
+        catch(HttpRequestException e)
+        {
+            MyMessageBox error = new MyMessageBox("Unable to find the book", "Error",
+                MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
+            await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+        }
+    }
+}
+
+public class ApiRespondedBook
+{
+    public BOOK Data { get; set; }
 }
