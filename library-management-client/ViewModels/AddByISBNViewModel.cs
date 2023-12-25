@@ -20,13 +20,18 @@ public partial class AddByISBNViewModel : ViewModelBase
     private readonly AuthenticationService _authenticationService;
 
     [ObservableProperty] private BOOK _book;
+    [ObservableProperty] private BOOK_DETAIL _bookDetail=new();
     [ObservableProperty] private string _releaseDate;
     [ObservableProperty] private string _imageUrl;
     [ObservableProperty] private bool _isCoverLoading;
+    [ObservableProperty] private string _buttonContent="Confirm";
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(AddBookCommand))] private int _clickStage=0;
 
     public AddByISBNViewModel(AuthenticationService authenticationService)
     {
         _authenticationService = authenticationService;
+        BookDetail.PropertyChanged += ((sender, args) => { AddBookCommand.NotifyCanExecuteChanged(); });
     }
 
     partial void OnBookChanged(BOOK? oldValue, BOOK newValue)
@@ -38,53 +43,63 @@ public partial class AddByISBNViewModel : ViewModelBase
         }
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute =nameof(CheckAdd) )]
     async Task AddBook()
     {
-        var loadspiner = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
-        loadspiner.IsBusy = true;
-        var createdBook = new
+        if (ClickStage == 1)
         {
-            Title = Book.Title,
-            Author = Book.Author,
-            PublishDate = Book.PublishDate,
-            ISBN13 = Book.ISBN13,
-        };
-        var payload = new
-        {
-            data = createdBook
-        };
-        var json = JsonConvert.SerializeObject(payload);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var loadspiner = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
+            loadspiner.IsBusy = true;
+            var createdBook = new
+            {
+                Title = Book.Title,
+                Author = Book.Author,
+                PublishDate = Book.PublishDate,
+                ISBN13 = Book.ISBN13,
+            };
+            var payload = new
+            {
+                data = createdBook
+            };
+            var json = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-        var response = await _authenticationService.PostAsync("/api/books", content);
+            var response = await _authenticationService.PostAsync("/api/books", content);
 
-        Console.WriteLine(response.StatusCode);
-        if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
-        {
-            loadspiner.IsBusy = false;
-            MyMessageBox error = new MyMessageBox("Bad connection", "Error",
-                MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
-            await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
-            return;
+            Console.WriteLine(response.StatusCode);
+            if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
+            {
+                loadspiner.IsBusy = false;
+                MyMessageBox error = new MyMessageBox("Bad connection", "Error",
+                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
+                await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+                return;
+            }
+
+            if (response.StatusCode == HttpStatusCode.Conflict)
+            {
+                loadspiner.IsBusy = false;
+                MyMessageBox error = new MyMessageBox("The book is already exists", "Error",
+                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
+                await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+                return;
+            }
+            else
+            {
+                loadspiner.IsBusy = false;
+                MyMessageBox success = new MyMessageBox("The book is added", "Success",
+                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information);
+                await success.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+            }
+            ClickStage = 0;
+            ButtonContent = "Confirm";
         }
-
-        if (response.StatusCode == HttpStatusCode.Conflict)
+        
+        if (ClickStage == 0)
         {
-            loadspiner.IsBusy = false;
-            MyMessageBox error = new MyMessageBox("The book is already exists", "Error",
-                MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
-            await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
-            return;
+            ClickStage++;
+            ButtonContent = "Add now";
         }
-        else
-        {
-            loadspiner.IsBusy = false;
-            MyMessageBox success = new MyMessageBox("The book is added", "Success",
-                MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information);
-            await success.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
-        }
-
     }
 
     public async Task RetrieveBookByISBN(string isbn)
@@ -105,6 +120,12 @@ public partial class AddByISBNViewModel : ViewModelBase
                 MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
             await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
         }
+    }
+
+    public bool CheckAdd()
+    {
+        if (ClickStage == 0) return true;
+        return BookDetail.Quantity!=0;
     }
 }
 

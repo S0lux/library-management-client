@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Avalonia_DependencyInjection.Models
 {
-    public class BOOK_DETAIL
+    public partial class BOOK_DETAIL:ObservableObject
     {
-        public string ISBN13 { get; set; }
+        [ObservableProperty] private string _ISBN13;
 
-        [MaxLength(10)]
-        public string Status { get; set; }
+        [ObservableProperty] private string _status;
 
-        public int Quantity { get; set; }
+        [ObservableProperty] private int _quantity;
     }
 }
