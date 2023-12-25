@@ -92,6 +92,8 @@ public partial class AddByISBNViewModel : ViewModelBase
                 MyMessageBox success = new MyMessageBox("The book is added", "Success",
                     MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information);
                 await success.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+                var revaluate = App.AppHost.Services.GetRequiredService<BookViewModel>();
+                revaluate.GetData();
             }
             Cancel();
         }

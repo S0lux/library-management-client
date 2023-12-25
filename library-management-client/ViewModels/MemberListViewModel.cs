@@ -110,11 +110,7 @@ public partial class MemberListViewModel : ViewModelBase
     public async void GetData()
     {
         IsBusy = true;
-
         MemberList.Clear();
-
-        await Task.Delay(1000);
-
         try
         {
             var response = await _authService.GetAsync(@"/api/members");
