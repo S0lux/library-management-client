@@ -20,7 +20,7 @@ public partial class BookViewModel : ViewModelBase
     private readonly AuthenticationService _authenticationService;
     [ObservableProperty] private bool _isBusy = false;
     [ObservableProperty] private ObservableCollection<BOOK> _bookList = new();
-    public BookViewModel( AuthenticationService authenticationService)
+    public BookViewModel(AuthenticationService authenticationService)
     {
         _authenticationService = authenticationService;
         GetData();
@@ -29,6 +29,10 @@ public partial class BookViewModel : ViewModelBase
     [RelayCommand]
     void Assign()
     {
+        var temp = App.AppHost!.Services.GetService<BorrowRegisterFormView>();
+        
+        temp.Show();
+
         Console.WriteLine("Assigned");
     }
 
@@ -38,6 +42,7 @@ public partial class BookViewModel : ViewModelBase
         var temp = App.AppHost.Services.GetRequiredService<AddBookWindow>();
         temp.Show();
     }
+    
     public async void GetData()
     {
         IsBusy = true;
