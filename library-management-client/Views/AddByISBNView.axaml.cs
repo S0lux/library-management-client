@@ -12,4 +12,5 @@ public partial class AddByISBNView : UserControl
     {
         InitializeComponent();
     }
+    
 }
