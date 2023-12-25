@@ -1,33 +1,33 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.MemberListView"
-    x:DataType="vm:MemberListViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Avalonia_DependencyInjection.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="https://github.com/avaloniaui"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:MemberListViewModel"
+    mc:Ignorable="d">
 
-    <Grid Margin="30,0,30,30" Name="MainGrid">
+    <Grid Name="MainGrid" Margin="30,0,30,30">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel
-            DockPanel.Dock="Top"
             Grid.Row="0"
             HorizontalAlignment="Left"
-            Orientation="Horizontal"
-            VerticalAlignment="Top">
+            VerticalAlignment="Top"
+            DockPanel.Dock="Top"
+            Orientation="Horizontal">
             <Svg
+                Width="30"
                 Height="30"
-                Path="/Assets/SVGs/users_black.svg"
-                Width="30" />
+                Path="/Assets/SVGs/users_black.svg" />
             <Label Classes="MemberListLabel">
                 Member List
             </Label>
@@ -40,46 +40,46 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <StackPanel
-                DockPanel.Dock="Left"
                 Grid.Column="0"
-                Orientation="Horizontal"
-                VerticalAlignment="Center">
+                VerticalAlignment="Center"
+                DockPanel.Dock="Left"
+                Orientation="Horizontal">
 
                 <TextBox
-                    Classes="PrimaryWithIcon"
+                    x:Name="SearchBox"
+                    Width="120"
                     Height="40"
+                    VerticalContentAlignment="Center"
+                    Classes="PrimaryWithIcon"
                     Tag="/Assets/SVGs/magnifying-glass.svg"
                     Text="{Binding FilterKey}"
-                    VerticalContentAlignment="Center"
-                    Width="120"
-                    ZIndex="1"
-                    x:Name="SearchBox"
-					Watermark="Search Here"/>
+                    Watermark="Search Here"
+                    ZIndex="1" />
 
                 <ComboBox
-                    Classes="MemberListComboBox"
                     Height="40"
-                    ItemsSource="{Binding FilterByOptions}"
                     Margin="10,0,0,0"
+                    VerticalContentAlignment="Center"
+                    Classes="MemberListComboBox"
+                    ItemsSource="{Binding FilterByOptions}"
                     PlaceholderText="Filter By"
-                    SelectedItem="{Binding FilterBy}"
-                    VerticalContentAlignment="Center" />
+                    SelectedItem="{Binding FilterBy}" />
             </StackPanel>
             <Button
+                Grid.Column="2"
+                Height="40"
                 Background="#31bc70"
                 Classes="MemberListAddButton"
                 Command="{Binding AddCommand}"
-                DockPanel.Dock="Right"
-                Grid.Column="2"
-                Height="40">
+                DockPanel.Dock="Right">
                 <StackPanel
                     HorizontalAlignment="Center"
-                    Orientation="Horizontal"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
                     <Svg
+                        Width="14"
                         Height="14"
-                        Path="/Assets/SVGs/user-plus.svg"
-                        Width="14" />
+                        Path="/Assets/SVGs/user-plus.svg" />
                     <Label
                         Content="ADD"
                         FontWeight="DemiBold"
@@ -90,67 +90,72 @@
 
         <!--  Loading Spinner  -->
         <controls:LoadingSpinner
-            Diameter="70"
             Grid.Row="2"
+            MaxWidth="80"
+            MaxHeight="80"
+            Margin="50,30,50,40"
+            Diameter="70"
             IsLoading="True"
             IsVisible="{Binding IsBusy}"
-            Margin="50,30,50,40"
-            MaxHeight="80"
-            MaxWidth="80"
             Thickness="3" />
 
         <DataGrid
+            Grid.Row="2"
+            Margin="0,10,0,0"
             AutoGenerateColumns="False"
             BorderThickness="0"
             CanUserReorderColumns="False"
             Classes="MemberListDataGrid"
-            Grid.Row="2"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
             IsVisible="{Binding !IsBusy}"
             ItemsSource="{Binding ShowingList}"
-            Margin="0,10,0,0"
             SelectedItem="{Binding selectedMember, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn
-                    Binding="{Binding MemberID}"
-                    Header="ID"
+                    Width="auto"
                     MinWidth="20"
-                    Width="auto" />
+                    Binding="{Binding MemberID}"
+                    Header="ID" />
                 <DataGridTextColumn
-                    Binding="{Binding Name}"
-                    Header="CUSTOMER"
+                    Width="*"
                     MinWidth="50"
-                    Width="*" />
+                    Binding="{Binding Name}"
+                    Header="CUSTOMER" />
                 <DataGridTextColumn
+                    Width="auto"
+                    MinWidth="30"
                     Binding="{Binding PhoneNumber}"
-                    Header="PHONE"
-                    MinWidth="30"
-                    Width="auto" />
+                    Header="PHONE" />
                 <DataGridTextColumn
-                    Binding="{Binding Gender, Converter={StaticResource GenderConverter}}"
-                    Header="GENDER"
+                    Width="auto"
                     MinWidth="30"
-                    Width="auto" />
+                    Binding="{Binding Gender, Converter={StaticResource GenderConverter}}"
+                    Header="GENDER" />
+                <DataGridTextColumn
+                    Width="auto"
+                    Binding="{Binding Credit}"
+                    Header="CREDITS" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="vm:MemberListViewModel">
                             <StackPanel Orientation="Horizontal">
                                 <Button
-                                    Classes="MemberListInfoButton"
-                                    Command="{Binding $parent[DataGrid].((vm:MemberListViewModel)DataContext).InfoCommand}"
+                                    Margin="0,0,8,0"
                                     HorizontalContentAlignment="Center"
-                                    Margin="0,0,8,0" />
+                                    Classes="MemberListInfoButton"
+                                    Command="{Binding $parent[DataGrid].((vm:MemberListViewModel)DataContext).InfoCommand}" />
                                 <Button
+                                    Margin="0,0,13,0"
+                                    HorizontalContentAlignment="Center"
                                     Classes="MemberListDeleteButton"
                                     Command="{Binding $parent[DataGrid].((vm:MemberListViewModel)DataContext).DeleteCommand}"
-                                    HorizontalContentAlignment="Center"
-                                    IsEnabled="True"
-                                    Margin="0,0,13,0" />
+                                    IsEnabled="True" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
             </DataGrid.Columns>
 
         </DataGrid>

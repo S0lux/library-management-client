@@ -1,0 +1,163 @@
+<Window
+    x:Class="Avalonia_DependencyInjection.Views.BorrowRegisterFormView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
+    Title="BorrowRegisterFormView"
+    Width="850"
+    Height="550"
+    x:DataType="vm:BorrowRegisterFormViewModel"
+    CanResize="False"
+    ExtendClientAreaChromeHints="NoChrome"
+    ExtendClientAreaTitleBarHeightHint="0"
+    ExtendClientAreaToDecorationsHint="True"
+    mc:Ignorable="d">
+    <Window.Styles>
+        <Style Selector="Label">
+            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="RoyalBlue" />
+            <Setter Property="BorderThickness" Value="0 0 0 2" />
+        </Style>
+    </Window.Styles>
+    <Grid Margin="30,0,30,30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid
+            Grid.Row="0"
+            Background="Transparent"
+            PointerPressed="StackPanel_PointerPressed" />
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,15,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            DockPanel.Dock="Top"
+            Orientation="Horizontal">
+            <Svg
+                Width="30"
+                Height="30"
+                Path="/Assets/SVGs/users_black.svg" />
+            <Label Classes="MemberListLabel">
+                Borrow Registration
+            </Label>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="20,0,0,0">
+            <Border BorderBrush="Black" BorderThickness="0,0,2,0" />
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.5*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <StackPanel Margin="0,0,20,0">
+                    <Label HorizontalAlignment="Center" FontSize="25">
+                        Book List
+                    </Label>
+
+                    <Button
+                        HorizontalAlignment="Center"
+                        Background="#708090"
+                        Content="Browse Book"
+                        FontSize="10"
+                        Foreground="White" />
+
+                    <DataGrid Margin="0,10,0,0" Classes="MemberListDataGrid">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ISBN" />
+                            <DataGridTextColumn Width="*" Header="Title" />
+                            <DataGridTextColumn Header="Author" />
+                            <DataGridTextColumn Header="Quantity" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="20,0,0,0">
+                <StackPanel>
+                    <Label HorizontalAlignment="Center" FontSize="25">
+                        Member Info
+                    </Label>
+
+                    <Button
+                        HorizontalAlignment="Center"
+                        Background="#708090"
+                        Content="Browse Member"
+                        FontSize="10"
+                        Foreground="White" />
+
+                    <Grid ColumnDefinitions="auto * auto">
+                        <DockPanel Grid.Column="0">
+                            <Label DockPanel.Dock="Top">
+                                Citizen ID
+                            </Label>
+                            <TextBox Width="130" Text="" />
+                        </DockPanel>
+
+                        <DockPanel Grid.Column="2">
+                            <Label DockPanel.Dock="Top">
+                                Credit
+                            </Label>
+                            <TextBox IsReadOnly="True" Text="" />
+                        </DockPanel>
+                    </Grid>
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top">
+                            Fullname
+                        </Label>
+                        <TextBox IsReadOnly="True" Text="" />
+                    </DockPanel>
+
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top">
+                            Gender
+                        </Label>
+                        <ComboBox HorizontalAlignment="Stretch" IsDropDownOpen="False" />
+                    </DockPanel>
+
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top">
+                            Phone Number
+                        </Label>
+                        <TextBox Text="" />
+                    </DockPanel>
+
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top">
+                            Birthdate
+                        </Label>
+                        <CalendarDatePicker
+							IsEnabled="False"
+                            HorizontalAlignment="Stretch"
+                            CustomDateFormatString="dd/MM/yyyy"
+                            SelectedDateFormat="Custom" />
+                    </DockPanel>
+
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top">
+                            Address
+                        </Label>
+                        <TextBox Text="" />
+                    </DockPanel>
+                </StackPanel>
+            </Grid>
+
+
+
+        </Grid>
+
+        <Grid Grid.Row="2" />
+    </Grid>
+</Window>

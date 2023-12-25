@@ -66,6 +66,8 @@ public partial class App : Application
                 services.AddSingleton<AddByISBNViewModel>();
                 services.AddSingleton<AddByTitleViewModel>();
                 services.AddSingleton<ManualAddingViewModel>();
+                services.AddSingleton<BorrowRegisterFormView>();
+                services.AddSingleton<BorrowRegisterFormViewModel>();
                 
 
                 services.AddHttpClient("main", options =>
