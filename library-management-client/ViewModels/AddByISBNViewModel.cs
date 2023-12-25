@@ -20,14 +20,14 @@ public partial class AddByISBNViewModel : ViewModelBase
     private readonly AuthenticationService _authenticationService;
 
     [ObservableProperty] private BOOK _book;
-    [ObservableProperty] private BOOK_DETAIL _bookDetail=new();
+    [ObservableProperty] private BOOK_DETAIL? _bookDetail=new();
     [ObservableProperty] private string _releaseDate;
     [ObservableProperty] private string _imageUrl;
     [ObservableProperty] private bool _isCoverLoading;
     [ObservableProperty] private string _buttonContent="Confirm";
 
-    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(AddBookCommand))] private int _clickStage=0;
-
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(AddBookCommand))]
+    private int _clickStage = 0;
     public AddByISBNViewModel(AuthenticationService authenticationService)
     {
         _authenticationService = authenticationService;
@@ -73,6 +73,7 @@ public partial class AddByISBNViewModel : ViewModelBase
                 MyMessageBox error = new MyMessageBox("Bad connection", "Error",
                     MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
                 await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+                Cancel();
                 return;
             }
 
@@ -82,6 +83,7 @@ public partial class AddByISBNViewModel : ViewModelBase
                 MyMessageBox error = new MyMessageBox("The book is already exists", "Error",
                     MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
                 await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+                Cancel();
                 return;
             }
             else
@@ -91,8 +93,7 @@ public partial class AddByISBNViewModel : ViewModelBase
                     MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information);
                 await success.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
             }
-            ClickStage = 0;
-            ButtonContent = "Confirm";
+            Cancel();
         }
         
         if (ClickStage == 0)
@@ -100,6 +101,14 @@ public partial class AddByISBNViewModel : ViewModelBase
             ClickStage++;
             ButtonContent = "Add now";
         }
+    }
+
+    [RelayCommand]
+    void Cancel()
+    {
+        ClickStage = 0;
+        BookDetail.Quantity=0;
+        ButtonContent = "Confirm";
     }
 
     public async Task RetrieveBookByISBN(string isbn)
@@ -125,7 +134,7 @@ public partial class AddByISBNViewModel : ViewModelBase
     public bool CheckAdd()
     {
         if (ClickStage == 0) return true;
-        return BookDetail.Quantity!=0;
+        return (BookDetail.Quantity != 0)&&(BookDetail.Quantity!=null);
     }
 }
 

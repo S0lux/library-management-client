@@ -14,6 +14,6 @@ namespace Avalonia_DependencyInjection.Models
 
         [ObservableProperty] private string _status;
 
-        [ObservableProperty] private int _quantity;
+        [ObservableProperty] private int? _quantity;
     }
 }

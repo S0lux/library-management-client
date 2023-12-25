@@ -75,7 +75,7 @@
                     <Grid
                         Grid.Row="5"
                         Margin="0,20,0,0"
-                        ColumnDefinitions="auto auto">
+                        ColumnDefinitions="auto auto auto">
                         <Button
                             Grid.Column="0"
                             Height="40"
@@ -98,6 +98,7 @@
                         </Button>
 
                         <NumericUpDown
+                            x:Name="UpDown"
                             Grid.Column="1"
                             Width="120"
                             Height="40"
@@ -109,6 +110,20 @@
                             Minimum="0"
                             Value="{Binding BookDetail.Quantity}">
                         </NumericUpDown>
+
+                        <Button
+                            Grid.Column="2"
+                            Margin="5,0,0,0"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Command="{Binding CancelCommand}"
+                            IsVisible="{Binding ClickStage}">
+                            <Svg
+                                Width="15"
+                                Height="15"
+                                Path="/Assets/SVGs/xmark-royalblue.svg">
+                            </Svg>
+                        </Button>
                     </Grid>
 
                 </Grid>
