@@ -18,15 +18,9 @@ namespace Avalonia_DependencyInjection.ViewModels;
 public partial class BookViewModel : ViewModelBase
 {
     private readonly AuthenticationService _authenticationService;
-<<<<<<< HEAD
     [ObservableProperty] private bool _isBusy = false;
     [ObservableProperty] private ObservableCollection<BOOK> _bookList = new();
     public BookViewModel(AuthenticationService authenticationService)
-=======
-    [ObservableProperty] private bool _isBusy=false;
-    [ObservableProperty] private ObservableCollection<BOOK> _bookList=new();
-    public BookViewModel( AuthenticationService authenticationService)
->>>>>>> 8db8eb494e7d9648288f0b50d5876b8a870ec6e1
     {
         _authenticationService = authenticationService;
         GetData();
@@ -35,6 +29,10 @@ public partial class BookViewModel : ViewModelBase
     [RelayCommand]
     void Assign()
     {
+        var temp = App.AppHost!.Services.GetService<BorrowRegisterFormView>();
+        
+        temp.Show();
+
         Console.WriteLine("Assigned");
     }
 
@@ -44,11 +42,7 @@ public partial class BookViewModel : ViewModelBase
         var temp = App.AppHost.Services.GetRequiredService<AddBookWindow>();
         temp.Show();
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 8db8eb494e7d9648288f0b50d5876b8a870ec6e1
     public async void GetData()
     {
         IsBusy = true;
@@ -60,11 +54,7 @@ public partial class BookViewModel : ViewModelBase
 
             var body = await response.Content.ReadAsStringAsync();
             var apiResponseBook = JsonConvert.DeserializeObject<ApiResponseBookList>(body);
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 8db8eb494e7d9648288f0b50d5876b8a870ec6e1
             BookList = apiResponseBook.Data;
         }
         catch (HttpRequestException e)
@@ -77,17 +67,6 @@ public partial class BookViewModel : ViewModelBase
         }
         IsBusy = false;
     }
-<<<<<<< HEAD
-
-
-
-
-=======
-    
-    
-    
-    
->>>>>>> 8db8eb494e7d9648288f0b50d5876b8a870ec6e1
 }
 
 public class ApiResponseBookList

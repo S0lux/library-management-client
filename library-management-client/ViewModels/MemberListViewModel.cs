@@ -153,7 +153,8 @@ public partial class MemberListViewModel : ViewModelBase
     {
         MyMessageBox myMessageBox = new MyMessageBox("Are you sure you want to delete this member?", "Confirm",
             MyMessageBox.MessageBoxButton.YesNo,
-            MyMessageBox.MessageBoxImage.Question);
+            MyMessageBox.MessageBoxImage.Question
+            );
 
         await myMessageBox.ShowDialog(App.AppHost!.Services.GetRequiredService<MainWindow>());
 

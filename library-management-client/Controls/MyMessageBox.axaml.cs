@@ -14,6 +14,7 @@ namespace Avalonia_DependencyInjection.Controls
         public MyMessageBox()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
 
         public enum MessageBoxButton
@@ -52,7 +53,23 @@ namespace Avalonia_DependencyInjection.Controls
             setButton(button);
             setIcon(img);
             this.Owner = App.AppHost!.Services.GetRequiredService<MainWindow>();
+            this.Width = 400;
+            this.Height = 200;
         }
+
+        public MyMessageBox(string message, string title, MessageBoxButton button, MessageBoxImage img, double width, double height)
+        {
+            InitializeComponent();
+            MessageBoxContent.Text = message;
+            MessageBoxTitle.Content = title;
+            buttonResultClicked = ButtonResult.NULL;
+            setButton(button);
+            setIcon(img);
+            this.Owner = App.AppHost!.Services.GetRequiredService<MainWindow>();
+            this.Width = width;
+            this.Height = height;
+        }
+
 
         private void setButton(MessageBoxButton button)
         {
