@@ -150,7 +150,7 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
         AlertBoxOff();
         await Task.Run(() => Thread.Sleep(50));
         var win = App.AppHost.Services.GetRequiredService<MemberRegistryForm>();
-        win.Hide();
+        win.Close();
     }
 
 
@@ -158,7 +158,7 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     void Cancel()
     {
         var win = App.AppHost!.Services.GetRequiredService<MemberRegistryForm>();
-        win.Hide();
+        win.Close();
     }
 
     [RelayCommand]

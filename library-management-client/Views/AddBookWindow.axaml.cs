@@ -30,4 +30,10 @@ public partial class AddBookWindow : Window
         var viewModel = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
         viewModel.IconPathExit = "/Assets/SVGs/xmark-royalblue.svg";
     }
+
+    private void Window_OnClosing(object? sender, WindowClosingEventArgs e)
+    {
+        e.Cancel = true;
+        Hide();
+    }
 }

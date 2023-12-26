@@ -94,7 +94,7 @@ public partial class AddBookWindowViewModel : ViewModelBase
     void Close()
     {
         var temp = App.AppHost!.Services.GetRequiredService<AddBookWindow>();
-        temp.Hide();
+        temp.Close();
     }
 
     private bool CheckFind()

@@ -1,29 +1,30 @@
 <Window
+    CanResize="False"
+    Closing="Window_OnClosing"
+    ExtendClientAreaChromeHints="NoChrome"
+    ExtendClientAreaTitleBarHeightHint="0"
+    ExtendClientAreaToDecorationsHint="True"
+    Title="AddBookWindow"
+    WindowStartupLocation="CenterScreen"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.AddBookWindow"
+    x:DataType="vm:AddBookWindowViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Avalonia_DependencyInjection.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-    Title="AddBookWindow"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="vm:AddBookWindowViewModel"
-    CanResize="False"
-    ExtendClientAreaChromeHints="NoChrome"
-    ExtendClientAreaTitleBarHeightHint="0"
-    ExtendClientAreaToDecorationsHint="True"
-    WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Grid Margin="30,0,30,30" RowDefinitions="auto auto Auto *">
 
         <Border
-            Grid.Row="0"
-            Margin="-30,0,-30,0"
             Background="Transparent"
             DockPanel.Dock="Top"
+            Grid.Row="0"
+            Margin="-30,0,-30,0"
             PointerPressed="TitleBarContainer_OnPointerPressed">
             <Grid HorizontalAlignment="Right">
                 <Button
@@ -34,9 +35,9 @@
                     PointerEntered="Close_OnPointerEntered"
                     PointerExited="Close_OnPointerExited">
                     <Svg
-                        Width="15"
                         Height="15"
-                        Path="{Binding IconPathExit}" />
+                        Path="{Binding IconPathExit}"
+                        Width="15" />
                     <Button.Styles>
                         <Style Selector="Button.Close:pointerover /template/ ContentPresenter#PART_ContentPresenter">
                             <Setter Property="Background" Value="Red" />
@@ -47,69 +48,69 @@
         </Border>
 
         <StackPanel
+            DockPanel.Dock="Top"
             Grid.Row="1"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            DockPanel.Dock="Top"
             Orientation="Horizontal"
-            Spacing="10">
+            Spacing="10"
+            VerticalAlignment="Top">
             <Svg
-                Width="30"
                 Height="30"
-                Path="/Assets/SVGs/books_black.svg" />
+                Path="/Assets/SVGs/books_black.svg"
+                Width="30" />
             <Label Classes="MemberListLabel">
                 Add Book
             </Label>
         </StackPanel>
 
         <Grid
+            ColumnDefinitions="auto *"
             Grid.Row="2"
-            Margin="0,15,0,0"
-            ColumnDefinitions="auto *">
+            Margin="0,15,0,0">
             <StackPanel
                 Grid.Column="0"
                 Orientation="Horizontal"
                 Spacing="5">
                 <ComboBox
                     Grid.Column="1"
-                    Width="100"
-                    VerticalAlignment="Center"
                     ItemsSource="{Binding AddByOptions}"
-                    SelectedItem="{Binding AddBy}" />
+                    SelectedItem="{Binding AddBy}"
+                    VerticalAlignment="Center"
+                    Width="100" />
 
                 <TextBox
-                    Width="150"
                     Classes="PrimaryNoIcon"
                     IsEnabled="{Binding IsEnable}"
                     Text="{Binding FindKey}"
-                    Watermark="{Binding AddByWaterMark}" />
+                    Watermark="{Binding AddByWaterMark}"
+                    Width="150" />
 
                 <Button
-                    Width="33"
-                    Height="33"
                     Command="{Binding FindCommand}"
-                    IsEnabled="{Binding IsEnable}">
+                    Height="33"
+                    IsEnabled="{Binding IsEnable}"
+                    Width="33">
                     <Svg
-                        Width="15"
                         Height="15"
-                        Path="/Assets/SVGs/magnifying-glass.svg" />
+                        Path="/Assets/SVGs/magnifying-glass.svg"
+                        Width="15" />
                 </Button>
             </StackPanel>
 
         </Grid>
 
         <ContentControl
-            Grid.Row="3"
             Content="{Binding CurrentAddView}"
+            Grid.Row="3"
             IsVisible="{Binding IsLoaded}" />
         <controls:LoadingSpinner
-            Grid.Row="3"
-            MaxWidth="80"
-            MaxHeight="80"
-            Margin="50,30,50,40"
             Diameter="70"
+            Grid.Row="3"
             IsLoading="True"
             IsVisible="{Binding IsBusy}"
+            Margin="50,30,50,40"
+            MaxHeight="80"
+            MaxWidth="80"
             Thickness="3" />
     </Grid>
 </Window>

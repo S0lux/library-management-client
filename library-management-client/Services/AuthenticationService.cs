@@ -124,9 +124,7 @@ public class AuthenticationService: IAuthService
         }
         catch (HttpRequestException e)
         {
-            if (e.StatusCode==HttpStatusCode.Conflict) return new HttpResponseMessage(HttpStatusCode.Conflict);
-            else return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
-            
+            return new HttpResponseMessage(e.StatusCode is HttpStatusCode statusCode ? statusCode : HttpStatusCode.InternalServerError);
         }
         catch (Exception)
         {
@@ -170,7 +168,8 @@ public class AuthenticationService: IAuthService
         }
         catch (HttpRequestException e)
         {
-            return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+            return new HttpResponseMessage(e.StatusCode is HttpStatusCode statusCode ? statusCode : HttpStatusCode.InternalServerError);
+
         }
         catch (Exception)
         {
@@ -214,7 +213,7 @@ public class AuthenticationService: IAuthService
         }
         catch (HttpRequestException e)
         {
-            return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+            return new HttpResponseMessage(e.StatusCode is HttpStatusCode statusCode ? statusCode : HttpStatusCode.InternalServerError);
         }
         catch (Exception)
         {
@@ -258,7 +257,7 @@ public class AuthenticationService: IAuthService
         }
         catch (HttpRequestException e)
         {
-            return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+            return new HttpResponseMessage(e.StatusCode is HttpStatusCode statusCode ? statusCode : HttpStatusCode.InternalServerError);
         }
         catch (Exception)
         {

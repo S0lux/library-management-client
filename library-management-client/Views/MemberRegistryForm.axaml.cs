@@ -13,7 +13,6 @@ public partial class MemberRegistryForm : Window
     {
         InitializeComponent();
         DataContext = memberRegistryFormViewModel;
-
     }
 
     private void TitleBarContainer_OnPointerPressed(object? sender, PointerPressedEventArgs e)
@@ -31,5 +30,11 @@ public partial class MemberRegistryForm : Window
     {
         var viewModel = App.AppHost.Services.GetRequiredService<MemberRegistryFormViewModel>();
         viewModel.IconPathExit = "/Assets/SVGs/xmark-royalblue.svg";
+    }
+
+    private void Window_OnClosing(object? sender, WindowClosingEventArgs e)
+    {
+        e.Cancel = true;
+        Hide();
     }
 }
