@@ -47,6 +47,10 @@
       <Compile Update="Views\MemberRegistryForm.axaml.cs">
         <DependentUpon>MemberRegistryForm.axaml</DependentUpon>
       </Compile>
+      <Compile Update="Controls\QuantityConfirmMessageBox.axaml.cs">
+        <DependentUpon>QuantityConfirmMessageBox.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 
 
