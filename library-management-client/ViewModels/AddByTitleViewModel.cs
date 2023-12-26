@@ -81,19 +81,23 @@ public partial class AddByTitleViewModel: ViewModelBase
     private async Task RegisterBook(BOOK book)
     {
         bool HasError = false;
+        var loadspiner = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
         // Confirm with the user that they want to add this book to the database
-        var messageBoxContentString =  "Do you want to add this book?\n" +
-                                       $"Title: {book.Title}\n" +
-                                       $"ISBN: {book.ISBN13}\n" + 
-                                       $"Author: {book.Author}";
-
-        var messageBox = new MyMessageBox(messageBoxContentString, "Register Result", 
-                                     MyMessageBox.MessageBoxButton.YesNo, MyMessageBox.MessageBoxImage.Question);
-        await messageBox.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+        string messageBoxContentString =  "How many of this book do you want to add?\n" +
+                                   $"Title: {book.Title}\n" +
+                                   $"ISBN: {book.ISBN13}\n" + 
+                                   $"Author: {book.Author}";
+        var mess = new QuantityConfirmMessageBox(
+            messageBoxContentString,
+            "Confirm",
+            QuantityConfirmMessageBox.MessageBoxImage.Question
+            ,400,250);
+        await mess.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
         
-        // If yes then...
-        if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
+        // If OK then...
+        if (QuantityConfirmMessageBox.buttonResultClicked == QuantityConfirmMessageBox.ButtonResult.OK)
         {
+            loadspiner.IsBusy = true;
             // Attempt to register book to database
             var postResult = await PostBookAsync(book);
             
@@ -129,18 +133,6 @@ public partial class AddByTitleViewModel: ViewModelBase
                 return;
             }
             
-            //Begin to register book detail
-            messageBoxContentString =  "How many of this book do you want to add?\n" +
-                                       $"Title: {book.Title}\n" +
-                                       $"ISBN: {book.ISBN13}\n" + 
-                                       $"Author: {book.Author}";
-            var mess = new QuantityConfirmMessageBox(
-                messageBoxContentString,
-                "Confirm",
-                QuantityConfirmMessageBox.MessageBoxImage.Question
-                ,400,250);
-            await mess.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
-            
             // Attempt to register book detail to database
             var createdBookDetail = new
             {
@@ -169,6 +161,7 @@ public partial class AddByTitleViewModel: ViewModelBase
             resultBox1.Show();
             
         }
+        loadspiner.IsBusy = false;
         HasError = false;
     }
 

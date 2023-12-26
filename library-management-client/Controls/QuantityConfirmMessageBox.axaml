@@ -78,7 +78,8 @@
                     HorizontalContentAlignment="Center"
                     Increment="1"
                     Minimum="1"
-                    Watermark="Quantity">
+                    Watermark="Value is 1 if left empty"
+                    Value="1">
                 </NumericUpDown>
             </StackPanel>
 

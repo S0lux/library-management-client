@@ -51,6 +51,7 @@ namespace Avalonia_DependencyInjection.Controls
             this.Owner = App.AppHost!.Services.GetRequiredService<MainWindow>();
             this.Width = 400;
             this.Height = 200;
+            
         }
 
         public QuantityConfirmMessageBox(string message, string title, MessageBoxImage img, double width, double height)
@@ -63,6 +64,7 @@ namespace Avalonia_DependencyInjection.Controls
             this.Owner = App.AppHost!.Services.GetRequiredService<MainWindow>();
             this.Width = width;
             this.Height = height;
+
         }
 
         private void setIcon(MessageBoxImage img)
@@ -99,9 +101,9 @@ namespace Avalonia_DependencyInjection.Controls
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             buttonResultClicked = ButtonResult.OK;
-            Console.WriteLine(Quantity.Text);
             var temp = App.AppHost.Services.GetRequiredService<AddByTitleViewModel>();
-            temp.BookQuantity = (int)Quantity.Value;
+            if (Quantity.Value == null) temp.BookQuantity = 1;
+            else temp.BookQuantity = (int)Quantity.Value;
             this.Close();
         }
 
@@ -110,6 +112,6 @@ namespace Avalonia_DependencyInjection.Controls
             buttonResultClicked = ButtonResult.CANCEL;
             this.Close();
         }
-
+        
     }
 }
