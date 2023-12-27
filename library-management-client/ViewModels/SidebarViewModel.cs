@@ -14,14 +14,14 @@ public partial class SidebarViewModel: ViewModelBase
     {
         SidebarScreen = new SidebarScreenViewModel("root", null, null, new ObservableCollection<SidebarScreenViewModel>()
         {
-            new("Home", typeof(HomeViewModel), "/Assets/SVGs/house.svg"),
+            new("Home", typeof(HomeViewModel), "/Assets/SVGs/house-solid.svg"),
 
-            new("Member", typeof(MemberListViewModel), "/Assets/SVGs/users.svg"),
+            new("Member", typeof(MemberListViewModel), "/Assets/SVGs/user-group-solid.svg"),
 
-            new("Book", null, "/Assets/SVGs/books.svg", new ObservableCollection<SidebarScreenViewModel>()
+            new("Book", null, "/Assets/SVGs/book-open-cover.svg", new ObservableCollection<SidebarScreenViewModel>()
             {
                 new("List", typeof(BookViewModel), "/Assets/SVGs/books.svg"),
-                new("Borrowed", typeof(BorrowViewModel), "/Assets/SVGs/books.svg")
+                new("Borrowed", typeof(BorrowViewModel), "/Assets/SVGs/hand-holding-box.svg")
             }),
         });
     }
