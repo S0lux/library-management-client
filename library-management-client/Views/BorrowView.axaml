@@ -51,8 +51,14 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding BorrowingDate}" Header="Date" />
                 <DataGridTextColumn Binding="{Binding BorrowInvoiceID}" Header="Invoice ID" />
-                <DataGridTextColumn Binding="{Binding Member[0].Name}" Header="Member name" />
-                <DataGridTextColumn Binding="{Binding Employee[0].Name}" Header="Employee name" />
+                <DataGridTextColumn
+                    Binding="{Binding Member[0].Name}"
+                    CanUserSort="False"
+                    Header="Member name" />
+                <DataGridTextColumn
+                    Binding="{Binding Employee[0].Name}"
+                    CanUserSort="False"
+                    Header="Employee name" />
                 <DataGridTemplateColumn Header="Status" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -71,7 +77,7 @@
                             <Button>
                                 <Svg
                                     Height="16"
-                                    Path="/Assets/SVGs/magnifying-glass.svg"
+                                    Path="/Assets/SVGs/eye.svg"
                                     Width="16" />
                             </Button>
                         </DataTemplate>
