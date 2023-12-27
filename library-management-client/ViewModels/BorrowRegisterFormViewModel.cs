@@ -73,13 +73,7 @@ namespace Avalonia_DependencyInjection.ViewModels
         [RelayCommand(CanExecute = nameof(checkSubmit))]
         public void CheckOutta()
         {
-            uint a = 0;
-
-            foreach(BORROW_DETAIL bOOK in BorrowDetailList) {
-                a += bOOK.Quantity;
-            }
-
-            new MyMessageBox(a.ToString()).Show();
+            
         }
 
         [RelayCommand]
@@ -89,7 +83,7 @@ namespace Avalonia_DependencyInjection.ViewModels
 
             bOOK.IsCheck = false;
             bookViewModel.BookCheckedList.Remove(bOOK);
-            bookViewModel.SelectedNumber -= 1;
+            bookViewModel.CheckedAmount -= 1;
             
             BorrowDetailList.Remove(BorrowFormSelectedBookDetail);
             
