@@ -77,7 +77,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button>
+                            <Button Command="{Binding $parent[DataGrid].((viewModels:BorrowViewModel)DataContext).ShowInvoiceCommand}" CommandParameter="{Binding}">
                                 <Svg
                                     Width="16"
                                     Height="16"

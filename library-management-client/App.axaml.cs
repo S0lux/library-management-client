@@ -74,6 +74,8 @@ public partial class App : Application
                 services.AddSingleton<BorrowRegisterFormViewModel>();
                 services.AddSingleton<BorrowView>();
                 services.AddSingleton<BorrowViewModel>();
+                services.AddTransient<InvoiceWindow>();
+                services.AddTransient<InvoiceWindowViewModel>();
                 
 
                 services.AddHttpClient("main", options =>
