@@ -52,6 +52,7 @@ public partial class BookViewModel : ViewModelBase
         var temp = App.AppHost.Services.GetRequiredService<AddBookWindow>();
         temp.Show();
     }
+<<<<<<< HEAD
 
     [RelayCommand(CanExecute = nameof(checkCheckOut))]
     void CheckOut()
@@ -64,6 +65,10 @@ public partial class BookViewModel : ViewModelBase
     }
 
     public async void GetData()
+=======
+    
+    public async Task GetData()
+>>>>>>> dbaf0d1d61c2d2aadc5e3599a482a3ca0553315f
     {
         IsBusy = true;
         BookList.Clear();

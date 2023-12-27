@@ -109,28 +109,31 @@ public partial class MemberListViewModel : ViewModelBase
 
     public async Task GetData()
     {
-        IsBusy = true;
-        MemberList.Clear();
-        try
+        await Task.Run(async () =>
         {
-            var response = await _authService.GetAsync(@"/api/members");
-            response.EnsureSuccessStatusCode();
+            IsBusy = true;
+            MemberList.Clear();
+            try
+            {
+                var response = await _authService.GetAsync(@"/api/members");
+                response.EnsureSuccessStatusCode();
 
-            var body = await response.Content.ReadAsStringAsync();
-            var apiResponseMember = JsonConvert.DeserializeObject<ApiResponseMember>(body);
+                var body = await response.Content.ReadAsStringAsync();
+                var apiResponseMember = JsonConvert.DeserializeObject<ApiResponseMember>(body);
             
-            MemberList = new ObservableCollection<MEMBER>(apiResponseMember!.data.Where(e => e.Deleted == false));
-            ShowingList = MemberList;
-        }
-        catch (HttpRequestException e)
-        {
-            var box = MessageBoxManager
-            .GetMessageBoxStandard("Error", "Add Member Failed!",
-                ButtonEnum.YesNo);
+                MemberList = new ObservableCollection<MEMBER>(apiResponseMember!.data.Where(e => e.Deleted == false));
+                ShowingList = MemberList;
+            }
+            catch (HttpRequestException e)
+            {
+                var box = MessageBoxManager
+                    .GetMessageBoxStandard("Error", "Add Member Failed!",
+                        ButtonEnum.YesNo);
 
-            var result = await box.ShowAsync();
-        }
-        IsBusy = false;
+                var result = await box.ShowAsync();
+            }
+            IsBusy = false;
+        });
     }
 
     [RelayCommand]

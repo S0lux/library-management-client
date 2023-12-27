@@ -10,6 +10,7 @@ using Avalonia_DependencyInjection.Controls;
 using Avalonia_DependencyInjection.Models;
 using Avalonia_DependencyInjection.Services;
 using Avalonia_DependencyInjection.Views;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,7 +51,7 @@ public partial class AddByTitleViewModel: ViewModelBase
                 case HttpStatusCode.NotFound:
                     messageBoxString = "No book with that title was found.";
                     break;
-                case HttpStatusCode.InternalServerError:
+                default:
                     messageBoxString =
                         "An unexpected error has occured.\nPlease report this issue to your IT department.";
                     break;
@@ -80,89 +81,100 @@ public partial class AddByTitleViewModel: ViewModelBase
     [RelayCommand]
     private async Task RegisterBook(BOOK book)
     {
-        bool HasError = false;
-        var loadspiner = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
-        // Confirm with the user that they want to add this book to the database
-        string messageBoxContentString =  "How many of this book do you want to add?\n" +
-                                   $"Title: {book.Title}\n" +
-                                   $"ISBN: {book.ISBN13}\n" + 
-                                   $"Author: {book.Author}";
+        var loadingSpinner = App.AppHost!.Services.GetRequiredService<AddBookWindowViewModel>();
+        var confirmationResult = await ShowQuantityConfirmMessageBox(book);
+
+        if (confirmationResult == QuantityConfirmMessageBox.ButtonResult.OK)
+        {
+            loadingSpinner.IsBusy = true;
+
+            var postResult = await PostBookAsync(book);
+            var resultContentString = GetResultContentString(postResult.StatusCode);
+            var resultBoxIcon = GetResultBoxIcon(postResult.StatusCode);
+
+            if (postResult.IsSuccessStatusCode)
+            {
+                await RefreshBookViewModel();
+                await RegisterBookDetailAsync(book.ISBN13);
+            }
+
+            ShowResultMessageBox(resultContentString, resultBoxIcon);
+        }
+
+        loadingSpinner.IsBusy = false;
+    }
+
+    private async Task<QuantityConfirmMessageBox.ButtonResult> ShowQuantityConfirmMessageBox(BOOK book)
+    {
+        var messageBoxContentString = $"How many of this book do you want to add?\n" +
+                                      $"Title: {book.Title}\n" +
+                                      $"ISBN: {book.ISBN13}\n" +
+                                      $"Author: {book.Author}";
+
         var mess = new QuantityConfirmMessageBox(
             messageBoxContentString,
             "Confirm",
-            QuantityConfirmMessageBox.MessageBoxImage.Question
-            ,400,250);
+            QuantityConfirmMessageBox.MessageBoxImage.Question,
+            400, 250);
+
         await mess.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
-        
-        // If OK then...
-        if (QuantityConfirmMessageBox.buttonResultClicked == QuantityConfirmMessageBox.ButtonResult.OK)
+
+        return QuantityConfirmMessageBox.buttonResultClicked;
+    }
+
+    private async Task RegisterBookDetailAsync(string isbn13)
+    {
+        var createdBookDetail = new
         {
-            loadspiner.IsBusy = true;
-            // Attempt to register book to database
-            var postResult = await PostBookAsync(book);
-            
-            // Error handling for book registering
-            var resultContentString = "Book successfully added to database";
-            var resultBoxIcon = MyMessageBox.MessageBoxImage.Information;
+            ISBN13 = isbn13,
+            Status = "normal",
+            Quantity = BookQuantity
+        };
+        
+        var payload = new
+        {
+            data = createdBookDetail
+        };
+        
+        var json = JsonConvert.SerializeObject(payload);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            if (postResult.StatusCode == HttpStatusCode.Conflict)
-            {
-                resultContentString = "This book is already registered in the database.";
-                resultBoxIcon = MyMessageBox.MessageBoxImage.Error;
-                HasError = true;
-            }
-            else if (postResult.StatusCode == HttpStatusCode.ServiceUnavailable)
-            {
-                resultContentString = "Unable to connect to database.\nPlease check your internet connection and try again.";
-                resultBoxIcon = MyMessageBox.MessageBoxImage.Error;
-                HasError = true;
-            }
-            else if (postResult.StatusCode == HttpStatusCode.BadRequest)
-            {
-                resultContentString = "An unexpected error has occured.\nPlease report this issue to your IT department.";
-                resultBoxIcon = MyMessageBox.MessageBoxImage.Error;
-                HasError = true;
-            }
-            // If no error then refresh the DataGrid in BookView
-            else RefreshBookViewModel();
-            if (HasError)
-            {
-                var resultBox = new MyMessageBox(resultContentString, "Result", 
-                    MyMessageBox.MessageBoxButton.OK, resultBoxIcon);
-                resultBox.Show();
-                return;
-            }
-            
-            // Attempt to register book detail to database
-            var createdBookDetail = new
-            {
-                ISBN13 = book.ISBN13,
-                Status = "normal",
-                Quantity = BookQuantity
-            };
-            var payload1 = new
-            {
-                data = createdBookDetail
-            };
-            var json1 = JsonConvert.SerializeObject(payload1);
-            var content1 = new StringContent(json1, Encoding.UTF8, "application/json");
+        var response = await _authService.PutAsync("/api/book_details", content);
 
-            var response1 = await _authService.PutAsync("/api/book_details", content1);
-            
-            //Error handling for registering book detail
-            if (response1.StatusCode == HttpStatusCode.BadRequest)
-            {
-                resultContentString = "An unexpected error has occured.\nPlease report this issue to your IT department.";
-                resultBoxIcon = MyMessageBox.MessageBoxImage.Error;
-            }
-            
-            var resultBox1 = new MyMessageBox(resultContentString, "Result", 
-                MyMessageBox.MessageBoxButton.OK, resultBoxIcon);
-            resultBox1.Show();
-            
+        if (response.StatusCode == HttpStatusCode.BadRequest)
+        {
+            ShowResultMessageBox("An unexpected error has occurred.\nPlease report this issue to your IT department.",
+                                 MyMessageBox.MessageBoxImage.Error);
         }
-        loadspiner.IsBusy = false;
-        HasError = false;
+    }
+
+    private string GetResultContentString(HttpStatusCode statusCode)
+    {
+        return statusCode switch
+        {
+            HttpStatusCode.Conflict => "This book is already registered in the database.",
+            HttpStatusCode.ServiceUnavailable => "Unable to connect to the database.\nPlease check your internet connection and try again.",
+            HttpStatusCode.BadRequest => "An unexpected error has occurred.\nPlease report this issue to your IT department.",
+            _ => "Book successfully added to the database"
+        };
+    }
+
+    private MyMessageBox.MessageBoxImage GetResultBoxIcon(HttpStatusCode statusCode)
+    {
+        return statusCode switch
+        {
+            HttpStatusCode.Conflict => MyMessageBox.MessageBoxImage.Error,
+            HttpStatusCode.ServiceUnavailable => MyMessageBox.MessageBoxImage.Error,
+            HttpStatusCode.BadRequest => MyMessageBox.MessageBoxImage.Error,
+            _ => MyMessageBox.MessageBoxImage.Information
+        };
+    }
+
+    private void ShowResultMessageBox(string contentString, MyMessageBox.MessageBoxImage boxIcon)
+    {
+        var resultBox = new MyMessageBox(contentString, "Result",
+            MyMessageBox.MessageBoxButton.OK, boxIcon);
+        resultBox.Show();
     }
 
     private Task<HttpResponseMessage> PostBookAsync(BOOK book)
@@ -178,11 +190,12 @@ public partial class AddByTitleViewModel: ViewModelBase
         return _authService.PostAsync("/api/books", requestContent);
     }
 
-    private void RefreshBookViewModel()
+    private async Task RefreshBookViewModel()
     {
         var bookViewModel = App.AppHost!.Services.GetRequiredService<BookViewModel>();
-        bookViewModel.GetData();
+        await bookViewModel.GetData();
     }
+
 }
 
 public class apiResponse

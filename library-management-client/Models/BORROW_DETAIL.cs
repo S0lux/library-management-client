@@ -16,5 +16,7 @@ namespace Avalonia_DependencyInjection.Models
         public int Quantity { get; set; }
 
         public DateTime DueDate { get; set; }
+        
+        public bool HasReturned { get; set; }
     }
 }
