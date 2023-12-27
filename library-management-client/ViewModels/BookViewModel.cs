@@ -23,6 +23,8 @@ public partial class BookViewModel : ViewModelBase
 
     [ObservableProperty] private bool _isBusy = false;
 
+    [ObservableProperty] private int _selectedNumber = 0;
+
     [ObservableProperty] private ObservableCollection<BOOK> _bookList = new();
     
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(CheckOutCommand))] private ObservableCollection<BOOK> _bookCheckedList = new();
@@ -57,7 +59,7 @@ public partial class BookViewModel : ViewModelBase
     void CheckOut()
     {
         var temp1 = App.AppHost.Services.GetRequiredService<BorrowRegisterFormViewModel>();
-        temp1.BorrowList = BookCheckedList;
+        temp1.Load();
 
         var temp2 = App.AppHost.Services.GetRequiredService<BorrowRegisterFormView>();
         temp2.Show();
@@ -100,18 +102,21 @@ public partial class BookViewModel : ViewModelBase
     [RelayCommand]
     public void BookChecked()
     {
-        if(SelectedBOOK.IsCheck == true)
+        
+        if (SelectedBOOK.IsCheck == true)
         {
-            BookCheckedList.Add(SelectedBOOK);   
+            BookCheckedList.Add(SelectedBOOK);
+            SelectedNumber += 1;
         }
         else
         {
-            SelectedBOOK.BorrowQuantity = 1;
+            var temp1 = App.AppHost.Services.GetRequiredService<BorrowRegisterFormViewModel>();
+            temp1.BorrowDetailList.Remove(temp1.BorrowDetailList.FirstOrDefault(e => e.ISBN13 == SelectedBOOK.ISBN13));
+
             BookCheckedList.Remove(SelectedBOOK);
+            SelectedNumber -= 1;
         }
     }
-
-
 }
 
 public class ApiResponseBookList

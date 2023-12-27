@@ -11,12 +11,46 @@ namespace Avalonia_DependencyInjection.Models
     {
         public int BorrowInvoiceID { get; set; }
 
+        private uint _borrowDuration;
+        
+        private uint _quantity;
+
         public string ISBN13 { get; set; }
 
-        public int Quantity { get; set; }
+        public uint Quantity
+        {
+            get
+            {
+                return _quantity;
+            }
+            set
+            {
+                if (value == 0)
+                {
+                    throw new ArgumentException();
+                }
+                _quantity = value;
+            }
+        }
 
         public DateTime DueDate { get; set; }
         
         public bool HasReturned { get; set; }
+
+        public uint BorrowDuration { get 
+            { 
+                return _borrowDuration;
+            }
+            set
+            {
+                if (value == 0)
+                {
+                    throw new ArgumentException();
+                }
+                _borrowDuration = value;
+            }
+        }
+
+        public string BookTitle { get; set; }
     }
 }

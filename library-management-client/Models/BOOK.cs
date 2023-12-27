@@ -24,9 +24,5 @@ namespace Avalonia_DependencyInjection.Models
 
         [ObservableProperty]
         public bool _isCheck;
-
-        [ObservableProperty]
-        [Required]
-        public int _borrowQuantity = 1;
     }
 }

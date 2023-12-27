@@ -68,6 +68,15 @@
                         Content="CHECK OUT"
                         FontWeight="DemiBold"
                         Foreground="White" />
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontWeight="DemiBold"
+                        Foreground="White">
+                        <Run Text="[" />
+                        <Run Text="{Binding SelectedNumber}" />
+                        <Run Text="]" />
+                    </TextBlock>
                 </StackPanel>
             </Button>
         </Grid>
