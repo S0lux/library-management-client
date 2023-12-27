@@ -124,8 +124,8 @@
                         CanUserReorderColumns="False"
                         CanUserResizeColumns="False"
                         Classes="MemberListDataGrid"
-                        ItemsSource="{Binding BorrowList}"
-                        SelectedItem="{Binding BorrowFormSelectedBook}">
+                        ItemsSource="{Binding BorrowDetailList}"
+                        SelectedItem="{Binding BorrowFormSelectedBookDetail}">
                         <DataGrid.Columns>
                             <DataGridTextColumn
                                 Binding="{Binding ISBN13}"
@@ -133,18 +133,26 @@
                                 IsReadOnly="True" />
                             <DataGridTextColumn
                                 Width="2.5*"
-                                Binding="{Binding Title}"
+                                Binding="{Binding BookTitle}"
                                 Header="Title"
                                 IsReadOnly="True" />
-                            <DataGridTextColumn
+                            <!--<DataGridTextColumn
                                 Width="1.5*"
                                 Binding="{Binding Author}"
                                 Header="Author"
-                                IsReadOnly="True" />
+                                IsReadOnly="True" />-->
+
                             <DataGridTextColumn
-                                Binding="{Binding BorrowQuantity}"
+                                Binding="{Binding Quantity}"
                                 Header="Quantity"
+                                IsReadOnly="False"
+								/>
+
+                            <DataGridTextColumn
+                                Binding="{Binding BorrowDuration}"
+                                Header="Borrow Duration (days)"
                                 IsReadOnly="False" />
+
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

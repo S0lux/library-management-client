@@ -71,8 +71,7 @@
                             Width="16"
                             Height="16"
                             Path="/Assets/SVGs/book-circle-arrow-right-white.svg" />
-                        <TextBlock Foreground="White" Text="{Binding CheckedAmount, StringFormat=[ {0} ]}">
-                        </TextBlock>
+                        <TextBlock Foreground="White" Text="{Binding CheckedAmount, StringFormat=[ {0} ]}" />
                     </StackPanel>
 
                     <Button.Styles>
@@ -138,7 +137,20 @@
                     MaxWidth="250"
                     Binding="{Binding Author}"
                     Header="AUTHOR" />
-
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="vm:MemberListViewModel">
+                            <StackPanel Orientation="Horizontal">
+                                <Button
+                                    Margin="0,0,13,0"
+                                    HorizontalContentAlignment="Center"
+                                    Classes="MemberListDeleteButton"
+                                    Command="{Binding $parent[DataGrid].((vm:BookViewModel)DataContext).DeleteCommand}"
+                                    IsEnabled="True" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
 
         </DataGrid>

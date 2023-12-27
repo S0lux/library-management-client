@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Avalonia.Interactivity;
 using Avalonia_DependencyInjection.Controls;
+using Avalonia_DependencyInjection.Interfaces;
 using Avalonia_DependencyInjection.Models;
 using Avalonia_DependencyInjection.Services;
 using Avalonia_DependencyInjection.Views;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
 using Newtonsoft.Json;
+using Tmds.DBus.Protocol;
 
 namespace Avalonia_DependencyInjection.ViewModels;
 
@@ -23,14 +25,14 @@ public partial class BookViewModel : ViewModelBase
 
     [ObservableProperty] private bool _isBusy = false;
 
+    [ObservableProperty] private int _selectedNumber = 0;
+
     [ObservableProperty] private ObservableCollection<BOOK> _bookList = new();
     [ObservableProperty] private ObservableCollection<BOOK> _bookFindList = new ObservableCollection<BOOK>();
     [ObservableProperty] private ObservableCollection<BOOK> _showingList;
     [ObservableProperty] private int _checkedAmount=0;
     [ObservableProperty] private string? _filterKey;
 
-
-    
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(CheckOutCommand))] private ObservableCollection<BOOK> _bookCheckedList = new();
 
     [ObservableProperty] private BOOK selectedBOOK;
@@ -62,12 +64,38 @@ public partial class BookViewModel : ViewModelBase
     void CheckOut()
     {
         var temp1 = App.AppHost.Services.GetRequiredService<BorrowRegisterFormViewModel>();
-        temp1.BorrowList = BookCheckedList;
+        temp1.Load();
 
         var temp2 = App.AppHost.Services.GetRequiredService<BorrowRegisterFormView>();
         temp2.Show();
     }
 
+    [RelayCommand]
+    async void Delete()
+    {
+        await TrueDelete();
+
+        var box = App.AppHost!.Services.GetRequiredService<BookViewModel>();
+
+        box.GetData();
+    }
+
+    async public Task TrueDelete()
+    {
+        MyMessageBox khang = new MyMessageBox(
+            "Are you sure you want to delete the book?",
+            "Confirm",
+            MyMessageBox.MessageBoxButton.YesNo,
+            MyMessageBox.MessageBoxImage.Question
+            );
+
+        await khang.ShowDialog(App.AppHost!.Services.GetRequiredService<MainWindow>());
+
+        if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
+        {
+            var response = await _authenticationService.DeleteAsync($"/api/books/isbn/{SelectedBOOK.ISBN13}");
+        }
+    }
 
     public async Task GetData()
     {
@@ -106,14 +134,17 @@ public partial class BookViewModel : ViewModelBase
     [RelayCommand]
     public void BookChecked()
     {
-        if(SelectedBOOK.IsCheck == true)
+        
+        if (SelectedBOOK.IsCheck == true)
         {
             BookCheckedList.Add(SelectedBOOK);
             CheckedAmount++;
         }
         else
         {
-            SelectedBOOK.BorrowQuantity = 1;
+            var temp1 = App.AppHost.Services.GetRequiredService<BorrowRegisterFormViewModel>();
+            temp1.BorrowDetailList.Remove(temp1.BorrowDetailList.FirstOrDefault(e => e.ISBN13 == SelectedBOOK.ISBN13));
+
             BookCheckedList.Remove(SelectedBOOK);
             CheckedAmount--;
         }
