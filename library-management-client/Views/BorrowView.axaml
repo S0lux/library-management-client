@@ -39,7 +39,10 @@
                 MaxLength="12"
                 Tag="/Assets/SVGs/magnifying-glass.svg"
                 Watermark="CCCD" />
-            <ComboBox ItemsSource="{Binding StatusFilters}" SelectedItem="{Binding SelectedStatusFilter}" />
+            <ComboBox
+                Classes="MemberListComboBox"
+                ItemsSource="{Binding StatusFilters}"
+                SelectedItem="{Binding SelectedStatusFilter}" />
         </StackPanel>
 
         <DataGrid

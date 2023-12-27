@@ -67,7 +67,7 @@
                 Width="250"
                 Padding="10,0,0,0"
                 VerticalAlignment="Center"
-                FontSize="15"
+                FontSize="16.5"
                 TextWrapping="Wrap">
                 Text goes here
             </TextBlock>

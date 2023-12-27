@@ -106,6 +106,7 @@
             BorderThickness="0"
             CanUserReorderColumns="False"
             Classes="MemberListDataGrid"
+            CornerRadius="10"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
             IsVisible="{Binding !IsBusy}"
@@ -121,7 +122,7 @@
                     Width="*"
                     MinWidth="50"
                     Binding="{Binding Name}"
-                    Header="CUSTOMER" />
+                    Header="MEMBER" />
                 <DataGridTextColumn
                     Width="auto"
                     MinWidth="30"

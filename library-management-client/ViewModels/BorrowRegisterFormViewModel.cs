@@ -114,6 +114,12 @@ namespace Avalonia_DependencyInjection.ViewModels
             var response = await _authService.PostAsync("/api/books/invoices", content);
 
             borrowViewModel.RetrieveInvoices();
+
+            (App.AppHost!.Services.GetRequiredService<BorrowRegisterFormView>()).Hide();
+
+            var box = (new MyMessageBox("Create Success!", "Notification", MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information,280,160));
+
+            box.ShowDialog(App.AppHost!.Services.GetRequiredService<MainWindow>());
         }
 
         [RelayCommand]

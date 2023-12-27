@@ -11,6 +11,7 @@ using Avalonia.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
+using Avalonia_DependencyInjection.Controls;
 
 namespace Avalonia_DependencyInjection.Views;
 
@@ -56,13 +57,15 @@ public partial class SidebarView : UserControl
 
     private async void Button_OnClick(object? sender, RoutedEventArgs e)
     {
-        var box = MessageBoxManager
-            .GetMessageBoxStandard("Logging out", "Do you want to log out?",
-                ButtonEnum.YesNo, Icon.Question);
+        //var box = MessageBoxManager
+        //    .GetMessageBoxStandard("Logging out", "Do you want to log out?",
+        //        ButtonEnum.YesNo, Icon.Question);
 
-        var result = await box.ShowAsync();
+        var box = new MyMessageBox("Do you want to log out?", "Logging out", MyMessageBox.MessageBoxButton.YesNo, MyMessageBox.MessageBoxImage.Question);
 
-        if (result == ButtonResult.Yes)
+        await box.ShowDialog(App.AppHost!.Services.GetRequiredService<MainWindow>());
+
+        if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
         {
             File.Delete("userToken.txt");
             var win=App.AppHost!.Services.GetRequiredService<MainWindowViewModel>();

@@ -145,6 +145,7 @@
                                 </Label>
                                 <ComboBox
                                     HorizontalAlignment="Stretch"
+                                    Classes="MemberListComboBox"
                                     ItemsSource="{Binding Genders}"
                                     SelectedItem="{Binding InputedMember.Gender, Converter={StaticResource GenderConverter}}" />
                             </DockPanel>

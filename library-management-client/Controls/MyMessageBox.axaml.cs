@@ -117,18 +117,19 @@ namespace Avalonia_DependencyInjection.Controls
             {
                 case MessageBoxImage.Information:
                     MessageBoxIcon.Path = "/Assets/SVGs/info-solid.svg";
-                    MessageBoxIcon.Height = 50;
+                    MessageBoxIcon.Height = 70;
                     break;
                 case MessageBoxImage.Warning:
                     MessageBoxIcon.Path = "/Assets/SVGs/exclamation-solid.svg";
+                    MessageBoxIcon.Height = 70;
                     break;
                 case MessageBoxImage.Error:
                     MessageBoxIcon.Path = "/Assets/SVGs/triangle-exclamation-solid.svg";
-                    MessageBoxIcon.Height = 50;
+                    MessageBoxIcon.Height = 70;
                     break;
                 case MessageBoxImage.Question:
                     MessageBoxIcon.Path = "/Assets/SVGs/question-solid.svg";
-                    MessageBoxIcon.Height = 50;
+                    MessageBoxIcon.Height = 70;
                     break;
             }
         }

@@ -11,6 +11,21 @@
     d:DesignWidth="800"
     x:DataType="vm:BookViewModel"
     mc:Ignorable="d">
+
+    <UserControl.Styles>
+        <Style Selector="CheckBox:checked">
+            <Style Selector="^ /template/ Border#NormalRectangle">
+                <Setter Property="Background" Value="#577ae4" />
+                <Setter Property="BorderBrush" Value="RoyalBlue" />
+            </Style>
+
+            <Style Selector="^:pointerover /template/ Border#NormalRectangle">
+                <Setter Property="Background" Value="#2b58de" />
+                <Setter Property="BorderBrush" Value="#214cce" />
+            </Style>
+        </Style>
+    </UserControl.Styles>
+
     <Grid Margin="30,0,30,30" RowDefinitions="auto auto *">
         <StackPanel
             Grid.Row="0"
@@ -125,8 +140,7 @@
                     Width="auto"
                     MinWidth="20"
                     Binding="{Binding ISBN13}"
-                    Header="ISBN"
-					/>
+                    Header="ISBN" />
                 <DataGridTextColumn
                     Width="*"
                     MinWidth="50"
@@ -148,8 +162,7 @@
                                 <Button
                                     HorizontalContentAlignment="Center"
                                     Classes="MemberListInfoButton"
-                                    Command="{Binding $parent[DataGrid].((vm:BookViewModel)DataContext).InfoCommand}">
-                                </Button>
+                                    Command="{Binding $parent[DataGrid].((vm:BookViewModel)DataContext).InfoCommand}" />
                                 <Button
                                     HorizontalContentAlignment="Center"
                                     Classes="MemberListDeleteButton"
