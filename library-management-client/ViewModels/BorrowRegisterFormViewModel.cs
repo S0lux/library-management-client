@@ -41,12 +41,15 @@ namespace Avalonia_DependencyInjection.ViewModels
 
         BookViewModel? bookViewModel;
 
+        BorrowViewModel? borrowViewModel;
+
         AuthenticationService? _authService;
 
         public BorrowRegisterFormViewModel(AuthenticationService authService)
         {
             memberSearchViewModel = App.AppHost!.Services.GetRequiredService<MemberListViewModel>();
             bookViewModel = App.AppHost!.Services.GetRequiredService<BookViewModel>();
+            borrowViewModel = App.AppHost!.Services.GetRequiredService<BorrowViewModel>();
             _authService = authService;
         }
 
@@ -109,6 +112,8 @@ namespace Avalonia_DependencyInjection.ViewModels
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await _authService.PostAsync("/api/books/invoices", content);
+
+            borrowViewModel.RetrieveInvoices();
         }
 
         [RelayCommand]
@@ -143,7 +148,7 @@ namespace Avalonia_DependencyInjection.ViewModels
                         BookTitle = bOOK.Title
                     });
                 }
-            }   
+            }
         }
     }
 }
