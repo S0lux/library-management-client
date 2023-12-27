@@ -125,7 +125,8 @@
                     Width="auto"
                     MinWidth="20"
                     Binding="{Binding ISBN13}"
-                    Header="ISBN" />
+                    Header="ISBN"
+					/>
                 <DataGridTextColumn
                     Width="*"
                     MinWidth="50"

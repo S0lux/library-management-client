@@ -6,16 +6,10 @@ namespace Avalonia_DependencyInjection.Views;
 
 public partial class BookView : UserControl
 {
+    private DataGrid _dataGrid;
+
     public BookView()
     {
         InitializeComponent();
-    }
-
-    private void Binding(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-    {
-    }
-
-    private void BookCheckedList_1(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-    {
     }
 }
