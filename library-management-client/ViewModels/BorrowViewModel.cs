@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 using Avalonia_DependencyInjection.Controls;
 using Avalonia_DependencyInjection.Models;
 using Avalonia_DependencyInjection.Services;
+using Avalonia_DependencyInjection.Views;
+using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
 namespace Avalonia_DependencyInjection.ViewModels;
@@ -53,6 +57,16 @@ public partial class BorrowViewModel: ViewModelBase
 
         Invoices = deserializedObj.Data;
     }
+
+    [RelayCommand]
+    public void ShowInvoice(CustomInvoice invoice)
+    {
+        var window = App.AppHost!.Services.GetRequiredService<InvoiceWindow>();
+        var viewModel = App.AppHost!.Services.GetRequiredService<InvoiceWindowViewModel>();
+        viewModel.Invoice = invoice;
+        window.DataContext = viewModel;
+        window.Show();
+    }
 }
 
 public class CustomInvoice
@@ -88,8 +102,12 @@ public class CustomInvoice
     private void UpdateStatus()
     {
         DateTime today = DateTime.Today;
-
-        if (BorrowDetails.Any(detail => detail.DueDate < today))
+        
+        if (BorrowDetails.All(detail => detail.HasReturned))
+        {
+            _status = "Completed";
+        }
+        else if (BorrowDetails.Any(detail => detail.DueDate < today))
         {
             _status = "Overdue";
         }
@@ -111,17 +129,17 @@ public class CustomInvoice
     {
         DateTime today = DateTime.Today;
 
-        if (BorrowDetails.Any(detail => detail.DueDate < today))
+        if (BorrowDetails.All(detail => detail.HasReturned))
+        {
+            _statusColor = new SolidColorBrush(Colors.LimeGreen);
+        }
+        else if (BorrowDetails.Any(detail => detail.DueDate < today))
         {
             _statusColor = new SolidColorBrush(Colors.Red);
         }
         else if (BorrowDetails.Any(detail => detail.DueDate > today))
         {
             _statusColor = new SolidColorBrush(Colors.Orange);
-        }
-        else if (BorrowDetails.All(detail => detail.HasReturned))
-        {
-            _statusColor = new SolidColorBrush(Colors.LimeGreen);
         }
         else
         {

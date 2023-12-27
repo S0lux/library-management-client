@@ -74,7 +74,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button>
+                            <Button Command="{Binding $parent[DataGrid].((viewModels:BorrowViewModel)DataContext).ShowInvoiceCommand}" CommandParameter="{Binding}">
                                 <Svg
                                     Height="16"
                                     Path="/Assets/SVGs/eye.svg"

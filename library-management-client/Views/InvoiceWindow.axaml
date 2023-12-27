@@ -1,0 +1,198 @@
+<Window
+    ExtendClientAreaChromeHints="NoChrome"
+    ExtendClientAreaTitleBarHeightHint="0"
+    ExtendClientAreaToDecorationsHint="True"
+    Title="InvoiceWindow"
+    d:DesignHeight="900"
+    d:DesignWidth="1500"
+    mc:Ignorable="d"
+    x:Class="Avalonia_DependencyInjection.Views.InvoiceWindow"
+    x:DataType="viewModels:InvoiceWindowViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:Avalonia_DependencyInjection.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Window.Styles>
+        <Style Selector="Button.Titlebar">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+
+        <Style Selector="Button.Close:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Red" />
+        </Style>
+
+        <Style Selector="Button.WindowAction:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="LightSlateGray" />
+        </Style>
+    </Window.Styles>
+
+    <DockPanel>
+        <Grid
+            Background="Transparent"
+            DockPanel.Dock="Top"
+            Height="30"
+            PointerPressed="InputElement_OnPointerPressed">
+            <Button
+                Classes="Titlebar"
+                Click="Button_OnClick"
+                HorizontalAlignment="Right">
+                <Svg
+                    Height="15"
+                    Path="/Assets/SVGs/xmark.svg"
+                    Width="15" />
+            </Button>
+        </Grid>
+
+        <Grid Margin="30,0,30,30" RowDefinitions="Auto Auto Auto">
+            <!--  View title  -->
+            <StackPanel
+                DockPanel.Dock="Top"
+                Grid.Row="0"
+                HorizontalAlignment="Left"
+                Margin="0,0,0,10"
+                Orientation="Horizontal"
+                VerticalAlignment="Top">
+                <Svg
+                    Height="30"
+                    Path="/Assets/SVGs/file-invoice.svg"
+                    Width="30" />
+                <Label Classes="MemberListLabel">
+                    Invoice
+                </Label>
+            </StackPanel>
+
+            <!--  Customer Info  -->
+            <Border
+                Background="White"
+                CornerRadius="5"
+                Grid.Row="1"
+                Margin="0,20,0,0"
+                Padding="20,10">
+                <Grid ColumnDefinitions="* * *">
+                    <StackPanel Grid.Column="0" Spacing="10">
+                        <TextBlock
+                            FontSize="20"
+                            FontWeight="Bold"
+                            Text="Invoice to" />
+                        <StackPanel Spacing="7">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Invoice.Member[0].Name}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Invoice.Member[0].Address}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Invoice.Member[0].CitizenID}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Spacing="10">
+                        <TextBlock
+                            FontSize="20"
+                            FontWeight="Bold"
+                            HorizontalAlignment="Right" />
+                        <StackPanel Spacing="7">
+                            <Grid ColumnDefinitions="* 2*">
+                                <TextBlock
+                                    FontWeight="DemiBold"
+                                    Grid.Column="0"
+                                    Text="Date issued:" />
+                                <TextBlock Grid.Column="1" Text="{Binding Invoice.BorrowingDate}" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="* 2*">
+                                <TextBlock
+                                    FontWeight="DemiBold"
+                                    Grid.Column="0"
+                                    Text="Invoice No:" />
+                                <TextBlock Grid.Column="1" Text="{Binding Invoice.BorrowInvoiceID}" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="* 2*">
+                                <TextBlock
+                                    FontWeight="DemiBold"
+                                    Grid.Column="0"
+                                    Text="Status:" />
+                                <TextBlock
+                                    Foreground="{Binding Invoice.StatusColor}"
+                                    Grid.Column="1"
+                                    Text="{Binding Invoice.Status}" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Image
+                        Grid.Column="2"
+                        Height="200"
+                        Margin="0,-85,0,-50"
+                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                        Source="/Assets/books.png"
+                        Width="200" />
+                </Grid>
+            </Border>
+
+            <Border
+                Background="White"
+                CornerRadius="5"
+                Grid.Row="2"
+                Margin="0,20,0,0">
+                <DataGrid
+                    Classes="MemberListDataGrid"
+                    Height="200"
+                    HorizontalGridLinesBrush="Transparent"
+                    ItemsSource="{Binding BorrowDetails}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Binding="{Binding ISBN13}"
+                            Header="ISBN"
+                            IsReadOnly="True"
+                            Width="150" />
+                        <DataGridTextColumn
+                            Binding="{Binding BookTitle}"
+                            Header="Book Title"
+                            IsReadOnly="True"
+                            Width="*" />
+                        <DataGridTextColumn
+                            Binding="{Binding Quantity}"
+                            Header="Amount"
+                            IsReadOnly="True"
+                            Width="100" />
+                        <DataGridTextColumn
+                            Binding="{Binding Returned}"
+                            Header="Returned"
+                            IsReadOnly="False"
+                            Width="100" />
+                        <DataGridTextColumn
+                            Binding="{Binding Damaged}"
+                            Header="Damaged"
+                            IsReadOnly="False"
+                            Width="100" />
+                        <DataGridTextColumn
+                            Binding="{Binding Lost}"
+                            Header="Lost"
+                            IsReadOnly="False"
+                            Width="100" />
+                        <DataGridTemplateColumn Header="Status" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Foreground="{Binding StatusColor}"
+                                        Margin="10,0"
+                                        Text="{Binding Status}"
+                                        VerticalAlignment="Center" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
+    </DockPanel>
+
+</Window>
