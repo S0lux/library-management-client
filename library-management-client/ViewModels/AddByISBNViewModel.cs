@@ -20,14 +20,11 @@ public partial class AddByISBNViewModel : ViewModelBase
     private readonly AuthenticationService _authenticationService;
 
     [ObservableProperty] private BOOK _book;
-    [ObservableProperty] private BOOK_DETAIL? _bookDetail=new();
+    [ObservableProperty] private BOOK_DETAIL? _bookDetail = new();
     [ObservableProperty] private string _releaseDate;
     [ObservableProperty] private string _imageUrl;
     [ObservableProperty] private bool _isCoverLoading;
-    [ObservableProperty] private string _buttonContent="Confirm";
 
-    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(AddBookCommand))]
-    private int _clickStage = 0;
     public AddByISBNViewModel(AuthenticationService authenticationService)
     {
         _authenticationService = authenticationService;
@@ -38,17 +35,22 @@ public partial class AddByISBNViewModel : ViewModelBase
     {
         if (Book != null)
         {
-            ReleaseDate = Book.PublishDate.ToString("dd/MM/yyyy"); 
+            ReleaseDate = Book.PublishDate.ToString("dd/MM/yyyy");
             ImageUrl = $"https://covers.openlibrary.org/b/isbn/{Book.ISBN13}-L.jpg";
         }
     }
 
-    [RelayCommand(CanExecute =nameof(CheckAdd) )]
+    [RelayCommand(CanExecute = nameof(CheckAdd))]
     async Task AddBook()
     {
-        var loadspiner = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
-        if (ClickStage == 1)
+        MyMessageBox confirmation = new MyMessageBox(
+            "Are you sure about adding this book", "Confirmation",
+            MyMessageBox.MessageBoxButton.YesNo, MyMessageBox.MessageBoxImage.Question,350,150);
+        await confirmation.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+
+        if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
         {
+            var loadspiner = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
             loadspiner.IsBusy = true;
             //Attempt to register book by isbn 
             var createdBook = new
@@ -72,9 +74,8 @@ public partial class AddByISBNViewModel : ViewModelBase
             {
                 loadspiner.IsBusy = false;
                 MyMessageBox error = new MyMessageBox("Bad connection", "Error",
-                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
+                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error,350,150);
                 await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
-                Cancel();
                 return;
             }
 
@@ -82,15 +83,14 @@ public partial class AddByISBNViewModel : ViewModelBase
             {
                 loadspiner.IsBusy = false;
                 MyMessageBox error = new MyMessageBox("The book is already exists", "Error",
-                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
+                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error,350, 150);
                 await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
-                Cancel();
                 return;
             }
             else
             {
                 loadspiner.IsBusy = false;
-                
+
                 //Attempt to register book detail
                 var createdBookDetail = new
                 {
@@ -110,34 +110,20 @@ public partial class AddByISBNViewModel : ViewModelBase
                 //Error handling for book detail register
                 if (response1.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    MyMessageBox falied = new MyMessageBox("An unexpected error has occured.\nPlease report this issue to your IT department.", "Failed",
+                    MyMessageBox falied = new MyMessageBox(
+                        "An unexpected error has occured.\nPlease report this issue to your IT department.", "Failed",
                         MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information);
                     await falied.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
-                    Cancel();
                     return;
                 }
+
                 MyMessageBox success = new MyMessageBox("The book is added", "Success",
-                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information);
+                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information,350,150);
                 await success.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
                 var revaluate = App.AppHost.Services.GetRequiredService<BookViewModel>();
                 revaluate.GetData();
             }
-            Cancel();
         }
-        
-        if (ClickStage == 0)
-        {
-            ClickStage++;
-            ButtonContent = "Add now";
-        }
-    }
-
-    [RelayCommand]
-    void Cancel()
-    {
-        ClickStage = 0;
-        BookDetail.Quantity=0;
-        ButtonContent = "Confirm";
     }
 
     public async Task<int> RetrieveBookByISBN(string isbn)
@@ -153,7 +139,7 @@ public partial class AddByISBNViewModel : ViewModelBase
             Book = apiRespondedBook.Data;
             return 1;
         }
-        catch(HttpRequestException e)
+        catch (HttpRequestException e)
         {
             MyMessageBox error = new MyMessageBox("Unable to find the book", "Error",
                 MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
@@ -164,8 +150,7 @@ public partial class AddByISBNViewModel : ViewModelBase
 
     public bool CheckAdd()
     {
-        if (ClickStage == 0) return true;
-        return (BookDetail.Quantity != 0)&&(BookDetail.Quantity!=null);
+        return (BookDetail.Quantity != 0) && (BookDetail.Quantity != null);
     }
 }
 

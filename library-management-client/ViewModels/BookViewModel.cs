@@ -26,6 +26,12 @@ public partial class BookViewModel : ViewModelBase
     [ObservableProperty] private int _selectedNumber = 0;
 
     [ObservableProperty] private ObservableCollection<BOOK> _bookList = new();
+    [ObservableProperty] private ObservableCollection<BOOK> _bookFindList = new ObservableCollection<BOOK>();
+    [ObservableProperty] private ObservableCollection<BOOK> _showingList;
+    [ObservableProperty] private int _checkedAmount=0;
+    [ObservableProperty] private string? _filterKey;
+
+
     
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(CheckOutCommand))] private ObservableCollection<BOOK> _bookCheckedList = new();
 
@@ -42,7 +48,6 @@ public partial class BookViewModel : ViewModelBase
     void Assign()
     {
         var temp = App.AppHost!.Services.GetService<BorrowRegisterFormView>();
-        
         temp.Show();
 
         Console.WriteLine("Assigned");
@@ -78,6 +83,7 @@ public partial class BookViewModel : ViewModelBase
             var body = await response.Content.ReadAsStringAsync();
             var apiResponseBook = JsonConvert.DeserializeObject<ApiResponseBookList>(body);
             BookList = apiResponseBook.Data;
+            ShowingList = BookList;
         }
         catch (HttpRequestException e)
         {
@@ -106,7 +112,7 @@ public partial class BookViewModel : ViewModelBase
         if (SelectedBOOK.IsCheck == true)
         {
             BookCheckedList.Add(SelectedBOOK);
-            SelectedNumber += 1;
+            CheckedAmount++;
         }
         else
         {
@@ -114,8 +120,24 @@ public partial class BookViewModel : ViewModelBase
             temp1.BorrowDetailList.Remove(temp1.BorrowDetailList.FirstOrDefault(e => e.ISBN13 == SelectedBOOK.ISBN13));
 
             BookCheckedList.Remove(SelectedBOOK);
-            SelectedNumber -= 1;
+            CheckedAmount--;
         }
+    }
+
+    partial void OnFilterKeyChanged(string? oldValue, string? newValue)
+    {
+        BookFindList.Clear();
+        IsBusy = true;
+        foreach (BOOK book in BookList)
+        {
+            if (book.ISBN13.Contains(newValue) || book.Title.ToLower().Contains(newValue.ToLower()))
+            {
+                BookFindList.Add(book);
+            }
+        }
+
+        ShowingList = BookFindList;
+        IsBusy = false;
     }
 }
 
