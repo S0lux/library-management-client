@@ -46,10 +46,11 @@ public partial class AddByISBNViewModel : ViewModelBase
     [RelayCommand(CanExecute =nameof(CheckAdd) )]
     async Task AddBook()
     {
+        var loadspiner = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
         if (ClickStage == 1)
         {
-            var loadspiner = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
             loadspiner.IsBusy = true;
+            //Attempt to register book by isbn 
             var createdBook = new
             {
                 Title = Book.Title,
@@ -66,7 +67,7 @@ public partial class AddByISBNViewModel : ViewModelBase
 
             var response = await _authenticationService.PostAsync("/api/books", content);
 
-            Console.WriteLine(response.StatusCode);
+            //Error handling for book register
             if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
             {
                 loadspiner.IsBusy = false;
@@ -89,6 +90,32 @@ public partial class AddByISBNViewModel : ViewModelBase
             else
             {
                 loadspiner.IsBusy = false;
+                
+                //Attempt to register book detail
+                var createdBookDetail = new
+                {
+                    ISBN13 = Book.ISBN13,
+                    Status = "normal",
+                    Quantity = BookDetail.Quantity
+                };
+                var payload1 = new
+                {
+                    data = createdBookDetail
+                };
+                var json1 = JsonConvert.SerializeObject(payload1);
+                var content1 = new StringContent(json1, Encoding.UTF8, "application/json");
+
+                var response1 = await _authenticationService.PutAsync("/api/book_details", content1);
+
+                //Error handling for book detail register
+                if (response1.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    MyMessageBox falied = new MyMessageBox("An unexpected error has occured.\nPlease report this issue to your IT department.", "Failed",
+                        MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information);
+                    await falied.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+                    Cancel();
+                    return;
+                }
                 MyMessageBox success = new MyMessageBox("The book is added", "Success",
                     MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information);
                 await success.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
@@ -124,14 +151,14 @@ public partial class AddByISBNViewModel : ViewModelBase
             var body = await response.Content.ReadAsStringAsync();
             var apiRespondedBook = JsonConvert.DeserializeObject<ApiRespondedBook>(body);
             Book = apiRespondedBook.Data;
-            return 0;
+            return 1;
         }
         catch(HttpRequestException e)
         {
             MyMessageBox error = new MyMessageBox("Unable to find the book", "Error",
                 MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
             await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
-            return 1;
+            return 0;
         }
     }
 

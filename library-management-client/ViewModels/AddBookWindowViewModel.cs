@@ -78,7 +78,7 @@ public partial class AddBookWindowViewModel : ViewModelBase
         if (AddBy == "ISBN")
         {
             var isSuccess = await _addByIsbnViewModel.RetrieveBookByISBN(FindKey);
-            if (isSuccess == 0) IsLoaded = true;
+            if (isSuccess == 1) IsLoaded = true;
         }
 
         if (AddBy == "Title")

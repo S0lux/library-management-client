@@ -1,54 +1,54 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.AddByTitleView"
-    x:DataType="vm:AddByTitleViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid ColumnDefinitions="2* *" Margin="0,10,0,0">
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:AddByTitleViewModel"
+    mc:Ignorable="d">
+    <Grid Margin="0,10,0,0" ColumnDefinitions="2* *">
 
         <!--  DataGrid to display book list  -->
         <DataGrid
-            Classes="MemberListDataGrid"
             Grid.Column="0"
+            Margin="0,0,10,0"
+            Classes="MemberListDataGrid"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
             ItemsSource="{Binding Books}"
-            Margin="0,0,10,0"
             SelectedItem="{Binding SelectedBook, Mode=OneWayToSource}">
             <DataGrid.Columns>
                 <DataGridTextColumn
+                    Width="Auto"
                     Binding="{Binding PublishDate, StringFormat='dd/MM/yyyy'}"
-                    Header="Publish Date"
-                    Width="Auto" />
+                    Header="Publish Date" />
                 <DataGridTextColumn
+                    Width="*"
                     Binding="{Binding Title}"
-                    Header="Title"
-                    Width="*" />
+                    Header="Title" />
                 <DataGridTextColumn
-                    Binding="{Binding Author}"
-                    Header="Author"
+                    Width="Auto"
                     MaxWidth="100"
-                    Width="Auto" />
+                    Binding="{Binding Author}"
+                    Header="Author" />
                 <DataGridTextColumn
+                    Width="Auto"
                     Binding="{Binding ISBN13}"
-                    Header="ISBN"
-                    Width="Auto" />
+                    Header="ISBN" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Button
+                                    Margin="0,0,8,0"
+                                    HorizontalContentAlignment="Center"
                                     Classes="BookAdd"
                                     Command="{Binding $parent[DataGrid].((vm:AddByTitleViewModel)DataContext).RegisterBookCommand}"
-                                    CommandParameter="{Binding}"
-                                    HorizontalContentAlignment="Center"
-                                    Margin="0,0,8,0" />
+                                    CommandParameter="{Binding}" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -57,17 +57,28 @@
         </DataGrid>
 
         <!--  Book cover preview  -->
-        <Grid Background="White" Grid.Column="1">
+        <Grid
+            Grid.Column="1"
+            Background="White"
+            RowDefinitions="* auto">
             <asyncImageLoader:AdvancedImage
                 Name="CoverLoader"
+                Grid.Row="0"
                 Source="{Binding ImageUrl}"
                 Stretch="UniformToFill" />
-            <Grid>
+            <Grid Grid.Row="0">
                 <Grid
                     Background="Black"
                     IsVisible="{Binding ElementName=CoverLoader, Path=IsLoading}"
                     Opacity="0.1" />
             </Grid>
+            <TextBlock
+                Grid.Row="0"
+                VerticalAlignment="Bottom"
+                Background="Chartreuse"
+                IsVisible="{Binding ClickStage}">
+                quantity
+            </TextBlock>
         </Grid>
     </Grid>
 </UserControl>
