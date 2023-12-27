@@ -68,6 +68,8 @@ public partial class App : Application
                 services.AddSingleton<ManualAddingViewModel>();
                 services.AddSingleton<BorrowRegisterFormView>();
                 services.AddSingleton<BorrowRegisterFormViewModel>();
+                services.AddSingleton<BorrowView>();
+                services.AddSingleton<BorrowViewModel>();
                 
 
                 services.AddHttpClient("main", options =>
