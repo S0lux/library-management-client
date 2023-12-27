@@ -27,20 +27,21 @@ namespace Avalonia_DependencyInjection.ViewModels;
 public partial class MemberListViewModel : ViewModelBase
 {
     private readonly AuthenticationService _authService;
-    
-    public MEMBER selectedMember {get; set;}
+
+    public MEMBER selectedMember { get; set; }
 
     [ObservableProperty] private ObservableCollection<MEMBER> _memberList = new ObservableCollection<MEMBER>();
     [ObservableProperty] private ObservableCollection<MEMBER> _memberFindList = new ObservableCollection<MEMBER>();
     [ObservableProperty] private ObservableCollection<MEMBER> _showingList;
 
     [ObservableProperty] private bool _isBusy = false;
-    
+
     [ObservableProperty] private string? _filterKey;
     [ObservableProperty] private string _filterBy;
+
     [ObservableProperty] private ObservableCollection<string> _filterByOptions = new ObservableCollection<string>()
-        { "Name", "Member ID","Citizen ID" };
-    
+        { "Name", "Member ID", "Citizen ID" };
+
 
     public MemberListViewModel(AuthenticationService authService)
     {
@@ -63,11 +64,13 @@ public partial class MemberListViewModel : ViewModelBase
                     {
                         ShowingList = MemberList;
                     }
+
                     if (mem.Name.Contains(newValue.ToString()))
                     {
                         MemberFindList.Add(mem);
                     }
                 }
+
                 break;
             }
             case "Member ID":
@@ -78,11 +81,13 @@ public partial class MemberListViewModel : ViewModelBase
                     {
                         ShowingList = MemberList;
                     }
+
                     if (mem.MemberID.ToString().Contains(newValue.ToString()))
                     {
                         MemberFindList.Add(mem);
                     }
                 }
+
                 break;
             }
 
@@ -94,58 +99,60 @@ public partial class MemberListViewModel : ViewModelBase
                     {
                         ShowingList = MemberList;
                     }
+
                     if (mem.CitizenID.Contains(newValue.ToString()))
                     {
                         MemberFindList.Add(mem);
                     }
                 }
+
                 break;
             }
         }
-        
+
         IsBusy = false;
         ShowingList = MemberFindList;
     }
 
     public async void GetData()
     {
-        await Task.Run(async () =>
+        IsBusy = true;
+        MemberList.Clear();
+        try
         {
-            IsBusy = true;
-            MemberList.Clear();
-            try
-            {
-                var response = await _authService.GetAsync(@"/api/members");
-                response.EnsureSuccessStatusCode();
+            var response = await _authService.GetAsync(@"/api/members");
+            response.EnsureSuccessStatusCode();
 
-                var body = await response.Content.ReadAsStringAsync();
-                var apiResponseMember = JsonConvert.DeserializeObject<ApiResponseMember>(body);
-            
-                MemberList = new ObservableCollection<MEMBER>(apiResponseMember!.data.Where(e => e.Deleted == false));
-                ShowingList = MemberList;
-            }
-            catch (HttpRequestException e)
-            {
-                var box = MessageBoxManager
-                    .GetMessageBoxStandard("Error", "Add Member Failed!",
-                        ButtonEnum.YesNo);
+            var body = await response.Content.ReadAsStringAsync();
+            var apiResponseMember = JsonConvert.DeserializeObject<ApiResponseMember>(body);
 
-                var result = await box.ShowAsync();
-            }
-            IsBusy = false;
-        });
+            MemberList = new ObservableCollection<MEMBER>(apiResponseMember!.data.Where(e => e.Deleted == false));
+            ShowingList = MemberList;
+        }
+        catch (HttpRequestException e)
+        {
+            var box = MessageBoxManager
+                .GetMessageBoxStandard("Error", "Add Member Failed!",
+                    ButtonEnum.YesNo);
+
+            var result = await box.ShowAsync();
+        }
+
+        IsBusy = false;
     }
 
     [RelayCommand]
     public void Add()
     {
-
         var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<MemberRegistryFormViewModel>();
         infoBoxViewModel.AlertBoxOff();
 
         infoBoxViewModel.InputedMember = new MEMBER() { DateOfBirth = DateTime.Today, Gender = 0, Deleted = false };
 
-        infoBoxViewModel.InputedMember.PropertyChanged += (sender, args) => { infoBoxViewModel.SubmitCommand.NotifyCanExecuteChanged(); };
+        infoBoxViewModel.InputedMember.PropertyChanged += (sender, args) =>
+        {
+            infoBoxViewModel.SubmitCommand.NotifyCanExecuteChanged();
+        };
 
         var memberRegistryForm = App.AppHost!.Services.GetRequiredService<MemberRegistryForm>();
         memberRegistryForm.Show();
@@ -157,15 +164,15 @@ public partial class MemberListViewModel : ViewModelBase
         MyMessageBox myMessageBox = new MyMessageBox("Are you sure you want to delete this member?", "Confirm",
             MyMessageBox.MessageBoxButton.YesNo,
             MyMessageBox.MessageBoxImage.Question
-            );
+        );
 
         await myMessageBox.ShowDialog(App.AppHost!.Services.GetRequiredService<MainWindow>());
 
-        if(MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
+        if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
         {
             var response = await _authService.DeleteAsync($"/api/members/{selectedMember.MemberID}");
             GetData();
-        }  
+        }
     }
 
     [RelayCommand]
