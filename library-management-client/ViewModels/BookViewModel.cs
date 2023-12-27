@@ -43,7 +43,7 @@ public partial class BookViewModel : ViewModelBase
         temp.Show();
     }
     
-    public async void GetData()
+    public async Task GetData()
     {
         IsBusy = true;
         BookList.Clear();

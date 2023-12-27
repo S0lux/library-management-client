@@ -10,6 +10,7 @@ using Avalonia_DependencyInjection.Controls;
 using Avalonia_DependencyInjection.Models;
 using Avalonia_DependencyInjection.Services;
 using Avalonia_DependencyInjection.Views;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -133,7 +134,7 @@ public partial class AddByTitleViewModel: ViewModelBase
         return _authService.PostAsync("/api/books", requestContent);
     }
 
-    private void RefreshBookViewModel()
+    private async Task RefreshBookViewModel()
     {
         var bookViewModel = App.AppHost!.Services.GetRequiredService<BookViewModel>();
         bookViewModel.GetData();
