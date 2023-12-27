@@ -70,6 +70,10 @@ public partial class App : Application
                 services.AddSingleton<BorrowRegisterFormViewModel>();
                 services.AddSingleton<BookInfoView>();
                 services.AddSingleton<BookInfoViewModel>();
+                services.AddSingleton<BorrowRegisterFormView>();
+                services.AddSingleton<BorrowRegisterFormViewModel>();
+                services.AddSingleton<BorrowView>();
+                services.AddSingleton<BorrowViewModel>();
                 
 
                 services.AddHttpClient("main", options =>

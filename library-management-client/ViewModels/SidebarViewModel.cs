@@ -18,7 +18,11 @@ public partial class SidebarViewModel: ViewModelBase
 
             new("Member", typeof(MemberListViewModel), "/Assets/SVGs/users.svg"),
 
-            new("Book", typeof(BookViewModel), "/Assets/SVGs/books.svg"),
+            new("Book", null, "/Assets/SVGs/books.svg", new ObservableCollection<SidebarScreenViewModel>()
+            {
+                new("List", typeof(BookViewModel), "/Assets/SVGs/books.svg"),
+                new("Borrowed", typeof(BorrowViewModel), "/Assets/SVGs/books.svg")
+            }),
         });
     }
 }
