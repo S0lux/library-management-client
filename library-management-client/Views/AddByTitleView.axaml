@@ -72,13 +72,6 @@
                     IsVisible="{Binding ElementName=CoverLoader, Path=IsLoading}"
                     Opacity="0.1" />
             </Grid>
-            <TextBlock
-                Grid.Row="0"
-                VerticalAlignment="Bottom"
-                Background="Chartreuse"
-                IsVisible="{Binding ClickStage}">
-                quantity
-            </TextBlock>
         </Grid>
     </Grid>
 </UserControl>

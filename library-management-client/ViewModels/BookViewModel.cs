@@ -25,12 +25,11 @@ public partial class BookViewModel : ViewModelBase
 
     [ObservableProperty] private bool _isBusy = false;
 
-    [ObservableProperty] private int _selectedNumber = 0;
-
     [ObservableProperty] private ObservableCollection<BOOK> _bookList = new();
     [ObservableProperty] private ObservableCollection<BOOK> _bookFindList = new ObservableCollection<BOOK>();
     [ObservableProperty] private ObservableCollection<BOOK> _showingList;
-    [ObservableProperty] private int _checkedAmount=0;
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(InfoCommand),nameof(CheckOutCommand))] 
+    private int _checkedAmount=0;
     [ObservableProperty] private string? _filterKey;
 
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(CheckOutCommand))] private ObservableCollection<BOOK> _bookCheckedList = new();
@@ -60,6 +59,17 @@ public partial class BookViewModel : ViewModelBase
         temp.Show();
     }
 
+    [RelayCommand]
+    async Task Info()
+    {
+        var infoView = App.AppHost.Services.GetRequiredService<BookInfoView>();
+        var infoVM = App.AppHost.Services.GetRequiredService<BookInfoViewModel>();
+        infoVM.Book = SelectedBOOK;
+        infoVM.ImageUrl = $"https://covers.openlibrary.org/b/isbn/{infoVM.Book.ISBN13}-L.jpg?default=false";
+        await infoVM.GetData();
+        infoView.Show();
+    }
+
     [RelayCommand(CanExecute = nameof(checkCheckOut))]
     void CheckOut()
     {
@@ -73,11 +83,15 @@ public partial class BookViewModel : ViewModelBase
     [RelayCommand]
     async void Delete()
     {
+        
         await TrueDelete();
 
-        var box = App.AppHost!.Services.GetRequiredService<BookViewModel>();
-
-        box.GetData();
+        if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
+        {
+            var box = App.AppHost!.Services.GetRequiredService<BookViewModel>();
+            box.GetData();
+        }
+        
     }
 
     async public Task TrueDelete()
@@ -124,11 +138,12 @@ public partial class BookViewModel : ViewModelBase
 
     public bool checkCheckOut()
     {
-        if(BookCheckedList.Count > 0)
-        {
-            return true;
-        }
-        return false;
+        return (CheckedAmount > 0);
+    }
+
+    public bool CheckInfo()
+    {
+        return (CheckedAmount == 1);
     }
 
     [RelayCommand]

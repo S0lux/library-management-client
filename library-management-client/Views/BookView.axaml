@@ -140,9 +140,16 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="vm:MemberListViewModel">
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel
+                                Margin="5,0"
+                                Orientation="Horizontal"
+                                Spacing="5">
                                 <Button
-                                    Margin="0,0,13,0"
+                                    HorizontalContentAlignment="Center"
+                                    Classes="MemberListInfoButton"
+                                    Command="{Binding $parent[DataGrid].((vm:BookViewModel)DataContext).InfoCommand}">
+                                </Button>
+                                <Button
                                     HorizontalContentAlignment="Center"
                                     Classes="MemberListDeleteButton"
                                     Command="{Binding $parent[DataGrid].((vm:BookViewModel)DataContext).DeleteCommand}"

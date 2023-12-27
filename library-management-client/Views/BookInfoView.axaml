@@ -1,0 +1,73 @@
+<Window
+    x:Class="Avalonia_DependencyInjection.Views.BookInfoView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
+    Title="BookInfoView"
+    Width="600"
+    d:DesignHeight="450"
+    d:DesignWidth="500"
+    x:DataType="vm:BookInfoViewModel"
+    ExtendClientAreaChromeHints="NoChrome"
+    ExtendClientAreaTitleBarHeightHint="0"
+    ExtendClientAreaToDecorationsHint="True"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid RowDefinitions="Auto * *">
+        <Border
+            Grid.Row="0"
+            Background="Transparent"
+            DockPanel.Dock="Top"
+            PointerPressed="TitleBarContainer_OnPointerPressed">
+            <Grid HorizontalAlignment="Right">
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Classes="Close"
+                    Command="{Binding CancelCommand}"
+                    PointerEntered="Close_OnPointerEntered"
+                    PointerExited="Close_OnPointerExited">
+                    <Svg
+                        Width="15"
+                        Height="15"
+                        Path="{Binding IconPathExit}" />
+                </Button>
+            </Grid>
+        </Border>
+
+        <Grid
+            Grid.Row="1"
+            Margin="50,0"
+            Background="White"
+            RowDefinitions="* auto">
+            <asyncImageLoader:AdvancedImage
+                Name="CoverLoader"
+                Grid.Row="0"
+                Source="{Binding ImageUrl}"
+                Stretch="Uniform" />
+            <Grid Grid.Row="0">
+                <Grid
+                    Background="Black"
+                    IsVisible="{Binding ElementName=CoverLoader, Path=IsLoading}"
+                    Opacity="0.1" />
+            </Grid>
+        </Grid>
+
+        <StackPanel
+            Grid.Row="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <TextBlock>Title</TextBlock>
+            <TextBlock>Author</TextBlock>
+            <TextBlock>ISBN</TextBlock>
+            <TextBlock Text="{Binding Borrowed}" />
+            <TextBlock Text="{Binding Normal}" />
+            <TextBlock Text="{Binding Damaged}" />
+            <TextBlock Text="{Binding Lost}" />
+
+        </StackPanel>
+    </Grid>
+</Window>
