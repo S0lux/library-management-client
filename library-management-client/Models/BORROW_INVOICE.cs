@@ -19,7 +19,5 @@ namespace Avalonia_DependencyInjection.Models
         public string EmployeeID { get; set; }
 
         public DateTime BorrowingDate { get; set; }
-
-
     }
 }

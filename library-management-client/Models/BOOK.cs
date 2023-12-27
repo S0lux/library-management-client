@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Avalonia_DependencyInjection.Models
 {
-    public class BOOK
+    public partial class BOOK:ObservableValidator
     {
         
         [JsonPropertyName("isbn_13")]
@@ -21,5 +22,11 @@ namespace Avalonia_DependencyInjection.Models
         [JsonPropertyName("publish_date")]
         public DateTime PublishDate { get; set; }
 
+        [ObservableProperty]
+        public bool _isCheck;
+
+        [ObservableProperty]
+        [Required]
+        public int _borrowQuantity = 1;
     }
 }

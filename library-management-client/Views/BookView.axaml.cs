@@ -10,4 +10,12 @@ public partial class BookView : UserControl
     {
         InitializeComponent();
     }
+
+    private void Binding(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+    }
+
+    private void BookCheckedList_1(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+    }
 }

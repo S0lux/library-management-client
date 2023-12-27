@@ -107,7 +107,7 @@ public partial class MemberListViewModel : ViewModelBase
         ShowingList = MemberFindList;
     }
 
-    public async void GetData()
+    public async Task GetData()
     {
         IsBusy = true;
         MemberList.Clear();

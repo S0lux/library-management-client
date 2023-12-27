@@ -37,7 +37,7 @@
     </Style>
 
     <Style Selector="DataGrid.MemberListDataGrid DataGridColumnHeader">
-        <Setter Property="AreSeparatorsVisible" Value="False" />
+        <Setter Property="AreSeparatorsVisible" Value="True" />
     </Style>
 
 </Styles>

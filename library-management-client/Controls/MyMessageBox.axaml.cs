@@ -44,6 +44,19 @@ namespace Avalonia_DependencyInjection.Controls
 
         public static ButtonResult buttonResultClicked;
 
+        public MyMessageBox(string message)
+        {
+            InitializeComponent();
+            MessageBoxContent.Text = message;
+            MessageBoxTitle.Content = "Khang nè";
+            buttonResultClicked = ButtonResult.NULL;
+            setButton(MessageBoxButton.YesNo);
+            setIcon(MessageBoxImage.Information);
+            this.Owner = App.AppHost!.Services.GetRequiredService<MainWindow>();
+            this.Width = 400;
+            this.Height = 200;
+        }
+
         public MyMessageBox(string message, string title, MessageBoxButton button, MessageBoxImage img)
         {
             InitializeComponent();
