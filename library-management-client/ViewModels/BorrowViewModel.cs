@@ -52,6 +52,8 @@ public partial class BorrowViewModel: ViewModelBase
         var deserializedObj = JsonConvert.DeserializeObject<RootObject>(stringContent);
 
         Invoices = deserializedObj.Data;
+
+        Invoices = new ObservableCollection<CustomInvoice>(Invoices.OrderByDescending(e => e.BorrowInvoiceID));
     }
 }
 

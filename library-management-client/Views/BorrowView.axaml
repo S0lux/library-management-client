@@ -1,28 +1,28 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.BorrowView"
-    x:DataType="viewModels:BorrowViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:Avalonia_DependencyInjection.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="viewModels:BorrowViewModel"
+    mc:Ignorable="d">
 
     <Grid Margin="30,0,30,30" RowDefinitions="Auto Auto *">
         <!--  View title  -->
         <StackPanel
-            DockPanel.Dock="Top"
             Grid.Row="0"
-            HorizontalAlignment="Left"
             Margin="0,0,0,10"
-            Orientation="Horizontal"
-            VerticalAlignment="Top">
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            DockPanel.Dock="Top"
+            Orientation="Horizontal">
             <Svg
+                Width="30"
                 Height="30"
-                Path="/Assets/SVGs/books_black.svg"
-                Width="30" />
+                Path="/Assets/SVGs/books_black.svg" />
             <Label Classes="MemberListLabel">
                 Borrowed Books
             </Label>
@@ -34,20 +34,20 @@
             Orientation="Horizontal"
             Spacing="5">
             <TextBox
+                Width="200"
                 Classes="PrimaryWithIcon"
                 MaxLength="12"
                 Tag="/Assets/SVGs/magnifying-glass.svg"
-                Watermark="CCCD"
-                Width="200" />
+                Watermark="CCCD" />
             <ComboBox ItemsSource="{Binding StatusFilters}" SelectedItem="{Binding SelectedStatusFilter}" />
         </StackPanel>
 
         <DataGrid
-            Classes="MemberListDataGrid"
             Grid.Row="2"
+            Margin="0,10,0,0"
+            Classes="MemberListDataGrid"
             IsReadOnly="True"
-            ItemsSource="{Binding Invoices}"
-            Margin="0,10,0,0">
+            ItemsSource="{Binding Invoices}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding BorrowingDate}" Header="Date" />
                 <DataGridTextColumn Binding="{Binding BorrowInvoiceID}" Header="Invoice ID" />
@@ -59,15 +59,15 @@
                     Binding="{Binding Employee[0].Name}"
                     CanUserSort="False"
                     Header="Employee name" />
-                <DataGridTemplateColumn Header="Status" Width="*">
+                <DataGridTemplateColumn Width="*" Header="Status">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock
-                                Foreground="{Binding StatusColor}"
-                                HorizontalAlignment="Center"
                                 Margin="5,0"
-                                Text="{Binding Status}"
-                                VerticalAlignment="Center" />
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{Binding StatusColor}"
+                                Text="{Binding Status}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -76,9 +76,9 @@
                         <DataTemplate>
                             <Button>
                                 <Svg
+                                    Width="16"
                                     Height="16"
-                                    Path="/Assets/SVGs/eye.svg"
-                                    Width="16" />
+                                    Path="/Assets/SVGs/eye.svg" />
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
