@@ -94,7 +94,7 @@
 
         <!--  Book Assign Button  -->
         <Style Selector="Button.BookAssign:pointerover /template/ ui|FABorder#Root">
-            <Setter Property="Background" Value="RoyalBlue" />
+            <Setter Property="Background" Value="#414ee1" />
         </Style>
 
         <Style Selector="Button.BookAssign /template/ ContentPresenter#PART_ContentPresenter">
@@ -105,10 +105,14 @@
                             <Svg
                                 Width="15"
                                 Height="15"
-                                Path="/Assets/SVGs/book-circle-arrow-right.svg" />
+                                Path="/Assets/SVGs/book-circle-arrow-right-white.svg" />
                         </Grid>
                     </Template>
                 </Setter.Value>
+            </Setter>
+            <Setter Property="CornerRadius" Value="5">
+            </Setter>
+            <Setter Property="Background" Value="RoyalBlue">
             </Setter>
         </Style>
 
@@ -125,6 +129,16 @@
                     </Template>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <Style Selector="Button.BookAssign:disabled">
+            <Style Selector="^ /template/ ui|FABorder#Root">
+                <Setter Property="Background" Value="{DynamicResource ButtonBackgroundDisabled}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrushDisabled}" />
+            </Style>
+            <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundDisabled}" />
+            </Style>
         </Style>
 
         <!--  Book Add Button  -->
