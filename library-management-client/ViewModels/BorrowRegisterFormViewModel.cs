@@ -1,14 +1,18 @@
 ﻿using Avalonia_DependencyInjection.Controls;
+using Avalonia_DependencyInjection.Interfaces;
 using Avalonia_DependencyInjection.Models;
+using Avalonia_DependencyInjection.Services;
 using Avalonia_DependencyInjection.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FluentAvalonia.Core;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,12 +41,13 @@ namespace Avalonia_DependencyInjection.ViewModels
 
         BookViewModel? bookViewModel;
 
-        public BorrowRegisterFormViewModel()
+        AuthenticationService? _authService;
+
+        public BorrowRegisterFormViewModel(AuthenticationService authService)
         {
             memberSearchViewModel = App.AppHost!.Services.GetRequiredService<MemberListViewModel>();
             bookViewModel = App.AppHost!.Services.GetRequiredService<BookViewModel>();
-
-            
+            _authService = authService;
         }
 
         partial void OnFilterKeyChanged(string? oldValue, string newValue)
@@ -71,9 +76,39 @@ namespace Avalonia_DependencyInjection.ViewModels
         }
 
         [RelayCommand(CanExecute = nameof(checkSubmit))]
-        public void CheckOutta()
+        async public void CheckOutta()
         {
-            
+            List<BORROW_DETAIL> bORROW_DETAILs = new List<BORROW_DETAIL>();
+
+            foreach(BORROW_DETAIL bORROW in BorrowDetailList)
+            {
+                var borrowDetailData = new BORROW_DETAIL()
+                {
+                    ISBN13 = bORROW.ISBN13,
+                    Quantity = bORROW.Quantity,
+                    DueDate = DateTime.Now.AddDays(bORROW.BorrowDuration),
+                };
+                
+                bORROW_DETAILs.Add(borrowDetailData);
+            }
+
+            var invoiceInfo = new
+            {
+                EmployeeID = _authService.CurrentUser!.EmployeeID,
+                MemberID = BorrowMEMBER.MemberID,
+                BorrowingDate = DateTime.Now,
+                BorrowDetails = bORROW_DETAILs,
+            };
+
+            var payload = new
+            {
+                data = invoiceInfo
+            };
+
+            var json = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _authService.PostAsync("/api/books/invoices", content);
         }
 
         [RelayCommand]

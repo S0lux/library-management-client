@@ -11,10 +11,7 @@ namespace Avalonia_DependencyInjection.Models
     {
         public int BorrowInvoiceID { get; set; }
 
-        private uint _borrowDuration;
         
-        private uint _quantity;
-
         public string ISBN13 { get; set; }
 
         public uint Quantity
@@ -37,6 +34,10 @@ namespace Avalonia_DependencyInjection.Models
         
         public bool HasReturned { get; set; }
 
+
+        private uint _borrowDuration;
+        private uint _quantity;
+
         public uint BorrowDuration { get 
             { 
                 return _borrowDuration;
@@ -50,7 +51,6 @@ namespace Avalonia_DependencyInjection.Models
                 _borrowDuration = value;
             }
         }
-
         public string BookTitle { get; set; }
     }
 }
