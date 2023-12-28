@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Reactive.Linq;
 using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
@@ -24,5 +26,8 @@ namespace Avalonia_DependencyInjection.Models
 
         [ObservableProperty]
         public bool _isCheck;
+
+        [ObservableProperty]
+        public ObservableCollection<BOOK_DETAIL> _bOOK_DETAILs = new ObservableCollection<BOOK_DETAIL>();
     }
 }

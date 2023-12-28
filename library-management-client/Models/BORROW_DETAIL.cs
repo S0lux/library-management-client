@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Avalonia.Media;
+using Avalonia_DependencyInjection.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Avalonia_DependencyInjection.Models
 {
@@ -48,6 +51,15 @@ namespace Avalonia_DependencyInjection.Models
             get => _quantity;
             set
             {
+                var box = App.AppHost!.Services.GetRequiredService<BookViewModel>();
+
+                BOOK temp = box.BookList.FirstOrDefault(e => e.ISBN13 == ISBN13);
+
+                if (value > temp.BOOK_DETAILs.First(e => e.Status == "normal").Quantity && temp != null)
+                {
+                    throw new ArgumentException("Quantity can't be greater than the available amount.",);
+                }
+
                 if (value == 0)
                 {
                     throw new ArgumentException("Quantity must be greater than 0.");

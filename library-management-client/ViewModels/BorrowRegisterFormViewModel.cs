@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,11 +39,8 @@ namespace Avalonia_DependencyInjection.ViewModels
         private BORROW_DETAIL? _borrowFormSelectedBookDetail;
 
         MemberListViewModel? memberSearchViewModel;
-
         BookViewModel? bookViewModel;
-
         BorrowViewModel? borrowViewModel;
-
         AuthenticationService? _authService;
 
         public BorrowRegisterFormViewModel(AuthenticationService authService)
@@ -50,6 +48,7 @@ namespace Avalonia_DependencyInjection.ViewModels
             memberSearchViewModel = App.AppHost!.Services.GetRequiredService<MemberListViewModel>();
             bookViewModel = App.AppHost!.Services.GetRequiredService<BookViewModel>();
             borrowViewModel = App.AppHost!.Services.GetRequiredService<BorrowViewModel>();
+            
             _authService = authService;
         }
 
@@ -156,5 +155,6 @@ namespace Avalonia_DependencyInjection.ViewModels
                 }
             }
         }
+
     }
 }

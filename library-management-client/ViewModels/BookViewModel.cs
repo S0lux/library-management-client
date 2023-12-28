@@ -124,6 +124,27 @@ public partial class BookViewModel : ViewModelBase
             var apiResponseBook = JsonConvert.DeserializeObject<ApiResponseBookList>(body);
             BookList = apiResponseBook.Data;
             ShowingList = BookList;
+
+            response = await _authenticationService.GetAsync(@"/api/book_details");
+            response.EnsureSuccessStatusCode();
+
+            body = await response.Content.ReadAsStringAsync();
+            var apiResponseMember = JsonConvert.DeserializeObject<ApiResBookDetail>(body);
+
+            var retrievedBookDetail = new ObservableCollection<BOOK_DETAIL>(apiResponseMember!.data);
+            
+            foreach (BOOK bOOK in BookList)
+            {
+                foreach (BOOK_DETAIL bt in retrievedBookDetail)
+                {
+                    if (bt.ISBN13 == bOOK.ISBN13)
+                    {
+                        bOOK.BOOK_DETAILs.Add(bt);
+                    }
+                }
+            }
+
+
         }
         catch (HttpRequestException e)
         {
