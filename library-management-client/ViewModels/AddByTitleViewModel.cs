@@ -88,7 +88,15 @@ public partial class AddByTitleViewModel: ViewModelBase
         {
             loadingSpinner.IsBusy = true;
 
-            var postResult = await PostBookAsync(book);
+            var newBook = new
+            {
+                ISBN13 = book.ISBN13,
+                Title = book.Title,
+                Author = book.Author,
+                PublishDate = book.PublishDate.ToString("O")
+            };
+
+            var postResult = await PostBookAsync(newBook);
             var resultContentString = GetResultContentString(postResult.StatusCode);
             var resultBoxIcon = GetResultBoxIcon(postResult.StatusCode);
 
@@ -177,7 +185,7 @@ public partial class AddByTitleViewModel: ViewModelBase
         resultBox.Show();
     }
 
-    private Task<HttpResponseMessage> PostBookAsync(BOOK book)
+    private Task<HttpResponseMessage> PostBookAsync(object book)
     {
         var payload = new
         {

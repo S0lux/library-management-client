@@ -114,7 +114,7 @@ namespace Avalonia_DependencyInjection.Models
         {
             if (returned + damaged + lost > Quantity)
             {
-                throw new ArgumentException("The sum of Returned, Damaged, and Lost must not exceed Quantity.");
+                throw new ArgumentException("The sum of Returned, Damaged, and Lost must not be greater than Quantity.");
             }
         }
         
