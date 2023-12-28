@@ -38,6 +38,7 @@
                 Classes="PrimaryWithIcon"
                 MaxLength="12"
                 Tag="/Assets/SVGs/magnifying-glass.svg"
+                Text="{Binding FindKey}"
                 Watermark="CCCD" />
             <ComboBox
                 Classes="MemberListComboBox"
@@ -50,7 +51,7 @@
             Margin="0,10,0,0"
             Classes="MemberListDataGrid"
             IsReadOnly="True"
-            ItemsSource="{Binding Invoices}">
+            ItemsSource="{Binding ShowingList}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding BorrowingDate}" Header="Date" />
                 <DataGridTextColumn Binding="{Binding BorrowInvoiceID}" Header="Invoice ID" />

@@ -22,18 +22,129 @@ public partial class BorrowViewModel: ViewModelBase
     private readonly AuthenticationService _authService;
 
     [ObservableProperty] private string _selectedStatusFilter;
-    [ObservableProperty] private ObservableCollection<CustomInvoice> _invoices;
+    [ObservableProperty] private string _findKey;
+    [ObservableProperty] private ObservableCollection<CustomInvoice> _invoices=new();
+    [ObservableProperty] private ObservableCollection<CustomInvoice> _invoicesFindList=new();
+    [ObservableProperty] private ObservableCollection<CustomInvoice> _showingList=new();
+
     [ObservableProperty] private ObservableCollection<string> _statusFilters = new ObservableCollection<string>()
     {
-        "Ongoing", "Overdue", "Completed"
+        "All" , "Ongoing" , "Overdue" , "Completed"
     };
 
     public BorrowViewModel(AuthenticationService authService)
     {
         _authService = authService;
-        SelectedStatusFilter = "Overdue";
+        SelectedStatusFilter=StatusFilters.FirstOrDefault();
         RetrieveInvoices();
     }
+
+    partial void OnFindKeyChanged(string value)
+    {
+       InvoicesFindList.Clear();
+       switch (SelectedStatusFilter)
+       {
+           case "Ongoing":
+               foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Ongoing"))
+               {
+                   foreach (MEMBER mem in ci.Member)
+                   {
+                       if (mem.CitizenID.ToLower().Contains(value.ToLower())) InvoicesFindList.Add(ci);
+                   }
+               }
+    
+               break;
+            
+           case "Overdue":
+               foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Overdue"))
+               {
+                   foreach (MEMBER mem in ci.Member)
+                   {
+                       if (mem.CitizenID.ToLower().Contains(value.ToLower())) InvoicesFindList.Add(ci);
+                   }
+               }
+    
+               break;
+            
+           case "Completed":
+               foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Completed"))
+               {
+                   foreach (MEMBER mem in ci.Member)
+                   {
+                       if (mem.CitizenID.ToLower().Contains(value.ToLower())) InvoicesFindList.Add(ci);
+                   }
+               }
+    
+               break;
+           
+           case "All":
+               foreach (CustomInvoice ci in Invoices)
+               {
+                   foreach (MEMBER mem in ci.Member)
+                   {
+                       if (mem.CitizenID.ToLower().Contains(value.ToLower())) InvoicesFindList.Add(ci);
+                   }
+               }
+
+               break;
+       }
+
+       ShowingList = InvoicesFindList;
+    }
+
+    partial void OnSelectedStatusFilterChanged(string? oldValue, string newValue)
+    {
+        InvoicesFindList.Clear();
+        string finkey = FindKey;
+        switch (newValue)
+        {
+            case "Ongoing":
+                foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Ongoing"))
+                {
+                    foreach (MEMBER mem in ci.Member)
+                    {
+                        if (mem.CitizenID.ToLower().Contains(finkey.ToLower())) InvoicesFindList.Add(ci);
+                    }
+                }
+    
+                break;
+            
+            case "Overdue":
+                foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Overdue"))
+                {
+                    foreach (MEMBER mem in ci.Member)
+                    {
+                        if (mem.CitizenID.ToLower().Contains(finkey.ToLower())) InvoicesFindList.Add(ci);
+                    }
+                }
+    
+                break;
+            
+            case "Completed":
+                foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Completed"))
+                {
+                    foreach (MEMBER mem in ci.Member)
+                    {
+                        if (mem.CitizenID.ToLower().Contains(finkey.ToLower())) InvoicesFindList.Add(ci);
+                    }
+                }
+    
+                break;
+            
+            case "All":
+                foreach (CustomInvoice ci in Invoices)
+                {
+                    foreach (MEMBER mem in ci.Member)
+                    {
+                        if (mem.CitizenID.ToLower().Contains(FindKey.ToLower())) InvoicesFindList.Add(ci);
+                    }
+                }
+
+                break;
+        }
+        ShowingList = InvoicesFindList;
+    }
+
 
     public async Task RetrieveInvoices()
     {
@@ -58,6 +169,7 @@ public partial class BorrowViewModel: ViewModelBase
         Invoices = deserializedObj.Data;
 
         Invoices = new ObservableCollection<CustomInvoice>(Invoices.OrderByDescending(e => e.BorrowInvoiceID));
+        ShowingList = Invoices;
     }
 
     [RelayCommand]
