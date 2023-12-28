@@ -84,6 +84,7 @@ public class AuthenticationService: IAuthService
         
         var body = await response.Content.ReadAsStringAsync();
         CurrentUser = JsonSerializer.Deserialize<AuthUser>(body);
+        CurrentUser.remember = true;
         
         return true;
     }
