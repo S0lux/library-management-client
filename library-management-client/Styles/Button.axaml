@@ -1,11 +1,14 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Design.PreviewWith>
         <Border Padding="20">
-            <Button Classes="MemberListAddButton" Content="Hello Word" />
+            <Button
+                Classes="MemberListAddButton"
+                Content="Hello Word"
+                IsEnabled="False" />
         </Border>
     </Design.PreviewWith>
 
@@ -20,6 +23,14 @@
             <Setter Property="Foreground" Value="White" />
         </Style>
 
+        <Style Selector="Button.MemberListAddButton:disabled">
+            <Style Selector="^ /template/ ui|FABorder#Root">
+                <Setter Property="Background" Value="Black" />
+                <Setter Property="BorderBrush" Value="Black" />
+                <Setter Property="Opacity" Value="0.25" />
+            </Style>
+        </Style>
+
         <!--  Delete Button  -->
 
         <Style Selector="Button.MemberListDeleteButton:pointerover /template/ ui|FABorder#Root">
@@ -32,9 +43,9 @@
                     <Template>
                         <Grid>
                             <Svg
-                                Width="13"
                                 Height="13"
-                                Path="/Assets/SVGs/trash-can-solid.svg" />
+                                Path="/Assets/SVGs/trash-can-solid.svg"
+                                Width="13" />
                         </Grid>
                     </Template>
                 </Setter.Value>
@@ -47,9 +58,9 @@
                     <Template>
                         <Grid>
                             <Svg
-                                Width="13"
                                 Height="13"
-                                Path="/Assets/SVGs/trash-can-regular.svg" />
+                                Path="/Assets/SVGs/trash-can-regular.svg"
+                                Width="13" />
                         </Grid>
                     </Template>
                 </Setter.Value>
@@ -68,9 +79,9 @@
                     <Template>
                         <Grid>
                             <Svg
-                                Width="13"
                                 Height="13"
-                                Path="/Assets/SVGs/pen-to-square.svg" />
+                                Path="/Assets/SVGs/pen-to-square.svg"
+                                Width="13" />
                         </Grid>
                     </Template>
                 </Setter.Value>
@@ -83,9 +94,9 @@
                     <Template>
                         <Grid>
                             <Svg
-                                Width="13"
                                 Height="13"
-                                Path="/Assets/SVGs/pen-to-square-regular.svg" />
+                                Path="/Assets/SVGs/pen-to-square-regular.svg"
+                                Width="13" />
                         </Grid>
                     </Template>
                 </Setter.Value>
@@ -103,17 +114,15 @@
                     <Template>
                         <Grid>
                             <Svg
-                                Width="15"
                                 Height="15"
-                                Path="/Assets/SVGs/book-circle-arrow-right-white.svg" />
+                                Path="/Assets/SVGs/book-circle-arrow-right-white.svg"
+                                Width="15" />
                         </Grid>
                     </Template>
                 </Setter.Value>
             </Setter>
-            <Setter Property="CornerRadius" Value="5">
-            </Setter>
-            <Setter Property="Background" Value="RoyalBlue">
-            </Setter>
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Background" Value="RoyalBlue" />
         </Style>
 
         <Style Selector="Button.BookAssign:pointerover /template/ ContentPresenter#PART_ContentPresenter">
@@ -122,9 +131,9 @@
                     <Template>
                         <Grid>
                             <Svg
-                                Width="15"
                                 Height="15"
-                                Path="/Assets/SVGs/book-circle-arrow-right-white.svg" />
+                                Path="/Assets/SVGs/book-circle-arrow-right-white.svg"
+                                Width="15" />
                         </Grid>
                     </Template>
                 </Setter.Value>
@@ -152,9 +161,9 @@
                     <Template>
                         <Grid>
                             <Svg
-                                Width="15"
                                 Height="15"
-                                Path="/Assets/SVGs/circle-plus.svg" />
+                                Path="/Assets/SVGs/circle-plus.svg"
+                                Width="15" />
                         </Grid>
                     </Template>
                 </Setter.Value>
@@ -167,9 +176,9 @@
                     <Template>
                         <Grid>
                             <Svg
-                                Width="15"
                                 Height="15"
-                                Path="/Assets/SVGs/circle-plus-white.svg" />
+                                Path="/Assets/SVGs/circle-plus-white.svg"
+                                Width="15" />
                         </Grid>
                     </Template>
                 </Setter.Value>

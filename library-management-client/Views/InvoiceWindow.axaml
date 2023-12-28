@@ -231,7 +231,7 @@
                             Height="16"
                             Path="/Assets/SVGs/floppy-disk-solid.svg"
                             Width="16" />
-                        <Label Content="Save" />
+                        <Label Content="Save" Foreground="White" />
                     </StackPanel>
                 </Button>
             </Grid>
