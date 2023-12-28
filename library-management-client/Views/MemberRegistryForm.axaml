@@ -239,48 +239,6 @@
                             </Grid>
 
                         </Border>
-                        <Border
-                            VerticalAlignment="Center"
-                            Background="RoyalBlue"
-                            BorderBrush="#214cce"
-                            BorderThickness="2"
-                            CornerRadius="5"
-                            IsVisible="{Binding NotifySuccess}">
-                            <Grid ColumnDefinitions="* auto">
-                                <Grid
-                                    Grid.Column="0"
-                                    VerticalAlignment="Center"
-                                    ColumnDefinitions="auto *"
-                                    RowDefinitions="auto *">
-                                    <ic:SymbolIcon
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Margin="5,5,5,0"
-                                        FontSize="25"
-                                        Foreground="White"
-                                        Symbol="Checkmark" />
-                                    <Label
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Content="Success!"
-                                        Foreground="White" />
-                                </Grid>
-                                <Button
-                                    Grid.Column="1"
-                                    VerticalAlignment="Top"
-                                    Background="Transparent"
-                                    BorderBrush="Transparent"
-                                    BorderThickness="0"
-                                    Classes="CollapseAlert"
-                                    Command="{Binding AlertBoxOffCommand}">
-                                    <Svg
-                                        Width="10"
-                                        Height="15"
-                                        Path="/Assets/SVGs/xmark-white.svg" />
-                                </Button>
-                            </Grid>
-
-                        </Border>
 
 
                     </StackPanel>

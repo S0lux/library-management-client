@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Avalonia_DependencyInjection.Controls;
 using Avalonia_DependencyInjection.Models;
 using Avalonia_DependencyInjection.Services;
 using Avalonia_DependencyInjection.ViewModels;
@@ -33,7 +34,6 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     
     [ObservableProperty] private bool _hasError = false;
     [ObservableProperty] private string? _errorMessage;
-    [ObservableProperty] private bool _notifySuccess = false;
 
     public MemberRegistryFormViewModel(AuthenticationService authService)
     {
@@ -88,17 +88,18 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
                 return;
             }
 
-            if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
+            if (response.StatusCode == HttpStatusCode.BadRequest)
             {
                 HasError = true;
-                ErrorMessage = "Bad Connection";
+                ErrorMessage = "An error has occured";
                 return;
             }
             else
             {
-                NotifySuccess = true;
+                MyMessageBox mess = new MyMessageBox("New member created", "Success",
+                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information,350,150);
+                await mess.ShowDialog(App.AppHost!.Services.GetRequiredService<MemberRegistryForm>());
             }
-
             addMemberWindow.GetData();
         }
         else
@@ -134,16 +135,19 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
                 return;
             }
 
-            if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
+            if (response.StatusCode == HttpStatusCode.BadRequest)
             {
                 HasError = true;
-                ErrorMessage = "Bad Connection";
+                ErrorMessage = "An error has occured";
                 return;
             }
             else
             {
-                NotifySuccess = true;
+                MyMessageBox mess = new MyMessageBox("Selected member updated", "Success",
+                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information,350,150);
+                await mess.ShowDialog(App.AppHost!.Services.GetRequiredService<MemberRegistryForm>());
             }
+            Console.WriteLine(response.StatusCode);
         }
 
         await Task.Run(() => Thread.Sleep(500));
@@ -165,6 +169,5 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     public void AlertBoxOff()
     {
         HasError = false;
-        NotifySuccess = false;
     }
 }
