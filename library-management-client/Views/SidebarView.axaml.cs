@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
 using Avalonia_DependencyInjection.Controls;
+using Avalonia_DependencyInjection.Services;
 
 namespace Avalonia_DependencyInjection.Views;
 
@@ -67,7 +68,11 @@ public partial class SidebarView : UserControl
 
         if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
         {
+            var _authService = App.AppHost!.Services.GetRequiredService<AuthenticationService>();
+            await _authService.GetAsync("/api/logout");
+            
             File.Delete("userToken.txt");
+            
             var win=App.AppHost!.Services.GetRequiredService<MainWindowViewModel>();
             win.ContentViewModel = App.AppHost.Services.GetRequiredService<LoginViewModel>();
         }
