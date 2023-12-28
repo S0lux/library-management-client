@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Avalonia_DependencyInjection.Controls;
@@ -22,10 +23,10 @@ public partial class AddBookWindowViewModel : ViewModelBase
     [ObservableProperty] private string _iconPathExit="/Assets/SVGs/xmark-royalblue.svg";
 
     [ObservableProperty] private ObservableCollection<string> _addByOptions = new ObservableCollection<string>()
-        { "ISBN", "Title", "Manual" };
+        { "Title", "ISBN" };
 
     [ObservableProperty] private string _addBy;
-    [ObservableProperty] private bool _isEnable = true;
+    //[ObservableProperty] private bool _isEnable = true;
     [ObservableProperty] private string _addByWaterMark;
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(FindCommand))] private string _findKey;
     [ObservableProperty] private bool _isBusy=false;
@@ -43,7 +44,7 @@ public partial class AddBookWindowViewModel : ViewModelBase
         _addByIsbnViewModel = addByIsbnViewModel;
         _addByTitleViewModel = addByTitleViewModel;
         _manualAddingViewModel = manualAddingViewModel;
-        AddBy = "ISBN";
+        AddBy = AddByOptions.FirstOrDefault();
     }
     
     partial void OnAddByChanged(string? oldValue, string newValue)
@@ -53,26 +54,21 @@ public partial class AddBookWindowViewModel : ViewModelBase
             case "ISBN":
                 CurrentAddView = _addByIsbnViewModel;
                 AddByWaterMark = "ISBN number";
-                IsEnable = true;
+                FindKey = string.Empty;
+                IsLoaded = false;
                 break;
             case "Title":
                 CurrentAddView = _addByTitleViewModel;
                 AddByWaterMark = "Book title";
-                IsEnable = true;
+                FindKey = string.Empty;
+                IsLoaded = false;
                 break;
-            case "Manual":
-                CurrentAddView = _manualAddingViewModel;
-                AddByWaterMark = "";
-                IsEnable = false;
-                break;
-                
         }
     }
 
     [RelayCommand(CanExecute = nameof(CheckFind))]
     public async Task Find()
     {
-        Console.WriteLine("Executed");
         IsLoaded = false;
         IsBusy = true;
         if (AddBy == "ISBN")
