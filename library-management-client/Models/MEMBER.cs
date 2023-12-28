@@ -9,13 +9,23 @@ namespace Avalonia_DependencyInjection.Models
         [Key] 
         public int MemberID { get; set; }
 
-        [ObservableProperty] [NotifyDataErrorInfo] [Required] [Phone] private string _citizenID;
+        [ObservableProperty] [NotifyDataErrorInfo] 
+        [Required(ErrorMessage = "This information is required")] 
+        [Phone(ErrorMessage = "Characters are not allowed")] 
+        private string _citizenID;
 
-        [ObservableProperty] [NotifyDataErrorInfo] [Required]  private string _name;
+        [ObservableProperty] [NotifyDataErrorInfo] 
+        [Required(ErrorMessage = "This information is required")]  
+        private string _name;
 
-        [ObservableProperty] [NotifyDataErrorInfo] [Required] private string _address;
+        [ObservableProperty] [NotifyDataErrorInfo] 
+        [Required(ErrorMessage = "This information is required")]
+        private string _address;
 
-        [ObservableProperty] [NotifyDataErrorInfo] [Required] [Phone] private string _phoneNumber;
+        [ObservableProperty] [NotifyDataErrorInfo]
+        [Required(ErrorMessage = "This information is required")] 
+        [Phone(ErrorMessage = "Characters are not allowed")] 
+        private string _phoneNumber;
 
         [ObservableProperty] private int _credit;
 
