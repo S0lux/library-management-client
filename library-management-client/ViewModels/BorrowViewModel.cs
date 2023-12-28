@@ -22,7 +22,7 @@ public partial class BorrowViewModel: ViewModelBase
     private readonly AuthenticationService _authService;
 
     [ObservableProperty] private string _selectedStatusFilter;
-    [ObservableProperty] private string _findKey;
+    [ObservableProperty] private string? _findKey;
     [ObservableProperty] private ObservableCollection<CustomInvoice> _invoices=new();
     [ObservableProperty] private ObservableCollection<CustomInvoice> _invoicesFindList=new();
     [ObservableProperty] private ObservableCollection<CustomInvoice> _showingList=new();
@@ -95,7 +95,7 @@ public partial class BorrowViewModel: ViewModelBase
     partial void OnSelectedStatusFilterChanged(string? oldValue, string newValue)
     {
         InvoicesFindList.Clear();
-        string finkey = FindKey;
+        string finkey = (FindKey == null) ? "" : FindKey;
         switch (newValue)
         {
             case "Ongoing":
@@ -136,7 +136,7 @@ public partial class BorrowViewModel: ViewModelBase
                 {
                     foreach (MEMBER mem in ci.Member)
                     {
-                        if (mem.CitizenID.ToLower().Contains(FindKey.ToLower())) InvoicesFindList.Add(ci);
+                        if (mem.CitizenID.ToLower().Contains(finkey.ToLower())) InvoicesFindList.Add(ci);
                     }
                 }
 
