@@ -55,9 +55,9 @@ namespace Avalonia_DependencyInjection.Models
 
                 BOOK temp = box.BookList.FirstOrDefault(e => e.ISBN13 == ISBN13);
 
-                if (value > temp.BOOK_DETAILs.First(e => e.Status == "normal").Quantity && temp != null)
+                if ( temp!=null && value > temp.BOOK_DETAILs.First(e => e.Status == "normal").Quantity)
                 {
-                    throw new ArgumentException("Quantity can't be greater than the available amount.",);
+                    throw new ArgumentException("Quantity can't be greater than the available amount.");
                 }
 
                 if (value == 0)
