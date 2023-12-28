@@ -46,6 +46,7 @@ namespace Avalonia_DependencyInjection.Models
         }
 
         private uint _quantity;
+        
         public uint Quantity
         {
             get => _quantity;
