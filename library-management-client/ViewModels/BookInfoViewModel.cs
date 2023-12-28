@@ -45,27 +45,6 @@ public partial class BookInfoViewModel:ViewModelBase
     {
         try
         {
-            //var response = await _authService.GetAsync(@"/api/book_details");
-            //response.EnsureSuccessStatusCode();
-
-            //var body = await response.Content.ReadAsStringAsync();
-            //apiResponseMember = JsonConvert.DeserializeObject<ApiResBookDetail>(body);
-
-            //var retrievedBookDetail = new ObservableCollection<BOOK_DETAIL>(apiResponseMember!.data.Where(e=> e.ISBN13==Book.ISBN13));
-            //foreach (BOOK_DETAIL bt in retrievedBookDetail)
-            //{
-            //    switch (bt.Status)
-            //    {
-            //        case "normal": Normal = bt.Quantity;
-            //            break;
-            //        case "damaged": Damaged = bt.Quantity;
-            //            break;
-            //        case "lost": Lost = bt.Quantity;
-            //            break;
-            //        case "borrowed": Borrowed = bt.Quantity;
-            //            break;
-            //    }
-            //}
 
             Normal = Book.BOOK_DETAILs.First(e => e.Status == "normal").Quantity;
             Damaged = Book.BOOK_DETAILs.First(e => e.Status == "damaged").Quantity;
