@@ -1,3 +1,4 @@
+using Avalonia_DependencyInjection.Services;
 using Avalonia_DependencyInjection.ViewModels;
 using Avalonia.Controls;
 

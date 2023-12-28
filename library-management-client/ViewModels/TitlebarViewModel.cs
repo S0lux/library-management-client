@@ -1,9 +1,11 @@
 using System;
 using Avalonia_DependencyInjection.Views;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace Avalonia_DependencyInjection.ViewModels;
 
@@ -23,7 +25,10 @@ public partial class TitlebarViewModel : ViewModelBase
     [RelayCommand]
     void CloseApplication()
     {
-        Environment.Exit(0);
+        if (App.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            desktop.TryShutdown();
+        }
     }
 
     [RelayCommand]
