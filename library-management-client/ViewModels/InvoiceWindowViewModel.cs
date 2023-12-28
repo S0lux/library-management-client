@@ -12,6 +12,7 @@ using Avalonia_DependencyInjection.Models;
 using Avalonia_DependencyInjection.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
 namespace Avalonia_DependencyInjection.ViewModels;
@@ -84,7 +85,17 @@ public partial class InvoiceWindowViewModel: ViewModelBase
         }
 
         await Task.WhenAll(tasks);
-        IsLoading = false;
+
+        var res = await _authService.GetAsync($"/api/books/invoices/{Invoice.BorrowInvoiceID}");
+        if (res.StatusCode == HttpStatusCode.OK)
+        {
+            var body = await res.Content.ReadAsStringAsync();
+            var newInvoice = JsonConvert.DeserializeObject<CustomInvoice>(body);
+            Invoice = newInvoice;
+
+            var borrowVM = App.AppHost!.Services.GetRequiredService<BorrowViewModel>();
+            await borrowVM.RetrieveInvoices();
+        }
     }
 
     private async Task<string> FetchBookTitle(string isbn)
