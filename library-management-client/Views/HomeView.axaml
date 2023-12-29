@@ -176,7 +176,7 @@
                                     Width="30" />
 
                                 <Label
-                                    Content="75"
+                                    Content="{Binding AvailableBooks}"
                                     FontSize="25"
                                     FontWeight="DemiBold"
                                     Foreground="RoyalBlue"
@@ -205,7 +205,7 @@
                                     Width="30" />
 
                                 <Label
-                                    Content="75"
+                                    Content="{Binding BorrowedBooks}"
                                     FontSize="30"
                                     FontWeight="DemiBold"
                                     Foreground="#f6c321"
@@ -234,7 +234,7 @@
                                     Width="30" />
 
                                 <Label
-                                    Content="75"
+                                    Content="{Binding DamagedBooks}"
                                     FontSize="30"
                                     FontWeight="DemiBold"
                                     Foreground="#d65029"
@@ -263,7 +263,7 @@
                                     Width="30" />
 
                                 <Label
-                                    Content="75"
+                                    Content="{Binding LostBooks}"
                                     FontSize="30"
                                     FontWeight="DemiBold"
                                     Foreground="gray"

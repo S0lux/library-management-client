@@ -23,6 +23,10 @@ public partial class HomeViewModel: ViewModelBase
     [ObservableProperty] private AuthUser? _currentUser;
     [ObservableProperty] private ObservableCollection<MEMBER> _members;
     [ObservableProperty] private ObservableCollection<string> _labels = new ObservableCollection<string>();
+    [ObservableProperty] private int _availableBooks;
+    [ObservableProperty] private int _borrowedBooks;
+    [ObservableProperty] private int _damagedBooks;
+    [ObservableProperty] private int _lostBooks;
     [ObservableProperty] private ObservableCollection<Axis> _xAxis = new ObservableCollection<Axis>
     {
         new Axis
@@ -43,6 +47,7 @@ public partial class HomeViewModel: ViewModelBase
         _authenticationService = authenticationService;
         CurrentUser = authenticationService.CurrentUser;
         FetchMembers();
+        UpdateCounts();
     }
 
     public void UpdateChart()
@@ -95,6 +100,27 @@ public partial class HomeViewModel: ViewModelBase
             var deserialized = JsonConvert.DeserializeObject<ApiResponseMember>(jsonString);
             Members = deserialized.data;
             UpdateChart();
+        }
+    }
+
+    public async Task UpdateCounts()
+    {
+        var response = await _authenticationService.GetAsync("/api/book_details");
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            var responseJson = await response.Content.ReadAsStringAsync();
+            var deserializedObj = JsonConvert.DeserializeObject<ApiResBookDetail>(responseJson);
+            var data = deserializedObj.data;
+
+            AvailableBooks = BorrowedBooks = DamagedBooks = LostBooks = 0;
+
+            foreach (var bookDetail in data)
+            {
+                if (bookDetail.Status == "normal") AvailableBooks += bookDetail.Quantity is int value ? value : 0;
+                if (bookDetail.Status == "borrowed") BorrowedBooks += bookDetail.Quantity is int value ? value : 0;
+                if (bookDetail.Status == "damaged") DamagedBooks += bookDetail.Quantity is int value ? value : 0;
+                if (bookDetail.Status == "lost") LostBooks += bookDetail.Quantity is int value ? value : 0;
+            }
         }
     }
 }
