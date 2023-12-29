@@ -19,15 +19,16 @@
     <Application.Styles>
         <FluentTheme />
         <StyleInclude Source="avares://AsyncImageLoader.Avalonia/AdvancedImage.axaml" />
+        <StyleInclude Source="/Controls/LoadingSpinner.axaml" />
         <StyleInclude Source="/Styles/Global.axaml" />
         <StyleInclude Source="/Styles/LoginControls.axaml" />
         <StyleInclude Source="/Styles/Label.axaml" />
         <StyleInclude Source="/Styles/Calendar.axaml" />
-        <StyleInclude Source="/Controls/LoadingSpinner.axaml" />
         <StyleInclude Source="/Styles/Button.axaml" />
         <StyleInclude Source="/Styles/DataGrid.axaml" />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
         <StyleInclude Source="/Styles/TextBox.axaml" />
         <StyleInclude Source="/Styles/ComboBox.axaml" />
-        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+        <StyleInclude Source="/Styles/Svg.axaml" />
     </Application.Styles>
 </Application>

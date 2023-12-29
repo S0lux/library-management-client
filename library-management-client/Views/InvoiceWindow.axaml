@@ -28,19 +28,6 @@
             <Setter Property="Background" Value="LightSlateGray" />
         </Style>
 
-        <!--  Spinner animation  -->
-        <Style Selector="Svg.IsSpinning">
-            <Style.Animations>
-                <Animation Duration="0:0:1" IterationCount="INFINITE">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="RotateTransform.Angle" Value="0" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="RotateTransform.Angle" Value="360" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
     </Window.Styles>
 
     <DockPanel>

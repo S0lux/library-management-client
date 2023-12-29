@@ -23,28 +23,66 @@
                 Height="30"
                 Path="/Assets/SVGs/hand-holding-box-black.svg"
                 Width="30" />
-            <Label Classes="MemberListLabel">
-                Borrowed Books
-            </Label>
+            <StackPanel
+                Orientation="Horizontal"
+                Spacing="10"
+                VerticalAlignment="Center">
+                <Label Classes="MemberListLabel">
+                    Borrowed Books
+                </Label>
+                <Svg
+                    Classes.IsSpinning="{Binding IsLoading}"
+                    Height="25"
+                    IsVisible="{Binding IsLoading}"
+                    Path="/Assets/SVGs/arrows-rotate-solid.svg"
+                    Width="25" />
+            </StackPanel>
         </StackPanel>
 
         <!--  Filters  -->
-        <StackPanel
+        <Border
+            Background="White"
+            CornerRadius="5"
             Grid.Row="1"
-            Orientation="Horizontal"
-            Spacing="5">
-            <TextBox
-                Classes="PrimaryWithIcon"
-                MaxLength="12"
-                Tag="/Assets/SVGs/magnifying-glass.svg"
-                Text="{Binding FindKey}"
-                Watermark="CCCD"
-                Width="200" />
-            <ComboBox
-                Classes="MemberListComboBox"
-                ItemsSource="{Binding StatusFilters}"
-                SelectedItem="{Binding SelectedStatusFilter}" />
-        </StackPanel>
+            Padding="10,10">
+            <DockPanel>
+                <TextBox
+                    Classes="PrimaryWithIcon"
+                    Margin="0,0,5,0"
+                    MaxLength="12"
+                    Tag="/Assets/SVGs/magnifying-glass.svg"
+                    Text="{Binding FindKey}"
+                    VerticalContentAlignment="Center"
+                    Watermark="CCCD"
+                    Width="200" />
+                <ComboBox
+                    Classes="MemberListComboBox"
+                    ItemsSource="{Binding StatusFilters}"
+                    SelectedItem="{Binding SelectedStatusFilter}"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center" />
+
+                <!--  Refresh button  -->
+                <Button
+                    Background="#31bc70"
+                    Classes="MemberListAddButton"
+                    Command="{Binding RetrieveInvoicesCommand}"
+                    DockPanel.Dock="Right"
+                    Height="40"
+                    HorizontalAlignment="Right"
+                    Padding="13">
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+                        <Svg
+                            Height="16"
+                            Path="/Assets/SVGs/rotate-right-white.svg"
+                            Width="16" />
+                    </StackPanel>
+                </Button>
+            </DockPanel>
+        </Border>
 
         <DataGrid
             Classes="MemberListDataGrid"

@@ -114,6 +114,7 @@ public partial class MemberListViewModel : ViewModelBase
         ShowingList = MemberFindList;
     }
 
+    [RelayCommand]
     public async Task GetData()
     {
         IsBusy = true;

@@ -1,27 +1,27 @@
 <Window
+    ExtendClientAreaChromeHints="NoChrome"
+    ExtendClientAreaTitleBarHeightHint="0"
+    ExtendClientAreaToDecorationsHint="True"
+    Height="300"
+    Title="BookInfoView"
+    Width="550"
+    WindowStartupLocation="CenterScreen"
+    d:DesignHeight="450"
+    d:DesignWidth="500"
+    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.BookInfoView"
+    x:DataType="vm:BookInfoViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-    Title="BookInfoView"
-    Width="550"
-    Height="300"
-    d:DesignHeight="450"
-    d:DesignWidth="500"
-    x:DataType="vm:BookInfoViewModel"
-    ExtendClientAreaChromeHints="NoChrome"
-    ExtendClientAreaTitleBarHeightHint="0"
-    ExtendClientAreaToDecorationsHint="True"
-    WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid RowDefinitions="Auto *">
         <Border
-            Grid.Row="0"
             Background="Transparent"
             DockPanel.Dock="Top"
+            Grid.Row="0"
             PointerPressed="TitleBarContainer_OnPointerPressed">
             <Grid HorizontalAlignment="Right">
                 <Button
@@ -32,24 +32,24 @@
                     PointerEntered="Close_OnPointerEntered"
                     PointerExited="Close_OnPointerExited">
                     <Svg
-                        Width="15"
                         Height="15"
-                        Path="{Binding IconPathExit}" />
+                        Path="{Binding IconPathExit}"
+                        Width="15" />
                 </Button>
             </Grid>
         </Border>
 
         <Grid
+            ColumnDefinitions="0.5* *"
             Grid.Row="1"
-            Margin="30,25"
-            ColumnDefinitions="0.5* *">
+            Margin="30,25">
             <Grid
-                Grid.Column="0"
                 Background="White"
+                Grid.Column="0"
                 RowDefinitions="* auto">
                 <asyncImageLoader:AdvancedImage
-                    Name="CoverLoader"
                     Grid.Row="0"
+                    Name="CoverLoader"
                     Source="{Binding ImageUrl}"
                     Stretch="Uniform" />
                 <Grid Grid.Row="0">
@@ -61,95 +61,96 @@
             </Grid>
 
             <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden">
-                <StackPanel
-                    Grid.Column="1"
-                    Margin="25,0,0,0"
-                    Spacing="5">
-                    <TextBlock
-                        FontSize="20"
-                        FontWeight="Bold"
-                        Foreground="RoyalBlue"
-                        Text="{Binding Book.Title}"
-                        TextWrapping="Wrap">
-                    </TextBlock>
-                    <TextBlock
-                        FontSize="15"
-                        FontWeight="DemiBold"
-                        Text="{Binding Book.Author, StringFormat=by {0}}">
-                    </TextBlock>
-                    <TextBlock
-                        FontSize="15"
-                        FontWeight="DemiBold"
-                        Text="{Binding Book.ISBN13, StringFormat=ISBN13: {0}}">
-                    </TextBlock>
+                <StackPanel Margin="25,0,0,0" Spacing="5">
+                    <Border
+                        Background="White"
+                        CornerRadius="5"
+                        Padding="10,10">
+                        <StackPanel Spacing="5">
+                            <TextBlock
+                                FontSize="20"
+                                FontWeight="Bold"
+                                Foreground="RoyalBlue"
+                                Text="{Binding Book.Title}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                FontSize="15"
+                                FontWeight="DemiBold"
+                                Text="{Binding Book.Author, StringFormat=by {0}}" />
+                            <TextBlock
+                                FontSize="15"
+                                FontWeight="DemiBold"
+                                Text="{Binding Book.ISBN13, StringFormat=ISBN13: {0}}" />
+                        </StackPanel>
 
-                    <Grid
-                        Margin="0,10,0,0"
-                        ColumnDefinitions="* .5* * .5*"
-                        RowDefinitions="* *">
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            FontSize="15"
-                            FontWeight="DemiBold"
-                            Foreground="LimeGreen"
-                            Text="Available" />
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            FontWeight="DemiBold"
-                            Foreground="LimeGreen"
-                            Text="{Binding Normal}" />
+                    </Border>
 
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="2"
-                            FontSize="15"
-                            FontWeight="DemiBold"
-                            Foreground="Orange"
-                            Text="Borrowed" />
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="3"
-                            FontSize="15"
-                            FontWeight="DemiBold"
-                            Foreground="Orange"
-                            Text="{Binding Borrowed}" />
+                    <Border
+                        Background="White"
+                        CornerRadius="5"
+                        Margin="0,15,0,0"
+                        Padding="10,10">
+                        <Grid ColumnDefinitions="* .5* * .5*" RowDefinitions="* *">
+                            <TextBlock
+                                FontSize="15"
+                                FontWeight="DemiBold"
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                Text="Available:" />
+                            <TextBlock
+                                FontWeight="DemiBold"
+                                Foreground="LimeGreen"
+                                Grid.Column="1"
+                                Grid.Row="0"
+                                Text="{Binding Normal}" />
 
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Margin="0,5,0,0"
-                            FontSize="15"
-                            FontWeight="DemiBold"
-                            Foreground="red"
-                            Text="Damaged" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Margin="0,5,0,0"
-                            FontSize="15"
-                            FontWeight="DemiBold"
-                            Foreground="red"
-                            Text="{Binding Damaged}" />
+                            <TextBlock
+                                FontSize="15"
+                                FontWeight="DemiBold"
+                                Grid.Column="2"
+                                Grid.Row="0"
+                                Text="Borrowed:" />
+                            <TextBlock
+                                FontSize="15"
+                                FontWeight="DemiBold"
+                                Foreground="Orange"
+                                Grid.Column="3"
+                                Grid.Row="0"
+                                Text="{Binding Borrowed}" />
 
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="2"
-                            Margin="0,5,0,0"
-                            FontSize="15"
-                            FontWeight="DemiBold"
-                            Foreground="gray"
-                            Text="Lost" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="3"
-                            Margin="0,5,0,0"
-                            FontSize="15"
-                            FontWeight="DemiBold"
-                            Foreground="gray"
-                            Text="{Binding Lost}" />
-                    </Grid>
+                            <TextBlock
+                                FontSize="15"
+                                FontWeight="DemiBold"
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Margin="0,5,0,0"
+                                Text="Damaged:" />
+                            <TextBlock
+                                FontSize="15"
+                                FontWeight="DemiBold"
+                                Foreground="red"
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                Margin="0,5,0,0"
+                                Text="{Binding Damaged}" />
+
+                            <TextBlock
+                                FontSize="15"
+                                FontWeight="DemiBold"
+                                Grid.Column="2"
+                                Grid.Row="1"
+                                Margin="0,5,0,0"
+                                Text="Lost:" />
+                            <TextBlock
+                                FontSize="15"
+                                FontWeight="DemiBold"
+                                Foreground="gray"
+                                Grid.Column="3"
+                                Grid.Row="1"
+                                Margin="0,5,0,0"
+                                Text="{Binding Lost}" />
+                        </Grid>
+                    </Border>
                 </StackPanel>
             </ScrollViewer>
 

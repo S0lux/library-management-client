@@ -23,6 +23,7 @@ public partial class BorrowViewModel: ViewModelBase
 
     [ObservableProperty] private string _selectedStatusFilter;
     [ObservableProperty] private string? _findKey;
+    [ObservableProperty] private bool _isLoading;
     [ObservableProperty] private ObservableCollection<CustomInvoice> _invoices=new();
     [ObservableProperty] private ObservableCollection<CustomInvoice> _invoicesFindList=new();
     [ObservableProperty] private ObservableCollection<CustomInvoice> _showingList=new();
@@ -146,8 +147,11 @@ public partial class BorrowViewModel: ViewModelBase
     }
 
 
+    [RelayCommand]
     public async Task RetrieveInvoices()
     {
+        IsLoading = true;
+        
         var retrieveRes = await _authService.GetAsync("/api/books/invoices");
 
         if (retrieveRes.StatusCode == HttpStatusCode.NotFound)
@@ -170,6 +174,8 @@ public partial class BorrowViewModel: ViewModelBase
 
         Invoices = new ObservableCollection<CustomInvoice>(Invoices.OrderByDescending(e => e.BorrowInvoiceID));
         ShowingList = Invoices;
+
+        IsLoading = false;
     }
 
     [RelayCommand]

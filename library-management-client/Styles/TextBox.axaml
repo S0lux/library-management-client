@@ -128,7 +128,7 @@
             <Style Selector="^ /template/ Border#PART_BorderElement">
                 <Setter Property="Background" Value="{DynamicResource TextControlBackgroundFocused}" />
                 <Setter Property="BorderBrush" Value="RoyalBlue" />
-                <Setter Property="BorderThickness" Value="0,0,0,1" />
+                <Setter Property="BorderThickness" Value="0.5,0.5,0.5,2" />
             </Style>
         </Style>
 
@@ -304,7 +304,7 @@
             <Style Selector="^ /template/ Border#PART_BorderElement">
                 <Setter Property="Background" Value="{DynamicResource TextControlBackgroundFocused}" />
                 <Setter Property="BorderBrush" Value="RoyalBlue" />
-                <Setter Property="BorderThickness" Value="0,0,0,1" />
+                <Setter Property="BorderThickness" Value="0.5,0.5,0.5,2" />
             </Style>
         </Style>
 

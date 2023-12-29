@@ -37,79 +37,104 @@
                 Height="30"
                 Path="/Assets/SVGs/books_black.svg"
                 Width="30" />
-            <Label Classes="MemberListLabel">
-                Book
-            </Label>
+            <StackPanel
+                Orientation="Horizontal"
+                Spacing="10"
+                VerticalAlignment="Center">
+                <Label Classes="MemberListLabel">
+                    Books
+                </Label>
+                <Svg
+                    Classes.IsSpinning="{Binding IsBusy}"
+                    Height="25"
+                    IsVisible="{Binding IsBusy}"
+                    Path="/Assets/SVGs/arrows-rotate-solid.svg"
+                    Width="25" />
+            </StackPanel>
         </StackPanel>
 
-        <DockPanel Grid.Row="1" Margin="0,15,0,0">
-            <TextBox
-                Classes="PrimaryWithIcon"
-                DockPanel.Dock="Left"
-                Padding="10"
-                Tag="/Assets/SVGs/magnifying-glass.svg"
-                Text="{Binding FilterKey}"
-                Watermark="Search"
-                Width="150" />
+        <Border
+            Background="White"
+            CornerRadius="5"
+            Grid.Row="1"
+            Margin="0,15,0,0"
+            Padding="10,10">
+            <DockPanel>
+                <TextBox
+                    Classes="PrimaryWithIcon"
+                    DockPanel.Dock="Left"
+                    Padding="10"
+                    Tag="/Assets/SVGs/magnifying-glass.svg"
+                    Text="{Binding FilterKey}"
+                    Watermark="Search"
+                    Width="150" />
 
-            <StackPanel
-                HorizontalAlignment="Right"
-                Orientation="Horizontal"
-                Spacing="5">
-                <Button
-                    Background="#31bc70"
-                    Classes="MemberListAddButton"
-                    Command="{Binding AddBookCommand}"
-                    Height="40"
-                    Padding="13">
-                    <StackPanel
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center">
-                        <Svg
-                            Height="16"
-                            Path="/Assets/SVGs/circle-plus-white.svg"
-                            Width="16" />
-                    </StackPanel>
-                </Button>
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <!--  Refresh button  -->
+                    <Button
+                        Background="#31bc70"
+                        Classes="MemberListAddButton"
+                        Command="{Binding GetDataCommand}"
+                        Height="40"
+                        Padding="13">
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center">
+                            <Svg
+                                Height="16"
+                                Path="/Assets/SVGs/rotate-right-white.svg"
+                                Width="16" />
+                        </StackPanel>
+                    </Button>
 
-                <Button
-                    Background="RoyalBlue"
-                    Classes="MemberListAddButton"
-                    Command="{Binding CheckOutCommand}"
-                    Height="40">
-                    <StackPanel
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal"
-                        Spacing="5"
-                        VerticalAlignment="Center">
-                        <Svg
-                            Height="16"
-                            Path="/Assets/SVGs/book-circle-arrow-right-white.svg"
-                            Width="16" />
-                        <TextBlock Foreground="White" Text="{Binding CheckedAmount, StringFormat=[ {0} ]}" />
-                    </StackPanel>
+                    <Button
+                        Background="#31bc70"
+                        Classes="MemberListAddButton"
+                        Command="{Binding AddBookCommand}"
+                        Height="40"
+                        Padding="13">
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center">
+                            <Svg
+                                Height="16"
+                                Path="/Assets/SVGs/circle-plus-white.svg"
+                                Width="16" />
+                        </StackPanel>
+                    </Button>
 
-                    <Button.Styles>
-                        <Style Selector="Button:pointerover /template/ ui|FABorder#Root">
-                            <Setter Property="Background" Value="#414ee1" />
-                        </Style>
+                    <Button
+                        Background="RoyalBlue"
+                        Classes="MemberListAddButton"
+                        Command="{Binding CheckOutCommand}"
+                        Height="40">
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal"
+                            Spacing="5"
+                            VerticalAlignment="Center">
+                            <Svg
+                                Height="16"
+                                Path="/Assets/SVGs/book-circle-arrow-right-white.svg"
+                                Width="16" />
+                            <TextBlock Foreground="White" Text="{Binding CheckedAmount, StringFormat=[ {0} ]}" />
+                        </StackPanel>
 
-                    </Button.Styles>
-                </Button>
-            </StackPanel>
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ui|FABorder#Root">
+                                <Setter Property="Background" Value="#414ee1" />
+                            </Style>
 
-        </DockPanel>
-
-        <control:LoadingSpinner
-            Diameter="70"
-            Grid.Row="2"
-            IsLoading="True"
-            IsVisible="{Binding IsBusy}"
-            Margin="50,30,50,40"
-            MaxHeight="80"
-            MaxWidth="80"
-            Thickness="3" />
+                        </Button.Styles>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </Border>
 
         <DataGrid
             AutoGenerateColumns="False"
@@ -119,7 +144,6 @@
             Grid.Row="2"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
-            IsVisible="{Binding !IsBusy}"
             ItemsSource="{Binding ShowingList}"
             Margin="0,10,0,0"
             Name="BookGrid"

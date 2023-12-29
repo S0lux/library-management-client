@@ -111,6 +111,7 @@ public partial class BookViewModel : ViewModelBase
         }
     }
 
+    [RelayCommand]
     public async Task GetData()
     {
         IsBusy = true;
