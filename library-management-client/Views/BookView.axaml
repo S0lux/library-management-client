@@ -68,7 +68,7 @@
                         VerticalAlignment="Center">
                         <Svg
                             Height="16"
-                            Path="/Assets/SVGs/user-plus.svg"
+                            Path="/Assets/SVGs/circle-plus-white.svg"
                             Width="16" />
                     </StackPanel>
                 </Button>
