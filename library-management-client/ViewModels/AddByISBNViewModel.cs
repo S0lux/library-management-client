@@ -123,6 +123,11 @@ public partial class AddByISBNViewModel : ViewModelBase
                 var revaluate = App.AppHost.Services.GetRequiredService<BookViewModel>();
                 revaluate.GetData();
             }
+
+            var box = App.AppHost!.Services.GetRequiredService<BookViewModel>();
+            box.BookCheckedList.Clear();
+            box.CheckedAmount = 0;
+            box.GetData();
         }
     }
 

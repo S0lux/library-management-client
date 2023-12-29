@@ -132,8 +132,9 @@
                                 Header="ISBN"
                                 IsReadOnly="True" />
                             <DataGridTextColumn
-                                Width="2.5*"
+                                Width="3*"
                                 Binding="{Binding BookTitle}"
+                                CanUserSort="False"
                                 Header="Title"
                                 IsReadOnly="True" />
                             <!--<DataGridTextColumn
@@ -143,14 +144,15 @@
                                 IsReadOnly="True" />-->
 
                             <DataGridTextColumn
+                                Width="1.5*"
                                 Binding="{Binding Quantity}"
                                 Header="Quantity"
-                                IsReadOnly="False"
-								/>
+                                IsReadOnly="False" />
 
                             <DataGridTextColumn
+                                Width="2*"
                                 Binding="{Binding BorrowDuration}"
-                                Header="Borrow Duration (days)"
+                                Header="Duration (days)"
                                 IsReadOnly="False" />
 
                             <DataGridTemplateColumn>
@@ -165,74 +167,85 @@
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Column="1" Margin="20,0,20,0">
-                <StackPanel>
-                    <Label HorizontalAlignment="Center" FontSize="25">
-                        Member Info
-                    </Label>
+            <Border
+                Grid.Column="1"
+                Margin="20,0,20,0"
+                Padding="5"
+                Background="#f7f7f7"
+                CornerRadius="5">
+                <Grid>
+                    <StackPanel>
+                        <Label HorizontalAlignment="Center" FontSize="25">
+                            Member Info
+                        </Label>
 
-                    <Grid ColumnDefinitions="auto * auto">
-                        <DockPanel Grid.Column="1">
-                            <Label DockPanel.Dock="Top">
-                                Citizen ID
-                            </Label>
-                            <TextBox Text="{Binding FilterKey}" />
-                        </DockPanel>
+                        <Grid ColumnDefinitions="auto * auto">
+                            <DockPanel Grid.Column="1">
+                                <Label DockPanel.Dock="Top">
+                                    Citizen ID
+                                </Label>
+                                <TextBox Text="{Binding FilterKey}" />
+                            </DockPanel>
 
-                        <!--<DockPanel Grid.Column="2">
+                            <!--<DockPanel Grid.Column="2">
                             <Label DockPanel.Dock="Top">
                                 Credit
                             </Label>
                             <TextBox IsReadOnly="True" Text="" />
                         </DockPanel>-->
-                    </Grid>
-                    <DockPanel>
-                        <Label DockPanel.Dock="Top">
-                            Fullname
-                        </Label>
-                        <TextBox IsEnabled="False" Text="{Binding BorrowMEMBER.Name}" />
-                    </DockPanel>
+                        </Grid>
+                        <DockPanel>
+                            <Label DockPanel.Dock="Top">
+                                Fullname
+                            </Label>
+                            <TextBox IsEnabled="False" Text="{Binding BorrowMEMBER.Name}" />
+                        </DockPanel>
 
-                    <DockPanel>
-                        <Label DockPanel.Dock="Top">
-                            Gender
-                        </Label>
-                        <ComboBox
-                            HorizontalAlignment="Stretch"
-                            IsDropDownOpen="False"
-                            IsEnabled="False"
-                            ItemsSource="{Binding Genders}"
-                            SelectedItem="{Binding BorrowMEMBER.Gender, Converter={StaticResource GenderConverter}}" />
-                    </DockPanel>
+                        <DockPanel>
+                            <Label DockPanel.Dock="Top">
+                                Gender
+                            </Label>
+                            <ComboBox
+                                HorizontalAlignment="Stretch"
+                                IsDropDownOpen="False"
+                                IsEnabled="False"
+                                ItemsSource="{Binding Genders}"
+                                SelectedItem="{Binding BorrowMEMBER.Gender, Converter={StaticResource GenderConverter}}" />
+                        </DockPanel>
 
-                    <DockPanel>
-                        <Label DockPanel.Dock="Top">
-                            Phone Number
-                        </Label>
-                        <TextBox IsEnabled="False" Text="{Binding BorrowMEMBER.PhoneNumber}" />
-                    </DockPanel>
+                        <DockPanel>
+                            <Label DockPanel.Dock="Top">
+                                Phone Number
+                            </Label>
+                            <TextBox
+                                BorderBrush="Black"
+                                IsEnabled="False"
+                                Text="{Binding BorrowMEMBER.PhoneNumber}" />
+                        </DockPanel>
 
-                    <DockPanel>
-                        <Label DockPanel.Dock="Top">
-                            Birthdate
-                        </Label>
-                        <CalendarDatePicker
-                            HorizontalAlignment="Stretch"
-                            CustomDateFormatString="dd/MM/yyyy"
-                            IsEnabled="False"
-                            SelectedDate="{Binding BorrowMEMBER.DateOfBirth}"
-                            SelectedDateFormat="Custom" />
-                    </DockPanel>
+                        <DockPanel>
+                            <Label DockPanel.Dock="Top">
+                                Birthdate
+                            </Label>
+                            <CalendarDatePicker
+                                HorizontalAlignment="Stretch"
+                                CustomDateFormatString="dd/MM/yyyy"
+                                IsEnabled="False"
+                                SelectedDate="{Binding BorrowMEMBER.DateOfBirth}"
+                                SelectedDateFormat="Custom" />
+                        </DockPanel>
 
-                    <DockPanel>
-                        <Label DockPanel.Dock="Top">
-                            Address
-                        </Label>
-                        <TextBox IsEnabled="False" Text="{Binding BorrowMEMBER.Address}" />
-                    </DockPanel>
-                </StackPanel>
-            </Grid>
+                        <DockPanel>
+                            <Label DockPanel.Dock="Top">
+                                Address
+                            </Label>
+                            <TextBox IsEnabled="False" Text="{Binding BorrowMEMBER.Address}" />
+                        </DockPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
         </Grid>
+
 
         <Grid
             Grid.Row="2"

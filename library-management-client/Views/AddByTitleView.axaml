@@ -65,7 +65,7 @@
                 Name="CoverLoader"
                 Grid.Row="0"
                 Source="{Binding ImageUrl}"
-                Stretch="UniformToFill" />
+                Stretch="Uniform" />
             <Grid Grid.Row="0">
                 <Grid
                     Background="Black"

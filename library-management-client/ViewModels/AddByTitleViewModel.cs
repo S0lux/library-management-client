@@ -107,7 +107,13 @@ public partial class AddByTitleViewModel: ViewModelBase
             }
 
             ShowResultMessageBox(resultContentString, resultBoxIcon);
+            
+            var box =  App.AppHost!.Services.GetRequiredService<BookViewModel>();
+            box.BookCheckedList.Clear();
+            box.CheckedAmount = 0;
+            box.GetData();
         }
+
 
         loadingSpinner.IsBusy = false;
     }
