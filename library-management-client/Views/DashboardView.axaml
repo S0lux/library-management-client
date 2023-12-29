@@ -9,6 +9,28 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Styles>
+        <Style Selector="ContentControl.Transitioning">
+            <Style.Animations>
+                <Animation
+                    Duration="0:0:0.25"
+                    Easing="CubicEaseIn"
+                    IterationCount="1">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Margin" Value="0 50 0 0" />
+                        <Setter Property="Opacity" Value="0" />
+                    </KeyFrame>
+
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Margin" Value="0 0 0 0" />
+                        <Setter Property="Opacity" Value="1" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </UserControl.Styles>
+
     <Panel Name="RootPanel">
         <DockPanel>
             <ContentControl
@@ -23,7 +45,10 @@
                 PointerPressed="TitleBarContainer_OnPointerPressed">
                 <ContentControl Content="{Binding TitleBarViewModel}" />
             </Border>
-            <ContentControl Content="{Binding ActiveViewModel}" PropertyChanged="AvaloniaObject_OnPropertyChanged" />
+            <ContentControl
+                Classes.Transitioning="{Binding IsTransitioning}"
+                Content="{Binding ActiveViewModel}"
+                Name="Viewport" />
         </DockPanel>
     </Panel>
 </UserControl>

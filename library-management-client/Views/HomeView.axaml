@@ -314,7 +314,25 @@
                     Background="White"
                     CornerRadius="5"
                     Grid.Row="1"
-                    Margin="0,25,0,0">
+                    Margin="0,25,0,0"
+                    Name="AnnoucementBorder">
+
+                    <Border.Styles>
+                        <Style Selector="Border.Hidden">
+                            <Setter Property="IsVisible" Value="False" />
+                        </Style>
+                    </Border.Styles>
+
+                    <Interaction.Behaviors>
+                        <AdaptiveBehavior SourceControl="MainGrid" TargetControl="AnnoucementBorder">
+                            <AdaptiveClassSetter
+                                ClassName="Hidden"
+                                MaxWidth="1200"
+                                MaxWidthOperator="LessThan"
+                                MinWidth="0"
+                                MinWidthOperator="GreaterThanOrEqual" />
+                        </AdaptiveBehavior>
+                    </Interaction.Behaviors>
 
                     <StackPanel>
                         <Border BorderBrush="#efefef" BorderThickness="0,0,0,1">
