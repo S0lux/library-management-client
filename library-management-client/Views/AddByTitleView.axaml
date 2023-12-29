@@ -20,7 +20,7 @@
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
             ItemsSource="{Binding Books}"
-            SelectedItem="{Binding SelectedBook, Mode=OneWayToSource}">
+            SelectedItem="{Binding SelectedBook}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="Auto"

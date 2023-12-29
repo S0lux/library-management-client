@@ -155,7 +155,7 @@ public partial class AddByISBNViewModel : ViewModelBase
 
     public bool CheckAdd()
     {
-        return (BookQuantity != 0) && (BookQuantity != null);
+        return (BookQuantity >= 0) && (BookQuantity != null);
     }
     
     private Task<HttpResponseMessage> PostBookAsync(object book)
@@ -247,6 +247,14 @@ public partial class AddByISBNViewModel : ViewModelBase
     {
         var bookViewModel = App.AppHost!.Services.GetRequiredService<BookViewModel>();
         await bookViewModel.GetData();
+    }
+
+    public void reset()
+    {
+        Book = null;
+        ReleaseDate=String.Empty;
+        ImageUrl=String.Empty;
+        IsCoverLoading = false;
     }
 }
 

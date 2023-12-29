@@ -52,15 +52,15 @@ public partial class AddBookWindowViewModel : ViewModelBase
         switch (newValue)
         {
             case "ISBN":
-                CurrentAddView = _addByIsbnViewModel;
                 AddByWaterMark = "ISBN number";
                 FindKey = string.Empty;
+                CurrentAddView = _addByIsbnViewModel;
                 IsLoaded = false;
                 break;
             case "Title":
-                CurrentAddView = _addByTitleViewModel;
                 AddByWaterMark = "Book title";
                 FindKey = string.Empty;
+                CurrentAddView = _addByTitleViewModel;
                 IsLoaded = false;
                 break;
         }
@@ -73,12 +73,14 @@ public partial class AddBookWindowViewModel : ViewModelBase
         IsBusy = true;
         if (AddBy == "ISBN")
         {
+            //_addByIsbnViewModel.reset();
             var isSuccess = await _addByIsbnViewModel.RetrieveBookByISBN(FindKey);
             if (isSuccess == 1) IsLoaded = true;
         }
 
         if (AddBy == "Title")
         {
+            //_addByTitleViewModel.reset();
             await _addByTitleViewModel.RetrieveBooksByTitle(FindKey);
             IsLoaded = true;
         }

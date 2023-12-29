@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -25,7 +26,6 @@ public partial class AddByTitleViewModel: ViewModelBase
     [ObservableProperty] private ObservableCollection<BOOK>? _books;
     [ObservableProperty] private BOOK _selectedBook;
     [ObservableProperty] private string _imageUrl;
-    [ObservableProperty] private int _clickStage;
     public int BookQuantity { get; set; }
 
     public AddByTitleViewModel(AuthenticationService authService)
@@ -73,8 +73,8 @@ public partial class AddByTitleViewModel: ViewModelBase
     // For updating the book cover preview
     partial void OnSelectedBookChanged(BOOK value)
     {
+        if (value == null) return;
         ImageUrl = $"https://covers.openlibrary.org/b/isbn/{value.ISBN13}-L.jpg?default=false";
-        ClickStage = 0;
     }
 
 
@@ -227,6 +227,12 @@ public partial class AddByTitleViewModel: ViewModelBase
     {
         var bookViewModel = App.AppHost!.Services.GetRequiredService<BookViewModel>();
         await bookViewModel.GetData();
+    }
+
+    public void reset()
+    {
+        ImageUrl=string.Empty;
+        Books.Clear();
     }
 
 }
