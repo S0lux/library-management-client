@@ -36,5 +36,7 @@ namespace Avalonia_DependencyInjection.Models
         [ObservableProperty] private int _employeeID;
         
         [ObservableProperty] private bool _deleted;
+
+        [ObservableProperty] private DateTime _joinDate;
     }
 }
