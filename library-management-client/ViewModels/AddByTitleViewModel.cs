@@ -106,6 +106,26 @@ public partial class AddByTitleViewModel: ViewModelBase
                 await RegisterBookDetailAsync(book.ISBN13);
             }
 
+            if (postResult.StatusCode == HttpStatusCode.Conflict)
+            {
+                var resultBox = new MyMessageBox("This book is already registered or deleted in the database.\n" +
+                                                 "Use the ISBN to re-register this book", "Result",
+                    MyMessageBox.MessageBoxButton.OkCancel, MyMessageBox.MessageBoxImage.Information);
+                await resultBox.ShowDialog(App.AppHost.Services.GetRequiredService<AddBookWindow>());
+                if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.OK)
+                {
+                    var addvm = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
+                    var isbnvm=App.AppHost.Services.GetRequiredService<AddByISBNViewModel>();
+                    isbnvm.BookQuantity = BookQuantity;
+                    addvm.AddBy = "ISBN";
+                    addvm.FindKey = book.ISBN13;
+                    await addvm.Find();
+                }
+
+                return;
+
+            }
+
             ShowResultMessageBox(resultContentString, resultBoxIcon);
             
             var box =  App.AppHost!.Services.GetRequiredService<BookViewModel>();
@@ -166,7 +186,6 @@ public partial class AddByTitleViewModel: ViewModelBase
     {
         return statusCode switch
         {
-            HttpStatusCode.Conflict => "This book is already registered in the database.",
             HttpStatusCode.ServiceUnavailable => "Unable to connect to the database.\nPlease check your internet connection and try again.",
             HttpStatusCode.BadRequest => "An unexpected error has occurred.\nPlease report this issue to your IT department.",
             _ => "Book successfully added to the database"

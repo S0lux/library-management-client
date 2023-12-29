@@ -1,5 +1,7 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Drawing.Printing;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -20,15 +22,17 @@ public partial class AddByISBNViewModel : ViewModelBase
     private readonly AuthenticationService _authenticationService;
 
     [ObservableProperty] private BOOK _book;
-    [ObservableProperty] private BOOK_DETAIL? _bookDetail = new();
+
     [ObservableProperty] private string _releaseDate;
     [ObservableProperty] private string _imageUrl;
     [ObservableProperty] private bool _isCoverLoading;
 
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(AddBookCommand))] private int? _bookQuantity;
+
     public AddByISBNViewModel(AuthenticationService authenticationService)
     {
         _authenticationService = authenticationService;
-        BookDetail.PropertyChanged += ((sender, args) => { AddBookCommand.NotifyCanExecuteChanged(); });
+        //BookDetail.PropertyChanged += ((sender, args) => { AddBookCommand.NotifyCanExecuteChanged(); });
     }
 
     partial void OnBookChanged(BOOK? oldValue, BOOK newValue)
@@ -41,7 +45,7 @@ public partial class AddByISBNViewModel : ViewModelBase
     }
 
     [RelayCommand(CanExecute = nameof(CheckAdd))]
-    async Task AddBook()
+    public async Task AddBook()
     {
         MyMessageBox confirmation = new MyMessageBox(
             "Are you sure about adding this book", "Confirmation",
@@ -60,69 +64,48 @@ public partial class AddByISBNViewModel : ViewModelBase
                 PublishDate = Book.PublishDate,
                 ISBN13 = Book.ISBN13,
             };
-            var payload = new
-            {
-                data = createdBook
-            };
-            var json = JsonConvert.SerializeObject(payload);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _authenticationService.PostAsync("/api/books", content);
+            var response = await PostBookAsync(createdBook);
+            var resultContentString = GetResultContentString(response.StatusCode);
+            var resultBoxIcon = GetResultBoxIcon(response.StatusCode);
 
-            //Error handling for book register
-            if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
+            if (response.IsSuccessStatusCode)
             {
-                loadspiner.IsBusy = false;
-                MyMessageBox error = new MyMessageBox("Bad connection", "Error",
-                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error,350,150);
-                await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
-                return;
+                await RefreshBookViewModel();
+                await RegisterBookDetailAsync(Book.ISBN13,BookQuantity);
             }
-
+            
+            loadspiner.IsBusy = false;
             if (response.StatusCode == HttpStatusCode.Conflict)
             {
-                loadspiner.IsBusy = false;
-                MyMessageBox error = new MyMessageBox("The book is already exists", "Error",
-                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error,350, 150);
-                await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
-                return;
-            }
-            else
-            {
-                loadspiner.IsBusy = false;
-
-                //Attempt to register book detail
-                var createdBookDetail = new
+                var resultBox = new MyMessageBox($"This book has already existed or has been deleated.\n" +
+                                                 $"Do you want to add the additional {BookQuantity} books?\n" +
+                                                 $"(The total will be {BookQuantity+Book.BOOK_DETAILs[0].Quantity})","Result",
+                    MyMessageBox.MessageBoxButton.OkCancel, MyMessageBox.MessageBoxImage.Question,450,250);
+                await resultBox.ShowDialog(App.AppHost.Services.GetRequiredService<AddBookWindow>());
+                if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.OK)
                 {
-                    ISBN13 = Book.ISBN13,
-                    Status = "normal",
-                    Quantity = BookDetail.Quantity
-                };
-                var payload1 = new
-                {
-                    data = createdBookDetail
-                };
-                var json1 = JsonConvert.SerializeObject(payload1);
-                var content1 = new StringContent(json1, Encoding.UTF8, "application/json");
-
-                var response1 = await _authenticationService.PutAsync("/api/book_details", content1);
-
-                //Error handling for book detail register
-                if (response1.StatusCode == HttpStatusCode.BadRequest)
-                {
-                    MyMessageBox falied = new MyMessageBox(
-                        "An unexpected error has occured.\nPlease report this issue to your IT department.", "Failed",
-                        MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information);
-                    await falied.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
+                    loadspiner.IsBusy = true;
+                    var putResponse = await PutBookAsync(Book.ISBN13, false);
+                    resultContentString = GetResultContentString(putResponse.StatusCode);
+                    resultBoxIcon = GetResultBoxIcon(putResponse.StatusCode);
+                    
+                    if (putResponse.IsSuccessStatusCode)
+                    {
+                        await RefreshBookViewModel();
+                        await RegisterBookDetailAsync(Book.ISBN13,Book.BOOK_DETAILs[0].Quantity,BookQuantity);
+                    }
+                    
+                    ShowResultMessageBox(resultContentString, resultBoxIcon);
+                    loadspiner.IsBusy = false;
+                    var box1 = App.AppHost!.Services.GetRequiredService<BookViewModel>();
+                    box1.BookCheckedList.Clear();
+                    box1.CheckedAmount = 0;
+                    box1.GetData();
                     return;
                 }
-
-                MyMessageBox success = new MyMessageBox("The book is added", "Success",
-                    MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information,350,150);
-                await success.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
-                var revaluate = App.AppHost.Services.GetRequiredService<BookViewModel>();
-                revaluate.GetData();
             }
+            ShowResultMessageBox(resultContentString, resultBoxIcon);
 
             var box = App.AppHost!.Services.GetRequiredService<BookViewModel>();
             box.BookCheckedList.Clear();
@@ -133,7 +116,6 @@ public partial class AddByISBNViewModel : ViewModelBase
 
     public async Task<int> RetrieveBookByISBN(string isbn)
     {
-        var addbookwin = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
         try
         {
             var response = await _authenticationService.GetAsync($@"/api/books/isbn/{isbn}");
@@ -142,6 +124,24 @@ public partial class AddByISBNViewModel : ViewModelBase
             var body = await response.Content.ReadAsStringAsync();
             var apiRespondedBook = JsonConvert.DeserializeObject<ApiRespondedBook>(body);
             Book = apiRespondedBook.Data;
+            
+            response = await _authenticationService.GetAsync(@"/api/book_details");
+            response.EnsureSuccessStatusCode();
+
+            body = await response.Content.ReadAsStringAsync();
+            var apiResponseMember = JsonConvert.DeserializeObject<ApiResBookDetail>(body);
+
+            var retrievedBookDetail = new ObservableCollection<BOOK_DETAIL>(apiResponseMember!.data);
+
+            foreach (BOOK_DETAIL bt in retrievedBookDetail)
+            {
+                if (bt.ISBN13 == Book.ISBN13&&bt.Status=="normal")
+                {
+                    Book.BOOK_DETAILs.Add(bt);
+                    break;
+                }
+            }
+            
             return 1;
         }
         catch (HttpRequestException e)
@@ -155,11 +155,107 @@ public partial class AddByISBNViewModel : ViewModelBase
 
     public bool CheckAdd()
     {
-        return (BookDetail.Quantity != 0) && (BookDetail.Quantity != null);
+        return (BookQuantity != 0) && (BookQuantity != null);
+    }
+    
+    private Task<HttpResponseMessage> PostBookAsync(object book)
+    {
+        var payload = new
+        {
+            data = book
+        };
+
+        var contentString = JsonConvert.SerializeObject(payload);
+        var requestContent = new StringContent(contentString, Encoding.UTF8, "application/json");
+
+        return _authenticationService.PostAsync("/api/books", requestContent);
+    }
+
+    private async Task<HttpResponseMessage> PutBookAsync(string isbn, bool deleted)
+    {
+        var putBook = new
+        {
+            ISBN13 = isbn,
+            Deleted = deleted
+        };
+        var payload = new
+        {
+            data = putBook
+        };
+        var json = JsonConvert.SerializeObject(payload);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        return await _authenticationService.PutAsync("/api/books", content);
+    }
+    
+    private async Task RegisterBookDetailAsync(string isbn13,int? originalQuantity,int? additionalQuantity=0)
+    {
+        var createdBookDetail = new
+        {
+            ISBN13 = isbn13,
+            Status = "normal",
+            Quantity = originalQuantity  + additionalQuantity
+        };
+        
+        var payload = new
+        {
+            data = createdBookDetail
+        };
+        
+        var json = JsonConvert.SerializeObject(payload);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await _authenticationService.PutAsync("/api/book_details", content);
+
+        if (response.StatusCode == HttpStatusCode.BadRequest)
+        {
+            ShowResultMessageBox("An unexpected error has occurred.\nPlease report this issue to your IT department.",
+                MyMessageBox.MessageBoxImage.Error);
+        }
+    }
+    
+    private string GetResultContentString(HttpStatusCode statusCode)
+    {
+        return statusCode switch
+        {
+            HttpStatusCode.Conflict => "This book is already registered in the database.",
+            HttpStatusCode.ServiceUnavailable => "Unable to connect to the database.\nPlease check your internet connection and try again.",
+            HttpStatusCode.BadRequest => "An unexpected error has occurred.\nPlease report this issue to your IT department.",
+            _ => "Book successfully added to the database"
+        };
+    }
+
+    private MyMessageBox.MessageBoxImage GetResultBoxIcon(HttpStatusCode statusCode)
+    {
+        return statusCode switch
+        {
+            HttpStatusCode.Conflict => MyMessageBox.MessageBoxImage.Error,
+            HttpStatusCode.ServiceUnavailable => MyMessageBox.MessageBoxImage.Error,
+            HttpStatusCode.BadRequest => MyMessageBox.MessageBoxImage.Error,
+            _ => MyMessageBox.MessageBoxImage.Information
+        };
+    }
+
+    private void ShowResultMessageBox(string contentString, MyMessageBox.MessageBoxImage boxIcon)
+    {
+        var resultBox = new MyMessageBox(contentString, "Result",
+            MyMessageBox.MessageBoxButton.OK, boxIcon);
+        resultBox.Show();
+    }
+    
+    private async Task RefreshBookViewModel()
+    {
+        var bookViewModel = App.AppHost!.Services.GetRequiredService<BookViewModel>();
+        await bookViewModel.GetData();
     }
 }
 
 public class ApiRespondedBook
 {
     public BOOK Data { get; set; }
+}
+
+public class ApiRespondedBookDetail
+{
+    public ObservableCollection<BOOK_DETAIL> DetailData { get; set; }
 }

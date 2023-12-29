@@ -107,7 +107,7 @@
                             FontWeight="DemiBold"
                             Increment="1"
                             Minimum="0"
-                            Value="{Binding BookDetail.Quantity}">
+                            Value="{Binding BookQuantity}">
                         </NumericUpDown>
 
                     </Grid>
