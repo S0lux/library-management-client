@@ -84,8 +84,8 @@ public partial class BookViewModel : ViewModelBase
         catch (Exception e)
         {
             MyMessageBox error = new MyMessageBox(
-                "Attempt to check out failed!\nOne of the chosen book does not have the required quantity.\n Please update the book information.",
-                "Error",
+                "One of the chosen book does not have the required quantity.\nPlease update the book information.",
+                "Attempt to check out failed!",
                 MyMessageBox.MessageBoxButton.OK,
                 MyMessageBox.MessageBoxImage.Error,400,200
             );
