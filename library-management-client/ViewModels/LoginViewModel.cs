@@ -60,6 +60,10 @@ public partial class LoginViewModel: ViewModelBase
 
             currentViewModel.ContentViewModel = App.AppHost!.Services.GetRequiredService<DashboardViewModel>();
             currentWindow.CanResize = true;
+            
+            // Update Homepage to display new logged in user
+            var homeViewModel = App.AppHost!.Services.GetService<HomeViewModel>();
+            homeViewModel.CurrentUser = _authService.CurrentUser;
         }
         catch (Exception e)
         {
