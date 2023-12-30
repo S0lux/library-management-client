@@ -71,13 +71,27 @@ public partial class BookViewModel : ViewModelBase
     }
 
     [RelayCommand(CanExecute = nameof(checkCheckOut))]
-    void CheckOut()
+    async Task CheckOut()
     {
-        var temp1 = App.AppHost.Services.GetRequiredService<BorrowRegisterFormViewModel>();
-        temp1.Load();
+        try
+        {
+            var temp1 = App.AppHost.Services.GetRequiredService<BorrowRegisterFormViewModel>();
+            temp1.Load();
 
-        var temp2 = App.AppHost.Services.GetRequiredService<BorrowRegisterFormView>();
-        temp2.Show();
+            var temp2 = App.AppHost.Services.GetRequiredService<BorrowRegisterFormView>();
+            temp2.Show();
+        }
+        catch (Exception e)
+        {
+            MyMessageBox error = new MyMessageBox(
+                "Attempt to check out failed!\nOne of the chosen book does not have the required quantity.\n Please update the book information.",
+                "Error",
+                MyMessageBox.MessageBoxButton.OK,
+                MyMessageBox.MessageBoxImage.Error,400,200
+            );
+
+            await error.ShowDialog(App.AppHost!.Services.GetRequiredService<MainWindow>());
+        }
     }
 
     [RelayCommand]
@@ -161,11 +175,6 @@ public partial class BookViewModel : ViewModelBase
     public bool checkCheckOut()
     {
         return (CheckedAmount > 0);
-    }
-
-    public bool CheckInfo()
-    {
-        return (CheckedAmount == 1);
     }
 
     [RelayCommand]

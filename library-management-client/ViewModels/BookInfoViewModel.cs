@@ -3,6 +3,7 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Avalonia_DependencyInjection.Controls;
 using Avalonia_DependencyInjection.Models;
 using Avalonia_DependencyInjection.Services;
 using Avalonia_DependencyInjection.Views;
@@ -32,6 +33,29 @@ public partial class BookInfoViewModel:ViewModelBase
     public BookInfoViewModel(AuthenticationService authenticationService)
     {
         _authService = authenticationService;
+    }
+
+    [RelayCommand]
+    async Task Update()
+    {
+        MyMessageBox error = new MyMessageBox(
+            "Are you sure you want to update this book?",
+            "Confirmation",
+            MyMessageBox.MessageBoxButton.YesNo,
+            MyMessageBox.MessageBoxImage.Question
+        );
+        await error.ShowDialog(App.AppHost!.Services.GetRequiredService<BookInfoView>());
+        if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
+        {
+            var addvm = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
+            var isbnvm=App.AppHost.Services.GetRequiredService<AddByISBNViewModel>();
+            isbnvm.BookQuantity = Normal;
+            addvm.AddBy = "ISBN";
+            addvm.FindKey = Book.ISBN13;
+            App.AppHost.Services.GetRequiredService<BookInfoView>().Hide();
+            App.AppHost.Services.GetRequiredService<AddBookWindow>().Show();
+            await addvm.Find();
+        }
     }
     
     [RelayCommand]
