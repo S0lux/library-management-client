@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Avalonia.Interactivity;
@@ -133,6 +134,16 @@ public partial class BookViewModel : ViewModelBase
         try
         {
             var response = await _authenticationService.GetAsync(@"/api/books");
+
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                var box = MessageBoxManager
+                    .GetMessageBoxStandard("Error", "An unexpected error has occured.");
+                await box.ShowAsync();
+                
+                IsBusy = false;
+                return;
+            }
             response.EnsureSuccessStatusCode();
 
             var body = await response.Content.ReadAsStringAsync();
@@ -164,8 +175,7 @@ public partial class BookViewModel : ViewModelBase
         catch (HttpRequestException e)
         {
             var box = MessageBoxManager
-                .GetMessageBoxStandard("Error", "Add Member Failed!",
-                    ButtonEnum.YesNo);
+                .GetMessageBoxStandard("Error", "An unexpected error has occured.");
 
             var result = await box.ShowAsync();
         }
