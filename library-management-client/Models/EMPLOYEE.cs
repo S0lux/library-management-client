@@ -1,29 +1,45 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Avalonia_DependencyInjection.Models;
 
-public class EMPLOYEE
+public partial class EMPLOYEE: ObservableValidator
 {
     [Key]
     public int EmployeeID { get; set; }
 
-    [MaxLength(50)]
-    public string Name { get; set; }
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [Required(ErrorMessage = "This information is required")]
+    private string _name;
 
-    [MaxLength(100)]
-    public string Address { get; set; }
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [Required(ErrorMessage = "This information is required")]
+    private string _address;
 
-    [MaxLength(11)]
-    public string PhoneNumber { get; set; }
-    
-    public string CitizenID { get; set; }
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [Required(ErrorMessage = "This information is required")]
+    [Phone(ErrorMessage = "Characters are not allowed")]
+    private string _phoneNumber;
 
-    public string Email { get; set; }
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [Required(ErrorMessage = "This information is required")]
+    [Phone(ErrorMessage = "Characters are not allowed")]
+    private string _citizenID;
 
-    public int Gender { get; set; }
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [Required(ErrorMessage = "This information is required")]
+    private string _email;
 
-    public DateTime DateOfBirth { get; set; }
+    [ObservableProperty] private int _gender;
 
+    [ObservableProperty] private DateTime _dateOfBirth;
+
+    [ObservableProperty] private bool _deleted;
 }

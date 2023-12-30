@@ -24,6 +24,8 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
 {
     [ObservableProperty] private string _title = "Member registration";
 
+    [ObservableProperty] private string _ico = @"/Assets/SVGs/user-plus-black.svg";
+
     private readonly AuthenticationService _authService;
 
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(SubmitCommand))]

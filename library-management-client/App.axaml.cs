@@ -82,6 +82,8 @@ public partial class App : Application
                     services.AddTransient<InvoiceWindowViewModel>();
                     services.AddSingleton<EmployeeListView>();
                     services.AddSingleton<EmployeeListViewModel>();
+                    services.AddSingleton<EmployeeRegisterFormViewModel>();
+                    services.AddSingleton<EmployeeRegisterFormView>();
 
                     services.AddHttpClient("main", options =>
                     {

@@ -39,7 +39,7 @@ public partial class SidebarViewModel: ViewModelBase
     {
         response = await _authService.GetAsync(@"/api/employees");
 
-        SidebarScreenViewModel model = new("Employee", typeof(EmployeeListViewModel), "/Assets/SVGs/house-solid.svg");
+        SidebarScreenViewModel model = new("Employee", typeof(EmployeeListViewModel), "/Assets/SVGs/user-tie-solid-white.svg");
         if (response.StatusCode == System.Net.HttpStatusCode.OK && SidebarScreen.Screens.Count == 3)
         {
             SidebarScreen.Screens.Add(model);

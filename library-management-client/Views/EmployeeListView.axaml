@@ -24,7 +24,7 @@
             <Svg
                 Width="30"
                 Height="30"
-                Path="/Assets/SVGs/user-group-solid-black.svg" />
+                Path="/Assets/SVGs/user-tie-solid.svg" />
             <StackPanel
                 VerticalAlignment="Center"
                 Orientation="Horizontal"
@@ -167,6 +167,7 @@
                                     Margin="0,0,13,0"
                                     HorizontalContentAlignment="Center"
                                     Classes="MemberListDeleteButton"
+                                    Command="{Binding $parent[DataGrid].((vm:EmployeeListViewModel)DataContext).DeleteCommand}"
                                     IsEnabled="True" />
                             </StackPanel>
                         </DataTemplate>

@@ -123,7 +123,7 @@ namespace Avalonia_DependencyInjection.ViewModels
                 var body = await response.Content.ReadAsStringAsync();
                 var apiResponseEmployee = JsonConvert.DeserializeObject<ApiResponseEmployee>(body);
 
-                EmployeeList = new ObservableCollection<EMPLOYEE>(apiResponseEmployee!.data);
+                EmployeeList = new ObservableCollection<EMPLOYEE>(apiResponseEmployee!.data.Where(e => e.Deleted == false));
                 ShowingList = EmployeeList;
             }
             catch (HttpRequestException e)
@@ -141,53 +141,55 @@ namespace Avalonia_DependencyInjection.ViewModels
         [RelayCommand]
         public void Add()
         {
-            var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<MemberRegistryFormViewModel>();
+            var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<EmployeeRegisterFormViewModel>();
             infoBoxViewModel.AlertBoxOff();
 
-            infoBoxViewModel.InputedMember = new MEMBER() { DateOfBirth = DateTime.Today, Gender = 0, Deleted = false };
+            infoBoxViewModel.InputedEmployee = new EMPLOYEE() { DateOfBirth = DateTime.Today, Gender = 0,Deleted = false };
             infoBoxViewModel.Title = "Employee Info";
+            infoBoxViewModel.Ico = @"/Assets/SVGs/user-tie-solid.svg";
 
-            infoBoxViewModel.InputedMember.PropertyChanged += (sender, args) =>
+            infoBoxViewModel.InputedEmployee.PropertyChanged += (sender, args) =>
             {
                 infoBoxViewModel.SubmitCommand.NotifyCanExecuteChanged();
             };
 
-            var memberRegistryForm = App.AppHost!.Services.GetRequiredService<MemberRegistryForm>();
+            var memberRegistryForm = App.AppHost!.Services.GetRequiredService<EmployeeRegisterFormView>();
             memberRegistryForm.Show();
         }
 
-        //[RelayCommand]
-        //public async void Delete()
-        //{
-        //    MyMessageBox myMessageBox = new MyMessageBox("Are you sure you want to delete this member?", "Confirm",
-        //        MyMessageBox.MessageBoxButton.YesNo,
-        //        MyMessageBox.MessageBoxImage.Question
-        //    );
+        [RelayCommand]
+        public async void Delete()
+        {
+            MyMessageBox myMessageBox = new MyMessageBox("Are you sure you want to delete this staff?", "Confirm",
+                MyMessageBox.MessageBoxButton.YesNo,
+                MyMessageBox.MessageBoxImage.Question
+            );
 
-        //    await myMessageBox.ShowDialog(App.AppHost!.Services.GetRequiredService<MainWindow>());
+            await myMessageBox.ShowDialog(App.AppHost!.Services.GetRequiredService<MainWindow>());
 
-        //    if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
-        //    {
-        //        var response = await _authService.DeleteAsync($"/api/members/{selectedMember.MemberID}");
-        //        GetData();
-        //    }
-        //}
+            if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
+            {
+                var response = await _authService.DeleteAsync($"/api/employees/{selectedEmployee.EmployeeID}");
+                GetData();
+            }
+        }
 
         [RelayCommand]
         public async void Info()
         {
-            var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<MemberRegistryFormViewModel>();
+            var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<EmployeeRegisterFormViewModel>();
             infoBoxViewModel.AlertBoxOff();
 
             infoBoxViewModel.Title = "Employee Info";
-            infoBoxViewModel.InputedMember.CitizenID = selectedEmployee.CitizenID;
-            infoBoxViewModel.InputedMember.Address = selectedEmployee.Address;
-            infoBoxViewModel.InputedMember.Name = selectedEmployee.Name;
-            infoBoxViewModel.InputedMember.PhoneNumber = selectedEmployee.PhoneNumber;
-            infoBoxViewModel.InputedMember.Gender = selectedEmployee.Gender;
-            infoBoxViewModel.InputedMember.EmployeeID = selectedEmployee.EmployeeID;
+            infoBoxViewModel.InputedEmployee.CitizenID = selectedEmployee.CitizenID;
+            infoBoxViewModel.InputedEmployee.Address = selectedEmployee.Address;
+            infoBoxViewModel.InputedEmployee.Name = selectedEmployee.Name;
+            infoBoxViewModel.InputedEmployee.PhoneNumber = selectedEmployee.PhoneNumber;
+            infoBoxViewModel.InputedEmployee.Gender = selectedEmployee.Gender;
+            infoBoxViewModel.InputedEmployee.EmployeeID = selectedEmployee.EmployeeID;
+            infoBoxViewModel.InputedEmployee.Email = selectedEmployee.Email;
 
-            var infoBox = App.AppHost!.Services.GetRequiredService<MemberRegistryForm>();
+            var infoBox = App.AppHost!.Services.GetRequiredService<EmployeeRegisterFormView>();
 
             infoBox.Show();
         }
