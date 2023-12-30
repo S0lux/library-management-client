@@ -22,6 +22,8 @@ namespace Avalonia_DependencyInjection.ViewModels;
 
 public partial class MemberRegistryFormViewModel : ViewModelBase
 {
+    [ObservableProperty] private string _title = "Member registration";
+
     private readonly AuthenticationService _authService;
 
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(SubmitCommand))]

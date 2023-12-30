@@ -81,8 +81,8 @@
                         Width="30"
                         Height="30"
                         Path="/Assets/SVGs/user-plus-black.svg" />
-                    <Label FontSize="30">
-                        Member registration
+                    <Label Content="{Binding Title}" FontSize="30">
+                        
                     </Label>
                 </StackPanel>
 

@@ -73,8 +73,13 @@ public partial class SidebarView : UserControl
             
             File.Delete("userToken.txt");
             
+            //var box2 = App.AppHost!.Services.GetRequiredService<SidebarViewModel>();
+            //box2.SelectedScreen = box2.SidebarScreen.Screens[0];
+            //mainTreeView.SelectedItem = box2.SidebarScreen.Screens[0];
+
             var win=App.AppHost!.Services.GetRequiredService<MainWindowViewModel>();
             win.ContentViewModel = App.AppHost.Services.GetRequiredService<LoginViewModel>();
+
         }
     }
 }

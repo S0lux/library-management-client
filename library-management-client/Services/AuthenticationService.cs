@@ -53,6 +53,8 @@ public class AuthenticationService: IAuthService
             const string filePath = "userToken.txt";
             await File.WriteAllTextAsync(filePath, CurrentUser.token);
 
+            App.AppHost.Services.GetRequiredService<SidebarViewModel>().CheckValid();
+
             return CurrentUser;
         }
         catch (HttpRequestException e)

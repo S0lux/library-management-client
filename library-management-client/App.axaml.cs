@@ -80,7 +80,8 @@ public partial class App : Application
                     services.AddSingleton<BorrowViewModel>();
                     services.AddTransient<InvoiceWindow>();
                     services.AddTransient<InvoiceWindowViewModel>();
-                    
+                    services.AddSingleton<EmployeeListView>();
+                    services.AddSingleton<EmployeeListViewModel>();
 
                     services.AddHttpClient("main", options =>
                     {
