@@ -67,10 +67,9 @@ namespace Avalonia_DependencyInjection.ViewModels
             }
         }
 
-
         public bool checkSubmit()
         {
-            if(BorrowMEMBER == null)
+            if(BorrowMEMBER == null || BorrowDetailList.Any(detail => detail.HasErrors))
             {
                 return false;
             }
@@ -153,6 +152,11 @@ namespace Avalonia_DependencyInjection.ViewModels
                         BookTitle = bOOK.Title
                     });
                 }
+            }
+
+            foreach (var detail in BorrowDetailList)
+            {
+                detail.ErrorsChanged += (sender, args) => checkOuttaCommand.NotifyCanExecuteChanged();
             }
         }
 

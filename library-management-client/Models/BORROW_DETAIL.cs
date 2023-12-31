@@ -1,12 +1,15 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Avalonia.Media;
 using Avalonia_DependencyInjection.ViewModels;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Avalonia_DependencyInjection.Models
 {
-    public class BORROW_DETAIL
+    public partial class BORROW_DETAIL: ObservableValidator
     {
         public int BorrowInvoiceID { get; set; }
         
@@ -45,48 +48,34 @@ namespace Avalonia_DependencyInjection.Models
             }
         }
 
-        private uint _quantity;
-        
-        public uint Quantity
+        [ObservableProperty] [NotifyDataErrorInfo] [Range(1, 100)] 
+        [CustomValidation(typeof(BORROW_DETAIL), nameof(ValidateQuantity))]
+        private int _quantity;
+
+        public static ValidationResult ValidateQuantity(string value, ValidationContext context)
         {
-            get => _quantity;
-            set
+            var isParsed = int.TryParse(value, out int quantity);
+            if (!isParsed) return new("Input must be a number.");
+            
+            var borrowDetail = (BORROW_DETAIL)context.ObjectInstance;
+            
+            var bookViewModel = App.AppHost!.Services.GetRequiredService<BookViewModel>();
+            var bookList = bookViewModel.BookList;
+
+            var correspondingBook = bookList.FirstOrDefault(book => book.ISBN13 == borrowDetail.ISBN13);
+            if (correspondingBook.BOOK_DETAILs.First(e => e.Status == "normal").Quantity < borrowDetail.Quantity)
             {
-                var box = App.AppHost!.Services.GetRequiredService<BookViewModel>();
-
-                BOOK temp = box.BookList.FirstOrDefault(e => e.ISBN13 == ISBN13);
-
-                if ( temp!=null && value > temp.BOOK_DETAILs.First(e => e.Status == "normal").Quantity)
-                {
-                    throw new ArgumentException("Quantity can't be greater than the available amount.");
-                }
-
-                if (value == 0)
-                {
-                    throw new ArgumentException("Quantity must be greater than 0.");
-                }
-                ValidateSum(Returned, Damaged, Lost);
-                _quantity = value;
+                return new("The number of borrowed books must not be higher than the available quantity");
             }
+            return ValidationResult.Success;
         }
 
         public DateTime DueDate { get; set; }
         
         public bool HasReturned { get; set; }
 
+        [ObservableProperty] [Range(1, 90)] [NotifyDataErrorInfo]
         private uint _borrowDuration;
-        public uint BorrowDuration
-        {
-            get => _borrowDuration;
-            set
-            {
-                if (value == 0)
-                {
-                    throw new ArgumentException("Borrow duration must be greater than 0.");
-                }
-                _borrowDuration = value;
-            }
-        }
 
         public string BookTitle { get; set; }
 
@@ -113,10 +102,7 @@ namespace Avalonia_DependencyInjection.Models
 
         private void ValidateSum(uint returned, uint damaged, uint lost)
         {
-            if (returned + damaged + lost > Quantity)
-            {
-                throw new ArgumentException("The sum of Returned, Damaged, and Lost must not be greater than Quantity.");
-            }
+            
         }
         
         private void UpdateStatus()
