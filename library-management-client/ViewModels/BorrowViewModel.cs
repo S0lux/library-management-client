@@ -33,10 +33,10 @@ public partial class BorrowViewModel: ViewModelBase
         "All" , "Ongoing" , "Overdue" , "Completed"
     };
 
-    public BorrowViewModel(AuthenticationService authService)
+    public BorrowViewModel(AuthenticationService authService, BookViewModel bookViewModel)
     {
         _authService = authService;
-        SelectedStatusFilter=StatusFilters.FirstOrDefault();
+        SelectedStatusFilter = StatusFilters.FirstOrDefault();
         RetrieveInvoices();
     }
 

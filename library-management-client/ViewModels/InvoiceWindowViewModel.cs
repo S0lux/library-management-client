@@ -52,10 +52,22 @@ public partial class InvoiceWindowViewModel: ViewModelBase
         }
 
         await Task.WhenAll(fetchTasks);
+
+        foreach (var detail in BorrowDetails)
+        {
+            detail.ErrorsChanged += (sender, args) => SaveBookDetailsCommand.NotifyCanExecuteChanged();
+        }
+        
         IsLoading = false;
     }
 
-    [RelayCommand]
+    public bool IsSaveAble()
+    {
+        if (BorrowDetails.Any(detail => detail.HasErrors)) return false;
+        return true;
+    }
+
+    [RelayCommand(CanExecute = nameof(IsSaveAble))]
     private async Task SaveBookDetails()
     {
         IsLoading = true;
