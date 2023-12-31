@@ -102,8 +102,9 @@ public partial class AddByISBNViewModel : ViewModelBase
                     box1.BookCheckedList.Clear();
                     box1.CheckedAmount = 0;
                     box1.GetData();
-                    return;
                 }
+                return;
+
             }
             ShowResultMessageBox(resultContentString, resultBoxIcon);
 

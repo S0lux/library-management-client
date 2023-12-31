@@ -121,7 +121,7 @@ public partial class AddByTitleViewModel: ViewModelBase
                     addvm.FindKey = book.ISBN13;
                     await addvm.Find();
                 }
-
+                loadingSpinner.IsBusy = false;
                 return;
 
             }
