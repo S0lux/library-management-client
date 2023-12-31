@@ -123,7 +123,21 @@ namespace Avalonia_DependencyInjection.ViewModels
                 var body = await response.Content.ReadAsStringAsync();
                 var apiResponseEmployee = JsonConvert.DeserializeObject<ApiResponseEmployee>(body);
 
-                EmployeeList = new ObservableCollection<EMPLOYEE>(apiResponseEmployee!.data.Where(e => e.Deleted == false));
+                EmployeeList = new ObservableCollection<EMPLOYEE>(apiResponseEmployee!.data.Where(e => e.Deleted == false)
+                    .Select(e => new EMPLOYEE
+                    {
+                        Name = e.Name,
+                        Gender = e.Gender,
+                        Account = e.Account,
+                        Address = e.Address,
+                        PhoneNumber = e.PhoneNumber,
+                        CitizenID = e.CitizenID,
+                        DateOfBirth = e.DateOfBirth,
+                        Deleted = e.Deleted,
+                        EmployeeID = e.EmployeeID,
+                        Email = e.Email,
+                    }));
+
                 ShowingList = EmployeeList;
             }
             catch (HttpRequestException e)
@@ -145,6 +159,7 @@ namespace Avalonia_DependencyInjection.ViewModels
             infoBoxViewModel.AlertBoxOff();
 
             infoBoxViewModel.InputedEmployee = new EMPLOYEE() { DateOfBirth = DateTime.Today, Gender = 0,Deleted = false };
+            infoBoxViewModel.InputedEmployee.Account = new ACCOUNT();
             infoBoxViewModel.Title = "Employee Info";
             infoBoxViewModel.Ico = @"/Assets/SVGs/user-tie-solid.svg";
 
@@ -153,8 +168,12 @@ namespace Avalonia_DependencyInjection.ViewModels
                 infoBoxViewModel.SubmitCommand.NotifyCanExecuteChanged();
             };
 
-            var memberRegistryForm = App.AppHost!.Services.GetRequiredService<EmployeeRegisterFormView>();
-            memberRegistryForm.Show();
+            infoBoxViewModel.InputedEmployee.Account.PropertyChanged += (sender, args) =>
+            { 
+                infoBoxViewModel.SubmitCommand.NotifyCanExecuteChanged();
+            };
+            var employeeRegistryForm = App.AppHost!.Services.GetRequiredService<EmployeeRegisterFormView>();
+            employeeRegistryForm.Show();
         }
 
         [RelayCommand]
@@ -188,6 +207,7 @@ namespace Avalonia_DependencyInjection.ViewModels
             infoBoxViewModel.InputedEmployee.Gender = selectedEmployee.Gender;
             infoBoxViewModel.InputedEmployee.EmployeeID = selectedEmployee.EmployeeID;
             infoBoxViewModel.InputedEmployee.Email = selectedEmployee.Email;
+            infoBoxViewModel.InputedEmployee.Account = selectedEmployee.Account;
 
             var infoBox = App.AppHost!.Services.GetRequiredService<EmployeeRegisterFormView>();
 

@@ -44,6 +44,8 @@ namespace Avalonia_DependencyInjection.ViewModels
             _authService = authService;
 
             InputedEmployee.PropertyChanged += (sender, args) => { SubmitCommand.NotifyCanExecuteChanged(); };
+            InputedEmployee.Account = new();
+            InputedEmployee.Account.PropertyChanged += (sender, args) => { SubmitCommand.NotifyCanExecuteChanged(); };
         }
 
         bool checkSubmit()
@@ -53,6 +55,8 @@ namespace Avalonia_DependencyInjection.ViewModels
                    !string.IsNullOrEmpty(InputedEmployee.CitizenID) &&
                    !string.IsNullOrEmpty(InputedEmployee.Email) &&
                    !string.IsNullOrEmpty(InputedEmployee.Address) &&
+                   !string.IsNullOrEmpty(InputedEmployee.Account.Username) && 
+                   !string.IsNullOrEmpty(InputedEmployee.Account.Password) &&
                    UInt64.TryParse((ReadOnlySpan<char>)InputedEmployee.PhoneNumber, out var temp) &&
                    UInt64.TryParse((ReadOnlySpan<char>)InputedEmployee.CitizenID, out temp);
         }
@@ -77,10 +81,18 @@ namespace Avalonia_DependencyInjection.ViewModels
                     Deleted = InputedEmployee.Deleted,
                 };
 
+                var createdAccount = new
+                {
+                    Username = InputedEmployee.Account.Username,
+                    Password = InputedEmployee.Account.Password
+                };
+
                 var payload = new
                 {
-                    data = createdMember
+                    data = createdMember,
+                    accountData = createdAccount
                 };
+
                 var json = JsonConvert.SerializeObject(payload);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -120,11 +132,19 @@ namespace Avalonia_DependencyInjection.ViewModels
                     DateOfBirth = InputedEmployee.DateOfBirth.ToString("o"),
                     Address = InputedEmployee.Address,
                     Deleted = InputedEmployee.Deleted,
+                    Email = InputedEmployee.Email,
+                };
+
+                var createdAccount = new
+                {
+                    Username = InputedEmployee.Account.Username,
+                    Password = InputedEmployee.Account.Password
                 };
 
                 var payload = new
                 {
-                    data = createdMember
+                    data = createdMember,
+                    accountData = createdAccount
                 };
                 var json = JsonConvert.SerializeObject(payload);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");

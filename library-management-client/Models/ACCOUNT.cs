@@ -1,17 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Avalonia_DependencyInjection.Models;
 
-public class ACCOUNT
+public partial class ACCOUNT: ObservableValidator
 {
     [Key]
     public int AccountID { get; set; }
 
-    [MaxLength(20)]
-    public string Username { get; set; }
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [Required(ErrorMessage = "This information is required")]
+    private string _username;
 
-    [MaxLength(20)]
-    public string Password { get; set; }
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [Required(ErrorMessage = "This information is required")]
+    private string _password;
 
     public int AccessLevel { get; set; }
 

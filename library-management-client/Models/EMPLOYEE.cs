@@ -42,4 +42,6 @@ public partial class EMPLOYEE: ObservableValidator
     [ObservableProperty] private DateTime _dateOfBirth;
 
     [ObservableProperty] private bool _deleted;
+
+    [ObservableProperty] private ACCOUNT? _account;
 }

@@ -167,7 +167,7 @@
                             <Label DockPanel.Dock="Top">
                                 Username
                             </Label>
-                            <TextBox Text="{Binding InputedEmployee.Name, Mode=TwoWay}" />
+                            <TextBox Text="{Binding InputedEmployee.Account.Username, Mode=TwoWay}" />
                         </DockPanel>
 
                         <DockPanel>
@@ -177,7 +177,7 @@
                             <TextBox
                                 Classes="revealPasswordButton"
                                 PasswordChar="•"
-                                Text="{Binding InputedEmployee.Name, Mode=TwoWay}" />
+                                Text="{Binding InputedEmployee.Account.Password, Mode=TwoWay}" />
                         </DockPanel>
 
                         <!--  submit/cancel button_narrow view  -->
