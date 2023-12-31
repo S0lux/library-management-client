@@ -108,7 +108,7 @@ public partial class App : Application
 
         if (currentUser is not null && currentUser.remember == false)
         {
-            await _authService.GetAsync("/api/logout");
+            await _authService.LogoutAsync();
         }
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) desktop.Shutdown();

@@ -73,6 +73,14 @@ public class AuthenticationService: IAuthService
         }
     }
 
+    public async Task LogoutAsync()
+    {
+        var employeeViewModel = App.AppHost!.Services.GetRequiredService<EmployeeListViewModel>();
+        employeeViewModel.OnLogout();
+        
+        await GetAsync("/api/logout");
+    }
+
     public async Task<bool> VerifyTokenAsync()
     {
         // Request to /api/session/verify
