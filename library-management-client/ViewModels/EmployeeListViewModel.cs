@@ -215,6 +215,7 @@ namespace Avalonia_DependencyInjection.ViewModels
             infoBoxViewModel.InputedEmployee.EmployeeID = selectedEmployee.EmployeeID;
             infoBoxViewModel.InputedEmployee.Email = selectedEmployee.Email;
             infoBoxViewModel.InputedEmployee.Account = selectedEmployee.Account;
+            infoBoxViewModel.InputedEmployee.DateOfBirth = selectedEmployee.DateOfBirth;
 
             var infoBox = App.AppHost!.Services.GetRequiredService<EmployeeRegisterFormView>();
 
