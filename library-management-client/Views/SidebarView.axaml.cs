@@ -73,7 +73,7 @@ public partial class SidebarView : UserControl
         if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.YES)
         {
             var _authService = App.AppHost!.Services.GetRequiredService<AuthenticationService>();
-            await _authService.GetAsync("/api/logout");
+            await _authService.LogoutAsync();
             
             File.Delete("userToken.txt");
 

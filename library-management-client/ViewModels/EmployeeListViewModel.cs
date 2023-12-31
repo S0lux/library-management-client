@@ -46,6 +46,13 @@ namespace Avalonia_DependencyInjection.ViewModels
             FilterBy = FilterByOptions.FirstOrDefault();
         }
 
+        public void OnLogout()
+        {
+            EmployeeList = new ObservableCollection<EMPLOYEE>();
+            EmployeeFindList = new ObservableCollection<EMPLOYEE>();
+            ShowingList = null;
+        }
+        
         partial void OnFilterKeyChanged(string? oldValue, string newValue)
         {
             EmployeeFindList.Clear();
