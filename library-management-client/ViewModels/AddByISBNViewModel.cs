@@ -29,6 +29,8 @@ public partial class AddByISBNViewModel : ViewModelBase
 
     [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(AddBookCommand))] private int? _bookQuantity;
 
+    [ObservableProperty][NotifyCanExecuteChangedFor(nameof(AddBookCommand))] private int? _shelfNumber;
+
     public AddByISBNViewModel(AuthenticationService authenticationService)
     {
         _authenticationService = authenticationService;
@@ -63,6 +65,7 @@ public partial class AddByISBNViewModel : ViewModelBase
                 Author = Book.Author,
                 PublishDate = Book.PublishDate,
                 ISBN13 = Book.ISBN13,
+                Shelf = ShelfNumber
             };
 
             var response = await PostBookAsync(createdBook);
@@ -156,7 +159,7 @@ public partial class AddByISBNViewModel : ViewModelBase
 
     public bool CheckAdd()
     {
-        return (BookQuantity >= 0) && (BookQuantity != null);
+        return (BookQuantity >= 0) && (BookQuantity != null)&& (ShelfNumber >= 0) && (ShelfNumber != null);
     }
     
     private Task<HttpResponseMessage> PostBookAsync(object book)
@@ -177,6 +180,7 @@ public partial class AddByISBNViewModel : ViewModelBase
         var putBook = new
         {
             ISBN13 = isbn,
+            Shelf = ShelfNumber,
             Deleted = deleted
         };
         var payload = new

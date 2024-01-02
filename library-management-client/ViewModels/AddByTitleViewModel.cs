@@ -27,6 +27,7 @@ public partial class AddByTitleViewModel: ViewModelBase
     [ObservableProperty] private BOOK _selectedBook;
     [ObservableProperty] private string _imageUrl;
     public int BookQuantity { get; set; }
+    public int ShelfNumber { get; set; }
 
     public AddByTitleViewModel(AuthenticationService authService)
     {
@@ -93,6 +94,7 @@ public partial class AddByTitleViewModel: ViewModelBase
                 ISBN13 = book.ISBN13,
                 Title = book.Title,
                 Author = book.Author,
+                Shelf = ShelfNumber,
                 PublishDate = book.PublishDate.ToString("O")
             };
 
@@ -141,15 +143,15 @@ public partial class AddByTitleViewModel: ViewModelBase
     private async Task<QuantityConfirmMessageBox.ButtonResult> ShowQuantityConfirmMessageBox(BOOK book)
     {
         var messageBoxContentString = $"How many of this book do you want to add?\n" +
-                                      $"Title: {book.Title}\n" +
-                                      $"ISBN: {book.ISBN13}\n" +
-                                      $"Author: {book.Author}";
+                                      $"Title:          {book.Title}\n" +
+                                      $"ISBN:         {book.ISBN13}\n" +
+                                      $"Author:      {book.Author}";
 
         var mess = new QuantityConfirmMessageBox(
             messageBoxContentString,
             "Confirm",
             QuantityConfirmMessageBox.MessageBoxImage.Question,
-            400, 250);
+            400, 270);
 
         await mess.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
 
@@ -234,7 +236,6 @@ public partial class AddByTitleViewModel: ViewModelBase
         ImageUrl=string.Empty;
         Books.Clear();
     }
-
 }
 
 public class apiResponse

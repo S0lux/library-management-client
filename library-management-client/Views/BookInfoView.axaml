@@ -82,6 +82,10 @@
                                 FontSize="15"
                                 FontWeight="DemiBold"
                                 Text="{Binding Book.ISBN13, StringFormat=ISBN13: {0}}" />
+                            <TextBlock
+                                FontSize="15"
+                                FontWeight="DemiBold"
+                                Text="{Binding Book.Shelf, StringFormat=Shelf: {0}}" />
                         </StackPanel>
 
                     </Border>

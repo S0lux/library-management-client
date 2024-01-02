@@ -50,6 +50,7 @@ public partial class BookInfoViewModel:ViewModelBase
             var addvm = App.AppHost.Services.GetRequiredService<AddBookWindowViewModel>();
             var isbnvm=App.AppHost.Services.GetRequiredService<AddByISBNViewModel>();
             isbnvm.BookQuantity = Normal;
+            isbnvm.ShelfNumber = Book.Shelf;
             addvm.AddBy = "ISBN";
             addvm.FindKey = Book.ISBN13;
             App.AppHost.Services.GetRequiredService<BookInfoView>().Hide();

@@ -103,7 +103,12 @@ namespace Avalonia_DependencyInjection.Controls
             buttonResultClicked = ButtonResult.OK;
             var temp = App.AppHost.Services.GetRequiredService<AddByTitleViewModel>();
             if (Quantity.Value == null) temp.BookQuantity = 1;
-            else temp.BookQuantity = (int)Quantity.Value;
+            if (Location.Value == null) temp.ShelfNumber = 0;
+            else
+            {
+                temp.BookQuantity = (int)Quantity.Value;
+                temp.ShelfNumber = (int)Location.Value;
+            }
             this.Close();
         }
 

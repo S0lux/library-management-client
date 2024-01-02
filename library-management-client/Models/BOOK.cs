@@ -28,6 +28,9 @@ namespace Avalonia_DependencyInjection.Models
         public bool _isCheck;
 
         [ObservableProperty]
+        private int _shelf;
+
+        [ObservableProperty]
         public ObservableCollection<BOOK_DETAIL> _bOOK_DETAILs = new ObservableCollection<BOOK_DETAIL>();
     }
 }

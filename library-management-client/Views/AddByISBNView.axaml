@@ -12,7 +12,7 @@
     x:DataType="vm:AddByISBNViewModel"
     mc:Ignorable="d">
     <Grid Margin="0,20,0,0">
-        <Border Grid.Row="0" Margin="50,50,50,75">
+        <Border Grid.Row="0" Margin="50,20,50,75">
             <Grid ColumnDefinitions="0.5* *">
                 <Grid Grid.Column="0">
                     <asyncImageLoader:AdvancedImage Name="CoverLoader" Source="{Binding ImageUrl}" />
@@ -27,53 +27,114 @@
                 <Grid
                     Grid.Column="1"
                     Margin="20,0,0,0"
-                    RowDefinitions="auto Auto auto auto auto auto">
-                    <TextBlock
-                        Grid.Row="0"
-                        FontSize="30"
-                        FontWeight="DemiBold"
-                        Foreground="RoyalBlue"
-                        Text="{Binding Book.Title}"
-                        TextWrapping="Wrap" />
-                    <StackPanel
+                    VerticalAlignment="Center"
+                    RowDefinitions="auto auto auto ">
+                    <Border
+                        Margin="0,0,0,20"
+                        Padding="5"
+                        Background="White"
+                        CornerRadius="10">
+                        <TextBlock
+                            Grid.Row="0"
+                            Margin="10,0,0,0"
+                            FontSize="30"
+                            FontWeight="DemiBold"
+                            Foreground="RoyalBlue"
+                            Text="{Binding Book.Title}"
+                            TextWrapping="NoWrap" />
+                    </Border>
+                    <Border
                         Grid.Row="1"
-                        Margin="0,10,0,0"
-                        Orientation="Horizontal"
-                        Spacing="10">
-                        <TextBlock FontSize="20">by</TextBlock>
-                        <TextBlock
-                            FontSize="20"
-                            FontWeight="DemiBold"
-                            Text="{Binding Book.Author}" />
-                    </StackPanel>
-
-                    <StackPanel
-                        Grid.Row="2"
-                        Margin="0,10,0,0"
-                        Orientation="Horizontal"
-                        Spacing="10">
-                        <TextBlock FontSize="20">Released on:</TextBlock>
-                        <TextBlock
-                            FontSize="20"
-                            FontWeight="DemiBold"
-                            Text="{Binding ReleaseDate}" />
-                    </StackPanel>
+                        Padding="10"
+                        Background="White"
+                        CornerRadius="10">
+                        <Grid ColumnDefinitions="auto auto" RowDefinitions="auto auto auto auto auto">
 
 
-                    <StackPanel
-                        Grid.Row="4"
-                        Margin="0,10,0,0"
-                        Orientation="Horizontal"
-                        Spacing="10">
-                        <TextBlock FontSize="20">ISBN13:</TextBlock>
-                        <TextBlock
-                            FontSize="20"
-                            FontWeight="DemiBold"
-                            Text="{Binding Book.ISBN13}" />
-                    </StackPanel>
+                            <TextBlock
+                                Grid.Column="0"
+                                Margin="5"
+                                FontSize="20">
+                                by
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="5"
+                                FontSize="20"
+                                FontWeight="DemiBold"
+                                Text="{Binding Book.Author}" />
 
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="5"
+                                FontSize="20">
+                                Released on:
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="5"
+                                FontSize="20"
+                                FontWeight="DemiBold"
+                                Text="{Binding ReleaseDate}" />
+
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Margin="5"
+                                FontSize="20">
+                                ISBN13:
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Margin="5"
+                                FontSize="20"
+                                FontWeight="DemiBold"
+                                Text="{Binding Book.ISBN13}" />
+
+
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                FontSize="20">
+                                Shelf:
+                            </TextBlock>
+                            <NumericUpDown
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Margin="5"
+                                FontSize="20"
+                                FontWeight="DemiBold"
+                                Increment="1"
+                                Minimum="0"
+                                Value="{Binding ShelfNumber}" />
+
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                Margin="5"
+                                FontSize="20">
+                                Quantity:
+                            </TextBlock>
+                            <NumericUpDown
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                Margin="5"
+                                FontSize="20"
+                                FontWeight="DemiBold"
+                                Increment="1"
+                                Minimum="0"
+                                Value="{Binding BookQuantity}" />
+
+                        </Grid>
+                    </Border>
                     <Grid
-                        Grid.Row="5"
+                        Grid.Row="6"
                         Margin="0,20,0,0"
                         ColumnDefinitions="auto auto auto">
                         <Button
@@ -96,27 +157,9 @@
                                     Foreground="White" />
                             </StackPanel>
                         </Button>
-
-                        <NumericUpDown
-                            x:Name="UpDown"
-                            Grid.Column="1"
-                            Width="120"
-                            Height="40"
-                            Margin="15,0,0,0"
-                            Padding="20,10,10,10"
-                            FontWeight="DemiBold"
-                            Increment="1"
-                            Minimum="0"
-                            Value="{Binding BookQuantity}">
-                        </NumericUpDown>
-
                     </Grid>
-
                 </Grid>
             </Grid>
         </Border>
-
-
-
     </Grid>
 </UserControl>
