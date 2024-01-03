@@ -97,7 +97,7 @@ namespace Avalonia_DependencyInjection.Models
                 var bookList = bookViewModel.BookList;
 
                 var correspondingBook = bookList.FirstOrDefault(book => book.ISBN13 == borrowDetail.ISBN13);
-                if (correspondingBook.BOOK_DETAILs.First(e => e.Status == "normal").Quantity < borrowDetail.Quantity)
+                if (correspondingBook?.BOOK_DETAILs.First(e => e.Status == "normal").Quantity < borrowDetail.Quantity)
                 {
                     return new("The number of borrowed books must not be higher than the available quantity");
                 }
