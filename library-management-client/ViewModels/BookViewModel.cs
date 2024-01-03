@@ -131,6 +131,7 @@ public partial class BookViewModel : ViewModelBase
     {
         IsBusy = true;
         BookList.Clear();
+        CheckedAmount = 0;
         try
         {
             var response = await _authenticationService.GetAsync(@"/api/books");
