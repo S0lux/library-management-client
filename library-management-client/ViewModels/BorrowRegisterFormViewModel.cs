@@ -141,6 +141,7 @@ namespace Avalonia_DependencyInjection.ViewModels
 
         public void Load()
         {
+            BorrowDetailList.Clear();
             foreach (BOOK bOOK in bookViewModel.BookCheckedList)
             {
                 if (!BorrowDetailList.Contains(BorrowDetailList.FirstOrDefault(e => e.ISBN13 == bOOK.ISBN13)))
