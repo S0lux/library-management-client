@@ -83,6 +83,7 @@ namespace Avalonia_DependencyInjection.ViewModels
 
             foreach(BORROW_DETAIL bORROW in BorrowDetailList)
             {
+                if (bORROW.Quantity < 1) continue;
                 var borrowDetailData = new BORROW_DETAIL()
                 {
                     ISBN13 = bORROW.ISBN13,
@@ -157,6 +158,11 @@ namespace Avalonia_DependencyInjection.ViewModels
             foreach (var detail in BorrowDetailList)
             {
                 detail.ErrorsChanged += (sender, args) => checkOuttaCommand.NotifyCanExecuteChanged();
+            }
+            
+            foreach (var borrowDetail in BorrowDetailList)
+            {
+                borrowDetail.Quantity = borrowDetail.HasErrors ? 0 : 1;
             }
         }
 
