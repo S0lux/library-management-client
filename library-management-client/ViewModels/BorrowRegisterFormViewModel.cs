@@ -145,24 +145,34 @@ namespace Avalonia_DependencyInjection.ViewModels
             {
                 if (!BorrowDetailList.Contains(BorrowDetailList.FirstOrDefault(e => e.ISBN13 == bOOK.ISBN13)))
                 {
-                    BorrowDetailList.Add(new BORROW_DETAIL()
+                    var newBorrowDetail = new BORROW_DETAIL()
                     {
                         ISBN13 = bOOK.ISBN13,
                         Quantity = 1,
                         BorrowDuration = 30,
                         BookTitle = bOOK.Title
-                    });
+                    };
+
+                    if (newBorrowDetail.HasErrors)
+                    {
+                        MyMessageBox error = new MyMessageBox(
+                            $"The book with the ISBN of {newBorrowDetail.ISBN13} is out of stock!",
+                            "Attempt to check out failed!",
+                            MyMessageBox.MessageBoxButton.OK,
+                            MyMessageBox.MessageBoxImage.Error,400,200
+                        );
+
+                        error.ShowDialog(App.AppHost!.Services.GetRequiredService<MainWindow>());
+                        throw new Exception();
+                    }
+                    
+                    BorrowDetailList.Add(newBorrowDetail);
                 }
             }
 
             foreach (var detail in BorrowDetailList)
             {
                 detail.ErrorsChanged += (sender, args) => checkOuttaCommand.NotifyCanExecuteChanged();
-            }
-            
-            foreach (var borrowDetail in BorrowDetailList)
-            {
-                borrowDetail.Quantity = borrowDetail.HasErrors ? 0 : 1;
             }
         }
 

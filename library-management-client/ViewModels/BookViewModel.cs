@@ -84,14 +84,6 @@ public partial class BookViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            MyMessageBox error = new MyMessageBox(
-                "One of the chosen book does not have the required quantity.\nPlease update the book information.",
-                "Attempt to check out failed!",
-                MyMessageBox.MessageBoxButton.OK,
-                MyMessageBox.MessageBoxImage.Error,400,200
-            );
-
-            await error.ShowDialog(App.AppHost!.Services.GetRequiredService<MainWindow>());
         }
     }
 
