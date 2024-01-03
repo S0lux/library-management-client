@@ -1,24 +1,24 @@
 <Window
+    Closing="Window_OnClosing"
+    ExtendClientAreaChromeHints="NoChrome"
+    ExtendClientAreaTitleBarHeightHint="0"
+    ExtendClientAreaToDecorationsHint="True"
+    Height="600"
+    Title="EmployeeRegisterFormView"
+    Width="550"
+    WindowStartupLocation="CenterScreen"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.EmployeeRegisterFormView"
+    x:DataType="vm:EmployeeRegisterFormViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ic="using:FluentIcons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:vm="clr-namespace:Avalonia_DependencyInjection.ViewModels"
-    Title="EmployeeRegisterFormView"
-    Width="550"
-    Height="600"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="vm:EmployeeRegisterFormViewModel"
-    Closing="Window_OnClosing"
-    ExtendClientAreaChromeHints="NoChrome"
-    ExtendClientAreaTitleBarHeightHint="0"
-    ExtendClientAreaToDecorationsHint="True"
-    WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Window.Styles>
         <Style Selector="TextBox">
             <Setter Property="FontWeight" Value="Normal" />
@@ -47,9 +47,9 @@
 
     <Grid RowDefinitions="auto *">
         <Border
-            Grid.Row="0"
             Background="Transparent"
             DockPanel.Dock="Top"
+            Grid.Row="0"
             PointerPressed="TitleBarContainer_OnPointerPressed">
             <Grid HorizontalAlignment="Right">
                 <Button
@@ -60,34 +60,34 @@
                     PointerEntered="Close_OnPointerEntered"
                     PointerExited="Close_OnPointerExited">
                     <Svg
-                        Width="15"
                         Height="15"
-                        Path="{Binding IconPathExit}" />
+                        Path="{Binding IconPathExit}"
+                        Width="15" />
                 </Button>
             </Grid>
         </Border>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
             <Grid
-                Name="MainGrid"
                 Margin="30,0,30,0"
+                Name="MainGrid"
                 RowDefinitions="auto *">
                 <StackPanel
                     Grid.Row="0"
                     Orientation="Horizontal"
                     Spacing="5">
                     <Svg
-                        Width="30"
                         Height="30"
-                        Path="{Binding Ico}" />
+                        Path="{Binding Ico}"
+                        Width="30" />
                     <Label Content="{Binding Title}" FontSize="30" />
                 </StackPanel>
 
 
                 <!--  Narrow View  -->
                 <Grid
-                    x:Name="NarrowView"
                     Grid.Row="1"
-                    Margin="0,15,0,0">
+                    Margin="0,15,0,0"
+                    x:Name="NarrowView">
                     <StackPanel Spacing="20">
 
                         <!--  first name_narrow view  -->
@@ -123,7 +123,7 @@
                                 <Label DockPanel.Dock="Top">
                                     Citizen ID
                                 </Label>
-                                <TextBox VerticalAlignment="Top" Text="{Binding InputedEmployee.CitizenID}" />
+                                <TextBox Text="{Binding InputedEmployee.CitizenID}" VerticalAlignment="Top" />
                             </DockPanel>
                         </Grid>
 
@@ -135,8 +135,8 @@
                                     Birthdate
                                 </Label>
                                 <CalendarDatePicker
-                                    HorizontalAlignment="Stretch"
                                     CustomDateFormatString="dd/MM/yyyy"
+                                    HorizontalAlignment="Stretch"
                                     SelectedDate="{Binding InputedEmployee.DateOfBirth}"
                                     SelectedDateFormat="Custom" />
                             </DockPanel>
@@ -147,8 +147,8 @@
                                     Gender
                                 </Label>
                                 <ComboBox
-                                    HorizontalAlignment="Stretch"
                                     Classes="MemberListComboBox"
+                                    HorizontalAlignment="Stretch"
                                     ItemsSource="{Binding Genders}"
                                     SelectedItem="{Binding InputedEmployee.Gender, Converter={StaticResource GenderConverter}}" />
                             </DockPanel>
@@ -181,29 +181,32 @@
                         </DockPanel>
 
                         <!--  submit/cancel button_narrow view  -->
-                        <StackPanel Orientation="Horizontal" Spacing="20">
+                        <StackPanel
+                            Margin="0,0,0,15"
+                            Orientation="Horizontal"
+                            Spacing="20">
                             <DockPanel>
                                 <Button
-                                    Padding="15,5"
                                     Background="RoyalBlue"
                                     Classes="sub_can"
                                     Command="{Binding SubmitCommand}"
                                     FontSize="20"
                                     FontWeight="SemiBold"
-                                    Foreground="White">
+                                    Foreground="White"
+                                    Padding="15,5">
                                     Submit
                                 </Button>
                             </DockPanel>
 
                             <DockPanel>
                                 <Button
-                                    Padding="15,5"
                                     Background="RoyalBlue"
                                     Classes="sub_can"
                                     Command="{Binding CancelCommand}"
                                     FontSize="20"
                                     FontWeight="SemiBold"
-                                    Foreground="White">
+                                    Foreground="White"
+                                    Padding="15,5">
                                     Cancel
                                 </Button>
                             </DockPanel>
@@ -211,50 +214,50 @@
 
                         <!--  Alert box  -->
                         <Border
-                            VerticalAlignment="Center"
                             Background="#f10505"
                             BorderBrush="#be0503"
                             BorderThickness="2"
                             CornerRadius="5"
-                            IsVisible="{Binding HasError}">
+                            IsVisible="{Binding HasError}"
+                            VerticalAlignment="Center">
                             <Grid ColumnDefinitions="* auto">
                                 <Grid
-                                    Grid.Column="0"
-                                    VerticalAlignment="Center"
                                     ColumnDefinitions="auto *"
-                                    RowDefinitions="auto *">
+                                    Grid.Column="0"
+                                    RowDefinitions="auto *"
+                                    VerticalAlignment="Center">
                                     <ic:SymbolIcon
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Margin="5,5,5,0"
                                         FontSize="25"
                                         Foreground="White"
+                                        Grid.Column="0"
+                                        Grid.Row="0"
+                                        Margin="5,5,5,0"
                                         Symbol="ErrorCircle" />
                                     <Label
-                                        Grid.Row="0"
-                                        Grid.Column="1"
                                         Content="Error"
-                                        Foreground="White" />
-                                    <Label
-                                        Grid.Row="1"
+                                        Foreground="White"
                                         Grid.Column="1"
+                                        Grid.Row="0" />
+                                    <Label
                                         Content="{Binding ErrorMessage}"
                                         FontSize="15"
                                         FontWeight="SemiBold"
-                                        Foreground="White" />
+                                        Foreground="White"
+                                        Grid.Column="1"
+                                        Grid.Row="1" />
                                 </Grid>
                                 <Button
-                                    Grid.Column="1"
-                                    VerticalAlignment="Top"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
                                     BorderThickness="0"
                                     Classes="CollapseAlert"
-                                    Command="{Binding AlertBoxOffCommand}">
+                                    Command="{Binding AlertBoxOffCommand}"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Top">
                                     <Svg
-                                        Width="10"
                                         Height="15"
-                                        Path="/Assets/SVGs/xmark-white.svg" />
+                                        Path="/Assets/SVGs/xmark-white.svg"
+                                        Width="10" />
                                 </Button>
                             </Grid>
 
