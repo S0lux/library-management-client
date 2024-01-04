@@ -34,7 +34,7 @@ public partial class HistoryViewModel: ViewModelBase
         {
             // Show error dialog and stop function
             var mainWindow = App.AppHost!.Services.GetRequiredService<MainWindow>();
-            var alertBox = new MyMessageBox("Đã có lỗi xảy ra khi kết nối đến server", "Đã gặp sự cố!",
+            var alertBox = new MyMessageBox("Đã có lỗi xảy ra khi kết nối đến máy chủ", "Lỗi!",
                 MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
             await alertBox.ShowDialog(mainWindow);
             return;
