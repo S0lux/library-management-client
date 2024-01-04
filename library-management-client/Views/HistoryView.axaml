@@ -1,0 +1,134 @@
+<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="Avalonia_DependencyInjection.Views.HistoryView"
+    x:DataType="vm:HistoryViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:control="using:Avalonia_DependencyInjection.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Styles>
+        <Style Selector="CheckBox:checked">
+            <Style Selector="^ /template/ Border#NormalRectangle">
+                <Setter Property="Background" Value="#577ae4" />
+                <Setter Property="BorderBrush" Value="RoyalBlue" />
+            </Style>
+
+            <Style Selector="^:pointerover /template/ Border#NormalRectangle">
+                <Setter Property="Background" Value="#2b58de" />
+                <Setter Property="BorderBrush" Value="#214cce" />
+            </Style>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Margin="30,0,30,30" RowDefinitions="auto auto *">
+        <StackPanel
+            DockPanel.Dock="Top"
+            Grid.Row="0"
+            HorizontalAlignment="Left"
+            Orientation="Horizontal"
+            VerticalAlignment="Top">
+            <Svg
+                Height="30"
+                Path="/Assets/SVGs/rectangle-history-black.svg"
+                Width="30" />
+            <StackPanel
+                Orientation="Horizontal"
+                Spacing="10"
+                VerticalAlignment="Center">
+                <Label Classes="MemberListLabel">
+                    Lịch sử
+                </Label>
+                <Svg
+                    Classes.IsSpinning="{Binding IsBusy}"
+                    Height="25"
+                    IsVisible="{Binding IsBusy}"
+                    Path="/Assets/SVGs/arrows-rotate-solid.svg"
+                    Width="25" />
+            </StackPanel>
+        </StackPanel>
+
+        <Border
+            Background="White"
+            CornerRadius="5"
+            Grid.Row="1"
+            Margin="0,15,0,0"
+            Padding="10,10">
+            <DockPanel>
+                <TextBox
+                    Classes="PrimaryWithIcon"
+                    DockPanel.Dock="Left"
+                    Padding="10"
+                    Tag="/Assets/SVGs/magnifying-glass.svg"
+                    Text="{Binding FilterKey}"
+                    Watermark="Tìm kiếm"
+                    Width="150" />
+
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="5">
+                    <!--  Refresh button  -->
+                    <Button
+                        Background="#31bc70"
+                        Classes="MemberListAddButton"
+                        Command="{Binding GetDataCommand}"
+                        Height="40"
+                        Padding="13">
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center">
+                            <Svg
+                                Height="16"
+                                Path="/Assets/SVGs/rotate-right-white.svg"
+                                Width="16" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <DataGrid
+            AutoGenerateColumns="False"
+            BorderThickness="0"
+            CanUserReorderColumns="False"
+            Classes="MemberListDataGrid"
+            Grid.Row="2"
+            GridLinesVisibility="Horizontal"
+            IsReadOnly="True"
+            ItemsSource="{Binding HistoryList}"
+            Margin="0,10,0,0"
+            Name="HistoryGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Binding="{Binding Date}"
+                    Header="Vào lúc"
+                    MinWidth="20"
+                    Width="auto" />
+                <DataGridTextColumn
+                    Binding="{Binding Action}"
+                    Header="Thao tác"
+                    MinWidth="20"
+                    Width="auto" />
+                <DataGridTextColumn
+                    Binding="{Binding ActionDetails}"
+                    Header="Chi tiết"
+                    MinWidth="50"
+                    Width="*" />
+                <DataGridTextColumn
+                    Binding="{Binding AccountUsername}"
+                    Header="Nhân viên"
+                    MaxWidth="250"
+                    MinWidth="30"
+                    Width="auto" />
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</UserControl>

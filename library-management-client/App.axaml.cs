@@ -84,6 +84,7 @@ public partial class App : Application
                     services.AddSingleton<EmployeeListViewModel>();
                     services.AddSingleton<EmployeeRegisterFormViewModel>();
                     services.AddSingleton<EmployeeRegisterFormView>();
+                    services.AddSingleton<HistoryViewModel>();
 
                     services.AddHttpClient("main", options =>
                     {

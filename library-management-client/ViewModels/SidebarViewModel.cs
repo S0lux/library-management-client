@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Avalonia_DependencyInjection.Interfaces;
@@ -30,6 +31,8 @@ public partial class SidebarViewModel: ViewModelBase
                 new("List", typeof(BookViewModel), "/Assets/SVGs/books.svg"),
                 new("Borrowed", typeof(BorrowViewModel), "/Assets/SVGs/hand-holding-box.svg")
             }),
+            
+            new("Lịch sử", typeof(HistoryViewModel), "/Assets/SVGs/rectangle-history.svg")
         });
 
         CheckValid();
@@ -40,21 +43,19 @@ public partial class SidebarViewModel: ViewModelBase
         response = await _authService.GetAsync(@"/api/employees");
 
         SidebarScreenViewModel model = new("Employee", typeof(EmployeeListViewModel), "/Assets/SVGs/user-tie-solid-white.svg");
-        if (response.StatusCode == System.Net.HttpStatusCode.OK && SidebarScreen.Screens.Count == 3)
-        {
-            SidebarScreen.Screens.Add(model);
-        }
-        
-        if(response.StatusCode != System.Net.HttpStatusCode.OK)
-        {
-            if(SidebarScreen.Screens[3] == null)
-            {
-                return;
-            }
 
-            if (SidebarScreen.Screens[3].ViewModel == typeof(EmployeeListViewModel))
+        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            if (!SidebarScreen.Screens.Any(screen => screen.ViewModel == typeof(EmployeeListViewModel))) SidebarScreen.Screens.Add(model);
+        }
+        else
+        {
+            foreach (var screen in SidebarScreen.Screens)
             {
-                SidebarScreen.Screens.Remove(SidebarScreen.Screens[3]);
+                if (screen.ViewModel == typeof(EmployeeListViewModel))
+                {
+                    SidebarScreen.Screens.Remove(screen);
+                }
             }
         }
     }
