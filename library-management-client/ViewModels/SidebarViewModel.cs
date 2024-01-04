@@ -24,12 +24,12 @@ public partial class SidebarViewModel: ViewModelBase
         {
             new("Home", typeof(HomeViewModel), "/Assets/SVGs/house-solid.svg"),
 
-            new("Member", typeof(MemberListViewModel), "/Assets/SVGs/user-group-solid.svg"),
+            new("Thành viên", typeof(MemberListViewModel), "/Assets/SVGs/user-group-solid.svg"),
 
-            new("Book", null, "/Assets/SVGs/book-open-cover.svg", new ObservableCollection<SidebarScreenViewModel>()
+            new("Sách", null, "/Assets/SVGs/book-open-cover.svg", new ObservableCollection<SidebarScreenViewModel>()
             {
-                new("List", typeof(BookViewModel), "/Assets/SVGs/books.svg"),
-                new("Borrowed", typeof(BorrowViewModel), "/Assets/SVGs/hand-holding-box.svg")
+                new("Danh sách", typeof(BookViewModel), "/Assets/SVGs/books.svg"),
+                new("Biên lai", typeof(BorrowViewModel), "/Assets/SVGs/hand-holding-box.svg")
             }),
             
             new("Lịch sử", typeof(HistoryViewModel), "/Assets/SVGs/rectangle-history.svg")
@@ -42,7 +42,7 @@ public partial class SidebarViewModel: ViewModelBase
     {
         response = await _authService.GetAsync(@"/api/employees");
 
-        SidebarScreenViewModel model = new("Employee", typeof(EmployeeListViewModel), "/Assets/SVGs/user-tie-solid-white.svg");
+        SidebarScreenViewModel model = new("Nhân viên", typeof(EmployeeListViewModel), "/Assets/SVGs/user-tie-solid-white.svg");
 
         if (response.StatusCode == System.Net.HttpStatusCode.OK)
         {

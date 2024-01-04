@@ -29,7 +29,7 @@ public partial class HistoryViewModel: ViewModelBase
     [RelayCommand]
     async Task GetData()
     {
-        var response = await _authService.GetAsync("/api/history");
+        var response = await _authService.GetAsync("/api/history_logs");
         if (!response.IsSuccessStatusCode)
         {
             // Show error dialog and stop function

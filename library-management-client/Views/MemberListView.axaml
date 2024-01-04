@@ -33,7 +33,7 @@
                 Orientation="Horizontal"
                 Spacing="10">
                 <Label Classes="MemberListLabel">
-                    Member
+                    Thành viên
                 </Label>
                 <Svg
                     Width="25"
@@ -69,7 +69,7 @@
                         Classes="PrimaryWithIcon"
                         Tag="/Assets/SVGs/magnifying-glass.svg"
                         Text="{Binding FilterKey}"
-                        Watermark="Search Here"
+                        Watermark="Tìm kiếm"
                         ZIndex="1" />
 
                     <ComboBox
@@ -78,7 +78,6 @@
                         VerticalContentAlignment="Center"
                         Classes="MemberListComboBox"
                         ItemsSource="{Binding FilterByOptions}"
-                        PlaceholderText="Filter By"
                         SelectedItem="{Binding FilterBy}" />
                 </StackPanel>
 
@@ -146,17 +145,17 @@
                     Width="*"
                     MinWidth="50"
                     Binding="{Binding Name}"
-                    Header="Member" />
+                    Header="Họ tên" />
                 <DataGridTextColumn
                     Width="auto"
                     MinWidth="30"
                     Binding="{Binding PhoneNumber}"
-                    Header="Phone" />
+                    Header="Số điện thoại" />
                 <DataGridTextColumn
                     Width="auto"
                     MinWidth="30"
                     Binding="{Binding Gender, Converter={StaticResource GenderConverter}}"
-                    Header="Gender" />
+                    Header="Giới tính" />
                 <!--<DataGridTextColumn
                     Binding="{Binding Credit}"
                     Header="CREDITS"

@@ -19,7 +19,6 @@ namespace Avalonia_DependencyInjection.ViewModels;
 public partial class BookInfoViewModel:ViewModelBase
 {
     private readonly AuthenticationService _authService;
-    [ObservableProperty] private string text="hello";
     [ObservableProperty] private string _iconPathExit = "/Assets/SVGs/xmark-royalblue.svg";
     [ObservableProperty] private BOOK _book;
     [ObservableProperty] private int? _normal;
@@ -39,8 +38,8 @@ public partial class BookInfoViewModel:ViewModelBase
     async Task Update()
     {
         MyMessageBox error = new MyMessageBox(
-            "Are you sure you want to update this book?",
-            "Confirmation",
+            "Sửa thông tin sách này?",
+            "Xác nhận",
             MyMessageBox.MessageBoxButton.YesNo,
             MyMessageBox.MessageBoxImage.Question
         );
@@ -70,7 +69,6 @@ public partial class BookInfoViewModel:ViewModelBase
     {
         try
         {
-
             Normal = Book.BOOK_DETAILs.First(e => e.Status == "normal").Quantity;
             Damaged = Book.BOOK_DETAILs.First(e => e.Status == "damaged").Quantity;
             Lost = Book.BOOK_DETAILs.First(e => e.Status == "lost").Quantity;
@@ -79,7 +77,7 @@ public partial class BookInfoViewModel:ViewModelBase
         catch (HttpRequestException e)
         {
             var box = MessageBoxManager
-                .GetMessageBoxStandard("Error", "Add Member Failed!",
+                .GetMessageBoxStandard("Lỗi", "Đã có lỗi xảy ra",
                     ButtonEnum.YesNo);
 
             var result = await box.ShowAsync();

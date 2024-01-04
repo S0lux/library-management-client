@@ -64,7 +64,7 @@
                 FontSize="13"
                 FontWeight="DemiBold"
                 Foreground="White">
-                Log out
+                Đăng xuất
                 <Button.Styles>
                     <Style Selector="Button.LogOut:pointerover /template/ ui|FABorder#Root">
                         <Setter Property="Background" Value="Red" />

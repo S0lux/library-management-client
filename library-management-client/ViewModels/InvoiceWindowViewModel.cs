@@ -116,7 +116,7 @@ public partial class InvoiceWindowViewModel: ViewModelBase
 
         if (res.StatusCode != HttpStatusCode.OK)
         {
-            var messageBox = new MyMessageBox($"Unable to fetch title for: {isbn}", "Error",
+            var messageBox = new MyMessageBox($"Không thể tìm thấy tựa sách mã: {isbn}", "Lỗi",
                 MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
             messageBox.Show();
             
@@ -130,4 +130,5 @@ public partial class InvoiceWindowViewModel: ViewModelBase
 
         return deserializedObject.Data.Title;
     }
+    
 }

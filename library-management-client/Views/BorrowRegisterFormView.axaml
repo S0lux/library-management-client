@@ -99,7 +99,7 @@
                 Height="30"
                 Path="/Assets/SVGs/users_black.svg" />
             <Label Classes="MemberListLabel">
-                Borrow Registration
+                Đăng ký mượn sách
             </Label>
         </StackPanel>
 
@@ -114,7 +114,7 @@
             <Grid Grid.Column="0">
                 <StackPanel Margin="0,0,20,0">
                     <Label HorizontalAlignment="Center" FontSize="25">
-                        Book List
+                        Danh sách
                     </Label>
 
                     <DataGrid
@@ -135,7 +135,7 @@
                                 Width="3*"
                                 Binding="{Binding BookTitle}"
                                 CanUserSort="False"
-                                Header="Title"
+                                Header="Tựa sách"
                                 IsReadOnly="True" />
                             <!--<DataGridTextColumn
                                 Width="1.5*"
@@ -146,13 +146,13 @@
                             <DataGridTextColumn
                                 Width="1.5*"
                                 Binding="{Binding Quantity}"
-                                Header="Quantity"
+                                Header="Số lượng"
                                 IsReadOnly="False" />
 
                             <DataGridTextColumn
                                 Width="2*"
                                 Binding="{Binding BorrowDuration}"
-                                Header="Duration (days)"
+                                Header="Thời gian mượn (ngày)"
                                 IsReadOnly="False" />
 
                             <DataGridTemplateColumn>
@@ -176,13 +176,13 @@
                 <Grid>
                     <StackPanel>
                         <Label HorizontalAlignment="Center" FontSize="25">
-                            Member Info
+                            Thành viên
                         </Label>
 
                         <Grid ColumnDefinitions="auto * auto">
                             <DockPanel Grid.Column="1">
                                 <Label DockPanel.Dock="Top">
-                                    Citizen ID
+                                    Số CCCD
                                 </Label>
                                 <TextBox Text="{Binding FilterKey}" />
                             </DockPanel>
@@ -196,14 +196,14 @@
                         </Grid>
                         <DockPanel>
                             <Label DockPanel.Dock="Top">
-                                Fullname
+                                Họ tên
                             </Label>
                             <TextBox IsEnabled="False" Text="{Binding BorrowMEMBER.Name}" />
                         </DockPanel>
 
                         <DockPanel>
                             <Label DockPanel.Dock="Top">
-                                Gender
+                                Giới tính
                             </Label>
                             <ComboBox
                                 HorizontalAlignment="Stretch"
@@ -215,7 +215,7 @@
 
                         <DockPanel>
                             <Label DockPanel.Dock="Top">
-                                Phone Number
+                                Số điện thoại
                             </Label>
                             <TextBox
                                 BorderBrush="Black"
@@ -225,7 +225,7 @@
 
                         <DockPanel>
                             <Label DockPanel.Dock="Top">
-                                Birthdate
+                                Ngày sinh
                             </Label>
                             <CalendarDatePicker
                                 HorizontalAlignment="Stretch"
@@ -237,7 +237,7 @@
 
                         <DockPanel>
                             <Label DockPanel.Dock="Top">
-                                Address
+                                Địa chỉ
                             </Label>
                             <TextBox IsEnabled="False" Text="{Binding BorrowMEMBER.Address}" />
                         </DockPanel>
@@ -259,7 +259,7 @@
                 Background="RoyalBlue"
                 Classes="Confirm"
                 Command="{Binding CheckOuttaCommand}"
-                Content="Check Out"
+                Content="Xác nhận"
                 FontSize="18"
                 Foreground="White" />
             <Button
@@ -270,7 +270,7 @@
                 Background="RoyalBlue"
                 Classes="Confirm"
                 Click="CloseButton_Clicked"
-                Content="Cancel"
+                Content="Hủy bỏ"
                 FontSize="18"
                 Foreground="White" />
         </Grid>

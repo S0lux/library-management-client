@@ -30,7 +30,7 @@ public partial class BorrowViewModel: ViewModelBase
 
     [ObservableProperty] private ObservableCollection<string> _statusFilters = new ObservableCollection<string>()
     {
-        "All" , "Ongoing" , "Overdue" , "Completed"
+        "Tất cả" , "Đang mượn" , "Quá hạn" , "Hoàn thành"
     };
 
     public BorrowViewModel(AuthenticationService authService, BookViewModel bookViewModel)
@@ -45,8 +45,8 @@ public partial class BorrowViewModel: ViewModelBase
        InvoicesFindList.Clear();
        switch (SelectedStatusFilter)
        {
-           case "Ongoing":
-               foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Ongoing"))
+           case "Đang mượn":
+               foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Đang mượn"))
                {
                    foreach (MEMBER mem in ci.Member)
                    {
@@ -56,8 +56,8 @@ public partial class BorrowViewModel: ViewModelBase
     
                break;
             
-           case "Overdue":
-               foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Overdue"))
+           case "Quá hạn":
+               foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Quá hạn"))
                {
                    foreach (MEMBER mem in ci.Member)
                    {
@@ -67,8 +67,8 @@ public partial class BorrowViewModel: ViewModelBase
     
                break;
             
-           case "Completed":
-               foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Completed"))
+           case "Hoàn thành":
+               foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Hoàn thành"))
                {
                    foreach (MEMBER mem in ci.Member)
                    {
@@ -78,7 +78,7 @@ public partial class BorrowViewModel: ViewModelBase
     
                break;
            
-           case "All":
+           case "Tất cả":
                foreach (CustomInvoice ci in Invoices)
                {
                    foreach (MEMBER mem in ci.Member)
@@ -99,8 +99,8 @@ public partial class BorrowViewModel: ViewModelBase
         string finkey = (FindKey == null) ? "" : FindKey;
         switch (newValue)
         {
-            case "Ongoing":
-                foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Ongoing"))
+            case "Đang mượn":
+                foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Đang mượn"))
                 {
                     foreach (MEMBER mem in ci.Member)
                     {
@@ -110,8 +110,8 @@ public partial class BorrowViewModel: ViewModelBase
     
                 break;
             
-            case "Overdue":
-                foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Overdue"))
+            case "Quá hạn":
+                foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Quá hạn"))
                 {
                     foreach (MEMBER mem in ci.Member)
                     {
@@ -121,8 +121,8 @@ public partial class BorrowViewModel: ViewModelBase
     
                 break;
             
-            case "Completed":
-                foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Completed"))
+            case "Hoàn thành":
+                foreach (CustomInvoice ci in Invoices.Where(e=>e.Status=="Hoàn thành"))
                 {
                     foreach (MEMBER mem in ci.Member)
                     {
@@ -132,7 +132,7 @@ public partial class BorrowViewModel: ViewModelBase
     
                 break;
             
-            case "All":
+            case "Tất cả":
                 foreach (CustomInvoice ci in Invoices)
                 {
                     foreach (MEMBER mem in ci.Member)
@@ -225,19 +225,19 @@ public class CustomInvoice
         
         if (BorrowDetails.All(detail => detail.HasReturned))
         {
-            _status = "Completed";
+            _status = "Hoàn thành";
         }
         else if (BorrowDetails.Any(detail => detail.DueDate < today))
         {
-            _status = "Overdue";
+            _status = "Quá hạn";
         }
         else if (BorrowDetails.Any(detail => detail.DueDate > today))
         {
-            _status = "Ongoing";
+            _status = "Đang mượn";
         }
         else if (BorrowDetails.All(detail => detail.HasReturned))
         {
-            _status = "Completed";
+            _status = "Hoàn thành";
         }
         else
         {

@@ -59,7 +59,7 @@
                 Height="30"
                 Path="/Assets/SVGs/books_black.svg" />
             <Label Classes="MemberListLabel">
-                Add Book
+                Thêm sách
             </Label>
         </StackPanel>
 

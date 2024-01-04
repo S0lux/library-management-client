@@ -1,377 +1,377 @@
 <UserControl
-    d:DesignHeight="900"
-    d:DesignWidth="1800"
-    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.HomeView"
-    x:DataType="viewModels:HomeViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:avalonia="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
     xmlns:controls="clr-namespace:Avalonia_DependencyInjection.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:Avalonia_DependencyInjection.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="900"
+    d:DesignWidth="1800"
+    x:DataType="viewModels:HomeViewModel"
+    mc:Ignorable="d">
 
-	<ScrollViewer VerticalScrollBarVisibility="Hidden">
-		<Grid
-			Margin="30,0,0,0"
-			Name="MainGrid"
-			RowDefinitions="Auto *"
-			VerticalAlignment="Stretch">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <Grid
+            Name="MainGrid"
+            Margin="30,0,0,0"
+            VerticalAlignment="Stretch"
+            RowDefinitions="Auto *">
 
-			<Label
-				Content="Home"
-				FontSize="30"
-				FontWeight="DemiBold"
-				Grid.Row="0"
-				Margin="0,0,0,20" />
+            <Label
+                Grid.Row="0"
+                Margin="0,0,0,20"
+                Content="Home"
+                FontSize="30"
+                FontWeight="DemiBold" />
 
-			<Grid
-				ColumnDefinitions="* Auto"
-				Grid.Row="1"
-				VerticalAlignment="Stretch">
-				<StackPanel
-					Grid.Column="0"
-					Spacing="30"
-					VerticalAlignment="Stretch">
-					<Border
-						Background="White"
-						Classes="Clip"
-						ClipToBounds="True"
-						CornerRadius="5"
-						Height="150"
-						Margin="0,0,30,0"
-						MinWidth="750"
-						Name="UserInfo"
-						VerticalAlignment="Top">
+            <Grid
+                Grid.Row="1"
+                VerticalAlignment="Stretch"
+                ColumnDefinitions="* Auto">
+                <StackPanel
+                    Grid.Column="0"
+                    VerticalAlignment="Stretch"
+                    Spacing="30">
+                    <Border
+                        Name="UserInfo"
+                        Height="150"
+                        MinWidth="750"
+                        Margin="0,0,30,0"
+                        VerticalAlignment="Top"
+                        Background="White"
+                        Classes="Clip"
+                        ClipToBounds="True"
+                        CornerRadius="5">
 
-						<Border.Styles>
-							<Style Selector="Border.Clip">
-								<Setter Property="HorizontalAlignment" Value="Left" />
-							</Style>
-						</Border.Styles>
+                        <Border.Styles>
+                            <Style Selector="Border.Clip">
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                            </Style>
+                        </Border.Styles>
 
-						<Interaction.Behaviors>
-							<AdaptiveBehavior SourceControl="MainGrid" TargetControl="UserInfo">
-								<AdaptiveClassSetter
-									ClassName="Clip"
-									MaxWidth="750"
-									MaxWidthOperator="LessThan"
-									MinWidth="0"
-									MinWidthOperator="GreaterThanOrEqual" />
-							</AdaptiveBehavior>
-						</Interaction.Behaviors>
+                        <Interaction.Behaviors>
+                            <AdaptiveBehavior SourceControl="MainGrid" TargetControl="UserInfo">
+                                <AdaptiveClassSetter
+                                    MinWidth="0"
+                                    MaxWidth="750"
+                                    ClassName="Clip"
+                                    MaxWidthOperator="LessThan"
+                                    MinWidthOperator="GreaterThanOrEqual" />
+                            </AdaptiveBehavior>
+                        </Interaction.Behaviors>
 
-						<Grid RowDefinitions="Auto Auto">
-							<Grid
-								ColumnDefinitions="Auto *"
-								Grid.Row="0"
-								Margin="0,0,0,20">
-								<Border
-									Background="RoyalBlue"
-									CornerRadius="5"
-									Grid.Column="0"
-									Height="150"
-									HorizontalAlignment="Left"
-									MinWidth="300"
-									Padding="10">
-									<Grid
-										ColumnDefinitions="Auto Auto"
-										HorizontalAlignment="Left"
-										VerticalAlignment="Top">
-										<Image
-											Grid.Column="0"
-											Margin="0,0,5,0"
-											Source="/Assets/Character.png" />
-										<StackPanel Grid.Column="1">
-											<Label
-												Content="{Binding CurrentUser.Name}"
-												FontSize="20"
-												FontWeight="SemiBold"
-												Foreground="White" />
-											<Label
-												Content="{Binding CurrentUser.DateOfBirth, Converter={StaticResource DateTimeToAgeStringConverter}}"
-												FontSize="12"
-												Foreground="White" />
-										</StackPanel>
-									</Grid>
-								</Border>
+                        <Grid RowDefinitions="Auto Auto">
+                            <Grid
+                                Grid.Row="0"
+                                Margin="0,0,0,20"
+                                ColumnDefinitions="Auto *">
+                                <Border
+                                    Grid.Column="0"
+                                    Height="150"
+                                    MinWidth="300"
+                                    Padding="10"
+                                    HorizontalAlignment="Left"
+                                    Background="RoyalBlue"
+                                    CornerRadius="5">
+                                    <Grid
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        ColumnDefinitions="Auto Auto">
+                                        <Image
+                                            Grid.Column="0"
+                                            Margin="0,0,5,0"
+                                            Source="/Assets/Character.png" />
+                                        <StackPanel Grid.Column="1">
+                                            <Label
+                                                Content="{Binding CurrentUser.Name}"
+                                                FontSize="20"
+                                                FontWeight="SemiBold"
+                                                Foreground="White" />
+                                            <Label
+                                                Content="{Binding CurrentUser.DateOfBirth, Converter={StaticResource DateTimeToAgeStringConverter}}"
+                                                FontSize="12"
+                                                Foreground="White" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
 
-								<Border Grid.Column="1" Padding="10">
-									<Grid ColumnDefinitions="* * *" RowDefinitions="* *">
-										<Panel Grid.Column="0" Grid.Row="0">
-											<Label FontWeight="Medium" Foreground="LightSlateGray">Phone Number</Label>
-											<Label Content="{Binding CurrentUser.PhoneNumber}" Margin="0,20,0,0" />
-										</Panel>
-										<Panel Grid.Column="1" Grid.Row="0">
-											<Label FontWeight="Medium" Foreground="LightSlateGray">Email</Label>
-											<Label Content="{Binding CurrentUser.Email}" Margin="0,20,0,0" />
-										</Panel>
-										<Panel Grid.Column="2" Grid.Row="0">
-											<Label FontWeight="Medium" Foreground="LightSlateGray">CCCD</Label>
-											<Label Content="{Binding CurrentUser.CitizenID}" Margin="0,20,0,0" />
-										</Panel>
+                                <Border Grid.Column="1" Padding="10">
+                                    <Grid ColumnDefinitions="* * *" RowDefinitions="* *">
+                                        <Panel Grid.Row="0" Grid.Column="0">
+                                            <Label FontWeight="Medium" Foreground="LightSlateGray">Số điện thoại</Label>
+                                            <Label Margin="0,20,0,0" Content="{Binding CurrentUser.PhoneNumber}" />
+                                        </Panel>
+                                        <Panel Grid.Row="0" Grid.Column="1">
+                                            <Label FontWeight="Medium" Foreground="LightSlateGray">Email</Label>
+                                            <Label Margin="0,20,0,0" Content="{Binding CurrentUser.Email}" />
+                                        </Panel>
+                                        <Panel Grid.Row="0" Grid.Column="2">
+                                            <Label FontWeight="Medium" Foreground="LightSlateGray">Số CCCD</Label>
+                                            <Label Margin="0,20,0,0" Content="{Binding CurrentUser.CitizenID}" />
+                                        </Panel>
 
-										<Panel Grid.Column="0" Grid.Row="1">
-											<Label FontWeight="Medium" Foreground="LightSlateGray">Birthday</Label>
-											<Label Content="{Binding CurrentUser.DateOfBirth}" Margin="0,20,0,0" />
-										</Panel>
-										<Panel
-											Grid.Column="1"
-											Grid.ColumnSpan="2"
-											Grid.Row="1">
-											<Label FontWeight="Medium" Foreground="LightSlateGray">Address</Label>
-											<Label Content="{Binding CurrentUser.Address}" Margin="0,20,0,0" />
-										</Panel>
-									</Grid>
-								</Border>
-							</Grid>
-						</Grid>
-					</Border>
+                                        <Panel Grid.Row="1" Grid.Column="0">
+                                            <Label FontWeight="Medium" Foreground="LightSlateGray">Ngày sinh</Label>
+                                            <Label Margin="0,20,0,0" Content="{Binding CurrentUser.DateOfBirth}" />
+                                        </Panel>
+                                        <Panel
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="2">
+                                            <Label FontWeight="Medium" Foreground="LightSlateGray">Đia chỉ</Label>
+                                            <Label Margin="0,20,0,0" Content="{Binding CurrentUser.Address}" />
+                                        </Panel>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Border>
 
-					<Border
-						Background="White"
-						CornerRadius="5"
-						Height="450"
-						Margin="0,0,30,0">
+                    <Border
+                        Height="450"
+                        Margin="0,0,30,0"
+                        Background="White"
+                        CornerRadius="5">
 
-						<StackPanel>
-							<Label
-								Content="Members Report"
-								FontSize="25"
-								FontWeight="DemiBold"
-								Margin="25,25,0,25" />
+                        <StackPanel>
+                            <Label
+                                Margin="25,25,0,25"
+                                Content="Thống kê thành viên"
+                                FontSize="25"
+                                FontWeight="DemiBold" />
 
-							<avalonia:CartesianChart
-								Background="White"
-								Height="350"
-								Margin="25,0"
-								Series="{Binding Series}"
-								XAxes="{Binding XAxis}" />
+                            <avalonia:CartesianChart
+                                Height="350"
+                                Margin="25,0"
+                                Background="White"
+                                Series="{Binding Series}"
+                                XAxes="{Binding XAxis}" />
 
-						</StackPanel>
-					</Border>
+                        </StackPanel>
+                    </Border>
 
-					<Grid
-						ColumnDefinitions="* 15 * 15 * 15 *"
-						Height="150"
-						Margin="0,0,25,0">
+                    <Grid
+                        Height="150"
+                        Margin="0,0,25,0"
+                        ColumnDefinitions="* 15 * 15 * 15 *">
 
-						<Border
-							Background="White"
-							CornerRadius="5"
-							Grid.Column="0">
-							<StackPanel VerticalAlignment="Center">
-								<Label
-									Content="Available"
-									FontSize="20"
-									FontWeight="DemiBold"
-									Margin="25,0,25,10" />
+                        <Border
+                            Grid.Column="0"
+                            Background="White"
+                            CornerRadius="5">
+                            <StackPanel VerticalAlignment="Center">
+                                <Label
+                                    Margin="25,0,25,10"
+                                    Content="Có sẵn"
+                                    FontSize="20"
+                                    FontWeight="DemiBold" />
 
-								<StackPanel Orientation="Horizontal" Spacing="25">
-									<Svg
-										Height="30"
-										HorizontalAlignment="Left"
-										Margin="30,0,0,0"
-										Path="/Assets/SVGs/book-open-cover-home.svg"
-										Width="30" />
+                                <StackPanel Orientation="Horizontal" Spacing="25">
+                                    <Svg
+                                        Width="30"
+                                        Height="30"
+                                        Margin="30,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        Path="/Assets/SVGs/book-open-cover-home.svg" />
 
-									<Label
-										Content="{Binding AvailableBooks}"
-										FontSize="25"
-										FontWeight="DemiBold"
-										Foreground="RoyalBlue"
-										VerticalAlignment="Center" />
-								</StackPanel>
-							</StackPanel>
-						</Border>
+                                    <Label
+                                        VerticalAlignment="Center"
+                                        Content="{Binding AvailableBooks}"
+                                        FontSize="25"
+                                        FontWeight="DemiBold"
+                                        Foreground="RoyalBlue" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
 
-						<Border
-							Background="White"
-							CornerRadius="5"
-							Grid.Column="2">
-							<StackPanel VerticalAlignment="Center">
-								<Label
-									Content="Borrowed"
-									FontSize="20"
-									FontWeight="DemiBold"
-									Margin="25,0,25,10" />
+                        <Border
+                            Grid.Column="2"
+                            Background="White"
+                            CornerRadius="5">
+                            <StackPanel VerticalAlignment="Center">
+                                <Label
+                                    Margin="25,0,25,10"
+                                    Content="Đang mượn"
+                                    FontSize="20"
+                                    FontWeight="DemiBold" />
 
-								<StackPanel Orientation="Horizontal" Spacing="25">
-									<Svg
-										Height="30"
-										HorizontalAlignment="Left"
-										Margin="30,0,0,0"
-										Path="/Assets/SVGs/hand-holding-box-home.svg"
-										Width="30" />
+                                <StackPanel Orientation="Horizontal" Spacing="25">
+                                    <Svg
+                                        Width="30"
+                                        Height="30"
+                                        Margin="30,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        Path="/Assets/SVGs/hand-holding-box-home.svg" />
 
-									<Label
-										Content="{Binding BorrowedBooks}"
-										FontSize="30"
-										FontWeight="DemiBold"
-										Foreground="#f6c321"
-										VerticalAlignment="Center" />
-								</StackPanel>
-							</StackPanel>
-						</Border>
+                                    <Label
+                                        VerticalAlignment="Center"
+                                        Content="{Binding BorrowedBooks}"
+                                        FontSize="30"
+                                        FontWeight="DemiBold"
+                                        Foreground="#f6c321" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
 
-						<Border
-							Background="White"
-							CornerRadius="5"
-							Grid.Column="4">
-							<StackPanel VerticalAlignment="Center">
-								<Label
-									Content="Damaged"
-									FontSize="20"
-									FontWeight="DemiBold"
-									Margin="25,0,25,10" />
+                        <Border
+                            Grid.Column="4"
+                            Background="White"
+                            CornerRadius="5">
+                            <StackPanel VerticalAlignment="Center">
+                                <Label
+                                    Margin="25,0,25,10"
+                                    Content="Hư hỏng"
+                                    FontSize="20"
+                                    FontWeight="DemiBold" />
 
-								<StackPanel Orientation="Horizontal" Spacing="25">
-									<Svg
-										Height="30"
-										HorizontalAlignment="Left"
-										Margin="30,0,0,0"
-										Path="/Assets/SVGs/bolt-lightning-solid.svg"
-										Width="30" />
+                                <StackPanel Orientation="Horizontal" Spacing="25">
+                                    <Svg
+                                        Width="30"
+                                        Height="30"
+                                        Margin="30,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        Path="/Assets/SVGs/bolt-lightning-solid.svg" />
 
-									<Label
-										Content="{Binding DamagedBooks}"
-										FontSize="30"
-										FontWeight="DemiBold"
-										Foreground="#d65029"
-										VerticalAlignment="Center" />
-								</StackPanel>
-							</StackPanel>
-						</Border>
+                                    <Label
+                                        VerticalAlignment="Center"
+                                        Content="{Binding DamagedBooks}"
+                                        FontSize="30"
+                                        FontWeight="DemiBold"
+                                        Foreground="#d65029" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
 
-						<Border
-							Background="White"
-							CornerRadius="5"
-							Grid.Column="6">
-							<StackPanel VerticalAlignment="Center">
-								<Label
-									Content="Lost"
-									FontSize="20"
-									FontWeight="DemiBold"
-									Margin="25,0,25,10" />
+                        <Border
+                            Grid.Column="6"
+                            Background="White"
+                            CornerRadius="5">
+                            <StackPanel VerticalAlignment="Center">
+                                <Label
+                                    Margin="25,0,25,10"
+                                    Content="Thất lạc"
+                                    FontSize="20"
+                                    FontWeight="DemiBold" />
 
-								<StackPanel Orientation="Horizontal" Spacing="25">
-									<Svg
-										Height="30"
-										HorizontalAlignment="Left"
-										Margin="30,0,0,0"
-										Path="/Assets/SVGs/square-question.svg"
-										Width="30" />
+                                <StackPanel Orientation="Horizontal" Spacing="25">
+                                    <Svg
+                                        Width="30"
+                                        Height="30"
+                                        Margin="30,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        Path="/Assets/SVGs/square-question.svg" />
 
-									<Label
-										Content="{Binding LostBooks}"
-										FontSize="30"
-										FontWeight="DemiBold"
-										Foreground="gray"
-										VerticalAlignment="Center" />
-								</StackPanel>
-							</StackPanel>
-						</Border>
+                                    <Label
+                                        VerticalAlignment="Center"
+                                        Content="{Binding LostBooks}"
+                                        FontSize="30"
+                                        FontWeight="DemiBold"
+                                        Foreground="gray" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
 
-					</Grid>
-				</StackPanel>
+                    </Grid>
+                </StackPanel>
 
-				<Grid
-					Grid.Column="1"
-					RowDefinitions="Auto *"
-					VerticalAlignment="Stretch">
+                <Grid
+                    Grid.Column="1"
+                    VerticalAlignment="Stretch"
+                    RowDefinitions="Auto *">
 
-					<Border
-						Background="White"
-						CornerRadius="5"
-						Grid.Row="0"
-						Name="CalendarBorder"
-						Padding="0,0,0,10">
+                    <Border
+                        Name="CalendarBorder"
+                        Grid.Row="0"
+                        Padding="0,0,0,10"
+                        Background="White"
+                        CornerRadius="5">
 
-						<Border.Styles>
-							<Style Selector="Border.Hidden">
-								<Setter Property="IsVisible" Value="False" />
-							</Style>
-						</Border.Styles>
+                        <Border.Styles>
+                            <Style Selector="Border.Hidden">
+                                <Setter Property="IsVisible" Value="False" />
+                            </Style>
+                        </Border.Styles>
 
-						<Interaction.Behaviors>
-							<AdaptiveBehavior SourceControl="MainGrid" TargetControl="CalendarBorder">
-								<AdaptiveClassSetter
-									ClassName="Hidden"
-									MaxWidth="1200"
-									MaxWidthOperator="LessThan"
-									MinWidth="0"
-									MinWidthOperator="GreaterThanOrEqual" />
-							</AdaptiveBehavior>
-						</Interaction.Behaviors>
-						<Calendar
-							BorderThickness="0"
-							Margin="10,0,10,0"
-							Name="MyCalendar"
-							VerticalAlignment="Top" />
-					</Border>
+                        <Interaction.Behaviors>
+                            <AdaptiveBehavior SourceControl="MainGrid" TargetControl="CalendarBorder">
+                                <AdaptiveClassSetter
+                                    MinWidth="0"
+                                    MaxWidth="1200"
+                                    ClassName="Hidden"
+                                    MaxWidthOperator="LessThan"
+                                    MinWidthOperator="GreaterThanOrEqual" />
+                            </AdaptiveBehavior>
+                        </Interaction.Behaviors>
+                        <Calendar
+                            Name="MyCalendar"
+                            Margin="10,0,10,0"
+                            VerticalAlignment="Top"
+                            BorderThickness="0" />
+                    </Border>
 
-					<Border
-						Background="White"
-						CornerRadius="5"
-						Grid.Row="1"
-						Margin="0,25,0,0"
-						Name="AnnoucementBorder">
+                    <Border
+                        Name="AnnoucementBorder"
+                        Grid.Row="1"
+                        Margin="0,25,0,0"
+                        Background="White"
+                        CornerRadius="5">
 
-						<Border.Styles>
-							<Style Selector="Border.Hidden">
-								<Setter Property="IsVisible" Value="False" />
-							</Style>
-						</Border.Styles>
+                        <Border.Styles>
+                            <Style Selector="Border.Hidden">
+                                <Setter Property="IsVisible" Value="False" />
+                            </Style>
+                        </Border.Styles>
 
-						<Interaction.Behaviors>
-							<AdaptiveBehavior SourceControl="MainGrid" TargetControl="AnnoucementBorder">
-								<AdaptiveClassSetter
-									ClassName="Hidden"
-									MaxWidth="1200"
-									MaxWidthOperator="LessThan"
-									MinWidth="0"
-									MinWidthOperator="GreaterThanOrEqual" />
-							</AdaptiveBehavior>
-						</Interaction.Behaviors>
+                        <Interaction.Behaviors>
+                            <AdaptiveBehavior SourceControl="MainGrid" TargetControl="AnnoucementBorder">
+                                <AdaptiveClassSetter
+                                    MinWidth="0"
+                                    MaxWidth="1200"
+                                    ClassName="Hidden"
+                                    MaxWidthOperator="LessThan"
+                                    MinWidthOperator="GreaterThanOrEqual" />
+                            </AdaptiveBehavior>
+                        </Interaction.Behaviors>
 
-						<StackPanel>
-							<Border
-								BorderBrush="#efefef"
-								BorderThickness="0,0,0,1"
-								Margin="0,0,0,20">
-								<Label
-									Content="Announcements"
-									FontSize="16"
-									FontWeight="DemiBold"
-									Margin="25,15" />
-							</Border>
+                        <StackPanel>
+                            <Border
+                                Margin="0,0,0,20"
+                                BorderBrush="#efefef"
+                                BorderThickness="0,0,0,1">
+                                <Label
+                                    Margin="25,15"
+                                    Content="Thông báo"
+                                    FontSize="16"
+                                    FontWeight="DemiBold" />
+                            </Border>
 
-							<Border
-								Background="LightBlue"
-								CornerRadius="5"
-								Padding="0,10">
-								<StackPanel Margin="25,0">
+                            <Border
+                                Padding="0,10"
+                                Background="LightBlue"
+                                CornerRadius="5">
+                                <StackPanel Margin="25,0">
 
-									<TextBlock
-										FontSize="15"
-										FontWeight="DemiBold"
-										Margin="0,0,0,5"
-										Text="LIBRARY 1ST BIRTHDAY EVENT" />
-									<TextBlock
-										MaxWidth="300"
-										Text="We are hosting a staff-only party to commemorate..."
-										TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,0,0,5"
+                                        FontSize="15"
+                                        FontWeight="DemiBold"
+                                        Text="LIBRARY 1ST BIRTHDAY EVENT" />
+                                    <TextBlock
+                                        MaxWidth="300"
+                                        Text="We are hosting a staff-only party to commemorate..."
+                                        TextWrapping="Wrap" />
 
-								</StackPanel>
-							</Border>
+                                </StackPanel>
+                            </Border>
 
-						</StackPanel>
+                        </StackPanel>
 
-					</Border>
+                    </Border>
 
-				</Grid>
-			</Grid>
-		</Grid>
-	</ScrollViewer>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

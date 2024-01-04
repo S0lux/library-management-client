@@ -40,7 +40,7 @@ public partial class MemberListViewModel : ViewModelBase
     [ObservableProperty] private string _filterBy;
 
     [ObservableProperty] private ObservableCollection<string> _filterByOptions = new ObservableCollection<string>()
-        { "Name", "Member ID", "Citizen ID" };
+        { "Tên", "CCCD" };
 
 
     public MemberListViewModel(AuthenticationService authService)
@@ -49,6 +49,11 @@ public partial class MemberListViewModel : ViewModelBase
         GetData();
         FilterBy = FilterByOptions.FirstOrDefault();
     }
+    partial void OnFilterByChanged(string value)
+    {
+        ShowingList = MemberList;
+        FilterKey = string.Empty;
+    }
 
     partial void OnFilterKeyChanged(string? oldValue, string newValue)
     {
@@ -56,33 +61,16 @@ public partial class MemberListViewModel : ViewModelBase
         IsBusy = true;
         switch (FilterBy)
         {
-            case "Name":
+            case "Tên":
             {
                 foreach (MEMBER mem in MemberList)
                 {
-                    if (string.IsNullOrEmpty(mem.Name.ToString()))
+                    if (string.IsNullOrEmpty(mem.Name))
                     {
                         ShowingList = MemberList;
                     }
 
-                    if (mem.Name.Contains(newValue.ToString()))
-                    {
-                        MemberFindList.Add(mem);
-                    }
-                }
-
-                break;
-            }
-            case "Member ID":
-            {
-                foreach (MEMBER mem in MemberList)
-                {
-                    if (string.IsNullOrEmpty(newValue))
-                    {
-                        ShowingList = MemberList;
-                    }
-
-                    if (mem.MemberID.ToString().Contains(newValue.ToString()))
+                    if (mem.Name.ToLower().Contains(newValue.ToLower()))
                     {
                         MemberFindList.Add(mem);
                     }
@@ -91,7 +79,7 @@ public partial class MemberListViewModel : ViewModelBase
                 break;
             }
 
-            case "Citizen ID":
+            case "CCCD":
             {
                 foreach (MEMBER mem in MemberList)
                 {
@@ -100,7 +88,7 @@ public partial class MemberListViewModel : ViewModelBase
                         ShowingList = MemberList;
                     }
 
-                    if (mem.CitizenID.Contains(newValue.ToString()))
+                    if (mem.CitizenID.Contains(newValue))
                     {
                         MemberFindList.Add(mem);
                     }
@@ -133,7 +121,7 @@ public partial class MemberListViewModel : ViewModelBase
         catch (HttpRequestException e)
         {
             var box = MessageBoxManager
-                .GetMessageBoxStandard("Error", "Add Member Failed!",
+                .GetMessageBoxStandard("Lỗi", "Thêm mới thất bại",
                     ButtonEnum.YesNo);
 
             var result = await box.ShowAsync();
@@ -147,6 +135,10 @@ public partial class MemberListViewModel : ViewModelBase
     {
         var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<MemberRegistryFormViewModel>();
         infoBoxViewModel.AlertBoxOff();
+
+        infoBoxViewModel.Title = "Thêm thành viên";
+        infoBoxViewModel.Ico=@"/Assets/SVGs/user-plus-black.svg";
+        infoBoxViewModel.ButtonString = "Đăng ký";
 
         infoBoxViewModel.InputedMember = new MEMBER() { DateOfBirth = DateTime.Today, Gender = 0, Deleted = false };
 
@@ -162,7 +154,7 @@ public partial class MemberListViewModel : ViewModelBase
     [RelayCommand]
     public async void Delete()
     {
-        MyMessageBox myMessageBox = new MyMessageBox("Are you sure you want to delete this member?", "Confirm",
+        MyMessageBox myMessageBox = new MyMessageBox("Xóa thành viên này?", "Xác nhận",
             MyMessageBox.MessageBoxButton.YesNo,
             MyMessageBox.MessageBoxImage.Question
         );
@@ -181,6 +173,9 @@ public partial class MemberListViewModel : ViewModelBase
     {
         var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<MemberRegistryFormViewModel>();
         infoBoxViewModel.AlertBoxOff();
+        infoBoxViewModel.Title = "Thông  thành viên";
+        infoBoxViewModel.Ico=@"/Assets/SVGs/user.svg";
+        infoBoxViewModel.ButtonString = "Cập nhật";
 
         infoBoxViewModel.InputedMember.CitizenID = selectedMember.CitizenID;
         infoBoxViewModel.InputedMember.Address = selectedMember.Address;

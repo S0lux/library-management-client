@@ -50,15 +50,15 @@ public partial class AddByTitleViewModel: ViewModelBase
             switch (response.StatusCode)
             {
                 case HttpStatusCode.NotFound:
-                    messageBoxString = "No book with that title was found.";
+                    messageBoxString = "Không thể tìm thấy tựa sách.";
                     break;
                 default:
                     messageBoxString =
-                        "An unexpected error has occured.\nPlease report this issue to your IT department.";
+                        "Đã có lỗi xảy ra.\nVui lòng liên hệ đến bộ phận IT.";
                     break;
             }
             
-            var messageBox = new MyMessageBox(messageBoxString, "Failed to retrieve books", 
+            var messageBox = new MyMessageBox(messageBoxString, "Không thể hiển thị được sách", 
                 MyMessageBox.MessageBoxButton.OK, messageBoxIcon);
             messageBox.Show();
             
@@ -110,8 +110,8 @@ public partial class AddByTitleViewModel: ViewModelBase
 
             if (postResult.StatusCode == HttpStatusCode.Conflict)
             {
-                var resultBox = new MyMessageBox("This book is already registered or deleted in the database.\n" +
-                                                 "Use the ISBN to re-register this book", "Result",
+                var resultBox = new MyMessageBox("Tụa sách này đã tồn tại hoặc đã bị xóa.\n" +
+                                                 "Sử dụng chức năng thêm bằng ISBN để cập nhật sách?", "Xác nhận",
                     MyMessageBox.MessageBoxButton.OkCancel, MyMessageBox.MessageBoxImage.Information);
                 await resultBox.ShowDialog(App.AppHost.Services.GetRequiredService<AddBookWindow>());
                 if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.OK)
@@ -142,14 +142,14 @@ public partial class AddByTitleViewModel: ViewModelBase
 
     private async Task<QuantityConfirmMessageBox.ButtonResult> ShowQuantityConfirmMessageBox(BOOK book)
     {
-        var messageBoxContentString = $"How many of this book do you want to add?\n" +
-                                      $"Title:          {book.Title}\n" +
+        var messageBoxContentString = $"Số lượng thêm đối với sách có:\n" +
+                                      $"Tựa:          {book.Title}\n" +
                                       $"ISBN:         {book.ISBN13}\n" +
-                                      $"Author:      {book.Author}";
+                                      $"Tác giả:      {book.Author}";
 
         var mess = new QuantityConfirmMessageBox(
             messageBoxContentString,
-            "Confirm",
+            "Xác nhận",
             QuantityConfirmMessageBox.MessageBoxImage.Question,
             400, 270);
 
@@ -179,7 +179,7 @@ public partial class AddByTitleViewModel: ViewModelBase
 
         if (response.StatusCode == HttpStatusCode.BadRequest)
         {
-            ShowResultMessageBox("An unexpected error has occurred.\nPlease report this issue to your IT department.",
+            ShowResultMessageBox("Đã có lỗi xảy ra.\nVui lòng liên hệ với bộ phận IT.",
                                  MyMessageBox.MessageBoxImage.Error);
         }
     }
@@ -188,9 +188,9 @@ public partial class AddByTitleViewModel: ViewModelBase
     {
         return statusCode switch
         {
-            HttpStatusCode.ServiceUnavailable => "Unable to connect to the database.\nPlease check your internet connection and try again.",
-            HttpStatusCode.BadRequest => "An unexpected error has occurred.\nPlease report this issue to your IT department.",
-            _ => "Book successfully added to the database"
+            HttpStatusCode.ServiceUnavailable => "Không thể kết nối với máy chủ.\nVui lòng kiểm tra lại kết nối.",
+            HttpStatusCode.BadRequest => "Đã có lỗi xảy ra.\nVui lòng liên hệ với bộ phận IT.",
+            _ => "Thêm mới thành công"
         };
     }
 

@@ -42,8 +42,6 @@ public partial class LoginViewModel: ViewModelBase
 
         IsBusy = true;
 
-        await Task.Run(() => Thread.Sleep(3000));
-
         try
         {
             // API call to authenticate user

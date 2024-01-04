@@ -55,7 +55,7 @@
                                 Grid.Column="0"
                                 Margin="5"
                                 FontSize="20">
-                                by
+                                Tác giả:
                             </TextBlock>
                             <TextBlock
                                 Grid.Row="0"
@@ -70,7 +70,7 @@
                                 Grid.Column="0"
                                 Margin="5"
                                 FontSize="20">
-                                Released on:
+                                Phát hành:
                             </TextBlock>
                             <TextBlock
                                 Grid.Row="1"
@@ -102,7 +102,7 @@
                                 Margin="5"
                                 VerticalAlignment="Center"
                                 FontSize="20">
-                                Shelf:
+                                Kệ:
                             </TextBlock>
                             <NumericUpDown
                                 Grid.Row="3"
@@ -119,7 +119,7 @@
                                 Grid.Column="0"
                                 Margin="5"
                                 FontSize="20">
-                                Quantity:
+                                Số lượng:
                             </TextBlock>
                             <NumericUpDown
                                 Grid.Row="4"
@@ -152,7 +152,7 @@
                                     Height="14"
                                     Path="/Assets/SVGs/user-plus.svg" />
                                 <Label
-                                    Content="Confirm"
+                                    Content="Xác nhận"
                                     FontWeight="DemiBold"
                                     Foreground="White" />
                             </StackPanel>

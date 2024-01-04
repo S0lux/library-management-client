@@ -25,16 +25,16 @@
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding PublishDate, StringFormat='dd/MM/yyyy'}"
-                    Header="Publish Date" />
+                    Header="Phát hành" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Title}"
-                    Header="Title" />
+                    Header="Tựa sách" />
                 <DataGridTextColumn
                     Width="Auto"
                     MaxWidth="100"
                     Binding="{Binding Author}"
-                    Header="Author" />
+                    Header="Tác giả" />
                 <DataGridTextColumn
                     Width="Auto"
                     Binding="{Binding ISBN13}"

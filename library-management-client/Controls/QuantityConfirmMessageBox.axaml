@@ -85,7 +85,7 @@
                             VerticalAlignment="Center"
                             FontSize="15"
                             TextWrapping="WrapWithOverflow">
-                            Quantity:
+                            Số lượng:
                         </TextBlock>
                         <NumericUpDown
                             x:Name="Quantity"
@@ -107,14 +107,13 @@
                             VerticalAlignment="Center"
                             FontSize="15"
                             TextWrapping="WrapWithOverflow">
-                            Shelf:
+                            Kệ:
                         </TextBlock>
                         <NumericUpDown
                             x:Name="Location"
                             HorizontalContentAlignment="Center"
                             Increment="1"
                             Minimum="0"
-                            Watermark="Value is 1 if left empty"
                             Value="0" />
                     </StackPanel>
                 </StackPanel>

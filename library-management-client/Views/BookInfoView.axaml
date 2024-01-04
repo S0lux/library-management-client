@@ -77,7 +77,7 @@
                             <TextBlock
                                 FontSize="15"
                                 FontWeight="DemiBold"
-                                Text="{Binding Book.Author, StringFormat=by {0}}" />
+                                Text="{Binding Book.Author, StringFormat=Tác giả: {0}}" />
                             <TextBlock
                                 FontSize="15"
                                 FontWeight="DemiBold"
@@ -85,7 +85,7 @@
                             <TextBlock
                                 FontSize="15"
                                 FontWeight="DemiBold"
-                                Text="{Binding Book.Shelf, StringFormat=Shelf: {0}}" />
+                                Text="{Binding Book.Shelf, StringFormat=Kệ: {0}}" />
                         </StackPanel>
 
                     </Border>
@@ -101,7 +101,7 @@
                                 Grid.Column="0"
                                 FontSize="15"
                                 FontWeight="DemiBold"
-                                Text="Available:" />
+                                Text="Có sẵn:" />
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -114,7 +114,7 @@
                                 Grid.Column="2"
                                 FontSize="15"
                                 FontWeight="DemiBold"
-                                Text="Borrowed:" />
+                                Text="Đang mượn:" />
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="3"
@@ -129,7 +129,7 @@
                                 Margin="0,5,0,0"
                                 FontSize="15"
                                 FontWeight="DemiBold"
-                                Text="Damaged:" />
+                                Text="Hư hỏng:" />
                             <TextBlock
                                 Grid.Row="1"
                                 Grid.Column="1"
@@ -145,7 +145,7 @@
                                 Margin="0,5,0,0"
                                 FontSize="15"
                                 FontWeight="DemiBold"
-                                Text="Lost:" />
+                                Text="Thất lạc:" />
                             <TextBlock
                                 Grid.Row="1"
                                 Grid.Column="3"
@@ -164,7 +164,7 @@
                         FontSize="15"
                         FontWeight="DemiBold"
                         Foreground="White">
-                        Update quantity
+                        Sửa thông tin
                         <Button.Styles>
                             <Style Selector="Button:pointerover /template/ ui|FABorder#Root">
                                 <Setter Property="Background" Value="#414ee1" />

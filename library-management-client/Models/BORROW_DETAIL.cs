@@ -68,17 +68,17 @@ namespace Avalonia_DependencyInjection.Models
             
             if (HasReturned)
             {
-                _status = "Returned";
+                _status = "Đã trả";
                 _statusColor = new SolidColorBrush(Colors.LimeGreen);
             }
             else if (DueDate < today)
             {
-                _status = "Overdue";
+                _status = "Quá hạn";
                 _statusColor = new SolidColorBrush(Colors.Red);
             }
             else
             {
-                _status = "Ongoing";
+                _status = "Đang mượn";
                 _statusColor = new SolidColorBrush(Colors.Orange);
             }
         }

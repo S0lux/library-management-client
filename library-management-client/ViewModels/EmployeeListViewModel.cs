@@ -35,7 +35,7 @@ namespace Avalonia_DependencyInjection.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<string> _filterByOptions = new ObservableCollection<string>()
-        { "Name", "Employee ID", "Citizen ID" };
+        { "Tên", "CCCD" };
 
 
         public EmployeeListViewModel(AuthenticationService authService)
@@ -44,6 +44,12 @@ namespace Avalonia_DependencyInjection.ViewModels
             _authService = authService;
             GetData();
             FilterBy = FilterByOptions.FirstOrDefault();
+        }
+
+        partial void OnFilterByChanged(string value)
+        {
+            ShowingList = EmployeeList;
+            FilterKey = string.Empty;
         }
 
         public void OnLogout()
@@ -59,33 +65,16 @@ namespace Avalonia_DependencyInjection.ViewModels
             IsBusy = true;
             switch (FilterBy)
             {
-                case "Name":
+                case "Tên":
                     {
                         foreach (EMPLOYEE mem in EmployeeList)
                         {
-                            if (string.IsNullOrEmpty(mem.Name.ToString()))
+                            if (string.IsNullOrEmpty(mem.Name))
                             {
                                 ShowingList = EmployeeList;
                             }
 
-                            if (mem.Name.Contains(newValue.ToString()))
-                            {
-                                EmployeeFindList.Add(mem);
-                            }
-                        }
-
-                        break;
-                    }
-                case "Employee ID":
-                    {
-                        foreach (EMPLOYEE mem in EmployeeList)
-                        {
-                            if (string.IsNullOrEmpty(newValue))
-                            {
-                                ShowingList = EmployeeList;
-                            }
-
-                            if (mem.EmployeeID.ToString().Contains(newValue.ToString()))
+                            if (mem.Name.ToLower().Contains(newValue.ToLower()))
                             {
                                 EmployeeFindList.Add(mem);
                             }
@@ -94,7 +83,7 @@ namespace Avalonia_DependencyInjection.ViewModels
                         break;
                     }
 
-                case "Citizen ID":
+                case "CCCD":
                     {
                         foreach (EMPLOYEE mem in EmployeeList)
                         {
@@ -103,7 +92,7 @@ namespace Avalonia_DependencyInjection.ViewModels
                                 ShowingList = EmployeeList;
                             }
 
-                            if (mem.CitizenID.Contains(newValue.ToString()))
+                            if (mem.CitizenID.Contains(newValue))
                             {
                                 EmployeeFindList.Add(mem);
                             }
@@ -150,7 +139,7 @@ namespace Avalonia_DependencyInjection.ViewModels
             catch (HttpRequestException e)
             {
                 var box = MessageBoxManager
-                    .GetMessageBoxStandard("Error", "Fetch Employeee Failed!",
+                    .GetMessageBoxStandard("Lỗi", "Không thể hiện nhân viên",
                         ButtonEnum.YesNo);
 
                 var result = await box.ShowAsync();
@@ -167,7 +156,7 @@ namespace Avalonia_DependencyInjection.ViewModels
 
             infoBoxViewModel.InputedEmployee = new EMPLOYEE() { DateOfBirth = DateTime.Today, Gender = 0,Deleted = false };
             infoBoxViewModel.InputedEmployee.Account = new ACCOUNT();
-            infoBoxViewModel.Title = "Employee Info";
+            infoBoxViewModel.Title = "Thêm mới nhân viên";
             infoBoxViewModel.Ico = @"/Assets/SVGs/user-tie-solid.svg";
 
             infoBoxViewModel.InputedEmployee.PropertyChanged += (sender, args) =>
@@ -186,7 +175,7 @@ namespace Avalonia_DependencyInjection.ViewModels
         [RelayCommand]
         public async void Delete()
         {
-            MyMessageBox myMessageBox = new MyMessageBox("Are you sure you want to delete this staff?", "Confirm",
+            MyMessageBox myMessageBox = new MyMessageBox("Xóa nhân viên này?", "Xác nhận",
                 MyMessageBox.MessageBoxButton.YesNo,
                 MyMessageBox.MessageBoxImage.Question
             );
@@ -206,7 +195,7 @@ namespace Avalonia_DependencyInjection.ViewModels
             var infoBoxViewModel = App.AppHost!.Services.GetRequiredService<EmployeeRegisterFormViewModel>();
             infoBoxViewModel.AlertBoxOff();
 
-            infoBoxViewModel.Title = "Employee Info";
+            infoBoxViewModel.Title = "Thông tin nhân viên";
             infoBoxViewModel.InputedEmployee.CitizenID = selectedEmployee.CitizenID;
             infoBoxViewModel.InputedEmployee.Address = selectedEmployee.Address;
             infoBoxViewModel.InputedEmployee.Name = selectedEmployee.Name;

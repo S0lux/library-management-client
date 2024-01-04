@@ -22,9 +22,9 @@ namespace Avalonia_DependencyInjection.ViewModels;
 
 public partial class MemberRegistryFormViewModel : ViewModelBase
 {
-    [ObservableProperty] private string _title = "Member registration";
-
-    [ObservableProperty] private string _ico = @"/Assets/SVGs/user-plus-black.svg";
+    [ObservableProperty] private string _title;
+    [ObservableProperty] private string _buttonString;
+    [ObservableProperty] private string _ico;
 
     private readonly AuthenticationService _authService;
 
@@ -32,7 +32,7 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
     private MEMBER _inputedMember = new MEMBER() { DateOfBirth = DateTime.Today, Gender = 0 };
 
     [ObservableProperty] private ObservableCollection<string> _genders = new ObservableCollection<string>()
-        { "Male", "Female" };
+        { "Nam", "Nữ" };
 
     [ObservableProperty] private string _iconPathExit = "/Assets/SVGs/xmark-royalblue.svg";
     
@@ -88,19 +88,19 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 HasError = true;
-                ErrorMessage = "Unauthorized action";
+                ErrorMessage = "Chưa được cấp quyền";
                 return;
             }
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
                 HasError = true;
-                ErrorMessage = "An error has occured";
+                ErrorMessage = "Đã có lỗi xảy ra";
                 return;
             }
             else
             {
-                MyMessageBox mess = new MyMessageBox("New member created", "Success",
+                MyMessageBox mess = new MyMessageBox("Tạo mới thành công", "Thành công",
                     MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information,350,150);
                 await mess.ShowDialog(App.AppHost!.Services.GetRequiredService<MemberRegistryForm>());
             }
@@ -135,23 +135,22 @@ public partial class MemberRegistryFormViewModel : ViewModelBase
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 HasError = true;
-                ErrorMessage = "Unauthorized action";
+                ErrorMessage = "Chưa được cấp quyền";
                 return;
             }
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
                 HasError = true;
-                ErrorMessage = "An error has occured";
+                ErrorMessage = "Đã có lỗi xảy ra";
                 return;
             }
             else
             {
-                MyMessageBox mess = new MyMessageBox("Selected member updated", "Success",
+                MyMessageBox mess = new MyMessageBox("Cập nhật thành công", "Thành công",
                     MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information,350,150);
                 await mess.ShowDialog(App.AppHost!.Services.GetRequiredService<MemberRegistryForm>());
             }
-            Console.WriteLine(response.StatusCode);
         }
 
         await Task.Run(() => Thread.Sleep(500));

@@ -62,9 +62,9 @@ public class AuthenticationService: IAuthService
             switch (e.StatusCode)
             {
                 case HttpStatusCode.Unauthorized:
-                    throw new Exception("Incorrect username/password");
+                    throw new Exception("Thông tin chưa chính xác");
                 default:
-                    throw new Exception("Unable to connect to server");
+                    throw new Exception("Không thể kết nối với máy chủ");
             }
         }
         catch (Exception e)

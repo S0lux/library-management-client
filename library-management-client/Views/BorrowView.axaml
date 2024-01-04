@@ -1,115 +1,115 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.BorrowView"
-    x:DataType="viewModels:BorrowViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:Avalonia_DependencyInjection.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="viewModels:BorrowViewModel"
+    mc:Ignorable="d">
 
     <Grid Margin="30,0,30,30" RowDefinitions="Auto Auto *">
         <!--  View title  -->
         <StackPanel
-            DockPanel.Dock="Top"
             Grid.Row="0"
-            HorizontalAlignment="Left"
             Margin="0,0,0,10"
-            Orientation="Horizontal"
-            VerticalAlignment="Top">
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            DockPanel.Dock="Top"
+            Orientation="Horizontal">
             <Svg
+                Width="30"
                 Height="30"
-                Path="/Assets/SVGs/hand-holding-box-black.svg"
-                Width="30" />
+                Path="/Assets/SVGs/hand-holding-box-black.svg" />
             <StackPanel
+                VerticalAlignment="Center"
                 Orientation="Horizontal"
-                Spacing="10"
-                VerticalAlignment="Center">
+                Spacing="10">
                 <Label Classes="MemberListLabel">
                     Borrowed Books
                 </Label>
                 <Svg
-                    Classes.IsSpinning="{Binding IsLoading}"
+                    Width="25"
                     Height="25"
+                    Classes.IsSpinning="{Binding IsLoading}"
                     IsVisible="{Binding IsLoading}"
-                    Path="/Assets/SVGs/arrows-rotate-solid.svg"
-                    Width="25" />
+                    Path="/Assets/SVGs/arrows-rotate-solid.svg" />
             </StackPanel>
         </StackPanel>
 
         <!--  Filters  -->
         <Border
-            Background="White"
-            CornerRadius="5"
             Grid.Row="1"
-            Padding="10,10">
+            Padding="10,10"
+            Background="White"
+            CornerRadius="5">
             <DockPanel>
                 <TextBox
-                    Classes="PrimaryWithIcon"
+                    Width="200"
                     Margin="0,0,5,0"
+                    VerticalContentAlignment="Center"
+                    Classes="PrimaryWithIcon"
                     MaxLength="12"
                     Tag="/Assets/SVGs/magnifying-glass.svg"
                     Text="{Binding FindKey}"
-                    VerticalContentAlignment="Center"
-                    Watermark="CCCD"
-                    Width="200" />
+                    Watermark="CCCD" />
                 <ComboBox
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
                     Classes="MemberListComboBox"
                     ItemsSource="{Binding StatusFilters}"
-                    SelectedItem="{Binding SelectedStatusFilter}"
-                    VerticalAlignment="Stretch"
-                    VerticalContentAlignment="Center" />
+                    SelectedItem="{Binding SelectedStatusFilter}" />
 
                 <!--  Refresh button  -->
                 <Button
+                    Height="40"
+                    Padding="13"
+                    HorizontalAlignment="Right"
                     Background="#31bc70"
                     Classes="MemberListAddButton"
                     Command="{Binding RetrieveInvoicesCommand}"
-                    DockPanel.Dock="Right"
-                    Height="40"
-                    HorizontalAlignment="Right"
-                    Padding="13">
+                    DockPanel.Dock="Right">
                     <StackPanel
                         HorizontalAlignment="Center"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
                         <Svg
+                            Width="16"
                             Height="16"
-                            Path="/Assets/SVGs/rotate-right-white.svg"
-                            Width="16" />
+                            Path="/Assets/SVGs/rotate-right-white.svg" />
                     </StackPanel>
                 </Button>
             </DockPanel>
         </Border>
 
         <DataGrid
-            Classes="MemberListDataGrid"
             Grid.Row="2"
+            Margin="0,10,0,0"
+            Classes="MemberListDataGrid"
             IsReadOnly="True"
-            ItemsSource="{Binding ShowingList}"
-            Margin="0,10,0,0">
+            ItemsSource="{Binding ShowingList}">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding BorrowingDate}" Header="Date" />
-                <DataGridTextColumn Binding="{Binding BorrowInvoiceID}" Header="Invoice ID" />
+                <DataGridTextColumn Binding="{Binding BorrowingDate}" Header="Ngày tạo" />
+                <DataGridTextColumn Binding="{Binding BorrowInvoiceID}" Header="Mã biên lai" />
                 <DataGridTextColumn
                     Binding="{Binding Member[0].Name}"
                     CanUserSort="False"
-                    Header="Member name" />
+                    Header="Thành viên" />
                 <DataGridTextColumn
                     Binding="{Binding Employee[0].Name}"
                     CanUserSort="False"
-                    Header="Employee name" />
-                <DataGridTemplateColumn Header="Status" Width="*">
+                    Header="Nhân viên tạo" />
+                <DataGridTemplateColumn Width="*" Header="Tình trạng">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock
-                                Foreground="{Binding StatusColor}"
-                                HorizontalAlignment="Center"
                                 Margin="5,0"
-                                Text="{Binding Status}"
-                                VerticalAlignment="Center" />
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{Binding StatusColor}"
+                                Text="{Binding Status}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -118,9 +118,9 @@
                         <DataTemplate>
                             <Button Command="{Binding $parent[DataGrid].((viewModels:BorrowViewModel)DataContext).ShowInvoiceCommand}" CommandParameter="{Binding}">
                                 <Svg
+                                    Width="16"
                                     Height="16"
-                                    Path="/Assets/SVGs/eye.svg"
-                                    Width="16" />
+                                    Path="/Assets/SVGs/eye.svg" />
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

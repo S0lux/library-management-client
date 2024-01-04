@@ -49,8 +49,6 @@ public partial class BookViewModel : ViewModelBase
     {
         var temp = App.AppHost!.Services.GetService<BorrowRegisterFormView>();
         temp.Show();
-
-        Console.WriteLine("Assigned");
     }
 
     [RelayCommand]
@@ -104,8 +102,8 @@ public partial class BookViewModel : ViewModelBase
     async public Task TrueDelete()
     {
         MyMessageBox khang = new MyMessageBox(
-            "Are you sure you want to delete the book?",
-            "Confirm",
+            "Xóa sách này?",
+            "Xác nhận",
             MyMessageBox.MessageBoxButton.YesNo,
             MyMessageBox.MessageBoxImage.Question
             );
@@ -133,7 +131,7 @@ public partial class BookViewModel : ViewModelBase
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 var box = MessageBoxManager
-                    .GetMessageBoxStandard("Error", "An unexpected error has occured.");
+                    .GetMessageBoxStandard("Lỗi", "Đã có lỗi xảy ra");
                 await box.ShowAsync();
                 
                 IsBusy = false;
@@ -170,7 +168,7 @@ public partial class BookViewModel : ViewModelBase
         catch (HttpRequestException e)
         {
             var box = MessageBoxManager
-                .GetMessageBoxStandard("Error", "An unexpected error has occured.");
+                .GetMessageBoxStandard("Lỗi", "Đã có lỗi xảy ra");
 
             var result = await box.ShowAsync();
         }

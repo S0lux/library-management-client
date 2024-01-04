@@ -50,7 +50,7 @@ public partial class AddByISBNViewModel : ViewModelBase
     public async Task AddBook()
     {
         MyMessageBox confirmation = new MyMessageBox(
-            "Are you sure about adding this book", "Confirmation",
+            "Thêm tựa sách này?", "Xác nhận",
             MyMessageBox.MessageBoxButton.YesNo, MyMessageBox.MessageBoxImage.Question,350,150);
         await confirmation.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
 
@@ -81,9 +81,9 @@ public partial class AddByISBNViewModel : ViewModelBase
             loadspiner.IsBusy = false;
             if (response.StatusCode == HttpStatusCode.Conflict)
             {
-                var resultBox = new MyMessageBox($"This book has already existed or has been deleated.\n" +
-                                                 $"Do you want to add the additional {BookQuantity} books?\n" +
-                                                 $"(The total will be {BookQuantity+Book.BOOK_DETAILs[0].Quantity})","Result",
+                var resultBox = new MyMessageBox($"Tựa sách này đã tồn tại hoặc bị xóa. " +
+                                                 $"Thêm {BookQuantity} cuốn vào số lượng ban đầu?\n" +
+                                                 $"(Số lượng sau khi thêm: {BookQuantity+Book.BOOK_DETAILs[0].Quantity} cuốn)","Result",
                     MyMessageBox.MessageBoxButton.OkCancel, MyMessageBox.MessageBoxImage.Question,450,250);
                 await resultBox.ShowDialog(App.AppHost.Services.GetRequiredService<AddBookWindow>());
                 if (MyMessageBox.buttonResultClicked == MyMessageBox.ButtonResult.OK)
@@ -150,7 +150,7 @@ public partial class AddByISBNViewModel : ViewModelBase
         }
         catch (HttpRequestException e)
         {
-            MyMessageBox error = new MyMessageBox("Unable to find the book", "Error",
+            MyMessageBox error = new MyMessageBox("Không thể tìm thấy sách\nVui lòng nhập lại mã ISBN", "Lỗi",
                 MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Error);
             await error.ShowDialog(App.AppHost!.Services.GetRequiredService<AddBookWindow>());
             return 0;
@@ -214,7 +214,7 @@ public partial class AddByISBNViewModel : ViewModelBase
 
         if (response.StatusCode == HttpStatusCode.BadRequest)
         {
-            ShowResultMessageBox("An unexpected error has occurred.\nPlease report this issue to your IT department.",
+            ShowResultMessageBox("Đã có lỗi xảy ra.\nVui lòng liên hệ đến bộ phận IT.",
                 MyMessageBox.MessageBoxImage.Error);
         }
     }
@@ -223,10 +223,10 @@ public partial class AddByISBNViewModel : ViewModelBase
     {
         return statusCode switch
         {
-            HttpStatusCode.Conflict => "This book is already registered in the database.",
-            HttpStatusCode.ServiceUnavailable => "Unable to connect to the database.\nPlease check your internet connection and try again.",
-            HttpStatusCode.BadRequest => "An unexpected error has occurred.\nPlease report this issue to your IT department.",
-            _ => "Book successfully added to the database"
+            HttpStatusCode.Conflict => "Sách đã tồn tại.",
+            HttpStatusCode.ServiceUnavailable => "Không thể kết nối với máy chủ.\nVui lòng kiểm ra kết nối.",
+            HttpStatusCode.BadRequest => "Đã có lỗi xảy ra.\nVui lòng liên hệ đến bộ phận IT.",
+            _ => "Thêm thành công"
         };
     }
 

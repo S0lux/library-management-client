@@ -26,7 +26,7 @@ namespace Avalonia_DependencyInjection.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<string> _genders = new ObservableCollection<string>()
-        { "Male", "Female" };
+        { "Nam", "Nữ" };
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(CheckOuttaCommand))]
@@ -116,7 +116,7 @@ namespace Avalonia_DependencyInjection.ViewModels
 
             (App.AppHost!.Services.GetRequiredService<BorrowRegisterFormView>()).Hide();
 
-            var box = (new MyMessageBox("Create Success!", "Notification", MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information,280,160));
+            var box = (new MyMessageBox("Đăng ký thành công!", "Thành công", MyMessageBox.MessageBoxButton.OK, MyMessageBox.MessageBoxImage.Information,280,160));
 
             box.ShowDialog(App.AppHost!.Services.GetRequiredService<MainWindow>());
         }
@@ -157,8 +157,8 @@ namespace Avalonia_DependencyInjection.ViewModels
                     if (newBorrowDetail.HasErrors)
                     {
                         MyMessageBox error = new MyMessageBox(
-                            $"The book with the ISBN of {newBorrowDetail.ISBN13} is out of stock!",
-                            "Attempt to check out failed!",
+                            $"Tựa sách có mã \"{newBorrowDetail.ISBN13}\" đã hết hàng, vui lòng cập nhật lại số lượng",
+                            "Thất bại",
                             MyMessageBox.MessageBoxButton.OK,
                             MyMessageBox.MessageBoxImage.Error,400,200
                         );

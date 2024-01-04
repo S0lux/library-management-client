@@ -23,7 +23,7 @@ public partial class AddBookWindowViewModel : ViewModelBase
     [ObservableProperty] private string _iconPathExit="/Assets/SVGs/xmark-royalblue.svg";
 
     [ObservableProperty] private ObservableCollection<string> _addByOptions = new ObservableCollection<string>()
-        { "Title", "ISBN" };
+        { "Tựa sách", "ISBN" };
 
     [ObservableProperty] private string _addBy;
     //[ObservableProperty] private bool _isEnable = true;
@@ -52,13 +52,13 @@ public partial class AddBookWindowViewModel : ViewModelBase
         switch (newValue)
         {
             case "ISBN":
-                AddByWaterMark = "ISBN number";
+                AddByWaterMark = "Mã ISBN";
                 FindKey = string.Empty;
                 CurrentAddView = _addByIsbnViewModel;
                 IsLoaded = false;
                 break;
-            case "Title":
-                AddByWaterMark = "Book title";
+            case "Tựa sách":
+                AddByWaterMark = "Tựa sách";
                 FindKey = string.Empty;
                 CurrentAddView = _addByTitleViewModel;
                 IsLoaded = false;
@@ -78,7 +78,7 @@ public partial class AddBookWindowViewModel : ViewModelBase
             if (isSuccess == 1) IsLoaded = true;
         }
 
-        if (AddBy == "Title")
+        if (AddBy == "Tựa sách")
         {
             //_addByTitleViewModel.reset();
             await _addByTitleViewModel.RetrieveBooksByTitle(FindKey);

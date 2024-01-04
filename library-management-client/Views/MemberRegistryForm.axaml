@@ -82,7 +82,7 @@
                         Height="30"
                         Path="{Binding Ico}" />
                     <Label Content="{Binding Title}" FontSize="30">
-                        
+
                     </Label>
                 </StackPanel>
 
@@ -97,7 +97,7 @@
                         <!--  first name_narrow view  -->
                         <DockPanel>
                             <Label DockPanel.Dock="Top">
-                                Fullname
+                                Họ tên
                             </Label>
                             <TextBox Text="{Binding InputedMember.Name, Mode=TwoWay}" />
                         </DockPanel>
@@ -106,7 +106,7 @@
                             <!--  phone number_narrow view  -->
                             <DockPanel Grid.Column="0" Margin="0,0,5,0">
                                 <Label DockPanel.Dock="Top">
-                                    Phone number
+                                    Số điện thoại
                                 </Label>
                                 <TextBox VerticalAlignment="Top">
                                     <TextBox.Text>
@@ -118,7 +118,7 @@
                             <!--  ID_narrow view  -->
                             <DockPanel Grid.Column="1" Margin="5,0,0,0">
                                 <Label DockPanel.Dock="Top">
-                                    Citizen ID
+                                    Số CCCD
                                 </Label>
                                 <TextBox VerticalAlignment="Top" Text="{Binding InputedMember.CitizenID}" />
                             </DockPanel>
@@ -129,7 +129,7 @@
                             <!--  Bdate_narrow view  -->
                             <DockPanel Grid.Column="1" Margin="5,0,0,0">
                                 <Label DockPanel.Dock="Top">
-                                    Birthdate
+                                    Ngày sinh
                                 </Label>
                                 <CalendarDatePicker
                                     HorizontalAlignment="Stretch"
@@ -141,7 +141,7 @@
                             <!--  gender_narrow view  -->
                             <DockPanel Grid.Column="0" Margin="0,0,5,0">
                                 <Label DockPanel.Dock="Top">
-                                    Gender
+                                    Giới tính
                                 </Label>
                                 <ComboBox
                                     HorizontalAlignment="Stretch"
@@ -155,7 +155,7 @@
                         <!--  address_narrow view  -->
                         <DockPanel>
                             <Label DockPanel.Dock="Top">
-                                Full address
+                                Địa chỉ
                             </Label>
                             <TextBox Text="{Binding InputedMember.Address}" />
                         </DockPanel>
@@ -168,10 +168,10 @@
                                     Background="RoyalBlue"
                                     Classes="sub_can"
                                     Command="{Binding SubmitCommand}"
+                                    Content="{Binding ButtonString}"
                                     FontSize="20"
                                     FontWeight="SemiBold"
                                     Foreground="White">
-                                    Submit
                                 </Button>
                             </DockPanel>
 
@@ -184,7 +184,7 @@
                                     FontSize="20"
                                     FontWeight="SemiBold"
                                     Foreground="White">
-                                    Cancel
+                                    Quay lại
                                 </Button>
                             </DockPanel>
                         </StackPanel>

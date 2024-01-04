@@ -12,10 +12,10 @@ public class GenderConverter : IValueConverter
         if (value is int intValue)
         {
             if (intValue == 0)
-                return "Male";
+                return "Nam";
             
             if (intValue == 1)
-                return "Female";
+                return "Nữ";
         }
 
         return new BindingNotification(new InvalidCastException(), 
@@ -27,10 +27,10 @@ public class GenderConverter : IValueConverter
     {
         if (value is string gender)
         {
-            if (gender == "Male")
+            if (gender == "Nam")
                 return 0;
             
-            if (gender == "Female")
+            if (gender == "Nữ")
                 return 1;
         }
 
