@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia_DependencyInjection.Controls;
 using Avalonia_DependencyInjection.Models;
@@ -18,12 +19,59 @@ public partial class HistoryViewModel: ViewModelBase
     
     [ObservableProperty] private bool _isBusy;
     [ObservableProperty] private string _filterKey;
-    [ObservableProperty] private ObservableCollection<HISTORY> _historyList;
+    [ObservableProperty] private ObservableCollection<string> _filterOptions = new ObservableCollection<string>()
+        { "ALL","UPDATE", "CREATE", "DELETE" };
+
+    [ObservableProperty] private ObservableCollection<HISTORY> _historyList=new();
+    [ObservableProperty] private ObservableCollection<HISTORY> _historyFindList=new();
+    [ObservableProperty] private ObservableCollection<HISTORY> _showingList=new();
 
     public HistoryViewModel(AuthenticationService authService)
     {
         _authService = authService;
+        FilterKey = FilterOptions.FirstOrDefault();
         GetData();
+    }
+
+    partial void OnFilterKeyChanged(string value)
+    {
+        HistoryFindList.Clear();
+        switch (value)
+        {
+            case "ALL":
+            {
+                ShowingList = HistoryList;
+                return;
+            }
+            case "UPDATE":
+            {
+                foreach (HISTORY his in HistoryList)
+                {
+                    if(his.Action=="UPDATE") HistoryFindList.Add(his);
+                }
+
+                break;
+            }
+            case "CREATE":
+            {
+                foreach (HISTORY his in HistoryList)
+                {
+                    if(his.Action=="CREATE") HistoryFindList.Add(his);
+                }
+
+                break;
+            }
+            case "DELETE":
+            {
+                foreach (HISTORY his in HistoryList)
+                {
+                    if(his.Action=="DELETE") HistoryFindList.Add(his);
+                }
+                break;
+            }
+        }
+
+        ShowingList = HistoryFindList;
     }
 
     [RelayCommand]
@@ -47,6 +95,7 @@ public partial class HistoryViewModel: ViewModelBase
         if (deserializedObject?.data.Length > 0)
         {
             HistoryList = new ObservableCollection<HISTORY>(deserializedObject.data);
+            ShowingList = HistoryList;
         }
     }
 }

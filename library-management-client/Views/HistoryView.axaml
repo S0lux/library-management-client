@@ -1,16 +1,16 @@
 <UserControl
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d"
     x:Class="Avalonia_DependencyInjection.Views.HistoryView"
-    x:DataType="vm:HistoryViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:control="using:Avalonia_DependencyInjection.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:vm="using:Avalonia_DependencyInjection.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:HistoryViewModel"
+    mc:Ignorable="d">
 
     <UserControl.Styles>
         <Style Selector="CheckBox:checked">
@@ -28,46 +28,46 @@
 
     <Grid Margin="30,0,30,30" RowDefinitions="auto auto *">
         <StackPanel
-            DockPanel.Dock="Top"
             Grid.Row="0"
             HorizontalAlignment="Left"
-            Orientation="Horizontal"
-            VerticalAlignment="Top">
+            VerticalAlignment="Top"
+            DockPanel.Dock="Top"
+            Orientation="Horizontal">
             <Svg
+                Width="30"
                 Height="30"
-                Path="/Assets/SVGs/rectangle-history-black.svg"
-                Width="30" />
+                Path="/Assets/SVGs/rectangle-history-black.svg" />
             <StackPanel
+                VerticalAlignment="Center"
                 Orientation="Horizontal"
-                Spacing="10"
-                VerticalAlignment="Center">
+                Spacing="10">
                 <Label Classes="MemberListLabel">
                     Lịch sử
                 </Label>
                 <Svg
-                    Classes.IsSpinning="{Binding IsBusy}"
+                    Width="25"
                     Height="25"
+                    Classes.IsSpinning="{Binding IsBusy}"
                     IsVisible="{Binding IsBusy}"
-                    Path="/Assets/SVGs/arrows-rotate-solid.svg"
-                    Width="25" />
+                    Path="/Assets/SVGs/arrows-rotate-solid.svg" />
             </StackPanel>
         </StackPanel>
 
         <Border
-            Background="White"
-            CornerRadius="5"
             Grid.Row="1"
             Margin="0,15,0,0"
-            Padding="10,10">
+            Padding="10,10"
+            Background="White"
+            CornerRadius="5">
             <DockPanel>
-                <TextBox
-                    Classes="PrimaryWithIcon"
-                    DockPanel.Dock="Left"
-                    Padding="10"
-                    Tag="/Assets/SVGs/magnifying-glass.svg"
-                    Text="{Binding FilterKey}"
-                    Watermark="Tìm kiếm"
-                    Width="150" />
+                <ComboBox
+                    Width="100"
+                    Height="40"
+                    Margin="5,0,0,0"
+                    VerticalContentAlignment="Center"
+                    Classes="MemberListComboBox"
+                    ItemsSource="{Binding FilterOptions}"
+                    SelectedItem="{Binding FilterKey}" />
 
                 <StackPanel
                     HorizontalAlignment="Right"
@@ -75,19 +75,19 @@
                     Spacing="5">
                     <!--  Refresh button  -->
                     <Button
+                        Height="40"
+                        Padding="13"
                         Background="#31bc70"
                         Classes="MemberListAddButton"
-                        Command="{Binding GetDataCommand}"
-                        Height="40"
-                        Padding="13">
+                        Command="{Binding GetDataCommand}">
                         <StackPanel
                             HorizontalAlignment="Center"
-                            Orientation="Horizontal"
-                            VerticalAlignment="Center">
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
                             <Svg
+                                Width="16"
                                 Height="16"
-                                Path="/Assets/SVGs/rotate-right-white.svg"
-                                Width="16" />
+                                Path="/Assets/SVGs/rotate-right-white.svg" />
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -95,38 +95,38 @@
         </Border>
 
         <DataGrid
+            Name="HistoryGrid"
+            Grid.Row="2"
+            Margin="0,10,0,0"
             AutoGenerateColumns="False"
             BorderThickness="0"
             CanUserReorderColumns="False"
             Classes="MemberListDataGrid"
-            Grid.Row="2"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
-            ItemsSource="{Binding HistoryList}"
-            Margin="0,10,0,0"
-            Name="HistoryGrid">
+            ItemsSource="{Binding ShowingList}">
             <DataGrid.Columns>
                 <DataGridTextColumn
+                    Width="auto"
+                    MinWidth="20"
                     Binding="{Binding Date}"
-                    Header="Vào lúc"
-                    MinWidth="20"
-                    Width="auto" />
+                    Header="Vào lúc" />
                 <DataGridTextColumn
+                    Width="auto"
+                    MinWidth="20"
                     Binding="{Binding Action}"
-                    Header="Thao tác"
-                    MinWidth="20"
-                    Width="auto" />
+                    Header="Thao tác" />
                 <DataGridTextColumn
-                    Binding="{Binding ActionDetails}"
-                    Header="Chi tiết"
+                    Width="*"
                     MinWidth="50"
-                    Width="*" />
+                    Binding="{Binding ActionDetails}"
+                    Header="Chi tiết" />
                 <DataGridTextColumn
-                    Binding="{Binding AccountUsername}"
-                    Header="Nhân viên"
-                    MaxWidth="250"
+                    Width="auto"
                     MinWidth="30"
-                    Width="auto" />
+                    MaxWidth="250"
+                    Binding="{Binding AccountUsername}"
+                    Header="Nhân viên" />
             </DataGrid.Columns>
 
         </DataGrid>
