@@ -1,12 +1,12 @@
 # UIT Library
 
-# 📝 Summary
+## 📝 Summary
 
 - For our Visual Programming Course - IT008 at UIT, we decide to make an app that can handle a virtual library.
 
-# 📷 Screenshot
+## 📷 Screenshot
 
-# ⭐ Key Feature
+## ⭐ Key Feature
 
 - CRUD for:
   - Member
@@ -18,7 +18,7 @@
 - Information Chart;
 - Notification board - WIP;
 
-# 🔧 Setup and Install
+## 🔧 Setup and Install
 
 1. Requirements:
    - IDE: Visual Studio/ Rider
@@ -27,14 +27,14 @@
 > 🚧 Our server is closed:
 > So go to this [repo](https://github.com/S0lux/library-management-api) to setup your own server :>
 
-# 🧰 Technology Stack
+## 🧰 Technology Stack
 
 - Language And Framework:
 
 ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
 ![Avalonia](https://img.shields.io/badge/Avalonia-black?style=for-the-badge&logoColor=white)
 
-# 🧑‍💻 Contributor
+## 🧑‍💻 Contributor
 
 - Leader - [Trần Phước Lộc](https://github.com/S0lux)
 - Member - [Nguyễn Thái Đăng Khoa](https://github.com/NTDKhoa04)
